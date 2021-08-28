@@ -1,6 +1,7 @@
 import { Dino } from "./dino.js"
 import { createCactus } from "./cactus.js"
 import { generateFloor } from "./floor.js";
+import { generateBack } from "./desertBack.js";
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -16,6 +17,7 @@ let isJumping = true;
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  generateBack(ctx, gamespeed);
   generateFloor(ctx, gamespeed);
   createCactus(frame, gamespeed, ctx);  
   dino.update(ctx);

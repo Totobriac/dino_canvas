@@ -23,7 +23,8 @@ class Cactus {
 }
 
 export function createCactus(frame, gamespeed, ctx) {
-  if (frame % 90 === 0) {
+
+  if (frame % 300 === 0 || frame % 110 === 0) {
     cactusArray.unshift(new Cactus(gamespeed, ctx));
   }
 

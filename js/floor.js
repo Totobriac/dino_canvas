@@ -4,7 +4,7 @@ floorSprite.src = "../assets/floor.png";
 const floor = {
   x1: 0,
   x2: floorSprite.width,
-  y: 352,
+  y: 345,
   width: floorSprite.width,
   height: floorSprite.height,
 }
