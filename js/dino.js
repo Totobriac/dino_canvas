@@ -13,7 +13,7 @@ export class Dino {
     this.height = 70;
     this.frames = 2;
     this.frameIndex = 0;
-    this.ticksPerFrame = 20;
+    this.ticksPerFrame = 12;
     this.tickCount = 0;
   };
   update() {
@@ -27,7 +27,6 @@ export class Dino {
     this.tickCount += 1;
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
-   
       if (this.frameIndex < this.frames - 1) {
         this.frameIndex += 1;
       } else {
@@ -36,8 +35,8 @@ export class Dino {
     }
 
   };
-  draw(ctx, isPlaying) {
-    if (isPlaying === false) {
+  draw(ctx, isPlaying, isJumping) {
+    if (isPlaying === false || isJumping === true) {
       ctx.drawImage(dinoSprite, 1676, 0, 90, 95, this.x, this.y, this.width, this.height);
     }
     else {
