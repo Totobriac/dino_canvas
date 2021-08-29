@@ -18,22 +18,24 @@ const smallM = {
   height: 300,
 }
 
-export function generateBack(ctx, gamespeed) {
+export function generateBigBack(ctx, gamespeed) {
   if (bigM.x1 <= -bigM.width + gamespeed) {
     bigM.x1 = bigM.width
   }
   else {
-    bigM.x1 -= gamespeed * 0.2
+    bigM.x1 -= gamespeed * 0.1
   }
   if (bigM.x2 <= -bigM.width + gamespeed) {
     bigM.x2 = bigM.width
   }
   else {
-    bigM.x2 -= gamespeed * 0.2
+    bigM.x2 -= gamespeed * 0.1
   }
   ctx.drawImage(mountainSprite, 0, 2, mountainSprite.width, 200, bigM.x1, bigM.y, bigM.width, bigM.height)
   ctx.drawImage(mountainSprite, 0, 2, mountainSprite.width, 200, bigM.x2, bigM.y, bigM.width, bigM.height)
+}
 
+export function generateSmallBack(ctx, gamespeed) {
   if (smallM.x1 <= -smallM.width + gamespeed) {
     smallM.x1 = smallM.width
   }
