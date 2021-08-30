@@ -42,13 +42,13 @@ export function generateSmallBack(ctx, gamespeed) {
     smallM.x1 = smallM.width
   }
   else {
-    smallM.x1 -= gamespeed * 0.9
+    smallM.x1 -= gamespeed * 0.8
   }
   if (smallM.x2 <= -smallM.width + gamespeed) {
     smallM.x2 = smallM.width
   }
   else {
-    smallM.x2 -= gamespeed * 0.9
+    smallM.x2 -= gamespeed * 0.8
   }
   ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x1, smallM.y, smallM.width, smallM.height)
   ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x2, smallM.y, smallM.width, smallM.height)

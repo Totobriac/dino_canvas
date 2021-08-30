@@ -34,7 +34,7 @@ export class Dino {
       }
     }
   };
-  draw(ctx, isPlaying, isJumping) {
+  draw(ctx, isPlaying) {
     if (isPlaying === false || this.isJumping === true) {
       ctx.drawImage(dinoSprite, 1676, 0, 90, 95, this.x, this.y, this.width, this.height);
     }
