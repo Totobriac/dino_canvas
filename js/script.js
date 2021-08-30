@@ -1,11 +1,8 @@
 import { Dino } from "./dino.js"
-import { createCactus } from "./cactus.js"
-import { generateFloor } from "./floor.js";
-import { generateBigBack, generateSmallBack, backX } from "./desertBack.js";
-import { generateBillb, billbX } from "./billboard.js";
+import { Game } from "./game.js";
+import { anim } from "./animate.js"
+import { Control } from "./controls.js";
 
-const mountainSprite = new Image();
-mountainSprite.src = "../assets/desert_back.png";
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -13,53 +10,13 @@ canvas.height = 400;
 canvas.width = 1200;
 
 const dino = new Dino();
-let frame = 0;
-let score = 0;
-let gamespeed = 4;
-let isPlaying = false;
-let isJumping = true;
+const game = new Game();
+const control = new Control(dino, game);
 
-let bino = false
 
 function animate() {
-  if (bino === false) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateBigBack(ctx, gamespeed);
-    generateBillb(ctx, gamespeed, 87, 78, false)
-    generateSmallBack(ctx, gamespeed);
-    generateFloor(ctx, gamespeed);
-    createCactus(frame, gamespeed, ctx);
-    dino.update(ctx);
-    dino.draw(ctx, isPlaying, isJumping);
-    frame++;
-    requestAnimationFrame(animate);
-  }
-  else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);    
-    ctx.drawImage(mountainSprite, (-backX + billbX) - 100, 75, 300, 90, 0, 0, canvas.width, canvas.height )
-    generateBillb(ctx, 0, 524, 418, true)
-    requestAnimationFrame(animate);
-  }
+  anim(game, dino, ctx);
+  requestAnimationFrame(animate);
 }
 
-animate();
-
-window.addEventListener('keydown', function (e) { 
-  if (e.code === "Space" && dino.y == 301) {
-    dino.jump();
-    isPlaying = true;
-    isJumping = true;
-    setTimeout(() => isJumping = false, 820)
-  }
-  else if (e.code ==="KeyB") {
-    bino = true;
-  }
-})
-
-window.addEventListener('keyup', function (e) {
-  if (e.code ==="KeyB") {
-    bino = false;
-  }
-})
-
-
+animate()

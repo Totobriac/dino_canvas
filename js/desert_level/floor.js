@@ -1,5 +1,5 @@
 const floorSprite = new Image();
-floorSprite.src = "../assets/floor.png";
+floorSprite.src = "../assets/desert_level/floor.png";
 
 const floor = {
   x1: 0,

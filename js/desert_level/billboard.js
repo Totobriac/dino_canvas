@@ -1,5 +1,5 @@
 const billbSprite = new Image();
-billbSprite.src = "../assets/billboard.png";
+billbSprite.src = "../assets/desert_level/billboard.png";
 
 const smBillb = {
   x: 1200,

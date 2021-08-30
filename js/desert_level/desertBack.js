@@ -1,5 +1,5 @@
 const mountainSprite = new Image();
-mountainSprite.src = "../assets/desert_back.png";
+mountainSprite.src = "../assets/desert_level/desert_back.png";
 
 const bigM = {
   x1: 0,
@@ -52,4 +52,8 @@ export function generateSmallBack(ctx, gamespeed) {
   }
   ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x1, smallM.y, smallM.width, smallM.height)
   ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x2, smallM.y, smallM.width, smallM.height)
+}
+
+export function generateBinoBack(ctx, billbX) {
+  ctx.drawImage(mountainSprite, (-backX + billbX) - 100, 75, 300, 90, 0, 0, canvas.width, canvas.height )
 }
