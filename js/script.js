@@ -1,8 +1,11 @@
 import { Dino } from "./dino.js"
 import { createCactus } from "./cactus.js"
 import { generateFloor } from "./floor.js";
-import { generateBigBack, generateSmallBack } from "./desertBack.js";
-import { generateBillb } from "./billboard.js";
+import { generateBigBack, generateSmallBack, backX } from "./desertBack.js";
+import { generateBillb, billbX } from "./billboard.js";
+
+const mountainSprite = new Image();
+mountainSprite.src = "../assets/desert_back.png";
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -32,7 +35,8 @@ function animate() {
     requestAnimationFrame(animate);
   }
   else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);    
+    ctx.drawImage(mountainSprite, (-backX + billbX) - 100, 75, 300, 90, 0, 0, canvas.width, canvas.height )
     generateBillb(ctx, 0, 524, 418, true)
     requestAnimationFrame(animate);
   }
@@ -53,7 +57,6 @@ window.addEventListener('keydown', function (e) {
 })
 
 window.addEventListener('keyup', function (e) {
-  console.log(e.code)
   if (e.code ==="KeyB") {
     bino = false;
   }

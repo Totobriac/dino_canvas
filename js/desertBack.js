@@ -1,7 +1,6 @@
 const mountainSprite = new Image();
 mountainSprite.src = "../assets/desert_back.png";
 
-
 const bigM = {
   x1: 0,
   x2: mountainSprite.width,
@@ -9,6 +8,8 @@ const bigM = {
   width: mountainSprite.width,
   height: 245,
 }
+
+export var backX = 0
 
 const smallM = {
   x1: 0,
@@ -24,6 +25,7 @@ export function generateBigBack(ctx, gamespeed) {
   }
   else {
     bigM.x1 -= gamespeed * 0.1
+    backX = bigM.x1
   }
   if (bigM.x2 <= -bigM.width + gamespeed) {
     bigM.x2 = bigM.width
