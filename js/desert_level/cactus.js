@@ -27,7 +27,6 @@ export function createCactus(frame, gamespeed, ctx) {
   if (frame % 300 === 0 || frame % 110 === 0) {
     cactusArray.unshift(new Cactus(gamespeed, ctx));
   }
-
   for (let i = 0; i < cactusArray.length; i++) {
     cactusArray[i].update();
   }

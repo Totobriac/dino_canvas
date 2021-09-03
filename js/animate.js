@@ -2,6 +2,9 @@ import { createCactus } from "./desert_level/cactus.js"
 import { generateFloor } from "./desert_level/floor.js";
 import { generateBigBack, generateSmallBack, generateBinoBack } from "./desert_level/desertBack.js";
 import { generateBillb, billbX } from "./desert_level/billboard.js";
+// import { animateMonuments } from "./plane_level/monuments-bezier.js"
+import { createClouds } from "./plane_level/cloud.js";
+import { animate } from "./plane_level/monument.js"
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -24,9 +27,16 @@ export function anim(game, dino, ctx) {
     generateBillb(ctx, 0, 524, 418, true);
   }
   else if (game.level === 1) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(600, 1465, 1200, 1.2 * Math.PI, 1.8 * Math.PI);
-    ctx.stroke();
+    // remove when game is all set//
+    game.isPlaying = true;
+    // remove when game is all set//
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);    
+    //animateMonuments(ctx);
+    
+
+    animate(ctx)
+    ctx.resetTransform();
+    createClouds(ctx, game.frame, game.gamespeed);
   }
 }
