@@ -1,5 +1,3 @@
-const cloud = new Image();
-cloud.src = "../assets/plane_level/cloud.png";
 const sWidth = 110;
 const sHeight = 60;
 
@@ -35,11 +33,15 @@ class Cloud {
 
 export function animateCloud(ctx, frame) {
 
+  ctx.translate(origin.x, origin.y);
+  drawCircle(0, 50, 900, ctx);
+  ctx.fillStyle="#acadaa";
+  ctx.fill()
+
   if (frame % 160 === 0) {
     cloudsArray.unshift(new Cloud(0))
-    console.log(cloudsArray);
   }
-  if (cloudsArray.length > 7) {
+  if (cloudsArray.length > 8) {
     cloudsArray.pop(cloudsArray[0])
   }
   for (let i = 0; i < cloudsArray.length; i++) {
@@ -55,13 +57,13 @@ export function animateCloud(ctx, frame) {
     ctx.fillRect(0, 0, 3, 3);
 
     ctx.fillStyle = cloudsArray[i].color;
-    ctx.fillRect(-35, 50, 70, 20);
-    drawCircle(-35, 60, 10, ctx);
-    drawCircle(35, 55, cloudsArray[i].r1, ctx);
-    drawCircle(0, 55, cloudsArray[i].r2, ctx);
-    drawCircle(-10, 60, cloudsArray[i].r3, ctx);
+    ctx.fillRect(-35, 0, 70, 20);
+    drawCircle(-35, 10, 10, ctx);
+    drawCircle(35, 5, cloudsArray[i].r1, ctx);
+    drawCircle(0, 5, cloudsArray[i].r2, ctx);
+    drawCircle(-10, 10, cloudsArray[i].r3, ctx);
     ctx.fillStyle = 'white';
-    ctx.fillRect(-40, 70, 115, 30);
+    ctx.fillRect(-40, 20, 115, 30);
 
     ctx.resetTransform();
   }
