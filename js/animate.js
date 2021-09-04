@@ -2,9 +2,8 @@ import { createCactus } from "./desert_level/cactus.js"
 import { generateFloor } from "./desert_level/floor.js";
 import { generateBigBack, generateSmallBack, generateBinoBack } from "./desert_level/desertBack.js";
 import { generateBillb, billbX } from "./desert_level/billboard.js";
-// import { animateMonuments } from "./plane_level/monuments-bezier.js"
-import { createClouds } from "./plane_level/cloud.js";
-import { animate } from "./plane_level/monument.js"
+import { animateMonument } from "./plane_level/ground.js";
+import { animateCloud } from "./plane_level/clouds.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -31,12 +30,8 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     // remove when game is all set//
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);    
-    //animateMonuments(ctx);
-    
-
-    animate(ctx)
-    ctx.resetTransform();
-    createClouds(ctx, game.frame, game.gamespeed);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    animateMonument(ctx);
+    animateCloud(ctx, game.frame);
   }
 }
