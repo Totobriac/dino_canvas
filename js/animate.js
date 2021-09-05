@@ -4,6 +4,7 @@ import { generateBigBack, generateSmallBack, generateBinoBack } from "./desert_l
 import { generateBillb, billbX } from "./desert_level/billboard.js";
 import { animateMonument } from "./plane_level/ground.js";
 import { animateCloud } from "./plane_level/clouds.js";
+import { createParticles } from "./plane_level/particles.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -28,9 +29,12 @@ export function anim(game, dino, ctx) {
   else if (game.level === 1) {
     // remove when game is all set//
     game.isPlaying = true;
+    dino.angle+= 0.2;
     // remove when game is all set//
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    dino.updatePlane(ctx);
+    dino.drawPlane(ctx);
+    createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx);
     animateMonument(ctx);
     animateCloud(ctx, game.frame);
   }

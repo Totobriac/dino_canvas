@@ -10,11 +10,22 @@ export class Control {
       else if (e.code === "KeyB") {
         game.bino = true;
       }
-    })
+    });
     window.addEventListener('keyup', function (e) {
       if (e.code === "KeyB") {
         game.bino = false;
       }
-    })
+    });
+    window.addEventListener('keydown', function (e) {
+      if (e.code === "ArrowUp") {
+        var repeat = e.repeat;
+        if (repeat === false) dino.dinoFlyUp();
+      }
+    });
+    window.addEventListener('keyup', function (e) {
+      if (e.code === "ArrowUp") {
+        dino.dinoFlyDown();
+      }
+    });
   };
 }
