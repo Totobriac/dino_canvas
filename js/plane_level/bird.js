@@ -3,9 +3,19 @@ birdSprite.src = "../assets/plane_level/bird.png"
 
 const birdArray = [];
 
+const origin = {x: 600, y: 1200 };
+const radius = 900;
+const start = 0.9272951769;
+const end = 2.21429922;
+
+let step = 0;
+const totalSteps = 900;
+const stepSize = (end - start)/totalSteps;
+
+
 class Bird {
   constructor(ctx, gamespeed) {
-    this.x = canvas.width;
+    this.step = 0
     this.y = Math.random() * 300;
     this.ticksPerFrame = 12;
     this.ctx = ctx;
@@ -15,10 +25,17 @@ class Bird {
     this.tickCount = 0;
   }
   draw(ctx) {
-    ctx.drawImage(birdSprite, this.frameIndex * 92, 0, 92, 80, this.x, this.y, 46, 40)
+    if (this.step === totalSteps) this.step = 0;
+    const angle = start + this.step++ * stepSize;  
+    ctx.translate(origin.x, origin.y);
+    ctx.rotate(-angle);    
+    ctx.translate(radius, 0);
+    ctx.rotate(Math.PI/2);  
+    ctx.translate(0, 0);
+    ctx.drawImage(birdSprite, this.frameIndex * 92, 0, 92, 80, 0, -this.y, 46, 40)
+    ctx.resetTransform();
   }
   update() {
-    this.x -= this.gamespeed;
     this.tickCount += 1;
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
@@ -39,7 +56,7 @@ export function createBirds(ctx, gamespeed, frame) {
   for (let i = 0; i < birdArray.length; i++) {
     birdArray[i].update();
   }
-  if (birdArray.length > 8) {
+  if (birdArray.length > 4) {
     birdArray.pop(birdArray[0])
   }
 }
