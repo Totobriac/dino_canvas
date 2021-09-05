@@ -5,6 +5,6 @@ export class Game {
     this.gamespeed = 0;
     this.isPlaying = false;
     this.bino = false;
-    this.level = 1;
+    this.level = 2;
   }
 }

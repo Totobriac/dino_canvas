@@ -6,6 +6,7 @@ import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
 import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js"
+import { generateRestBack } from "./restaurant_level/restBack.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -39,5 +40,9 @@ export function anim(game, dino, ctx) {
     animateMonument(ctx);
     createBirds(ctx, game.gamespeed, game.frame);
     generateClouds(ctx, game.gamespeed);
+  }
+  else if (game.level === 2) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    generateRestBack(ctx)
   }
 }
