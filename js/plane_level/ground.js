@@ -27,4 +27,17 @@ export function animateMonument(ctx) {
   ctx.translate(-sWidth/2, -sHeight/2);
   ctx.drawImage(statue, 0, 0, sWidth, sHeight);
   ctx.resetTransform();
+
+  ctx.translate(origin.x, origin.y);
+  drawCircle(0, 50, 900, ctx);
+  ctx.fillStyle = "#acadaa";
+  ctx.fill();
+  ctx.resetTransform();
 }
+
+function drawCircle(cx, cy, radius, ctx) {
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+  ctx.fill();
+}
+

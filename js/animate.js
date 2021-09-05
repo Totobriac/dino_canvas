@@ -3,8 +3,9 @@ import { generateFloor } from "./desert_level/floor.js";
 import { generateBigBack, generateSmallBack, generateBinoBack } from "./desert_level/desertBack.js";
 import { generateBillb, billbX } from "./desert_level/billboard.js";
 import { animateMonument } from "./plane_level/ground.js";
-import { animateCloud } from "./plane_level/clouds.js";
+import { generateClouds } from "./plane_level/clouds.js";
 import { createParticles } from "./plane_level/particles.js";
+import { createBirds } from "./plane_level/bird.js"
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -36,6 +37,7 @@ export function anim(game, dino, ctx) {
     dino.drawPlane(ctx);
     createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx);
     animateMonument(ctx);
-    animateCloud(ctx, game.frame);
+    createBirds(ctx, game.gamespeed, game.frame);
+    generateClouds(ctx, game.gamespeed);
   }
 }
