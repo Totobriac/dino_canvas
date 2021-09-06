@@ -8,6 +8,7 @@ import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js"
 import { generateRestBack } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
+import { createtray } from "./restaurant_level/tray.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -51,5 +52,6 @@ export function anim(game, dino, ctx) {
     generatePlates(ctx, game.frame);
     dino.update(ctx);
     dino.draw(ctx, game.isPlaying);
+    createtray(ctx, dino)
   }
 }
