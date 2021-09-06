@@ -7,6 +7,7 @@ import { generateClouds } from "./plane_level/clouds.js";
 import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js"
 import { generateRestBack } from "./restaurant_level/restBack.js";
+import { generatePlates } from "./restaurant_level/plates.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -31,7 +32,7 @@ export function anim(game, dino, ctx) {
   else if (game.level === 1) {
     // remove when game is all set//
     game.isPlaying = true;
-    dino.angle+= 0.2;
+    dino.angle += 0.2;
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     dino.updatePlane(ctx);
@@ -41,8 +42,14 @@ export function anim(game, dino, ctx) {
     createBirds(ctx, game.gamespeed, game.frame);
     generateClouds(ctx, game.gamespeed);
   }
-  else if (game.level === 2) {
+  else if (game.level === 2) {    
+    // remove when game is all set//
+    game.isPlaying = true;
+    // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateRestBack(ctx)
+    generateRestBack(ctx);
+    generatePlates(ctx, game.frame);
+    dino.update(ctx);
+    dino.draw(ctx, game.isPlaying);
   }
 }
