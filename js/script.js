@@ -1,4 +1,4 @@
-import { Dino } from "./dino.js"
+import { Dino } from "./character/dino.js"
 import { Game } from "./game.js";
 import { anim } from "./animate.js"
 import { Control } from "./controls.js";

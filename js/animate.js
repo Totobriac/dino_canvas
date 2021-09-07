@@ -33,8 +33,8 @@ export function anim(game, dino, ctx) {
   else if (game.level === 1) {
     // remove when game is all set//
     game.isPlaying = true;
-    dino.angle += 0.2;
     // remove when game is all set//
+    dino.angle += 0.2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     dino.updatePlane(ctx);
     dino.drawPlane(ctx);
@@ -49,9 +49,9 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateRestBack(ctx);
-    generatePlates(ctx, game.frame);
+    generatePlates(ctx, game.frame, dino);
     dino.update(ctx);
     dino.draw(ctx, game.isPlaying);
-    createtray(ctx, dino)
+    createtray(ctx, dino);
   }
 }

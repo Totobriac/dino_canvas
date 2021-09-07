@@ -32,46 +32,15 @@ export class Dino {
     this.angle = 0;
     this.isWalkingLeft = false;
   };
+
   update() {
     this.vy += 1;
     this.y += this.vy;
     this.x += this.vx;
     this.vx *= 0.99;
     this.tickCount += 1;
-    if (this.y > 300) {
-      this.y = 300;
-      this.vy = 0;
-    }
-    if (this.x < 20) {
-      this.x = 20;
-      this.vx = 0;
-    }
-    if (this.x > 1120) {
-      this.x = 1120;
-      this.vx = 0;
-    }
+    this.checkBundaries();
     this.checkFrame();
-  };
-  draw(ctx, isPlaying) {
-    if (isPlaying === false || this.isJumping === true) {
-      ctx.drawImage(dinoSprite, 1676, 0, 90, 95, this.x, this.y, this.width, this.height);
-    }
-    else {
-      this.walk(ctx)
-    }
-  };
-  jump() {
-    this.vy -= 21;
-    this.y += this.vy;
-  };
-  walk(ctx) {
-    this.isWalkingLeft === false ? dinoPic = dinoWalk : dinoPic = dinoWalkleft;
-    ctx.drawImage(dinoPic, this.frameIndex * 90, 0, 90, 99, this.x, this.y, this.width, this.height);
-  };
-  drawPlane(ctx) {
-    ctx.rotate(-22 * Math.PI / 180);
-    ctx.drawImage(planeSprite, this.planeX, this.planeY, this.planeWidth, this.planeHeight);
-    ctx.resetTransform();
   };
   updatePlane() {
     let curve = Math.sin(this.angle) * 0.5;
@@ -83,6 +52,25 @@ export class Dino {
     }
     this.vy += 0.02;
     this.planeY += this.vy + curve;
+  };
+
+  draw(ctx, isPlaying) {
+    if (isPlaying === false || this.isJumping === true) {
+      ctx.drawImage(dinoSprite, 1676, 0, 90, 95, this.x, this.y, this.width, this.height);
+    }
+    else {
+      this.isWalkingLeft === false ? dinoPic = dinoWalk : dinoPic = dinoWalkleft;
+      ctx.drawImage(dinoPic, this.frameIndex * 90, 0, 90, 99, this.x, this.y, this.width, this.height);  
+    }
+  };
+  drawPlane(ctx) {
+    ctx.rotate(-22 * Math.PI / 180);
+    ctx.drawImage(planeSprite, this.planeX, this.planeY, this.planeWidth, this.planeHeight);
+    ctx.resetTransform();
+  };
+  jump() {
+    this.vy -= 21;
+    this.y += this.vy;
   };
   dinoFlyUp() {
     if (this.planeY > 50) {
@@ -110,6 +98,20 @@ export class Dino {
       } else {
         this.frameIndex = 0;
       }
+    }
+  }
+  checkBundaries() {
+    if (this.y > 300) {
+      this.y = 300;
+      this.vy = 0;
+    }
+    if (this.x < 20) {
+      this.x = 20;
+      this.vx = 0;
+    }
+    if (this.x > 1120) {
+      this.x = 1120;
+      this.vx = 0;
     }
   }
 }
