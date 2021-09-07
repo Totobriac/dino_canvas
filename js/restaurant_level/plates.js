@@ -14,6 +14,7 @@ class Plates {
     this.height = 67;
     this.width = 70;
     this.frame = Math.floor(Math.random() * 15);
+    this.hasCollided = false;
   }
   draw() {
     this.ctx.drawImage(food, this.frame * 94, 0, 94, 100, this.x, this.y, this.height, this.width)
@@ -21,8 +22,8 @@ class Plates {
   update(dino, ctx) {
     this.acc += 0.02;
     this.y += (this.vy + this.acc);
-    checkCollision(this.x, this.y, dino, ctx);
-    this.draw();
+    if (checkCollision(this.x, this.y, dino, ctx) == true) this.hasCollided = true; 
+    if (this.hasCollided == false)  this.draw();    
   }
 }
 
@@ -38,14 +39,14 @@ export function generatePlates(ctx, frame, dino) {
   }
 }
 
-function checkCollision(x, y, dino, ctx) {
+function checkCollision(x, y, dino) {
   var trayX
   dino.isWalkingLeft === false ? trayX = 48 : trayX = -32;
   if (x > dino.x + trayX + 50 || x < dino.x + trayX
     || y + 70 < dino.y + 10 || y + 40 > dino.y + 45) {
-    return
+    return false;
   }
   else {
-    console.log("et");
+    return true;
   }
 }
