@@ -6,7 +6,7 @@ import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
 import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js"
-import { generateRestBack, generateSea, generateCustomers } from "./restaurant_level/restBack.js";
+import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
 import { createtray } from "./restaurant_level/tray.js";
 
@@ -49,6 +49,7 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateSea(ctx);
+    generateGuyBrush(ctx, game.gamespeed, game.frame);
     generateRestBack(ctx);
     generateCustomers(ctx);
     generatePlates(ctx, game.frame, dino);

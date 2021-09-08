@@ -1,11 +1,16 @@
+let passerbyArray = [];
+
 const restBackSprite = new Image();
-restBackSprite.src = "../assets/restaurant_level/restaurant_no_window.png";
+restBackSprite.src = "../assets/restaurant_level/restaurant_no_window_no_boundaries.png";
 
 const seaSprite = new Image();
 seaSprite.src = "../assets/restaurant_level/sea_animation.png";
 
 const customerSprite = new Image();
 customerSprite.src = "../assets/restaurant_level/rest_customers_stupid_air.png"
+
+const guybrushSprite = new Image();
+guybrushSprite.src = "../assets/restaurant_level/guy.png"
 
 export function generateRestBack(ctx) {
   ctx.drawImage(restBackSprite, 0, 0, 600, 200, 0, 0, canvas.width, canvas.height)
@@ -39,6 +44,36 @@ const bold = {
   tickCount: 0,
 }
 
+class Guybrush {
+  constructor(ctx, gamespeed) {
+    this.x = 0;
+    this.y = 150;
+    this.frames = 6;
+    this.frameIndex = 0;
+    this.ticksPerFrame = 12;
+    this.tickCount = 0;
+    this.ctx = ctx;
+    this.gamespeed = gamespeed;
+  }
+  updateGuy() {
+    this.tickCount += 1;    
+    this.x += this.gamespeed * 0.8;
+    console.log(this.x);
+    this.drawGuy();
+  }  
+  drawGuy() {
+    if (this.tickCount > this.ticksPerFrame) {
+      this.tickCount = 0;
+      if (this.frameIndex < this.frames - 1) {
+        this.frameIndex += 1;
+      } else {
+        this.frameIndex = 0;
+      }
+    }  
+    this.ctx.drawImage(guybrushSprite, 110 * this.frameIndex, 0, 110, 150, this.x, this.y, 77, 105);
+  }  
+}
+
 export function generateSea(ctx) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
@@ -48,13 +83,25 @@ export function generateSea(ctx) {
 export function generateCustomers(ctx) {
   mustache.tickCount += 1;
   checkFrame(mustache);
-  ctx.drawImage(customerSprite, 50 * mustache.frameIndex,0, 50, 84, 196, 200, 60, 101);
+  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, 196, 200, 60, 101);
   lady.tickCount += 1;
   checkFrame(lady);
-  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex),0, 50, 84, 330, 200, 60, 101);
+  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, 330, 200, 60, 101);
   bold.tickCount += 1;
   checkFrame(bold);
-  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex),0, 50, 84, 820, 200, 60, 101);
+  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 820, 200, 60, 101);
+}
+
+export function generateGuyBrush(ctx, gamespeed, frame) {
+  if (frame % 3000 === 0) {
+    passerbyArray.unshift(new Guybrush(ctx, gamespeed));
+  }
+  for (let i = 0; i < passerbyArray.length; i++) {
+    passerbyArray[i].updateGuy();
+  }
+  if (passerbyArray.length > 2) {
+    passerbyArray.pop(passerbyArray[0])
+  }
 }
 
 function checkFrame(sprite) {
