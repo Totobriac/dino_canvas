@@ -13,12 +13,12 @@ class Cactus {
     this.ctx = ctx;
     this.frameIndex = Math.floor(Math.random() * 3);
   }
-  draw(ctx) {
-    ctx.drawImage(cactusSprite, this.frameIndex * 103, 0, 103, 102, this.x, this.y, this.width, this.height);
+  draw() {
+    this.ctx.drawImage(cactusSprite, this.frameIndex * 103, 0, 103, 102, this.x, this.y, this.width, this.height);
   }
   update() {
     this.x -= this.gamespeed;
-    this.draw(this.ctx);
+    this.draw();
   }
 }
 

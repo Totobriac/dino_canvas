@@ -7,10 +7,13 @@ const seaSprite = new Image();
 seaSprite.src = "../assets/restaurant_level/sea_animation.png";
 
 const customerSprite = new Image();
-customerSprite.src = "../assets/restaurant_level/rest_customers_stupid_air.png"
+customerSprite.src = "../assets/restaurant_level/rest_customers_stupid_air.png";
 
 const guybrushSprite = new Image();
-guybrushSprite.src = "../assets/restaurant_level/guy.png"
+guybrushSprite.src = "../assets/restaurant_level/guy.png";
+
+const outsideSprite = new Image();
+outsideSprite.src = "../assets/restaurant_level/restaurant_outside.png";
 
 export function generateRestBack(ctx) {
   ctx.drawImage(restBackSprite, 0, 0, 600, 200, 0, 0, canvas.width, canvas.height)
@@ -58,7 +61,6 @@ class Guybrush {
   updateGuy() {
     this.tickCount += 1;    
     this.x += this.gamespeed * 0.8;
-    console.log(this.x);
     this.drawGuy();
   }  
   drawGuy() {
@@ -78,6 +80,7 @@ export function generateSea(ctx) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
   ctx.drawImage(seaSprite, 0, 20 + (241 * seaAnim.frameIndex), 1280, 241, 190, 90, 1290, 241);
+  ctx.drawImage(outsideSprite, 0, 0, 600, 200, 0, 0, canvas.width, canvas.height);
 }
 
 export function generateCustomers(ctx) {
@@ -93,7 +96,7 @@ export function generateCustomers(ctx) {
 }
 
 export function generateGuyBrush(ctx, gamespeed, frame) {
-  if (frame % 3000 === 0) {
+  if (frame % 300 === 0) {
     passerbyArray.unshift(new Guybrush(ctx, gamespeed));
   }
   for (let i = 0; i < passerbyArray.length; i++) {

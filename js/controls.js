@@ -1,7 +1,8 @@
 export class Control {
   constructor(dino, game) {
     window.addEventListener('keydown', function (e) {
-      if (e.code === "Space" && dino.y == 301 && game.level === 0) {
+      console.log(e.code );
+      if (e.code === "Space" && dino.isJumping === false && game.level === 0) {
         dino.jump();
         game.isPlaying = true;
         dino.isJumping = true;

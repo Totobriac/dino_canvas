@@ -15,7 +15,7 @@ export function anim(game, dino, ctx) {
     game.gamespeed = 4;
     game.frame++;
   }
-  if (game.level === 0 && game.bino === false) {
+  if (game.level === 0 && game.bino === false )  {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateBigBack(ctx, game.gamespeed);
     generateBillb(ctx, game.gamespeed, 87, 78, false)
@@ -32,7 +32,7 @@ export function anim(game, dino, ctx) {
   }
   else if (game.level === 1) {
     // remove when game is all set//
-    game.isPlaying = true;
+    //game.isPlaying = true;
     // remove when game is all set//
     dino.angle += 0.2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -45,7 +45,7 @@ export function anim(game, dino, ctx) {
   }
   else if (game.level === 2) {    
     // remove when game is all set//
-    game.isPlaying = true;
+    //game.isPlaying = true;
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateSea(ctx);
