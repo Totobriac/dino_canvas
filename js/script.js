@@ -15,7 +15,7 @@ const control = new Control(dino, game);
 
 
 function animate() {
-  anim(game, dino, ctx);  
+  anim(game, dino, ctx);
   requestAnimationFrame(animate);
 }
 

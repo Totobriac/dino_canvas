@@ -6,5 +6,6 @@ export class Game {
     this.isPlaying = false;
     this.bino = false;
     this.level = 3;
+    this.mousePosition = { x: 0, y: 0 };
   }
 }

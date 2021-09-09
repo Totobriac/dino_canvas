@@ -10,6 +10,9 @@ import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } fr
 import { generatePlates } from "./restaurant_level/plates.js";
 import { createtray } from "./restaurant_level/tray.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
+import { handleParticle } from "./kitchen_level/sword.js";
+import { generateTable } from "./kitchen_level/cutting_table.js";
+
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -63,6 +66,8 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     game.isPlaying = true;
     // remove when game is all set//
+    generateTable(ctx);
     generateFruits(ctx, game.frame);
+    handleParticle(ctx, game.mousePosition);
   }
 }

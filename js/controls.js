@@ -38,5 +38,16 @@ export class Control {
         dino.walkLeft();
       }
     });
+    // window.addEventListener('mousemove', function (e) {
+    //   var position = getCursorPosition(canvas, e)
+    //   game.mousePosition = {x: position.x, y: position.y}
+    // });
   };
+}
+
+function getCursorPosition(canvas, event) {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  return {x:x, y:y}
 }

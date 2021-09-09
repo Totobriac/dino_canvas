@@ -16,7 +16,7 @@ class Fruit {
     this.ctx = ctx;
     this.point;
   }
-  update() {
+  update() {    
     this.gravity += 0.02
     if (this.percent < 1) this.percent += 0.003;
     this.point = getQuadraticBezierXYatPercent(this.startPt, this.controlPt, this.endPt, this.percent);
