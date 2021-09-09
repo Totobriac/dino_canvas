@@ -4,8 +4,8 @@ import { anim } from "./animate.js"
 import { Control } from "./controls.js";
 
 
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
 canvas.height = 400;
 canvas.width = 1200;
 

@@ -9,13 +9,14 @@ import { createBirds } from "./plane_level/bird.js"
 import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
 import { createtray } from "./restaurant_level/tray.js";
+import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
     game.gamespeed = 4;
     game.frame++;
   }
-  if (game.level === 0 && game.bino === false )  {
+  if (game.level === 0 && game.bino === false) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateBigBack(ctx, game.gamespeed);
     generateBillb(ctx, game.gamespeed, 87, 78, false)
@@ -43,7 +44,7 @@ export function anim(game, dino, ctx) {
     createBirds(ctx, game.gamespeed, game.frame);
     generateClouds(ctx, game.gamespeed);
   }
-  else if (game.level === 2) {    
+  else if (game.level === 2) {
     // remove when game is all set//
     //game.isPlaying = true;
     // remove when game is all set//
@@ -56,5 +57,12 @@ export function anim(game, dino, ctx) {
     dino.update(ctx);
     dino.draw(ctx, game.isPlaying);
     createtray(ctx, dino);
+  }
+  else if (game.level === 3) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // remove when game is all set//
+    game.isPlaying = true;
+    // remove when game is all set//
+    generateFruits(ctx, game.frame);
   }
 }

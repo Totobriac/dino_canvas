@@ -37,6 +37,9 @@ export function generatePlates(ctx, frame, dino) {
       platesArray.splice(i, 1)
     }
   }
+  if (platesArray.length > 15) {
+    platesArray.pop(platesArray[0])
+  }
 }
 
 function checkCollision(x, y, dino) {
