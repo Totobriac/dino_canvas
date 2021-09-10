@@ -1,7 +1,6 @@
 export class Control {
   constructor(dino, game) {
     window.addEventListener('keydown', function (e) {
-      console.log(e.code );
       if (e.code === "Space" && dino.isJumping === false && game.level === 0) {
         dino.jump();
         game.isPlaying = true;
@@ -38,10 +37,18 @@ export class Control {
         dino.walkLeft();
       }
     });
-    // window.addEventListener('mousemove', function (e) {
-    //   var position = getCursorPosition(canvas, e)
-    //   game.mousePosition = {x: position.x, y: position.y}
-    // });
+    window.addEventListener('mousemove', function (e) {
+      if (game.level === 3) {
+        var position = getCursorPosition(canvas, e)
+        game.mousePosition = { x: position.x, y: position.y }
+      }
+    });
+    window.addEventListener('mousedown', function (e) {
+      if (game.level === 4) {
+        var position = getCursorPosition(canvas, e)
+        game.mousePosition = { x: position.x, y: position.y }
+      }
+    });
   };
 }
 
@@ -49,5 +56,5 @@ function getCursorPosition(canvas, event) {
   const rect = canvas.getBoundingClientRect()
   const x = event.clientX - rect.left
   const y = event.clientY - rect.top
-  return {x:x, y:y}
+  return { x: x, y: y }
 }

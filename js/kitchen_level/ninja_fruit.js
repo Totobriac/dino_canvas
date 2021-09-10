@@ -1,3 +1,5 @@
+import spots from "./sword.js"
+
 var fruit = new Image();
 fruit.src = "../assets/kitchen_level/fraise.png";
 
@@ -14,12 +16,14 @@ class Fruit {
     this.percent = 0;
     this.gravity = 0;
     this.ctx = ctx;
+    this.isHit = false;
     this.point;
   }
-  update() {    
+  update() {
     this.gravity += 0.02
     if (this.percent < 1) this.percent += 0.003;
     this.point = getQuadraticBezierXYatPercent(this.startPt, this.controlPt, this.endPt, this.percent);
+    checkIfFruitIsHit(this.point.x, this.point.y)
     this.draw();
   }
   draw() {
@@ -28,6 +32,8 @@ class Fruit {
 }
 
 export function generateFruits(ctx, frame) {
+  console.log(spots);
+
   if (frame % 50 === 0) {
     fruitsArray.unshift(new Fruit(ctx));
   }
@@ -49,4 +55,14 @@ function getQuadraticBezierXYatPercent(startPt, controlPt, endPt, percent) {
     2 * (1 - percent) * percent * controlPt.y +
     Math.pow(percent, 2) * endPt.y;
   return { x: x, y: y };
+}
+
+function checkIfFruitIsHit(x, y) {
+  for (let i = 0; i < spots.length; i++) {
+    if (x < spots[i].x || x > spots[i].x + 60
+      || y > spots[i].y || y < spots[i].y + 60) {
+      console.log("false");
+    }
+    else { console.log("true"); }
+  }
 }

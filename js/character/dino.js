@@ -31,6 +31,9 @@ export class Dino {
     this.planeHeight = 150;
     this.angle = 0;
     this.isWalkingLeft = false;
+    this.mouseX  = 600;
+    this.mouseY = 200;
+    this.radius = 30;
   };
 
   update() {
@@ -53,7 +56,30 @@ export class Dino {
     this.vy += 0.02;
     this.planeY += this.vy + curve;
   };
-
+  subDive(mouse) {
+    this.mouseX = mouse.x;
+    this.mouseY = mouse.y;
+    const dx = this.x - this.mouseX;
+    const dy = this.y - this.mouseY;
+    if (mouse.x != this.x) {
+      this.x -= dx/20; 
+    }
+    if (mouse.y != this.y) {
+      this.y -= dy/20;
+    }
+  };
+  drawSubmarine(ctx) {
+    ctx.lineWidth = 0.2;
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.mouseX, this.mouseY)
+    ctx.stroke();
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.fill();
+    ctx.closePath();
+  }
   draw(ctx, isPlaying) {
     if (isPlaying === false || this.isJumping === true) {
       ctx.drawImage(dinoSprite, 1676, 0, 90, 95, this.x, this.y, this.width, this.height);

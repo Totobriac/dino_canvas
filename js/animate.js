@@ -12,6 +12,8 @@ import { createtray } from "./restaurant_level/tray.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
 import { generateTable } from "./kitchen_level/cutting_table.js";
+import { generateSubmarine } from "./submarine_level/submarine.js";
+import { generateBubbles } from "./submarine_level/bubbles.js";
 
 
 export function anim(game, dino, ctx) {
@@ -69,5 +71,15 @@ export function anim(game, dino, ctx) {
     generateTable(ctx);
     generateFruits(ctx, game.frame);
     handleParticle(ctx, game.mousePosition);
+  }
+  else if (game.level === 4) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // remove when game is all set//
+    game.isPlaying = true;
+    // remove when game is all set//
+    generateSubmarine(ctx);
+    dino.subDive(game.mousePosition);
+    dino.drawSubmarine(ctx);
+    generateBubbles(ctx, game.frame, dino);
   }
 }
