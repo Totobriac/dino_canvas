@@ -10,6 +10,15 @@ dinoWalkleft.src = "../assets/dino_walk_left.png";
 const planeSprite = new Image();
 planeSprite.src = "../assets/plane_level/plane_1.png";
 
+const subRight = new Image();
+subRight.src = "../assets/submarine_level/right_submarine.png";
+
+const subLeft = new Image();
+subLeft.src = "../assets/submarine_level/left_submarine.png";
+
+const subJet = new Image();
+subJet.src = "../assets/submarine_level/bubble_jet.png"
+
 let dinoPic;
 
 export class Dino {
@@ -31,9 +40,9 @@ export class Dino {
     this.planeHeight = 150;
     this.angle = 0;
     this.isWalkingLeft = false;
-    this.mouseX  = 600;
+    this.mouseX = 600;
     this.mouseY = 200;
-    this.radius = 30;
+    this.radius = 40;
   };
 
   update() {
@@ -62,23 +71,36 @@ export class Dino {
     const dx = this.x - this.mouseX;
     const dy = this.y - this.mouseY;
     if (mouse.x != this.x) {
-      this.x -= dx/20; 
+      this.x -= dx / 20;
     }
     if (mouse.y != this.y) {
-      this.y -= dy/20;
+      this.y -= dy / 20;
     }
   };
   drawSubmarine(ctx) {
     ctx.lineWidth = 0.2;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     ctx.lineTo(this.mouseX, this.mouseY)
     ctx.stroke();
     ctx.fillStyle = "red";
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    this.angle = getAngle(this.x, this.mouseX, this.y, this.mouseY)
+    ctx.rotate(this.angle);
+    if (this.x >= this.mouseX) {
+      ctx.drawImage(subLeft, 0 - 40, 0 - 45, 71, 80);
+      ctx.drawImage(subJet,0,0,108,108, -10, -10, 60, 60)
+    } else {
+      ctx.drawImage(subRight, -40, -35, 71, 80);
+    }
+    ctx.restore();
   }
   draw(ctx, isPlaying) {
     if (isPlaying === false || this.isJumping === true) {
@@ -86,7 +108,7 @@ export class Dino {
     }
     else {
       this.isWalkingLeft === false ? dinoPic = dinoWalk : dinoPic = dinoWalkleft;
-      ctx.drawImage(dinoPic, this.frameIndex * 90, 0, 90, 99, this.x, this.y, this.width, this.height);  
+      ctx.drawImage(dinoPic, this.frameIndex * 90, 0, 90, 99, this.x, this.y, this.width, this.height);
     }
   };
   drawPlane(ctx) {
@@ -140,4 +162,11 @@ export class Dino {
       this.vx = 0;
     }
   }
+}
+
+function getAngle(x, mouseX, y, mouseY) {
+  const dx = x - mouseX;
+  const dy = y - mouseY;
+  let theta = Math.atan2(dy, dx);
+  return theta
 }
