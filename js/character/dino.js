@@ -19,6 +19,9 @@ subLeft.src = "../assets/submarine_level/left_submarine.png";
 const subJet = new Image();
 subJet.src = "../assets/submarine_level/bubble_jet.png"
 
+const subJetRight = new Image();
+subJetRight.src = "../assets/submarine_level/bubble_jet_right.png"
+
 let dinoPic;
 
 export class Dino {
@@ -52,7 +55,7 @@ export class Dino {
     this.vx *= 0.99;
     this.tickCount += 1;
     this.checkBundaries();
-    this.checkFrame();
+    this.checkFrame(2);
   };
   updatePlane() {
     let curve = Math.sin(this.angle) * 0.5;
@@ -66,6 +69,7 @@ export class Dino {
     this.planeY += this.vy + curve;
   };
   subDive(mouse) {
+    this.tickCount += 1;
     this.mouseX = mouse.x;
     this.mouseY = mouse.y;
     const dx = this.x - this.mouseX;
@@ -76,29 +80,31 @@ export class Dino {
     if (mouse.y != this.y) {
       this.y -= dy / 20;
     }
+    this.checkFrame(8);
   };
   drawSubmarine(ctx) {
     ctx.lineWidth = 0.2;
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.mouseX, this.mouseY)
-    ctx.stroke();
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
+    //ctx.beginPath();
+    //ctx.moveTo(this.x, this.y);
+    //ctx.lineTo(this.mouseX, this.mouseY)
+    //ctx.stroke();
+    //ctx.fillStyle = "red";
+    //ctx.beginPath();
+    //ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    //ctx.fill();
+    //ctx.closePath();
     ctx.save();
     ctx.translate(this.x, this.y);
     this.angle = getAngle(this.x, this.mouseX, this.y, this.mouseY)
     ctx.rotate(this.angle);
     if (this.x >= this.mouseX) {
       ctx.drawImage(subLeft, 0 - 40, 0 - 45, 71, 80);
-      ctx.drawImage(subJet,0,0,108,108, -10, -10, 60, 60)
+      ctx.drawImage(subJet,this.frameIndex * 108,0,108,108, 30, -29 , 60, 60);
     } else {
       ctx.drawImage(subRight, -40, -35, 71, 80);
+      ctx.drawImage(subJetRight,this.frameIndex * 108,0,108,108, 34, -28 , 60, 60);
     }
     ctx.restore();
   }
@@ -138,10 +144,10 @@ export class Dino {
     this.vx = -4;
     this.isWalkingLeft = true;
   }
-  checkFrame() {
+  checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
-      if (this.frameIndex < this.frames - 1) {
+      if (this.frameIndex < frames - 1) {
         this.frameIndex += 1;
       } else {
         this.frameIndex = 0;
