@@ -13,7 +13,8 @@ import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
 import { generateTable } from "./kitchen_level/cutting_table.js";
 import { generateSubmarine } from "./submarine_level/submarine.js";
-import { generateBubbles } from "./submarine_level/bubbles.js";
+import { generateBubbles, handleExplosion } from "./submarine_level/bubbles.js";
+import { generateEyes } from "./submarine_level/eyes.js";
 
 
 export function anim(game, dino, ctx) {
@@ -77,9 +78,11 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     game.isPlaying = true;
     // remove when game is all set//
+    generateEyes(game, ctx);
     generateSubmarine(ctx);
     dino.subDive(game.mousePosition);
     dino.drawSubmarine(ctx);
     generateBubbles(ctx, game.frame, dino);
+    handleExplosion();
   }
 }

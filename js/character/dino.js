@@ -84,8 +84,6 @@ export class Dino {
   };
   drawSubmarine(ctx) {
     ctx.lineWidth = 0.2;
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     //ctx.beginPath();
     //ctx.moveTo(this.x, this.y);
     //ctx.lineTo(this.mouseX, this.mouseY)

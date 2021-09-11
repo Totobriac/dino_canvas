@@ -38,10 +38,8 @@ export class Control {
       }
     });
     window.addEventListener('mousemove', function (e) {
-      if (game.level === 3) {
         var position = getCursorPosition(canvas, e)
-        game.mousePosition = { x: position.x, y: position.y }
-      }
+        game.mouseMovePosition = { x: position.x, y: position.y }
     });
     window.addEventListener('mousedown', function (e) {
       if (game.level === 4) {
