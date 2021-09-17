@@ -3,7 +3,8 @@ let numberOfEyes = 150;
 let theta;
 
 
-export function generateEyes(game, ctx) {
+export function generateEyes(game, ctx) 
+{
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 

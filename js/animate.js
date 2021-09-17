@@ -2,19 +2,21 @@ import { createCactus } from "./desert_level/cactus.js"
 import { generateFloor } from "./desert_level/floor.js";
 import { generateBigBack, generateSmallBack, generateBinoBack } from "./desert_level/desertBack.js";
 import { generateBillb, billbX } from "./desert_level/billboard.js";
+import { drawPlane } from "./plane_level/plane.js";
 import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
 import { createParticles } from "./plane_level/particles.js";
-import { createBirds } from "./plane_level/bird.js"
+import { createBirds } from "./plane_level/bird.js";
 import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
 import { createtray } from "./restaurant_level/tray.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
 import { generateTable } from "./kitchen_level/cutting_table.js";
-import { generateSubmarine } from "./submarine_level/submarine.js";
+import { drawSubmarine } from "./submarine_level/submarine.js";
 import { generateBubbles, handleExplosion } from "./submarine_level/bubbles.js";
 import { generateEyes } from "./submarine_level/eyes.js";
+import { drawDinoDesert } from "./desert_level/desert_dino.js";
 
 
 export function anim(game, dino, ctx) {
@@ -30,7 +32,7 @@ export function anim(game, dino, ctx) {
     generateFloor(ctx, game.gamespeed);
     createCactus(game.frame, game.gamespeed, ctx);
     dino.update(ctx);
-    dino.draw(ctx, game.isPlaying);
+    drawDinoDesert(ctx, dino, game);
   }
   else if (game.level === 0 && game.bino === true) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,10 +43,8 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     //game.isPlaying = true;
     // remove when game is all set//
-    dino.angle += 0.2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    dino.updatePlane(ctx);
-    dino.drawPlane(ctx);
+    drawPlane(ctx, dino);
     createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx);
     animateMonument(ctx);
     createBirds(ctx, game.gamespeed, game.frame);
@@ -79,9 +79,9 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     // remove when game is all set//
     generateEyes(game, ctx);
-    generateSubmarine(ctx);
+    drawSubmarine(ctx, dino, game.mousePosition);
     dino.subDive(game.mousePosition);
-    dino.drawSubmarine(ctx);
+    //dino.drawSubmarine(ctx, dino, game.mousePosition);
     generateBubbles(ctx, game.frame, dino);
     handleExplosion();
   }

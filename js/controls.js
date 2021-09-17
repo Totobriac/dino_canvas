@@ -1,11 +1,12 @@
+import { dinoFlyUp, dinoFlyDown } from "../js/plane_level/plane.js"
+import { jump, isJumping } from "../js/desert_level/desert_dino.js"
+
 export class Control {
   constructor(dino, game) {
     window.addEventListener('keydown', function (e) {
-      if (e.code === "Space" && dino.isJumping === false && game.level === 0) {
-        dino.jump();
+      if (e.code === "Space" && isJumping === false && game.level === 0) {
+        jump();
         game.isPlaying = true;
-        dino.isJumping = true;
-        setTimeout(() => dino.isJumping = false, 820)
       }
       else if (e.code === "KeyB") {
         game.bino = true;
@@ -19,12 +20,12 @@ export class Control {
     window.addEventListener('keydown', function (e) {
       if (e.code === "ArrowUp") {
         var repeat = e.repeat;
-        if (repeat === false) dino.dinoFlyUp();
+        if (repeat === false) dinoFlyUp();
       }
     });
     window.addEventListener('keyup', function (e) {
       if (e.code === "ArrowUp") {
-        dino.dinoFlyDown();
+        dinoFlyDown();
       }
     });
     window.addEventListener('keydown', function (e) {
@@ -38,8 +39,8 @@ export class Control {
       }
     });
     window.addEventListener('mousemove', function (e) {
-        var position = getCursorPosition(canvas, e)
-        game.mouseMovePosition = { x: position.x, y: position.y }
+      var position = getCursorPosition(canvas, e)
+      game.mouseMovePosition = { x: position.x, y: position.y }
     });
     window.addEventListener('mousedown', function (e) {
       if (game.level === 4) {

@@ -20,3 +20,5 @@ function animate() {
 }
 
 animate();
+
+export { dino, game }
