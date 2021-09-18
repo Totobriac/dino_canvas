@@ -9,7 +9,6 @@ import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js";
 import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
-import { createtray } from "./restaurant_level/tray.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
 import { generateTable } from "./kitchen_level/cutting_table.js";
@@ -17,6 +16,7 @@ import { drawSubmarine } from "./submarine_level/submarine.js";
 import { generateBubbles, handleExplosion } from "./submarine_level/bubbles.js";
 import { generateEyes } from "./submarine_level/eyes.js";
 import { drawDinoDesert } from "./desert_level/desert_dino.js";
+import { drawDinoWaiter } from "./restaurant_level/waiter.js";
 
 
 export function anim(game, dino, ctx) {
@@ -60,9 +60,8 @@ export function anim(game, dino, ctx) {
     generateRestBack(ctx);
     generateCustomers(ctx);
     generatePlates(ctx, game.frame, dino);
-    dino.update(ctx);
-    dino.draw(ctx, game.isPlaying);
-    createtray(ctx, dino);
+    //dino.update(ctx);
+    drawDinoWaiter(ctx, dino, game);
   }
   else if (game.level === 3) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

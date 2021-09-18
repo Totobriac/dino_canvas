@@ -1,14 +1,3 @@
-const dinoSprite = new Image();
-dinoSprite.src = "../assets/dino_all.png";
-
-const dinoWalk = new Image();
-dinoWalk.src = "../assets/dino_walk.png";
-
-const dinoWalkleft = new Image();
-dinoWalkleft.src = "../assets/dino_walk_left.png";
-
-let dinoPic;
-
 export class Dino {
   constructor() {
     this.x = 20;
@@ -47,14 +36,6 @@ export class Dino {
     }
     this.checkFrame(8);
   };
-  walkRight() {
-    this.vx = 4;
-    this.isWalkingLeft = false;
-  }
-  walkLeft() {
-    this.vx = -4;
-    this.isWalkingLeft = true;
-  }
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;

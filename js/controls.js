@@ -1,5 +1,7 @@
-import { dinoFlyUp, dinoFlyDown } from "../js/plane_level/plane.js"
-import { jump, isJumping } from "../js/desert_level/desert_dino.js"
+import { dinoFlyUp, dinoFlyDown } from "../js/plane_level/plane.js";
+import { jump, isJumping } from "../js/desert_level/desert_dino.js";
+import { walk } from "../js/restaurant_level/waiter.js";
+
 
 export class Control {
   constructor(dino, game) {
@@ -30,12 +32,12 @@ export class Control {
     });
     window.addEventListener('keydown', function (e) {
       if (e.code === "ArrowRight") {
-        dino.walkRight();
+        walk(1);
       }
     });
     window.addEventListener('keydown', function (e) {
       if (e.code === "ArrowLeft") {
-        dino.walkLeft();
+        walk(-1);
       }
     });
     window.addEventListener('mousemove', function (e) {
