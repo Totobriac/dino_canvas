@@ -29,7 +29,6 @@ export function anim(game, dino, ctx) {
     generateSmallBack(ctx, game.gamespeed);
     generateFloor(ctx, game.gamespeed);
     createCactus(game.frame, game.gamespeed, ctx);
-    dino.update(ctx);
     drawDinoDesert(ctx, dino, game);
   }
   else if (game.level === 1) {

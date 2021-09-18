@@ -13,7 +13,7 @@ subJetRight.src = "../assets/submarine_level/bubble_jet_right.png";
 import { game } from "../script.js";
 
 export function drawSubmarine(ctx, dino, mousePosition) {
-  subDive(dino, game);
+  update(dino, game);
   ctx.save();
   ctx.translate(dino.x, dino.y);
   dino.angle = getAngle(dino.x, dino.y, mousePosition)
@@ -28,7 +28,7 @@ export function drawSubmarine(ctx, dino, mousePosition) {
   ctx.restore();
 }
 
-function subDive(dino, game) {
+function update(dino, game) {
   dino.tickCount += 1;
   dino.mouseX = game.mousePosition.x;
   dino.mouseY = game.mousePosition.y;

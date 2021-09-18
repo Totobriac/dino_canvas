@@ -11,11 +11,6 @@ export class Control {
         game.isPlaying = true;
       }
     });
-    window.addEventListener('keyup', function (e) {
-      if (e.code === "KeyB") {
-        game.bino = false;
-      }
-    });
     window.addEventListener('keydown', function (e) {
       if (e.code === "ArrowUp") {
         var repeat = e.repeat;
