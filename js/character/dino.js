@@ -22,20 +22,6 @@ export class Dino {
     this.checkBundaries();
     this.checkFrame(2);
   };
-  subDive(mouse) {
-    this.tickCount += 1;
-    this.mouseX = mouse.x;
-    this.mouseY = mouse.y;
-    const dx = this.x - this.mouseX;
-    const dy = this.y - this.mouseY;
-    if (mouse.x != this.x) {
-      this.x -= dx / 20;
-    }
-    if (mouse.y != this.y) {
-      this.y -= dy / 20;
-    }
-    this.checkFrame(8);
-  };
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;

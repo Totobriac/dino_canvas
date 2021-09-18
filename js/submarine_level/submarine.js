@@ -5,12 +5,15 @@ const subLeft = new Image();
 subLeft.src = "../assets/submarine_level/left_submarine.png";
 
 const subJet = new Image();
-subJet.src = "../assets/submarine_level/bubble_jet.png"
+subJet.src = "../assets/submarine_level/bubble_jet.png";
 
 const subJetRight = new Image();
-subJetRight.src = "../assets/submarine_level/bubble_jet_right.png"
+subJetRight.src = "../assets/submarine_level/bubble_jet_right.png";
+
+import { game } from "../script.js";
 
 export function drawSubmarine(ctx, dino, mousePosition) {
+  subDive(dino, game);
   ctx.save();
   ctx.translate(dino.x, dino.y);
   dino.angle = getAngle(dino.x, dino.y, mousePosition)
@@ -24,6 +27,21 @@ export function drawSubmarine(ctx, dino, mousePosition) {
   }
   ctx.restore();
 }
+
+function subDive(dino, game) {
+  dino.tickCount += 1;
+  dino.mouseX = game.mousePosition.x;
+  dino.mouseY = game.mousePosition.y;
+  const dx = dino.x - dino.mouseX;
+  const dy = dino.y - dino.mouseY;
+  if (game.mousePosition.x != dino.x) {
+    dino.x -= dx / 20;
+  }
+  if (game.mousePosition.y != dino.y) {
+    dino.y -= dy / 20;
+  }
+  dino.checkFrame(8);
+};
 
 function getAngle(x, y, mouse) {
   const dx = x - mouse.x;

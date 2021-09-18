@@ -41,7 +41,7 @@ export function anim(game, dino, ctx) {
   }
   else if (game.level === 1) {
     // remove when game is all set//
-    //game.isPlaying = true;
+    game.isPlaying = true;
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPlane(ctx, dino);
@@ -52,7 +52,7 @@ export function anim(game, dino, ctx) {
   }
   else if (game.level === 2) {
     // remove when game is all set//
-    //game.isPlaying = true;
+    game.isPlaying = true;
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateSea(ctx);
@@ -60,7 +60,6 @@ export function anim(game, dino, ctx) {
     generateRestBack(ctx);
     generateCustomers(ctx);
     generatePlates(ctx, game.frame, dino);
-    //dino.update(ctx);
     drawDinoWaiter(ctx, dino, game);
   }
   else if (game.level === 3) {
@@ -79,8 +78,6 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     generateEyes(game, ctx);
     drawSubmarine(ctx, dino, game.mousePosition);
-    dino.subDive(game.mousePosition);
-    //dino.drawSubmarine(ctx, dino, game.mousePosition);
     generateBubbles(ctx, game.frame, dino);
     handleExplosion();
   }
