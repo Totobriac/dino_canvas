@@ -26,13 +26,11 @@ class Eye {
   }
   draw(game) {
     //eye bulb
-
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.ctx.fillStyle = "red";
     this.ctx.fill();
     this.ctx.closePath();
-
     //iris
     let dx = game.mouseMovePosition.x - this.x;
     let dy = game.mouseMovePosition.y - this.y;

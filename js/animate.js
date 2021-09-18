@@ -16,6 +16,7 @@ import { generateBubbles, handleExplosion } from "./submarine_level/bubbles.js";
 import { generateEyes } from "./submarine_level/eyes.js";
 import { drawDinoDesert } from "./desert_level/desert_dino.js";
 import { drawDinoWaiter } from "./restaurant_level/waiter.js";
+import { initMaze, maze } from "./dino_stein/raycasting.js";
 
 
 export function anim(game, dino, ctx) {
@@ -72,5 +73,10 @@ export function anim(game, dino, ctx) {
     drawSubmarine(ctx, dino, game.mousePosition);
     generateBubbles(ctx, game.frame, dino);
     handleExplosion();
+  }
+  else if (game.level === 5) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    initMaze(game, ctx);
+    maze(ctx);
   }
 }

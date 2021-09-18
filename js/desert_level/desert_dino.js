@@ -1,10 +1,10 @@
 import { dino } from "../script.js"
 
 const dinoSprite = new Image();
-dinoSprite.src = "../assets/dino_all.png";
+dinoSprite.src = "../assets/dino/dino_all.png";
 
 const dinoWalk = new Image();
-dinoWalk.src = "../assets/dino_walk.png";
+dinoWalk.src = "../assets/dino/dino_walk.png";
 
 var width = 66;
 var height = 70;

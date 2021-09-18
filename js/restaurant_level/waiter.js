@@ -1,8 +1,8 @@
 const dinoWalk = new Image();
-dinoWalk.src = "../assets/dino_walk.png";
+dinoWalk.src = "../assets/dino/dino_walk.png";
 
 const dinoWalkLeft = new Image();
-dinoWalkLeft.src = "../assets/dino_walk_left.png";
+dinoWalkLeft.src = "../assets/dino/dino_walk_left.png";
 
 const traySprite = new Image();
 traySprite.src = "../assets/restaurant_level/tray.png";
