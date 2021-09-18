@@ -10,9 +10,6 @@ export class Control {
         jump();
         game.isPlaying = true;
       }
-      else if (e.code === "KeyB") {
-        game.bino = true;
-      }
     });
     window.addEventListener('keyup', function (e) {
       if (e.code === "KeyB") {
