@@ -75,7 +75,7 @@ function createSprites(player, ctx) {
   var imgArmor = new Image();
   imgArmor.src = "../assets/sewer_level/lamp.png";
   var imgPlanta = new Image();
-  imgPlanta.src = "../assets/sewer_level/lamp.png";
+  imgPlanta.src = "../assets/sewer_level/rat_try.png";
   sprites[0] = new Sprite(300, 120, imgArmor, player, ctx);
   sprites[1] = new Sprite(150, 150, imgArmor, player, ctx);
   sprites[2] = new Sprite(320, 300, imgPlanta, player, ctx);
