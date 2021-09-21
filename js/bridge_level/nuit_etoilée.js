@@ -1,11 +1,11 @@
 var painting = new Image();
 painting.src = "../assets/bridge_level/starry_night_no_stars.png";
 
-var bridge = new Image();
-bridge.src = "../assets/bridge_level/large_bridge.png";
+// var bridge = new Image();
+// bridge.src = "../assets/bridge_level/pont_big.png";
 
 let particlesArray = [];
-const numberOfParticles = 1200;
+const numberOfParticles = 400;
 
 var frame = 0;
 
@@ -32,10 +32,6 @@ class Particle {
       this.y = 0;
       this.x = Math.random() * canvas.width;
     }
-    else{
-      particlesArray.splice(i,1);
-      i --;
-    }
   }
   draw() {
     this.ctx.beginPath();
@@ -55,21 +51,15 @@ export function generateRain(ctx, game) {
   }
   if (frame < 500) {
     ctx.drawImage(painting, 300, 200, 600, 200, 0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 1;
-    ctx.drawImage(bridge, 300, 95, 600, 195, 0, 195, canvas.width, canvas.height);
     frame++;
   }
   else if (frame >= 500 && frame < 900) {
     ctx.drawImage(painting, sourceX -= 0.75, sourceY -= 0.5, sourceWidth += 1.5, sourceHeight += 0.5, 0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 1;
-    ctx.drawImage(bridge, 300, 95, 600, 195, 0, bridgeHeight += 0.16, canvas.width, canvas.height);
     frame++;
   }
   else {
     notRaining = true;
     ctx.drawImage(painting, 0, 0);
-    ctx.globalAlpha = 1;
-    ctx.drawImage(bridge, 300, 95, 600, 195, 0, 259, canvas.width, canvas.height);
   }
   ctx.globalAlpha = globalAlpha;
   ctx.fillStyle = "black";

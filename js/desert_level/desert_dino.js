@@ -1,4 +1,4 @@
-import { dino } from "../script.js"
+import { dino } from "../script.js";
 
 const dinoSprite = new Image();
 dinoSprite.src = "../assets/dino/dino_all.png";

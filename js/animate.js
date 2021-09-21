@@ -18,6 +18,9 @@ import { drawDinoDesert } from "./desert_level/desert_dino.js";
 import { drawDinoWaiter } from "./restaurant_level/waiter.js";
 import { initMaze, maze } from "./dino_stein/raycasting.js";
 import { generateRain } from "./bridge_level/nuit_etoilée.js";
+import { drawDinoPiano } from "./bridge_level/dino_piano.js";
+import { generateBridge } from "./bridge_level/bridge.js";
+import { generatePiano } from "./bridge_level/piano.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -81,6 +84,13 @@ export function anim(game, dino, ctx) {
   }
   else if (game.level === 6) {
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // remove when game is all set//
+    game.isPlaying = true;
+    // remove when game is all set//
+
     generateRain(ctx, game);
+    drawDinoPiano(ctx, dino);
+    generateBridge(ctx);
+    generatePiano(ctx, game.frame);
   }
 }
