@@ -24,14 +24,14 @@ class Key {
     for (let i = 0; i < partition.length; i++) {
       sum += keys[i][2];
     }
-    this.y = -sum * 50 + this.length * 50;
+    this.y = -sum * 30 - this.length * 30;
   }
   drawTile(ctx) {
     this.updateTile();
-    ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 50);
+    ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 30);
   }
   updateTile() {
-    this.y++;
+    this.y += 1.2;
   }
 }
 
