@@ -83,14 +83,14 @@ export function anim(game, dino, ctx) {
     maze(ctx);
   }
   else if (game.level === 6) {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     // remove when game is all set//
     game.isPlaying = true;
     // remove when game is all set//
 
-    generateRain(ctx, game);
-    drawDinoPiano(ctx, dino);
-    generateBridge(ctx);
+    //generateRain(ctx, game);
+    //drawDinoPiano(ctx, dino);
+    //generateBridge(ctx);
     generatePiano(ctx, game.frame);
   }
 }

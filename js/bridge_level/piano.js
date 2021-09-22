@@ -18,6 +18,7 @@ class Key {
     this.file = name + ".mp3";
     this.y;
     this.getTime();
+    this.color;
   }
   getTime() {
     var sum = 0;
@@ -27,11 +28,22 @@ class Key {
     this.y = -sum * 30 - this.length * 30;
   }
   drawTile(ctx) {
+    console.log("toto");
     this.updateTile();
+    //this.checkCollision();
+    ctx.fillStyle = this.color;
     ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 30);
   }
   updateTile() {
     this.y += 1.2;
+  }
+  checkCollision() {
+    if (this.y < 300 || this.y + (this.length * 30) > 300) {
+      this.color = "blue";
+    }
+    else {
+      this.color = "red";
+    }
   }
 }
 
@@ -42,9 +54,19 @@ export function generatePiano(ctx, frame) {
     }
     oldFrame = frame;
   }
-  if (frame > oldFrame + 900) {
+  if (frame > oldFrame + 100) {
     for (let i = 0; i < partition.length; i++) {
       partition[i].drawTile(ctx);
     }
+    drawLine(ctx);
   }
+}
+
+function drawLine(ctx) {
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(0, 300);
+  ctx.lineTo(1200, 300);
+  ctx.stroke();
 }

@@ -22,8 +22,8 @@ class Plates {
   update(dino, ctx) {
     this.acc += 0.02;
     this.y += (this.vy + this.acc);
-    if (checkCollision(this.x, this.y, dino, ctx) == true) this.hasCollided = true; 
-    if (this.hasCollided == false)  this.draw();    
+    if (checkCollision(this.x, this.y, dino, ctx) == true) this.hasCollided = true;
+    if (this.hasCollided == false) this.draw();
   }
 }
 
