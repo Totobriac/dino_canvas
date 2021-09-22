@@ -9,6 +9,10 @@ const keys = [["Bb4", 0, 2], ["G5", 8, 5], ["F5", 7, 2], ["G5", 8, 2], ["F5", 7,
 
 var partition = [];
 var oldFrame = 0;
+var audio_file = "../assets/bridge_level/piano_mp3/B4.mp3";
+
+let audio;
+
 
 class Key {
   constructor(name, index, length) {
@@ -28,9 +32,8 @@ class Key {
     this.y = -sum * 30 - this.length * 30;
   }
   drawTile(ctx) {
-    console.log("toto");
     this.updateTile();
-    //this.checkCollision();
+    this.checkCollision();
     ctx.fillStyle = this.color;
     ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 30);
   }
@@ -38,11 +41,13 @@ class Key {
     this.y += 1.2;
   }
   checkCollision() {
-    if (this.y < 300 || this.y + (this.length * 30) > 300) {
+    if (this.y + (this.length * 30) < 300 || this.y > 300) {
       this.color = "blue";
     }
     else {
-      this.color = "red";
+      this.color = "red";      
+      audio_file = "../assets/bridge_level/piano_mp3/" + this.file;
+      audio = new Audio(audio_file);
     }
   }
 }
@@ -54,7 +59,7 @@ export function generatePiano(ctx, frame) {
     }
     oldFrame = frame;
   }
-  if (frame > oldFrame + 100) {
+  if (frame > oldFrame + 900) {
     for (let i = 0; i < partition.length; i++) {
       partition[i].drawTile(ctx);
     }
@@ -70,3 +75,22 @@ function drawLine(ctx) {
   ctx.lineTo(1200, 300);
   ctx.stroke();
 }
+
+document.addEventListener('keydown', function (event) {
+  switch (event.key) {
+    case "e":
+      // console.log(audio)
+      audio.currentTime = 0;
+      audio.play();
+      break;   
+  }
+});
+
+
+document.addEventListener('keyup', function (event) {
+  switch (event.key) {
+    case "e":
+      // audio.pause();
+      break;   
+  }
+});
