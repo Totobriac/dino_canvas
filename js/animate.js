@@ -93,4 +93,11 @@ export function anim(game, dino, ctx) {
     generateBridge(ctx);
     generatePiano(ctx, game.frame);
   }
+  else if(game.level === 7) {
+    // remove when game is all set//
+    game.isPlaying = true;
+    //remove when game is all set//
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+  }
 }

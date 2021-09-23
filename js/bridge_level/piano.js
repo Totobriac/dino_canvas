@@ -79,18 +79,8 @@ function drawLine(ctx) {
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
     case "e":
-      // console.log(audio)
       audio.currentTime = 0;
       audio.play();
-      break;   
-  }
-});
-
-
-document.addEventListener('keyup', function (event) {
-  switch (event.key) {
-    case "e":
-      // audio.pause();
       break;   
   }
 });
