@@ -11,5 +11,6 @@ export class Game {
     this.level4Started = false;
     this.level5Started = false;
     this.level6Started = false;
+    this.level7Started = false;
   }
 }
