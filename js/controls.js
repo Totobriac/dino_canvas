@@ -37,10 +37,11 @@ export class Control {
       game.mouseMovePosition = { x: position.x, y: position.y }
     });
     window.addEventListener('mousedown', function (e) {
-      if (game.level === 4) {
-        var position = getCursorPosition(canvas, e)
+      if (game.level === 4 || game.level === 8) {
+        var position = getCursorPosition(canvas, e);
         game.mousePosition = { x: position.x, y: position.y }
       }
+
     });
     window.addEventListener('keydown', function (e) {
       if (game.level === 7) {

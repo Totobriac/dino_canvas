@@ -68,7 +68,7 @@ export function generateRoad(game) {
   if (game.level7Started === false) {
     var sum = 0;
     var sections = [];
-    while (sum < 2500) {
+    while (sum < 50) {
       var sectionLength = 20 + 20 * (Math.floor(Math.random() * 3));
       sum += sectionLength;
       sections.push(sectionLength);

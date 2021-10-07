@@ -22,6 +22,7 @@ import { drawDinoPiano } from "./bridge_level/dino_piano.js";
 import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
+import { drawActions } from "./mansion_level/actions.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -101,5 +102,12 @@ export function anim(game, dino, ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateRoad(game);
     drawScenery(ctx);
+  }
+  else if(game.level === 8) {
+    // remove when game is all set//
+    game.isPlaying = true;
+    //remove when game is all set//
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawActions(ctx, game);   
   }
 }
