@@ -1,8 +1,6 @@
 var painting = new Image();
 painting.src = "../assets/bridge_level/starry_night_no_stars.png";
 
-// var bridge = new Image();
-// bridge.src = "../assets/bridge_level/pont_big.png";
 
 let particlesArray = [];
 const numberOfParticles = 400;
