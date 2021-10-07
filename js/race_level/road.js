@@ -1,4 +1,4 @@
-import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars } from "./drawRoad.js";
+import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
 
 var carSprite = new Image();
 carSprite.src = "../assets/road_level/red_coupe.png";
@@ -9,7 +9,7 @@ const camera = {
 }
 
 var roadWidth = 1200;
-var speed = 10;
+var speed = 20;
 var roadMark = 45;
 var middleLine = 20;
 var newZ = 100;
@@ -20,6 +20,8 @@ var tickCount = 0;
 var treeSprite = [{ x: 0, width: 50 }, { x: 50, width: 50 }, { x: 100, width: 60 }, { x: 160, width: 40 }, { x: 200, width: 60 },
 { x: 260, width: 40 }, { x: 300, width: 65 }, { x: 365, width: 60 }, { x: 425, width: 145 }, { x: 570, width: 170 }];
 var dY = calculateDY(camera.FOV);
+var showHotel = 0;
+var light = false;
 
 class Segment {
   constructor(z, c, s, sR, sL, xR, xL, bX, bS, rR) {
@@ -66,7 +68,7 @@ export function generateRoad(game) {
   if (game.level7Started === false) {
     var sum = 0;
     var sections = [];
-    while (sum < 50) {
+    while (sum < 2500) {
       var sectionLength = 20 + 20 * (Math.floor(Math.random() * 3));
       sum += sectionLength;
       sections.push(sectionLength);
@@ -103,9 +105,24 @@ function calculateDY(FOV) {
 export function drawScenery(ctx) {
   for (let i = 0; i < points.length; i++) {
     points[i].update(i);
-    if (points[0].z < 220) speed = 0;
+    if (points[0].z < 220) {
+      speed = 0;
+      showHotel += 0.01;
+    }
   }
-  drawBackground(ctx, playerX, points);
+  drawBackground(ctx, playerX, light);
+  if (points[0].z > 220) {
+    drawForest_1(ctx, playerX);
+    drawForest_2(ctx, playerX);
+  }
+  else {
+    if (showHotel >= 400) {
+      showHotel = 400;
+      light = true;
+    }
+    drawForest_1(ctx, showHotel);
+    drawForest_2(ctx, -showHotel);
+  }
   drawGrass(ctx, points);
   drawTrees(ctx, points);
   drawRoad(ctx, points);

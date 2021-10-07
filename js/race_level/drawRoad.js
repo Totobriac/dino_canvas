@@ -28,8 +28,15 @@ boarSprite.src = "../assets/road_level/run_left.png";
 var boarSpriteR = new Image();
 boarSpriteR.src = "../assets/road_level/run_right.png";
 
-var seaSprite = new Image();
-seaSprite.src = "../assets/restaurant_level/sea_animation.png";
+var mansionSprite = new Image();
+mansionSprite.src = "../assets/road_level/maniac_no_light_sm.png";
+
+var blackLightSprite = new Image();
+blackLightSprite.src = "../assets/road_level/black_light_sm.png";
+
+var yellowLightSprite = new Image();
+yellowLightSprite.src = "../assets/road_level/yellow_light_sm.png";
+
 
 var ticksPerFrame = 12;
 var frameIndex = 0;
@@ -82,7 +89,7 @@ function drawRoad(ctx, points) {
   }
 }
 
-function drawBackground(ctx, playerX, points) {
+function drawBackground(ctx, playerX, light) {
   ctx.drawImage(skySprite, 0, 150, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(cloudSprite_1, 0, 0, canvas.width, canvas.height, 600, 100, 400, 100);
   ctx.drawImage(rocksSprite, 360, 350, canvas.width, canvas.height, 0, 50, canvas.width, canvas.height);
@@ -92,10 +99,17 @@ function drawBackground(ctx, playerX, points) {
   ctx.drawImage(groundSprite_1, 0, 0, 600, 338, 300 + playerX * 0.05, 0, 600, 338);
   ctx.drawImage(groundSprite_1, 0, 0, 300, 338, 900 + playerX * 0.05, 0, 300, 338);
 
+  light == false ? ctx.drawImage(blackLightSprite, 380, 190): ctx.drawImage(yellowLightSprite, 380, 190);
+  ctx.drawImage(mansionSprite, 380, 190);
+}
+
+function drawForest_1(ctx, playerX) {
   ctx.drawImage(groundSprite_2, 300 - playerX * 0.1, 0, 300 + playerX * 0.1, 338, 0, 0, 300 + playerX * 0.1, 338);
   ctx.drawImage(groundSprite_2, 0, 0, 600, 338, 300 + playerX * 0.1, 0, 600, 338);
   ctx.drawImage(groundSprite_2, 0, 0, 300, 338, 900 + playerX * 0.1, 0, 300, 338);
+}
 
+function drawForest_2(ctx, playerX) {
   ctx.drawImage(groundSprite_3, 300 - playerX * 0.15, 0, 300 + playerX * 0.15, 338, 0, 0, 300 + playerX * 0.15, 338);
   ctx.drawImage(groundSprite_3, 0, 0, 600, 338, 300 + playerX * 0.15, 0, 600, 338);
   ctx.drawImage(groundSprite_3, 0, 0, 300, 338, 900 + playerX * 0.15, 0, 300, 338);
@@ -148,4 +162,4 @@ function checkFrame(tickCount, frames) {
   }
 }
 
-export { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, checkFrame };
+export { drawRoad, drawBackground, drawForest_1, drawForest_2, drawGrass, drawTrees, drawBoars, checkFrame };
