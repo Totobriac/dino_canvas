@@ -12,6 +12,37 @@
 <body>
   <canvas id="canvas"></canvas>
   <br>
+
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <filter id="turb0">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="0" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="3" />
+      </filter>
+
+      <filter id="turb1">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="1" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="4" />
+      </filter>
+
+      <filter id="turb2">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="2" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="5" />
+      </filter>
+
+      <filter id="turb3">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="3" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="6" />
+      </filter>
+
+      <filter id="turb4">
+        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="4" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="5" />
+      </filter>
+
+    </defs>
+  </svg>
+
   <script type="module" src="/js/script.js"></script>
 </body>
 
