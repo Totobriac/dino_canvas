@@ -23,6 +23,8 @@ import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
 import { drawActions } from "./mansion_level/actions.js";
+import { drawOutsideScenery } from "./mansion_level/outside_mansion.js";
+
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -108,6 +110,7 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     //remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawOutsideScenery(ctx);
     drawActions(ctx, game);   
   }
 }
