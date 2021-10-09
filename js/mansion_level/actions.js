@@ -20,16 +20,16 @@ class Action {
 }
 
 function createActions() {
-  var aY1 = 60;
-  var aY2 = 60;
+  var aY1 = 35;
+  var aY2 = 35;
   for (let i = 0; i < actionsList.length; i++) {
     if (i <= 4) {
-      var act = new Action(actionsList[i], 880, aY1);
+      var act = new Action(actionsList[i], 900, aY1);
       actions.push(act);
       aY1 += 50;
     }
     else {
-      var act = new Action(actionsList[i], 1030, aY2);
+      var act = new Action(actionsList[i], 1050, aY2);
       actions.push(act);
       aY2 += 50;
     }
@@ -43,14 +43,16 @@ export function drawActions(ctx, game) {
     createActions();
     game.level8Started = true;
   }
+  ctx.fillStyle = "purple";
+  ctx.fillRect(895,0,305,400)
   for (let i = 0; i < actions.length; i++) {
     ctx.filter = "url(#turb" + actions[i].filter + ")";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
     ctx.strokeRect(actions[i].x, actions[i].y - 30, 145, 45);
-    actions[i].isHovered === true ?  ctx.fillStyle = "black" : ctx.fillStyle = "white";
+    actions[i].isHovered === true ? ctx.fillStyle = "black" : ctx.fillStyle = "white";
     ctx.fillRect(actions[i].x, actions[i].y - 30, 145, 45);
-    actions[i].isHovered === true ?  ctx.fillStyle = "white" : ctx.fillStyle = "black";
+    actions[i].isHovered === true ? ctx.fillStyle = "white" : ctx.fillStyle = "black";
     ctx.font = "30px Garamond";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -58,12 +60,13 @@ export function drawActions(ctx, game) {
   }
   checkAction(game.mousePosition, game.mouseMovePosition, ctx);
   animateText();
+  drawObjects(ctx);
 }
 
 function checkAction(mouse, mouseMove, ctx) {
   for (let i = 0; i < actions.length; i++) {
     if (mouseMove.x > actions[i].x && mouseMove.x < actions[i].x + 145 && mouseMove.y < actions[i].y && mouseMove.y > actions[i].y - 45) {
-      actions[i].isHovered = true; 
+      actions[i].isHovered = true;
     }
     else {
       actions[i].isHovered = false;
@@ -72,9 +75,14 @@ function checkAction(mouse, mouseMove, ctx) {
       if (oldSelection != undefined) actions[oldSelection].filter = "none";
       actions[i].filter = filter;
       oldSelection = i;
-      ctx.filter="none";
+      ctx.filter = "none";
     }
   }
+}
+
+function drawObjects(ctx) {  
+  ctx.fillStyle = "orange";
+  ctx.fillRect(900, 255, 295, 140);
 }
 
 function animateText() {
