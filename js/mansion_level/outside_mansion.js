@@ -22,8 +22,15 @@ peeWeeSprite.src = "../assets/mansion_level/pee_wee.png";
 var catSitSprite = new Image();
 catSitSprite.src = "../assets/mansion_level/cat_line_sit.png";
 
+var tickCount = 0;
+var ticksPerFrame = 12;
+var catFrame = 0;
+
 
 export function drawOutsideScenery(ctx) {
+
+  tickCount++;
+
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
 
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
@@ -44,8 +51,23 @@ export function drawOutsideScenery(ctx) {
 
   ctx.save();
   ctx.translate(750, 250);
-
   ctx.rotate(4 * Math.PI / 180);
   ctx.drawImage(peeWeeSprite, 0, 0, 47, 62);
   ctx.restore();
+
+  catFrame = checkFrame(tickCount, 16, catFrame);
+  ctx.drawImage(catSitSprite, catFrame * 169, 0, 168, 126, -25, 124, 111, 88);
+}
+
+function checkFrame(tickCount, frames, frameIndex) {
+  if (tickCount > ticksPerFrame) {
+    tickCount = 0;
+    if (frameIndex < frames - 1) {
+      frameIndex += 1;
+      return frameIndex;
+    } else {
+      frameIndex = 0;
+      return frameIndex;
+    }
+  }
 }
