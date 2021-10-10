@@ -6,7 +6,6 @@ var maxTick = 3;
 var tick = 0;
 var filter = 0;
 var oldSelection;
-var oldHoverSelection;
 
 
 class Action {

@@ -28,7 +28,11 @@ var binSprite = new Image();
 binSprite.src = "../assets/mansion_level/trash_pix_sm.png";
 
 var cameraSprite= new Image();
-cameraSprite.src = "../assets/mansion_level/cctv.png";
+cameraSprite.src = "../assets/mansion_level/grey_cam.png";
+
+var ringSprite= new Image();
+ringSprite.src = "../assets/mansion_level/ring.png";
+
 
 
 
@@ -59,4 +63,5 @@ export function drawOutsideScenery(ctx) {
   sittingCat.draw(ctx, -25, 145);
   trash.draw(ctx, 640, 315);
   camera.draw(ctx, 468,95);
+  ctx.drawImage(ringSprite, 315, 250, 50,50);
 }
