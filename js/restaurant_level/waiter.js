@@ -8,13 +8,14 @@ const traySprite = new Image();
 traySprite.src = "../assets/restaurant_level/tray.png";
 
 import { dino } from "../script.js";
+import { game } from "../script.js";
 
 var walkLeft = false;
 var width = 66;
 var height = 70;
 var trayX;
 
-function walk(side) {
+export function walk(side) {
   dino.vx = 4 * side;
   side === 1 ? walkLeft = false : walkLeft = true;
 }
@@ -27,7 +28,7 @@ export function drawDinoWaiter(ctx, dino) {
   else {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
   }
-  createtray(ctx, dino);
+  if (game.level === 2) createtray(ctx, dino);
 };
 
 function update(dino) {
@@ -43,5 +44,3 @@ function createtray(ctx, dino) {
   walkLeft === false ? trayX = 48 : trayX = -32;
   ctx.drawImage(traySprite, dino.x + trayX, dino.y + 10,);
 }
-
-export { walk }

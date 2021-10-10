@@ -111,6 +111,6 @@ export function anim(game, dino, ctx) {
     //remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawOutsideScenery(ctx);
-    drawActions(ctx, game);   
+    drawActions(ctx, game);
   }
 }
