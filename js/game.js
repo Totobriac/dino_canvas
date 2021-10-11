@@ -6,7 +6,7 @@ export class Game {
     this.isPlaying = false;
     this.bino = false;
     this.level = 8;
-    this.level === 8 ? this.mousePosition = { x: 820, y: 300 } : this.mousePosition = { x: 600, y: 200 };
+    this.level === 8 ? this.mousePosition = { x: 400, y: 300 } : this.mousePosition = { x: 600, y: 200 };
     this.mouseMovePosition = { x: 600, y: 200 };
     this.level4Started = false;
     this.level5Started = false;
