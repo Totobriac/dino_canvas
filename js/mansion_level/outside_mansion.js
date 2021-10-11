@@ -27,12 +27,17 @@ catSitSprite.src = "../assets/mansion_level/cat_sit_sm.png";
 var binSprite = new Image();
 binSprite.src = "../assets/mansion_level/trash_pix_sm.png";
 
-var cameraSprite= new Image();
+var cameraSprite = new Image();
 cameraSprite.src = "../assets/mansion_level/grey_cam.png";
 
-var ringSprite= new Image();
+var ringSprite = new Image();
 ringSprite.src = "../assets/mansion_level/ring.png";
 
+var moonSprite = new Image();
+moonSprite.src = "../assets/mansion_level/pix_yell_moon.png";
+
+var moonLightSprite = new Image();
+moonLightSprite.src = "../assets/mansion_level/pix_yell_moon_light.png";
 
 
 
@@ -47,8 +52,10 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
   ctx.drawImage(lightSprite, 650, 0, 130, 144);
   ctx.drawImage(mansionSprite, 650, 0, 130, 144);
+  ctx.drawImage(moonLightSprite, 85, 55, 80, 80);
+  ctx.drawImage(moonSprite, 100, 70, 50, 50);
   ctx.fillStyle = ("grey");
-  ctx.fillRect(0, 370, canvas.width, 30)
+  ctx.fillRect(0, 370, canvas.width, 30);
   ctx.drawImage(wallSprite, 0, 210, 160, 160);
   ctx.drawImage(wallSprite, 160, 210, 160, 160);
   ctx.drawImage(wallSprite, 552, 210, 160, 160);
@@ -62,6 +69,6 @@ export function drawOutsideScenery(ctx) {
   ctx.restore();
   sittingCat.draw(ctx, -25, 145);
   trash.draw(ctx, 640, 315);
-  camera.draw(ctx, 468,95);
-  ctx.drawImage(ringSprite, 315, 250, 50,50);
+  camera.draw(ctx, 468, 95);
+  ctx.drawImage(ringSprite, 315, 250, 50, 50);
 }

@@ -42,6 +42,48 @@ class Dino {
     let row = Math.floor(this.frameIndex / columns);
     this.ctx.drawImage(sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth * scale, this.spriteHeight * scale);
   }
+  moveAround(game) {
+    var mouseX = game.mousePosition.x;
+    var mouseY = game.mousePosition.y;
+    var dx;
+    this.x - mouseX < 0 ? dx = this.x - mouseX + 80 : dx = this.x - mouseX;
+    var dy;
+    this.y - mouseY < 0 ? dy = this.y - mouseY + 70 : dy = this.y - mouseY + 100;
+    if (mouseX != this.x && (dx > 10 || dx < -10)) {
+      this.isMoving = true;
+      dx > 0 ? this.x -= game.gamespeed * 0.5 : this.x += game.gamespeed * 0.5;
+    }
+    if (mouseY != this.y && (dy > 10 || dy < -10)) {
+      this.isMoving = true;
+      dy > 0 ? this.y -= game.gamespeed * 0.5 : this.y += game.gamespeed * 0.5;
+    }
+    if (dx <= 10 && dx >= -10) {
+      this.isMoving = false;
+    }
+    dx > 0 ? this.isWalkingLeft = true : this.isWalkingLeft = false;
+  }
+  animateDino() {
+    if (this.isWalkingLeft == true) {
+      this.isMoving == false ? this.draw(1, 1, dinoSpriteLeft, 0.8) : this.draw(2, 2, dinoWalkLeft, 0.8);
+    }
+    else {
+      this.isMoving == false ? this.draw(1, 1, dinoSprite, 0.8) : this.draw(2, 2, dinoWalk, 0.8);
+    }
+  }
+  checkBundaries(right, left, top, bottom) {
+    if (this.x >= right) {
+      this.x = right;
+    }
+    if (this.x <= left) {
+      this.x = left;
+    }
+    if (this.y <= top) {
+      this.y = top;
+    }
+    if (this.y >= bottom) {
+      this.y = bottom;
+    }
+  }
 }
 
 export function generateDino(ctx, game) {
@@ -50,37 +92,7 @@ export function generateDino(ctx, game) {
     dino = new Dino(ctx, 820, 300, 90, 99);
     game.level8Dino = true;
   }
-
-  moveAround(game);
-  animateDino();
-}
-
-function moveAround(game) {
-  var mouseX = game.mousePosition.x;
-  var mouseY = game.mousePosition.y;
-  const dx = dino.x - mouseX;
-  const dy = dino.y - mouseY;
-  if (game.mousePosition.x != dino.x) {
-    dino.isMoving = true;
-    // dino.x -= dx / 80 * 0.9;
-    dx > 0 ? dino.x -= game.gamespeed : dino.x += game.gamespeed;
-  }
-  if (game.mousePosition.y != dino.y) {
-    dino.isMoving = true;
-    dino.y -= dy / 80;
-  }
-  if (game.mousePosition.y < Math.floor(dino.y) * 1.05 && game.mousePosition.x < Math.floor(dino.x) * 1.05
-    && game.mousePosition.y > Math.floor(dino.y) * 0.95 && game.mousePosition.x > Math.floor(dino.x) * 0.95) {
-    dino.isMoving = false;
-  }
-  dx > 0 ? dino.isWalkingLeft = true : dino.isWalkingLeft = false;
-}
-
-function animateDino() {
-  if (dino.isWalkingLeft == true) {
-    dino.isMoving == false ? dino.draw(1, 1, dinoSpriteLeft, 0.8) : dino.draw(2, 2, dinoWalkLeft, 0.8);
-  }
-  else {
-    dino.isMoving == false ? dino.draw(1, 1, dinoSprite, 0.8) : dino.draw(2, 2, dinoWalk, 0.8);
-  }
+  dino.moveAround(game);
+  dino.checkBundaries(820, 0, 295, 320);
+  dino.animateDino();
 }
