@@ -1,4 +1,4 @@
-import {trash} from "./outside_mansion.js"
+import { trash } from "./outside_mansion.js"
 
 var dinoSprite = new Image();
 dinoSprite.src = "../assets/dino/dino_still.png";
@@ -13,6 +13,7 @@ var dinoWalkLeft = new Image();
 dinoWalkLeft.src = "../assets/dino/dino_walk_left.png";
 
 var dino;
+var trashCollision = false;
 
 class Dino {
   constructor(ctx, x, y, width, height) {
@@ -46,7 +47,7 @@ class Dino {
     let row = Math.floor(this.frameIndex / columns);
     this.ctx.drawImage(sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth * scale, this.spriteHeight * scale);
   }
-  moveAround(game) {
+  moveAround(game, collision, trash) {
     var mouseX = game.mousePosition.x;
     var mouseY = game.mousePosition.y;
     var dx;
@@ -55,7 +56,15 @@ class Dino {
     this.y - mouseY < 0 ? dy = this.y - mouseY + 70 : dy = this.y - mouseY + 100;
     if (mouseX != this.x && (dx > 10 || dx < -10)) {
       this.isMoving = true;
-      dx > 0 ? this.x -= game.gamespeed * 0.5 : this.x += game.gamespeed * 0.5;
+      if (collision == false) dx > 0 ? this.x -= game.gamespeed * 0.5 : this.x += game.gamespeed * 0.5;
+      if (collision == true && this.x < trash.x && dx >= 0) {
+        this.isMoving = true;
+        this.x -= game.gamespeed * 0.5;
+      };
+      if (collision == true && this.x > trash.x && dx <= 0) {
+        this.isMoving = true;
+        this.x += game.gamespeed * 0.5;
+      }
     }
     if (mouseY != this.y && (dy > 10 || dy < -10)) {
       this.isMoving = true;
@@ -64,14 +73,23 @@ class Dino {
     if (dx <= 10 && dx >= -10) {
       this.isMoving = false;
     }
+    if (collision == true) this.isMoving = false;
     dx > 0 ? this.isWalkingLeft = true : this.isWalkingLeft = false;
   }
   animateDino() {
     if (this.isWalkingLeft == true) {
-      this.isMoving == false ? this.draw(1, 1, dinoSpriteLeft, 0.8) : this.draw(2, 2, dinoWalkLeft, 0.8);
+      if (this.isMoving == false) {
+        this.frameIndex = 0;
+        this.draw(1, 1, dinoSpriteLeft, 0.8);
+      }
+      else { this.draw(2, 2, dinoWalkLeft, 0.8) };
     }
     else {
-      this.isMoving == false ? this.draw(1, 1, dinoSprite, 0.8) : this.draw(2, 2, dinoWalk, 0.8);
+      if (this.isMoving == false) {
+        this.frameIndex = 0;
+        this.draw(1, 1, dinoSprite, 0.8);
+      }
+      else { this.draw(2, 2, dinoWalk, 0.8) }
     }
   }
   checkBundaries(right, left, top, bottom) {
@@ -96,8 +114,8 @@ export function generateDino(ctx, game) {
     dino = new Dino(ctx, 820, 300, 90, 99);
     game.level8Dino = true;
   }
-  dino.moveAround(game);
+  trashCollision = trash.checkCollision(dino.x, dino.y, dino.spriteWidth * dino.scale, dino.spriteHeight * dino.scale);
+  dino.moveAround(game, trashCollision, trash);
   dino.checkBundaries(820, 0, 295, 320);
-  trash.checkCollision(dino.x, dino.y, dino.spriteWidth * dino.scale, dino.spriteHeight * dino.scale);
   dino.animateDino();
 }

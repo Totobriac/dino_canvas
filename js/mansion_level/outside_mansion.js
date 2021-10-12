@@ -28,7 +28,7 @@ var binSprite = new Image();
 binSprite.src = "../assets/mansion_level/trash_pix_sm.png";
 
 var cameraSprite = new Image();
-cameraSprite.src = "../assets/mansion_level/grey_cam.png";
+cameraSprite.src = "../assets/mansion_level/grey_cam_pix_2.png";
 
 var ringSprite = new Image();
 ringSprite.src = "../assets/mansion_level/ring.png";

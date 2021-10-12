@@ -33,14 +33,14 @@ export class Sprite {
   }
   checkCollision(x, y, w, h) {
     if (x + w < this.x || x > this.x + (this.spriteWidth * this.scale)) {
-      console.log("no")
+      return false;
     }
     else {
       if (y + h > this.y + (this.spriteHeight * this.scale) || y + h < this.y) {
-        console.log("no")
+        return false;
       }
       else {
-        console.log(y , this.y + (this.spriteHeight * this.scale),  y + h , this.y)
+        return true;
       }
     }
   }
