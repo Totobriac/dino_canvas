@@ -24,7 +24,7 @@ import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
 import { drawActions } from "./mansion_level/actions.js";
 import { drawOutsideScenery } from "./mansion_level/outside_mansion.js";
-import { generateDino } from "./mansion_level/dino.js";
+import { generateDino } from "./mansion_level/maniacDino.js";
 
 
 export function anim(game, dino, ctx) {

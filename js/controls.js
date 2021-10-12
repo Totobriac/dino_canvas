@@ -33,13 +33,13 @@ export class Control {
       }
     });
     window.addEventListener('mousemove', function (e) {
-      var position = getCursorPosition(canvas, e)
-      game.mouseMovePosition = { x: position.x, y: position.y }
+      var position = getCursorPosition(canvas, e);
+      if (position ) game.mouseMovePosition = { x: position.x, y: position.y };
     });
     window.addEventListener('mousedown', function (e) {
       if (game.level === 4 || game.level === 8) {
         var position = getCursorPosition(canvas, e);
-        game.mousePosition = { x: position.x, y: position.y }
+        if (position)game.mousePosition = { x: position.x, y: position.y }
       }
 
     });
@@ -70,8 +70,12 @@ export class Control {
 }
 
 function getCursorPosition(canvas, event) {
-  const rect = canvas.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
-  return { x: x, y: y }
+  var isInside;
+  var xM = event.clientX;
+  var yM = event.clientY;
+  const rect = canvas.getBoundingClientRect();
+  const x = xM - rect.left;
+  const y = yM - rect.top;
+  xM > rect.left && xM < rect.right &&  yM < rect.bottom && yM > rect.top ? isInside = true : isInside = false;
+  if (isInside == true) return { x: x, y: y };
 }
