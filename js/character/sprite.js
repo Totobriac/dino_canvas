@@ -42,6 +42,10 @@ export class Sprite {
       else {
         return true;
       }
-    }
+    } 
+  }
+  update(x, y) {
+    this.x = x;
+    this.y = y;
   }
 }
