@@ -1,5 +1,5 @@
 export class Sprite {
-  constructor(sprite,frames, columns, spriteWidth, spriteHeight, scale) {
+  constructor(sprite, frames, columns, spriteWidth, spriteHeight, scale) {
     this.sprite = sprite;
     this.frameIndex = 0;
     this.ticksPerFrame = 12;
@@ -9,6 +9,8 @@ export class Sprite {
     this.spriteWidth = spriteWidth;
     this.spriteHeight = spriteHeight;
     this.scale = scale;
+    this.x;
+    this.y;
   };
   checkFrame() {
     this.tickCount++;
@@ -21,10 +23,25 @@ export class Sprite {
       }
     }
   }
-  draw(ctx,x,y) {
+  draw(ctx, x, y) {
+    this.x = x;
+    this.y = y;
     this.checkFrame();
     let column = this.frameIndex % this.columns;
     let row = Math.floor(this.frameIndex / this.columns);
     ctx.drawImage(this.sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, x, y, this.spriteWidth * this.scale, this.spriteHeight * this.scale);
+  }
+  checkCollision(x, y, w, h) {
+    if (x + w < this.x || x > this.x + (this.spriteWidth * this.scale)) {
+      console.log("no")
+    }
+    else {
+      if (y + h > this.y + (this.spriteHeight * this.scale) || y + h < this.y) {
+        console.log("no")
+      }
+      else {
+        console.log(y , this.y + (this.spriteHeight * this.scale),  y + h , this.y)
+      }
+    }
   }
 }

@@ -72,3 +72,5 @@ export function drawOutsideScenery(ctx) {
   camera.draw(ctx, 468, 95);
   ctx.drawImage(ringSprite, 315, 250, 50, 50);
 }
+
+export { trash }

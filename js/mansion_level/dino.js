@@ -1,3 +1,5 @@
+import {trash} from "./outside_mansion.js"
+
 var dinoSprite = new Image();
 dinoSprite.src = "../assets/dino/dino_still.png";
 
@@ -24,6 +26,7 @@ class Dino {
     this.tickCount = 0;
     this.isMoving = false;
     this.isWalkingLeft = true;
+    this.scale;
   }
   checkFrame(frames) {
     this.tickCount++;
@@ -37,6 +40,7 @@ class Dino {
     }
   }
   draw(frames, columns, sprite, scale) {
+    this.scale = scale
     this.checkFrame(frames);
     let column = this.frameIndex % columns;
     let row = Math.floor(this.frameIndex / columns);
@@ -94,5 +98,6 @@ export function generateDino(ctx, game) {
   }
   dino.moveAround(game);
   dino.checkBundaries(820, 0, 295, 320);
+  trash.checkCollision(dino.x, dino.y, dino.spriteWidth * dino.scale, dino.spriteHeight * dino.scale);
   dino.animateDino();
 }
