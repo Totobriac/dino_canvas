@@ -68,7 +68,7 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(peeWeeSprite, 0, 0, 47, 62);
   ctx.restore();
   sittingCat.draw(ctx, -25, 145);
-  trash.draw(ctx, 640, 315);
+  trash.draw(ctx, 640, 320);
   camera.draw(ctx, 468, 95);
   ctx.drawImage(ringSprite, 315, 250, 50, 50);
 }
