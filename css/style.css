@@ -7,3 +7,8 @@
   width: 1200px;
   border: 2px solid black;
 }
+
+@font-face {
+  font-family: "Tentacle";
+  src: url("../assets/fonts/DayOfTheTentacle-vnBL.ttf");
+}

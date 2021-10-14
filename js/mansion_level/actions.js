@@ -25,7 +25,7 @@ class Action {
     this.isHovered === true ? this.ctx.fillStyle = "black" : this.ctx.fillStyle = "white";
     this.ctx.fillRect(this.x, this.y - 30, 145, 45);
     this.isHovered === true ? this.ctx.fillStyle = "white" : this.ctx.fillStyle = "black";
-    this.ctx.font = "30px Garamond";
+    this.ctx.font = "40px Tentacle";
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.fillText(this.action, this.x + 70, this.y - 5);
@@ -58,9 +58,11 @@ export function drawActions(ctx, game) {
   ctx.fillStyle = "purple";
   ctx.fillRect(895, 0, 305, 400)
   for (let i = 0; i < actions.length; i++) {
-    actions[i].draw();    
+    actions[i].draw();
   }
   checkAction(game.mousePosition, game.mouseMovePosition, ctx);
+  ctx.filter = "none";
+
   animateText();
   drawObjects(ctx);
 }
@@ -80,9 +82,9 @@ function checkAction(mouse, mouseMove, ctx) {
       selectedAction = actions[i].action;
       actions[i].filter = filter;
       oldSelection = i;
-      ctx.filter = "none";
     }
   }
+  if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) actions[oldSelection].filter = "none";
 }
 
 function drawObjects(ctx) {

@@ -1,4 +1,5 @@
 import { Sprite } from "../character/sprite.js";
+import { isNearCat } from "./gameMecanic.js";
 
 var mansionSprite = new Image();
 mansionSprite.src = "../assets/mansion_level/maniac_no_light.png";
@@ -45,6 +46,9 @@ bowie.src = "../assets/mansion_level/bowie_pi.png";
 var ivySprite = new Image();
 ivySprite.src = "../assets/mansion_level/pix_ivy.png";
 
+var catWalkingLeft = new Image();
+catWalkingLeft.src = "../assets/mansion_level/cat_walking.png";
+
 var sittingCat = new Sprite("cat", catSitSprite, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
 var camera = new Sprite("cctv", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
@@ -53,6 +57,8 @@ var bowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
 var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
+
+var catWalkLeft = new Sprite("catWalkLeft", catWalkingLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 
 
 var sprites = [sittingCat, trash, camera, ring, gate, bowie];
@@ -84,7 +90,7 @@ export function drawOutsideScenery(ctx) {
   poster.draw(ctx);
   ctx.restore();
 
-  sittingCat.draw(ctx);
+  isNearCat == false ? sittingCat.draw(ctx) : catWalkLeft.draw(ctx);
 
   trash.draw(ctx);
 
@@ -95,4 +101,4 @@ export function drawOutsideScenery(ctx) {
   ivy.draw(ctx);
 }
 
-export { trash, sprites };
+export { trash, sittingCat, sprites };
