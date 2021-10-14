@@ -1,5 +1,6 @@
 export class Sprite {
-  constructor(sprite, frames, columns, spriteWidth, spriteHeight, scale) {
+  constructor(name, sprite, x, y, frames, columns, spriteWidth, spriteHeight, scale) {
+    this.name = name;
     this.sprite = sprite;
     this.frameIndex = 0;
     this.ticksPerFrame = 12;
@@ -9,8 +10,8 @@ export class Sprite {
     this.spriteWidth = spriteWidth;
     this.spriteHeight = spriteHeight;
     this.scale = scale;
-    this.x;
-    this.y;
+    this.x = x;
+    this.y = y;
   };
   checkFrame() {
     this.tickCount++;
@@ -23,13 +24,11 @@ export class Sprite {
       }
     }
   }
-  draw(ctx, x, y) {
-    this.x = x;
-    this.y = y;
+  draw(ctx) {
     this.checkFrame();
     let column = this.frameIndex % this.columns;
     let row = Math.floor(this.frameIndex / this.columns);
-    ctx.drawImage(this.sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, x, y, this.spriteWidth * this.scale, this.spriteHeight * this.scale);
+    ctx.drawImage(this.sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth * this.scale, this.spriteHeight * this.scale);
   }
   checkCollision(x, y, w, h) {
     if (x + w < this.x || x > this.x + (this.spriteWidth * this.scale)) {
@@ -42,10 +41,10 @@ export class Sprite {
       else {
         return true;
       }
-    } 
+    }
   }
   update(x, y) {
-    this.x = x;
-    this.y = y;
+    this.x += x;
+    this.y += y;
   }
 }

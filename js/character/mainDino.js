@@ -29,6 +29,10 @@ class Dino {
     let column = this.frameIndex % columns;
     let row = Math.floor(this.frameIndex / columns);
     this.ctx.drawImage(sprite, column * this.spriteWidth, row * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth * scale, this.spriteHeight * scale);
+  }
+  update(x,y) {
+    this.x += x;
+    this.y += y;
   }  
 }
 

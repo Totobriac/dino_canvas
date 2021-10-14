@@ -22,9 +22,7 @@ import { drawDinoPiano } from "./bridge_level/dino_piano.js";
 import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
-import { drawActions } from "./mansion_level/actions.js";
-import { drawOutsideScenery } from "./mansion_level/outside_mansion.js";
-import { generateDino } from "./mansion_level/maniacDino.js";
+import { pointNClick } from "./mansion_level/gameMecanic.js";
 
 
 export function anim(game, dino, ctx) {
@@ -111,8 +109,6 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     //remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawOutsideScenery(ctx);
-    drawActions(ctx, game);
-    generateDino(ctx, game);
+    pointNClick(ctx, game);
   }
 }

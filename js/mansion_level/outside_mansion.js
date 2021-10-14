@@ -39,12 +39,23 @@ moonSprite.src = "../assets/mansion_level/pix_yell_moon.png";
 var moonLightSprite = new Image();
 moonLightSprite.src = "../assets/mansion_level/pix_yell_moon_light.png";
 
+var bowie = new Image();
+bowie.src = "../assets/mansion_level/bowie_pi.png";
+
+var ivySprite = new Image();
+ivySprite.src = "../assets/mansion_level/pix_ivy.png";
+
+var sittingCat = new Sprite("cat", catSitSprite, -25, 145, 16, 4, 111.5, 83.5, 0.8);
+var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
+var camera = new Sprite("cctv", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
+var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
+var bowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
+var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
+var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
+var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 
 
-var sittingCat = new Sprite(catSitSprite, 16, 4, 111.5, 83.5, 0.8);
-var trash = new Sprite(binSprite, 1, 1, 1676, 2094, 0.03);
-var camera = new Sprite(cameraSprite, 1, 1, 800, 800, 0.12)
-
+var sprites = [sittingCat, trash, camera, ring, gate, bowie];
 
 export function drawOutsideScenery(ctx) {
 
@@ -56,21 +67,32 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(moonSprite, 100, 70, 50, 50);
   ctx.fillStyle = ("grey");
   ctx.fillRect(0, 370, canvas.width, 30);
+
   ctx.drawImage(wallSprite, 0, 210, 160, 160);
   ctx.drawImage(wallSprite, 160, 210, 160, 160);
   ctx.drawImage(wallSprite, 552, 210, 160, 160);
   ctx.drawImage(wallSprite, 712, 210, 160, 160);
   ctx.drawImage(wallSprite, 872, 210, 160, 160);
-  ctx.drawImage(gateSprite, 256, 140, 360, 240);
+
+  gate.draw(ctx);
+
+  bowie.draw(ctx);
+
   ctx.save();
-  ctx.translate(750, 250);
+  ctx.translate(740, 230);
   ctx.rotate(4 * Math.PI / 180);
-  ctx.drawImage(peeWeeSprite, 0, 0, 47, 62);
+  poster.draw(ctx);
   ctx.restore();
-  sittingCat.draw(ctx, -25, 145);
-  trash.draw(ctx, 640, 320);
-  camera.draw(ctx, 468, 95);
-  ctx.drawImage(ringSprite, 315, 250, 50, 50);
+
+  sittingCat.draw(ctx);
+
+  trash.draw(ctx);
+
+  camera.draw(ctx);
+
+  ring.draw(ctx);
+
+  ivy.draw(ctx);
 }
 
-export { trash }
+export { trash, sprites };

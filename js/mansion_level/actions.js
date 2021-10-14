@@ -6,56 +6,59 @@ var maxTick = 3;
 var tick = 0;
 var filter = 0;
 var oldSelection;
-
+var selectedAction;
 
 class Action {
-  constructor(action, x, y) {
+  constructor(action, x, y, ctx) {
     this.action = action;
     this.y = y;
     this.x = x;
+    this.ctx = ctx;
     this.filter = "none";
     this.isHovered = false;
   }
+  draw() {
+    this.ctx.filter = "url(#turb" + this.filter + ")";
+    this.ctx.strokeStyle = "black";
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeRect(this.x, this.y - 30, 145, 45);
+    this.isHovered === true ? this.ctx.fillStyle = "black" : this.ctx.fillStyle = "white";
+    this.ctx.fillRect(this.x, this.y - 30, 145, 45);
+    this.isHovered === true ? this.ctx.fillStyle = "white" : this.ctx.fillStyle = "black";
+    this.ctx.font = "30px Garamond";
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText(this.action, this.x + 70, this.y - 5);
+  }
 }
 
-function createActions() {
+function createActions(ctx) {
   var aY1 = 35;
   var aY2 = 35;
   for (let i = 0; i < actionsList.length; i++) {
     if (i <= 4) {
-      var act = new Action(actionsList[i], 900, aY1);
+      var act = new Action(actionsList[i], 900, aY1, ctx);
       actions.push(act);
       aY1 += 50;
     }
     else {
-      var act = new Action(actionsList[i], 1050, aY2);
+      var act = new Action(actionsList[i], 1050, aY2, ctx);
       actions.push(act);
       aY2 += 50;
     }
   }
-  console.log(actions)
 }
 
 
 export function drawActions(ctx, game) {
   if (game.level8Started === false) {
-    createActions();
+    createActions(ctx);
     game.level8Started = true;
   }
   ctx.fillStyle = "purple";
-  ctx.fillRect(895,0,305,400)
+  ctx.fillRect(895, 0, 305, 400)
   for (let i = 0; i < actions.length; i++) {
-    ctx.filter = "url(#turb" + actions[i].filter + ")";
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(actions[i].x, actions[i].y - 30, 145, 45);
-    actions[i].isHovered === true ? ctx.fillStyle = "black" : ctx.fillStyle = "white";
-    ctx.fillRect(actions[i].x, actions[i].y - 30, 145, 45);
-    actions[i].isHovered === true ? ctx.fillStyle = "white" : ctx.fillStyle = "black";
-    ctx.font = "30px Garamond";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(actions[i].action, actions[i].x + 70, actions[i].y - 5);
+    actions[i].draw();    
   }
   checkAction(game.mousePosition, game.mouseMovePosition, ctx);
   animateText();
@@ -71,7 +74,10 @@ function checkAction(mouse, mouseMove, ctx) {
       actions[i].isHovered = false;
     }
     if (mouse.x > actions[i].x && mouse.x < actions[i].x + 145 && mouse.y < actions[i].y && mouse.y > actions[i].y - 45) {
-      if (oldSelection != undefined) actions[oldSelection].filter = "none";
+      if (oldSelection != undefined) {
+        actions[oldSelection].filter = "none";
+      }
+      selectedAction = actions[i].action;
       actions[i].filter = filter;
       oldSelection = i;
       ctx.filter = "none";
@@ -79,7 +85,7 @@ function checkAction(mouse, mouseMove, ctx) {
   }
 }
 
-function drawObjects(ctx) {  
+function drawObjects(ctx) {
   ctx.fillStyle = "orange";
   ctx.fillRect(900, 255, 295, 140);
 }
@@ -92,3 +98,4 @@ function animateText() {
   }
 }
 
+export { selectedAction };
