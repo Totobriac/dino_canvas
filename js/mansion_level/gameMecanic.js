@@ -1,6 +1,6 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions } from "./actions.js";
-import { trash, sittingCat, sprites } from "./outside_mansion.js";
+import { trash, cat, sprites } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction } from "./actions.js";
 
@@ -8,7 +8,8 @@ var dino;
 var selectedSprite;
 var isInReach;
 
-var isNearCat;
+var isDinoLeft;
+var isCatRight;
 
 export function pointNClick(ctx, game) {
 
@@ -18,17 +19,10 @@ export function pointNClick(ctx, game) {
   }
   drawOutsideScenery(ctx);
   drawActions(ctx, game);
+
   if (game.mousePosition.x < 910) dino.moveAround(game, trash);
-  // if (dino.x < 150) {
-    isNearCat = true;
-    // if (sittingCat.x < 200) {
-    console.log(sittingCat);
-    sittingCat.update(2, 0);
-    // }
-  // }
-  // else {
-  //   isNearCat = false;
-  // }
+
+  dodgyCat();
   dino.checkBundaries(820, 0, 295, 320);
   dino.animateDino();
 
@@ -80,4 +74,23 @@ function drawText(ctx, text) {
   ctx.fillText(text, 100, 50);
 }
 
-export { isNearCat };
+function dodgyCat() {
+
+  if (dino.x < 150) {
+    isDinoLeft = true;
+    isCatRight = true;
+    if (cat.x < 230) {
+      cat.update(3, 0);
+    }
+  }
+  else {
+    isDinoLeft = false;
+  }
+  if (isDinoLeft == false && isCatRight == true) {
+    if (cat.x > -25) {
+      cat.update(-3, 0);
+    }
+  }
+}
+
+export { isDinoLeft, isCatRight };

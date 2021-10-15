@@ -1,5 +1,5 @@
 import { Sprite } from "../character/sprite.js";
-import { isNearCat } from "./gameMecanic.js";
+import { isDinoLeft, isCatRight } from "./gameMecanic.js";
 
 var mansionSprite = new Image();
 mansionSprite.src = "../assets/mansion_level/maniac_no_light.png";
@@ -22,9 +22,6 @@ hillSprite.src = "../assets/mansion_level/hill_1200_purple.png";
 var peeWeeSprite = new Image();
 peeWeeSprite.src = "../assets/mansion_level/pee_wee.png";
 
-var catSitSprite = new Image();
-catSitSprite.src = "../assets/mansion_level/cat_sit_sm.png";
-
 var binSprite = new Image();
 binSprite.src = "../assets/mansion_level/trash_pix_sm.png";
 
@@ -46,10 +43,21 @@ bowie.src = "../assets/mansion_level/bowie_pi.png";
 var ivySprite = new Image();
 ivySprite.src = "../assets/mansion_level/pix_ivy.png";
 
-var catWalkingLeft = new Image();
-catWalkingLeft.src = "../assets/mansion_level/cat_walking.png";
+var catWalkRight = new Image();
+catWalkRight.src = "../assets/mansion_level/cat_walk_right.png";
 
-var sittingCat = new Sprite("cat", catSitSprite, -25, 145, 16, 4, 111.5, 83.5, 0.8);
+var catWalkLeft = new Image();
+catWalkLeft.src = "../assets/mansion_level/cat_walk_left.png";
+
+var catSitLeft = new Image();
+catSitLeft.src = "../assets/mansion_level/cat_sit_left.png";
+
+var catSitRight = new Image();
+catSitRight.src = "../assets/mansion_level/cat_sit_right.png";
+
+
+
+var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
 var camera = new Sprite("cctv", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
 var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
@@ -58,10 +66,7 @@ var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 
-var catWalkLeft = new Sprite("catWalkLeft", catWalkingLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
-
-
-var sprites = [sittingCat, trash, camera, ring, gate, bowie];
+var sprites = [cat, trash, camera, ring, gate, bowie];
 
 export function drawOutsideScenery(ctx) {
 
@@ -90,7 +95,17 @@ export function drawOutsideScenery(ctx) {
   poster.draw(ctx);
   ctx.restore();
 
-  isNearCat == false ? sittingCat.draw(ctx) : catWalkLeft.draw(ctx);
+  if (isDinoLeft == true) {
+    if (cat.x == -25) cat.sprite = catSitLeft;
+    if (cat.x != -25 && cat.x != 230) catWalkRight;
+    if (cat.x == 230) cat.sprite = catSitRight;
+  }
+
+  // else if (isDinoLeft == false) {
+  //   cat.x != 230 ? cat.sprite = catWalkLeft : cat.sprite = catSitRight;
+  // }
+
+  cat.draw(ctx);
 
   trash.draw(ctx);
 
@@ -101,4 +116,4 @@ export function drawOutsideScenery(ctx) {
   ivy.draw(ctx);
 }
 
-export { trash, sittingCat, sprites };
+export { trash, cat, sprites };
