@@ -9,7 +9,6 @@ var selectedSprite;
 var isInReach;
 
 var isDinoLeft;
-var isCatRight;
 
 export function pointNClick(ctx, game) {
 
@@ -78,7 +77,6 @@ function dodgyCat() {
 
   if (dino.x < 150) {
     isDinoLeft = true;
-    isCatRight = true;
     if (cat.x < 230) {
       cat.update(3, 0);
     }
@@ -86,11 +84,11 @@ function dodgyCat() {
   else {
     isDinoLeft = false;
   }
-  if (isDinoLeft == false && isCatRight == true) {
+  if (isDinoLeft == false) {
     if (cat.x > -25) {
       cat.update(-3, 0);
     }
   }
 }
 
-export { isDinoLeft, isCatRight };
+export { isDinoLeft };

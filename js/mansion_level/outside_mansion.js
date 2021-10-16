@@ -1,5 +1,5 @@
 import { Sprite } from "../character/sprite.js";
-import { isDinoLeft, isCatRight } from "./gameMecanic.js";
+import { isDinoLeft } from "./gameMecanic.js";
 
 var mansionSprite = new Image();
 mansionSprite.src = "../assets/mansion_level/maniac_no_light.png";
@@ -97,14 +97,13 @@ export function drawOutsideScenery(ctx) {
 
   if (isDinoLeft == true) {
     if (cat.x == -25) cat.sprite = catSitLeft;
-    if (cat.x != -25 && cat.x != 230) catWalkRight;
+    if (cat.x > -25 && cat.x < 230) cat.sprite = catWalkRight;
     if (cat.x == 230) cat.sprite = catSitRight;
   }
-
-  // else if (isDinoLeft == false) {
-  //   cat.x != 230 ? cat.sprite = catWalkLeft : cat.sprite = catSitRight;
-  // }
-
+  else {
+    if (cat.x == -25) cat.sprite = catSitLeft;
+    if (cat.x > -25 && cat.x < 230) cat.sprite = catWalkLeft;
+  }
   cat.draw(ctx);
 
   trash.draw(ctx);
