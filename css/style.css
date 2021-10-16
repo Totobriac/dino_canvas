@@ -12,3 +12,8 @@
   font-family: "Tentacle";
   src: url("../assets/fonts/DayOfTheTentacle-vnBL.ttf");
 }
+
+@font-face {
+  font-family: "Pixeboy";
+  src: url("../assets/fonts/Pixeboy-z8XGD.ttf");
+}

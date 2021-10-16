@@ -6,7 +6,7 @@ var maxTick = 3;
 var tick = 0;
 var filter = 0;
 var oldSelection;
-var selectedAction;
+let selectedAction;
 
 class Action {
   constructor(action, x, y, ctx) {
@@ -49,7 +49,6 @@ function createActions(ctx) {
   }
 }
 
-
 export function drawActions(ctx, game) {
   if (game.level8Started === false) {
     createActions(ctx);
@@ -67,7 +66,7 @@ export function drawActions(ctx, game) {
   drawObjects(ctx);
 }
 
-function checkAction(mouse, mouseMove, ctx) {
+function checkAction(mouse, mouseMove) {
   for (let i = 0; i < actions.length; i++) {
     if (mouseMove.x > actions[i].x && mouseMove.x < actions[i].x + 145 && mouseMove.y < actions[i].y && mouseMove.y > actions[i].y - 45) {
       actions[i].isHovered = true;
@@ -85,6 +84,9 @@ function checkAction(mouse, mouseMove, ctx) {
     }
   }
   if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) actions[oldSelection].filter = "none";
+  if (mouse.x < 896 && oldSelection != undefined) {
+    actions[oldSelection].filter = "none";
+  }
 }
 
 function drawObjects(ctx) {

@@ -1,5 +1,5 @@
 import { Sprite } from "../character/sprite.js";
-import { isDinoLeft } from "./gameMecanic.js";
+import { dino } from "./gameMecanic.js";
 
 var mansionSprite = new Image();
 mansionSprite.src = "../assets/mansion_level/maniac_no_light.png";
@@ -68,6 +68,8 @@ var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 
 var sprites = [cat, trash, camera, ring, gate, bowie];
 
+var isDinoLeft = false;
+
 export function drawOutsideScenery(ctx) {
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
@@ -113,6 +115,29 @@ export function drawOutsideScenery(ctx) {
   ring.draw(ctx);
 
   ivy.draw(ctx);
+
+  dodgyCat();
 }
 
-export { trash, cat, sprites };
+
+function dodgyCat() {
+  if (dino.x < 150) {
+    isDinoLeft = true;
+    if (cat.x < 230) {
+      cat.update(3, 0);
+    }
+  }
+  else {
+    isDinoLeft = false;
+  }
+  if (isDinoLeft == false) {
+    if (cat.x > -25) {
+      cat.update(-3, 0);
+    }
+  }
+}
+
+var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
+["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"]]
+
+export { trash, sprites, outsideText };
