@@ -1,4 +1,4 @@
-var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Lire",
+var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"]
 
 var actions = [];
@@ -75,6 +75,12 @@ function checkAction(mouse, mouseMove) {
       actions[i].isHovered = false;
     }
     if (mouse.x > actions[i].x && mouse.x < actions[i].x + 145 && mouse.y < actions[i].y && mouse.y > actions[i].y - 45) {
+      if (i === 4) {
+        selectedAction = "none";
+        actions[i].filter = "none";
+        if (oldSelection != undefined) actions[oldSelection].filter = "none";
+        return
+      }
       if (oldSelection != undefined) {
         actions[oldSelection].filter = "none";
       }
@@ -84,9 +90,9 @@ function checkAction(mouse, mouseMove) {
     }
   }
   if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) actions[oldSelection].filter = "none";
-  if (mouse.x < 896 && oldSelection != undefined) {
-    actions[oldSelection].filter = "none";
-  }
+  // if (mouse.x < 896 && oldSelection != undefined) {
+  //   actions[oldSelection].filter = "none";
+  // }
 }
 
 function drawObjects(ctx) {
@@ -102,4 +108,7 @@ function animateText() {
   }
 }
 
-export { selectedAction };
+function deleteAction() {
+  selectedAction = null;
+}
+export { selectedAction, deleteAction };
