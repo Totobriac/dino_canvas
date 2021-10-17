@@ -9,22 +9,24 @@ var oldSelection;
 let selectedAction;
 
 class Action {
-  constructor(action, x, y, ctx) {
+  constructor(action, x, y, ctx, color1, color2) {
     this.action = action;
     this.y = y;
     this.x = x;
     this.ctx = ctx;
     this.filter = "none";
     this.isHovered = false;
+    this.color1 = color1;
+    this.color2 = color2;
   }
   draw() {
     this.ctx.filter = "url(#turb" + this.filter + ")";
     this.ctx.strokeStyle = "black";
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(this.x, this.y - 30, 145, 45);
-    this.isHovered === true ? this.ctx.fillStyle = "black" : this.ctx.fillStyle = "white";
+    this.isHovered === true ? this.ctx.fillStyle = this.color1 : this.ctx.fillStyle = this.color2;
     this.ctx.fillRect(this.x, this.y - 30, 145, 45);
-    this.isHovered === true ? this.ctx.fillStyle = "white" : this.ctx.fillStyle = "black";
+    this.isHovered === true ? this.ctx.fillStyle = this.color2 : this.ctx.fillStyle = this.color1;
     this.ctx.font = "40px Tentacle";
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
@@ -33,16 +35,19 @@ class Action {
 }
 
 function createActions(ctx) {
+  var act;
   var aY1 = 35;
   var aY2 = 35;
   for (let i = 0; i < actionsList.length; i++) {
     if (i <= 4) {
-      var act = new Action(actionsList[i], 900, aY1, ctx);
+      i == 4
+      ? act = new Action(actionsList[i], 900, aY1, ctx, "white", "black")
+      : act = new Action(actionsList[i], 900, aY1, ctx, "black", "white")
       actions.push(act);
       aY1 += 50;
     }
     else {
-      var act = new Action(actionsList[i], 1050, aY2, ctx);
+      act = new Action(actionsList[i], 1050, aY2, ctx, "black", "white");
       actions.push(act);
       aY2 += 50;
     }
@@ -62,7 +67,6 @@ export function drawActions(ctx, game) {
   checkAction(game.mousePosition, game.mouseMovePosition, ctx);
   ctx.filter = "none";
 
-  animateText();
   drawObjects(ctx);
 }
 
@@ -78,7 +82,10 @@ function checkAction(mouse, mouseMove) {
       if (i === 4) {
         selectedAction = "none";
         actions[i].filter = "none";
-        if (oldSelection != undefined) actions[oldSelection].filter = "none";
+        if (oldSelection != undefined) {
+          actions[oldSelection].filter = "none";
+          oldSelection = null;
+        }
         return
       }
       if (oldSelection != undefined) {
@@ -88,11 +95,11 @@ function checkAction(mouse, mouseMove) {
       actions[i].filter = filter;
       oldSelection = i;
     }
+    else {
+      if (oldSelection != null) actions[oldSelection].filter = filter;
+    }
   }
   if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) actions[oldSelection].filter = "none";
-  // if (mouse.x < 896 && oldSelection != undefined) {
-  //   actions[oldSelection].filter = "none";
-  // }
 }
 
 function drawObjects(ctx) {
@@ -108,7 +115,5 @@ function animateText() {
   }
 }
 
-function deleteAction() {
-  selectedAction = null;
-}
-export { selectedAction, deleteAction };
+
+export { selectedAction, animateText };

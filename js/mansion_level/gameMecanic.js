@@ -1,8 +1,8 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
-import { drawActions } from "./actions.js";
+import { drawActions, animateText } from "./actions.js";
 import { trash, sprites, outsideText } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
-import { selectedAction, deleteAction } from "./actions.js";
+import { selectedAction } from "./actions.js";
 
 
 var dino;
@@ -11,7 +11,6 @@ var isInReach;
 var level = 0;
 
 export function pointNClick(ctx, game) {
-  console.log(selectedAction)
   if (game.level8Dino == false) {
     dino = new MansionDino(ctx, 820, 300, 90, 99);
     game.level8Dino = true;
@@ -19,7 +18,7 @@ export function pointNClick(ctx, game) {
 
   if (level == 0) {
     drawOutsideScenery(ctx);
-    dino.checkBundaries(820, 0, 295, 320);
+    dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
     if (selectedSprite && selectedAction) {
       if (selectedAction == "Pousser" && selectedSprite.name == "trash" && isInReach == true) {
@@ -31,6 +30,7 @@ export function pointNClick(ctx, game) {
 
 
   drawActions(ctx, game);
+  animateText();
   dino.animateDino();
   checkInteraction(game);
 
