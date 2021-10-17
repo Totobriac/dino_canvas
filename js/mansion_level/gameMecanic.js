@@ -1,6 +1,6 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions, animateText } from "./actions.js";
-import { trash, sprites, outsideText } from "./outside_mansion.js";
+import { trash, sprites, outsideText, outsideAction, push } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction } from "./actions.js";
 
@@ -19,30 +19,18 @@ export function pointNClick(ctx, game) {
   if (level == 0) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
-    if (game.mousePosition.x < 910) dino.moveAround(game, trash);
-    if (selectedSprite && selectedAction) {
-      if (selectedAction == "Pousser" && selectedSprite.name == "trash" && isInReach == true) {
-        trash.update(-4, 0);
-        dino.isMoving = true;
-      }
-    }
+    if (game.mousePosition.x < 910) dino.moveAround(game, trash); 
   }
 
 
   drawActions(ctx, game);
   animateText();
   dino.animateDino();
-  checkInteraction(game);
-
-  if (selectedSprite) {
-    isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach == true) {
-      displayText(ctx);
-    }
-  }
+  checkSelectedSprite(game);
+  checkAction(ctx);  
 }
 
-function checkInteraction(game) {
+function checkSelectedSprite(game) {
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mousePosition.x, game.mousePosition.y, 1, 1) == true) {
       selectedSprite = sprites[i];
@@ -73,6 +61,17 @@ function displayText(ctx) {
   }
 }
 
+function executeAction() {
+  if (level == 0) {
+    for (let i = 0; i < outsideAction.length; i++) {
+      if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
+        const func = outsideAction[i][2];
+        func();
+      }
+    }
+  }
+}
+
 function drawText(ctx, text) {
   ctx.font = "50px Pixeboy";
   ctx.textAlign = "center";
@@ -80,5 +79,16 @@ function drawText(ctx, text) {
   ctx.fillStyle = "purple";
   ctx.fillText(text, 200, 50);
 }
+
+function checkAction (ctx) {
+  if (selectedSprite) {
+    isInReach = checkIfReach(dino, selectedSprite);
+    if (isInReach == true) {
+      displayText(ctx);
+      executeAction();
+    }
+  }
+}
+
 
 export { dino };

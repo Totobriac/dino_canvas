@@ -138,7 +138,14 @@ function dodgyCat() {
   }
 }
 
+function push() {
+  trash.update(-2, 0);
+  // dino.isMoving = true;
+}
+
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"]]
 
-export { trash, sprites, outsideText };
+var outsideAction = [["Pousser", "trash", push]]
+
+export { trash, sprites, outsideText, outsideAction, push };
