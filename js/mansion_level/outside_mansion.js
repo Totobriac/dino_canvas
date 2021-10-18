@@ -58,7 +58,8 @@ catSitRight.src = "../assets/mansion_level/cat_sit_right.png";
 var hotelSignSprite = new Image();
 hotelSignSprite.src = "../assets/mansion_level/H4E.png";
 
-
+var canSprite = new Image();
+canSprite.src = "../assets/mansion_level/corned_pix.png";
 
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
@@ -68,11 +69,16 @@ var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
 var bowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
 var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
-var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200,0.15);
+var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200, 0.15);
+var can = new Sprite("can", canSprite, 900, 255, 1, 1, 389, 720, 0.3);
 
 var sprites = [cat, trash, camera, ring, gate, bowie];
 
 var isDinoLeft = false;
+
+var objects = [];
+
+var hasCan = false;
 
 export function drawOutsideScenery(ctx) {
 
@@ -118,7 +124,7 @@ export function drawOutsideScenery(ctx) {
 
   camera.draw(ctx);
 
-  ring.draw(ctx);  
+  ring.draw(ctx);
 
   sign.draw(ctx);
 
@@ -147,10 +153,19 @@ function push() {
   trash.update(-2, 0);
 }
 
+function grabCan() {
+  if (hasCan == false) {
+    objects.push(can);
+    console.log(objects)
+    hasCan = true;    
+  }
+}
+
 
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
-["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"]]
+["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
+["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]]
 
-var outsideAction = [["Pousser", "trash", push]]
+var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan]]
 
-export { trash, sprites, outsideText, outsideAction, push };
+export { trash, sprites, outsideText, outsideAction, objects };

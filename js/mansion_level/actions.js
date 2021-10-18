@@ -1,5 +1,7 @@
+import { objects } from "./outside_mansion.js";
+
 var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
-  "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"]
+  "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
 
 var actions = [];
 var maxTick = 3;
@@ -105,6 +107,10 @@ function checkAction(mouse, mouseMove) {
 function drawObjects(ctx) {
   ctx.fillStyle = "orange";
   ctx.fillRect(900, 255, 295, 140);
+  for (let i ; i < objects.length; i++) {
+    console.log(objects[i])
+    objects[i].draw(ctx);
+  }
 }
 
 function animateText() {
