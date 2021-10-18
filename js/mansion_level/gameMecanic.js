@@ -1,6 +1,6 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions, animateText } from "./actions.js";
-import { trash, sprites, outsideText, outsideAction } from "./outside_mansion.js";
+import { trash, sprites, outsideText, outsideAction, isReadingPoster } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction } from "./actions.js";
 
@@ -25,7 +25,7 @@ export function pointNClick(ctx, game) {
 
   drawActions(ctx, game);
   animateText();
-  dino.animateDino();
+  if(isReadingPoster === false) dino.animateDino();
   checkSelectedSprite(game);
   checkAction(ctx);
 }

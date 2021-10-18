@@ -1,3 +1,4 @@
+import { Sprite } from "../character/sprite.js";
 import { objects } from "./outside_mansion.js";
 
 var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
@@ -107,9 +108,13 @@ function checkAction(mouse, mouseMove) {
 function drawObjects(ctx) {
   ctx.fillStyle = "orange";
   ctx.fillRect(900, 255, 295, 140);
-  for (let i ; i < objects.length; i++) {
-    console.log(objects[i])
-    objects[i].draw(ctx);
+  var oY = 3;
+  for (let i = 0 ; i < objects.length; i++) {
+    if (i < 4) {
+      var object = new Sprite(i, objects[i], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5);
+      object.draw(ctx);
+      oY += 3;
+    }
   }
 }
 

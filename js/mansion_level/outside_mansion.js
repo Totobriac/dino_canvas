@@ -22,6 +22,9 @@ hillSprite.src = "../assets/mansion_level/hill_1200_purple.png";
 var peeWeeSprite = new Image();
 peeWeeSprite.src = "../assets/mansion_level/pee_wee.png";
 
+var bigPeeWeeSprite = new Image();
+bigPeeWeeSprite.src = "../assets/mansion_level/pee_big_pix.png";
+
 var binSprite = new Image();
 binSprite.src = "../assets/mansion_level/trash_pix_sm.png";
 
@@ -59,26 +62,35 @@ var hotelSignSprite = new Image();
 hotelSignSprite.src = "../assets/mansion_level/H4E.png";
 
 var canSprite = new Image();
-canSprite.src = "../assets/mansion_level/corned_pix.png";
+canSprite.src = "../assets/mansion_level/small_tin.png";
 
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
 var camera = new Sprite("cctv", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
 var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
-var bowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
+
+var smallBowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
+var bigBowie = new Sprite("bigBowie", bowie, 270, 0, 1, 1, 570, 796, 0.6);
+
 var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
+var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0.9);
+
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200, 0.15);
-var can = new Sprite("can", canSprite, 900, 255, 1, 1, 389, 720, 0.3);
 
-var sprites = [cat, trash, camera, ring, gate, bowie];
+
+var sprites = [cat, trash, camera, ring, gate, smallBowie];
 
 var isDinoLeft = false;
 
 var objects = [];
 
 var hasCan = false;
+
+var hasTape = false;
+
+var isReadingPoster = false;
 
 export function drawOutsideScenery(ctx) {
 
@@ -99,7 +111,7 @@ export function drawOutsideScenery(ctx) {
 
   gate.draw(ctx);
 
-  bowie.draw(ctx);
+  smallBowie.draw(ctx);
 
   ctx.save();
   ctx.translate(740, 230);
@@ -129,6 +141,21 @@ export function drawOutsideScenery(ctx) {
   sign.draw(ctx);
 
   dodgyCat();
+
+  if (isReadingPoster == true) {
+    ctx.drawImage(wallSprite, 0, 0, 900, 400);
+    bigBowie.draw(ctx);
+    ctx.save();
+    ctx.translate(290, 30);
+    ctx.rotate(4 * Math.PI / 180);
+    bigPoster.draw(ctx);
+    ctx.fillStyle = "rgba(225,225,225,0.6)";
+    ctx.fillRect(10, -10, 200, 20);
+    ctx.fillRect(10, 265, 200, 20);
+    ctx.fillRect(-5, 25, 20, 250);
+    ctx.fillRect(195, 20, 20, 250);
+    ctx.restore();
+  }
 }
 
 
@@ -155,10 +182,20 @@ function push() {
 
 function grabCan() {
   if (hasCan == false) {
-    objects.push(can);
-    console.log(objects)
-    hasCan = true;    
+    objects.push(canSprite);
+    hasCan = true;
   }
+}
+
+function grabTape() {
+  if (hasTape == false) {
+    objects.push(canSprite);
+    hasTape = true;
+  }
+}
+
+function readPoster() {
+  isReadingPoster = true;
 }
 
 
@@ -166,6 +203,7 @@ var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
 ["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]]
 
-var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan]]
+var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
+["Regarder", "bowie", readPoster]]
 
-export { trash, sprites, outsideText, outsideAction, objects };
+export { trash, sprites, outsideText, outsideAction, objects, isReadingPoster };
