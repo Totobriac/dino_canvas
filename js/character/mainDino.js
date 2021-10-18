@@ -1,5 +1,5 @@
 class Dino {
-  constructor(ctx, x, y, width, height) {
+  constructor(ctx, x, y, width, height, gravity) {
     this.x = x;
     this.y = y;
     this.ctx = ctx;

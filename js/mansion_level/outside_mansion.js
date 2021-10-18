@@ -55,6 +55,9 @@ catSitLeft.src = "../assets/mansion_level/cat_sit_left.png";
 var catSitRight = new Image();
 catSitRight.src = "../assets/mansion_level/cat_sit_right.png";
 
+var hotelSignSprite = new Image();
+hotelSignSprite.src = "../assets/mansion_level/H4E.png";
+
 
 
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
@@ -65,7 +68,7 @@ var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
 var bowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
 var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
-
+var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200,0.15);
 
 var sprites = [cat, trash, camera, ring, gate, bowie];
 
@@ -109,13 +112,15 @@ export function drawOutsideScenery(ctx) {
   }
   cat.draw(ctx);
 
+  ivy.draw(ctx);
+
   trash.draw(ctx);
 
   camera.draw(ctx);
 
-  ring.draw(ctx);
+  ring.draw(ctx);  
 
-  ivy.draw(ctx);
+  sign.draw(ctx);
 
   dodgyCat();
 }
@@ -140,8 +145,8 @@ function dodgyCat() {
 
 function push() {
   trash.update(-2, 0);
-  // dino.isMoving = true;
 }
+
 
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"]]
