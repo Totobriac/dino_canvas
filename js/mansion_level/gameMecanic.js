@@ -20,12 +20,13 @@ export function pointNClick(ctx, game) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
+    if (isReadingPoster === false) dino.animateDino();
   }
 
 
   drawActions(ctx, game);
   animateText();
-  if (isReadingPoster === false) dino.animateDino();
+ 
   checkSelectedSprite(game);
   checkAction(ctx);
 }
@@ -43,6 +44,7 @@ function checkSelectedSprite(game) {
 }
 
 function checkIfReach(dino, sprite) {
+  if (isReadingPoster == true) return true;
   if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale)) {
     return false;
   }

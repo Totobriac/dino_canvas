@@ -82,8 +82,9 @@ var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200, 0.15);
 
+var isReadingPoster = false;
 
-var sprites = [cat, trash, camera, ring, gate, smallBowie];
+var sprites;
 
 var isDinoLeft = false;
 
@@ -93,9 +94,10 @@ var hasCan = false;
 
 var hasTape = false;
 
-var isReadingPoster = false;
 
 export function drawOutsideScenery(ctx) {
+
+  isReadingPoster === false ? sprites = [cat, trash, camera, ring, gate, smallBowie] : sprites = [bigBowie];
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
@@ -154,9 +156,11 @@ export function drawOutsideScenery(ctx) {
     bigPoster.draw(ctx);
     ctx.fillStyle = "rgba(225,225,225,0.6)";
     ctx.fillRect(10, -10, 200, 20);
-    ctx.fillRect(10, 265, 200, 20);
-    ctx.fillRect(-5, 25, 20, 250);
-    ctx.fillRect(195, 20, 20, 250);
+    if (hasTape === false) {
+      ctx.fillRect(10, 265, 200, 20);
+      ctx.fillRect(-5, 25, 20, 250);
+      ctx.fillRect(195, 20, 20, 250);
+    };
     ctx.restore();
   }
 }
@@ -210,6 +214,6 @@ var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]]
 
 var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
-["Regarder", "bowie", readPoster], ["Prendre", "bowie", grabDuct]]
+["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct]]
 
 export { trash, sprites, outsideText, outsideAction, objects, isReadingPoster, readPoster, leavePoster };
