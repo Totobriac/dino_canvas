@@ -1,8 +1,8 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions, animateText } from "./side_bar.js";
-import { trash, sprites, outsideText, outsideAction, isReadingPoster } from "./outside_mansion.js";
+import { trash, sprites, outsideText, outsideAction, isReadingPoster, outsideObjectAction } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
-import { selectedAction } from "./side_bar.js";
+import { selectedAction, selectedObject } from "./side_bar.js";
 
 
 var dino;
@@ -67,13 +67,13 @@ function checkIfReach(dino, sprite) {
   }
 }
 
-
 function checkAction(ctx) {
   if (selectedSprite) {
     isInReach = checkIfReach(dino, selectedSprite);
     if (isInReach == true) {
       displayText(ctx);
       executeAction();
+      objectInteraction();
     }
   }
 }
@@ -93,6 +93,17 @@ function executeAction() {
     for (let i = 0; i < outsideAction.length; i++) {
       if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
         const func = outsideAction[i][2];
+        func();
+      }
+    }
+  }
+}
+
+function objectInteraction() {
+  if (level == 0 && selectedAction === "Utiliser") {
+    for (let i = 0; i < outsideObjectAction.length; i++) {
+      if (selectedObject == outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
+        const func = outsideObjectAction[i][2];
         func();
       }
     }

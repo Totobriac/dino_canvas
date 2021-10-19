@@ -135,9 +135,10 @@ function checkObject(mouse, ctx) {
       (mouse.y > objectsList[i].y && mouse.y < objectsList[i].y + objectsList[i].spriteHeight * objectsList[i].scale)) {
       selectedObject = objectsList[i].name;
     }
-    
-    if (selectedAction === "Utiliser" && selectedObject != undefined && hoveredSprite != undefined) {
-      var text = "Utiliser " + selectedObject + " avec " + hoveredSprite;
+
+    if (selectedAction === "Utiliser" && selectedObject != undefined) {
+      var text;
+      hoveredSprite == undefined ? text = "Utiliser " + selectedObject + " avec ... " : text = "Utiliser " + selectedObject + " avec " + hoveredSprite;
       drawText(ctx, text);
     }
     else {
@@ -155,4 +156,4 @@ function animateText() {
 }
 
 
-export { selectedAction, animateText };
+export { selectedAction, animateText, selectedObject };

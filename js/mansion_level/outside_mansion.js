@@ -94,10 +94,12 @@ var hasCan = false;
 
 var hasTape = false;
 
+var hasRope = false;
+
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [cat, trash, camera, ring, gate, smallBowie] : sprites = [bigBowie];
+  isReadingPoster === false ? sprites = [cat, trash, camera, ring, gate, smallBowie, ivy] : sprites = [bigBowie];
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
@@ -201,6 +203,13 @@ function grabDuct() {
   }
 }
 
+function grabRope() {
+  if (hasRope == false) {
+    objects.push(["ductTape", ductSprite]);
+    hasRope = true;
+  }
+}
+
 function readPoster() {
   isReadingPoster = true;
 }
@@ -211,9 +220,11 @@ function leavePoster() {
 
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
-["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]]
+["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
 
 var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
-["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct]]
+["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct]];
 
-export { trash, sprites, outsideText, outsideAction, objects, isReadingPoster, readPoster, leavePoster };
+var outsideObjectAction = [["can", "ivy", grabRope]];
+
+export { trash, sprites, outsideText, outsideAction, outsideObjectAction, objects, isReadingPoster, readPoster, leavePoster };
