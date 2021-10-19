@@ -1,5 +1,6 @@
 import { Sprite } from "../character/sprite.js";
-import { objects } from "./outside_mansion.js";
+import { leavePoster, objects } from "./outside_mansion.js";
+import { isReadingPoster } from "./outside_mansion.js";
 
 var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
@@ -82,6 +83,8 @@ function checkAction(mouse, mouseMove) {
       actions[i].isHovered = false;
     }
     if (mouse.x > actions[i].x && mouse.x < actions[i].x + 145 && mouse.y < actions[i].y && mouse.y > actions[i].y - 45) {
+      if (i === 4 && isReadingPoster == true) leavePoster();
+
       if (i === 4) {
         selectedAction = "none";
         actions[i].filter = "none";

@@ -64,6 +64,9 @@ hotelSignSprite.src = "../assets/mansion_level/H4E.png";
 var canSprite = new Image();
 canSprite.src = "../assets/mansion_level/small_tin.png";
 
+var ductSprite = new Image();
+ductSprite.src = "../assets/mansion_level/duct_tape.png";
+
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
@@ -187,9 +190,9 @@ function grabCan() {
   }
 }
 
-function grabTape() {
+function grabDuct() {
   if (hasTape == false) {
-    objects.push(canSprite);
+    objects.push(ductSprite);
     hasTape = true;
   }
 }
@@ -198,12 +201,15 @@ function readPoster() {
   isReadingPoster = true;
 }
 
+function leavePoster() {
+  isReadingPoster = false;
+}
 
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
 ["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]]
 
 var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
-["Regarder", "bowie", readPoster]]
+["Regarder", "bowie", readPoster], ["Prendre", "bowie", grabDuct]]
 
-export { trash, sprites, outsideText, outsideAction, objects, isReadingPoster };
+export { trash, sprites, outsideText, outsideAction, objects, isReadingPoster, readPoster, leavePoster };

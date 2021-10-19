@@ -25,7 +25,7 @@ export function pointNClick(ctx, game) {
 
   drawActions(ctx, game);
   animateText();
-  if(isReadingPoster === false) dino.animateDino();
+  if (isReadingPoster === false) dino.animateDino();
   checkSelectedSprite(game);
   checkAction(ctx);
 }
@@ -48,6 +48,17 @@ function checkIfReach(dino, sprite) {
   }
   else {
     return true;
+  }
+}
+
+
+function checkAction(ctx) {
+  if (selectedSprite) {
+    isInReach = checkIfReach(dino, selectedSprite);
+    if (isInReach == true) {
+      displayText(ctx);
+      executeAction();
+    }
   }
 }
 
@@ -79,16 +90,5 @@ function drawText(ctx, text) {
   ctx.fillStyle = "purple";
   ctx.fillText(text, 200, 50);
 }
-
-function checkAction(ctx) {
-  if (selectedSprite) {
-    isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach == true) {
-      displayText(ctx);
-      executeAction();
-    }
-  }
-}
-
 
 export { dino };
