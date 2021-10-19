@@ -189,14 +189,14 @@ function push() {
 
 function grabCan() {
   if (hasCan == false) {
-    objects.push(canSprite);
+    objects.push(["can", canSprite]);
     hasCan = true;
   }
 }
 
 function grabDuct() {
   if (hasTape == false) {
-    objects.push(ductSprite);
+    objects.push(["ductTape", ductSprite]);
     hasTape = true;
   }
 }

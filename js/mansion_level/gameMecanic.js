@@ -1,12 +1,13 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
-import { drawActions, animateText } from "./actions.js";
+import { drawActions, animateText } from "./side_bar.js";
 import { trash, sprites, outsideText, outsideAction, isReadingPoster } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
-import { selectedAction } from "./actions.js";
+import { selectedAction } from "./side_bar.js";
 
 
 var dino;
 var selectedSprite;
+var hoveredSprite;
 var isInReach;
 var level = 0;
 
@@ -26,8 +27,9 @@ export function pointNClick(ctx, game) {
 
   drawActions(ctx, game);
   animateText();
- 
+
   checkSelectedSprite(game);
+  checkHoveredSprite(game);
   checkAction(ctx);
 }
 
@@ -39,6 +41,18 @@ function checkSelectedSprite(game) {
     }
     else {
       selectedSprite = null;
+    }
+  }
+}
+
+function checkHoveredSprite(game) {
+  for (let i = 0; i < sprites.length; i++) {
+    if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1) == true) {
+      hoveredSprite = sprites[i].name;
+      return
+    }
+    else {
+      hoveredSprite = null;
     }
   }
 }
@@ -93,4 +107,4 @@ function drawText(ctx, text) {
   ctx.fillText(text, 200, 50);
 }
 
-export { dino };
+export { dino, drawText, hoveredSprite };

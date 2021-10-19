@@ -1,6 +1,7 @@
 import { Sprite } from "../character/sprite.js";
 import { leavePoster, objects } from "./outside_mansion.js";
 import { isReadingPoster } from "./outside_mansion.js";
+import { drawText, hoveredSprite } from "./gameMecanic.js";
 
 var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
@@ -10,7 +11,10 @@ var maxTick = 3;
 var tick = 0;
 var filter = 0;
 var oldSelection;
-let selectedAction;
+var selectedAction;
+
+var objectsList = [];
+var selectedObject;
 
 class Action {
   constructor(action, x, y, ctx, color1, color2) {
@@ -45,8 +49,8 @@ function createActions(ctx) {
   for (let i = 0; i < actionsList.length; i++) {
     if (i <= 4) {
       i == 4
-      ? act = new Action(actionsList[i], 900, aY1, ctx, "white", "black")
-      : act = new Action(actionsList[i], 900, aY1, ctx, "black", "white")
+        ? act = new Action(actionsList[i], 900, aY1, ctx, "white", "black")
+        : act = new Action(actionsList[i], 900, aY1, ctx, "black", "white")
       actions.push(act);
       aY1 += 50;
     }
@@ -74,7 +78,7 @@ export function drawActions(ctx, game) {
   drawObjects(ctx);
 }
 
-function checkAction(mouse, mouseMove) {
+function checkAction(mouse, mouseMove, ctx) {
   for (let i = 0; i < actions.length; i++) {
     if (mouseMove.x > actions[i].x && mouseMove.x < actions[i].x + 145 && mouseMove.y < actions[i].y && mouseMove.y > actions[i].y - 45) {
       actions[i].isHovered = true;
@@ -105,18 +109,39 @@ function checkAction(mouse, mouseMove) {
       if (oldSelection != null) actions[oldSelection].filter = filter;
     }
   }
-  if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) actions[oldSelection].filter = "none";
+  if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) {
+    actions[oldSelection].filter = "none";
+    checkObject(mouse, ctx);
+  }
 }
 
 function drawObjects(ctx) {
   ctx.fillStyle = "orange";
   ctx.fillRect(900, 255, 295, 140);
   var oY = 3;
-  for (let i = 0 ; i < objects.length; i++) {
+  for (let i = 0; i < objects.length; i++) {
     if (i < 4) {
-      var object = new Sprite(i, objects[i], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5);
+      var object = new Sprite(objects[i][0], objects[i][1], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5);
+      objectsList.push(object);
       object.draw(ctx);
       oY += 3;
+    }
+  }
+}
+
+function checkObject(mouse, ctx) {
+  for (let i = 0; i < objectsList.length; i++) {
+    if ((mouse.x > objectsList[i].x && mouse.x < objectsList[i].x + objectsList[i].spriteWidth * objectsList[i].scale) &&
+      (mouse.y > objectsList[i].y && mouse.y < objectsList[i].y + objectsList[i].spriteHeight * objectsList[i].scale)) {
+      selectedObject = objectsList[i].name;
+    }
+    
+    if (selectedAction === "Utiliser" && selectedObject != undefined && hoveredSprite != undefined) {
+      var text = "Utiliser " + selectedObject + " avec " + hoveredSprite;
+      drawText(ctx, text);
+    }
+    else {
+      selectedObject = null;
     }
   }
 }
