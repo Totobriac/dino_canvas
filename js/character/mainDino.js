@@ -1,5 +1,5 @@
 class Dino {
-  constructor(ctx, x, y, width, height, gravity) {
+  constructor(ctx, x, y, width, height) {
     this.x = x;
     this.y = y;
     this.ctx = ctx;
@@ -10,6 +10,7 @@ class Dino {
     this.tickCount = 0;
     this.isMoving = false;
     this.isWalkingLeft = true;
+    this.isJumping = false;
     this.scale;
   }
   checkFrame(frames) {

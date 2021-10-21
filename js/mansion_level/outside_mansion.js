@@ -67,6 +67,12 @@ canSprite.src = "../assets/mansion_level/small_tin.png";
 var ductSprite = new Image();
 ductSprite.src = "../assets/mansion_level/duct_tape.png";
 
+var ropeSprite = new Image();
+ropeSprite.src = "../assets/mansion_level/ivy_rope.png";
+
+var smPuddleSprite = new Image();
+smPuddleSprite.src = "../assets/mansion_level/small_puddle.png";
+
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
@@ -80,9 +86,16 @@ var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
 var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0.9);
 
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
-var sign = new Sprite("sign", hotelSignSprite, 519, 230, 1, 1, 200, 200, 0.15);
+var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
+
+var smPuddle = new Sprite("smPuddle", smPuddleSprite, 800, 380, 1, 1, 238, 86, 0.7);
+var mdPuddle = new Sprite("mdPuddle", smPuddleSprite, 112, 370, 1, 1, 238, 86, 0.8);
+
+var puddles = [{ "puddle": smPuddle, "collide": false }, { "puddle": mdPuddle, "collide": false }];
 
 var isReadingPoster = false;
+
+var hasReflection = false;
 
 var sprites;
 
@@ -109,6 +122,9 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(moonSprite, 100, 70, 50, 50);
   ctx.fillStyle = ("grey");
   ctx.fillRect(0, 370, canvas.width, 30);
+
+  smPuddle.draw(ctx);
+  mdPuddle.draw(ctx);
 
   ctx.drawImage(wallSprite, 0, 210, 160, 160);
   ctx.drawImage(wallSprite, 160, 210, 160, 160);
@@ -149,6 +165,8 @@ export function drawOutsideScenery(ctx) {
 
   dodgyCat();
 
+  checkReflection();
+
   if (isReadingPoster == true) {
     ctx.drawImage(wallSprite, 0, 0, 900, 400);
     bigBowie.draw(ctx);
@@ -166,7 +184,6 @@ export function drawOutsideScenery(ctx) {
     ctx.restore();
   }
 }
-
 
 function dodgyCat() {
   if (dino.x < 150) {
@@ -205,7 +222,7 @@ function grabDuct() {
 
 function grabRope() {
   if (hasRope == false) {
-    objects.push(["ductTape", ductSprite]);
+    objects.push(["ropeSprite", ropeSprite]);
     hasRope = true;
   }
 }
@@ -218,13 +235,23 @@ function leavePoster() {
   isReadingPoster = false;
 }
 
+function checkReflection() {
+  for (let i = 0; i < puddles.length; i++) {
+    puddles[i].collide = puddles[i].puddle.checkCollision(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, dino.spriteWidth / 2 * dino.scale)
+  }
+  puddles[0].collide == true || puddles[1].collide == true
+    ? hasReflection = true
+    : hasReflection = false;
+}
+
 var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
 ["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
 
 var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
-["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct]];
+["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
+];
 
 var outsideObjectAction = [["can", "ivy", grabRope]];
 
-export { trash, sprites, outsideText, outsideAction, outsideObjectAction, objects, isReadingPoster, readPoster, leavePoster };
+export { trash, sprites, outsideText, outsideAction, outsideObjectAction, objects, isReadingPoster, readPoster, leavePoster, hasReflection };

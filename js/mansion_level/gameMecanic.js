@@ -1,6 +1,6 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions, animateText } from "./side_bar.js";
-import { trash, sprites, outsideText, outsideAction, isReadingPoster, outsideObjectAction } from "./outside_mansion.js";
+import { trash, sprites, outsideText, outsideAction, isReadingPoster, outsideObjectAction, hasReflection } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject } from "./side_bar.js";
 
@@ -13,17 +13,21 @@ var level = 0;
 
 export function pointNClick(ctx, game) {
   if (game.level8Dino == false) {
-    dino = new MansionDino(ctx, 820, 300, 90, 99, 1);
+    dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
     game.level8Dino = true;
   }
 
-  if (level == 0) {
+  if (game.level == 8) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
-    if (isReadingPoster === false) dino.animateDino();
+    if (isReadingPoster === false) {
+      dino.animateDino();
+      if (hasReflection == false) {
+        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
+      }
+    }
   }
-
 
   drawActions(ctx, game);
   animateText();

@@ -1,21 +1,21 @@
 import { Dino } from "./mainDino.js";
 
 var dinoSprite = new Image();
-dinoSprite.src = "../assets/dino/dino_still.png";
+dinoSprite.src = "../assets/dino_reflection/dino_still.png";
 
 var dinoSpriteLeft = new Image();
-dinoSpriteLeft.src = "../assets/dino/dino_still_left.png";
+dinoSpriteLeft.src = "../assets/dino_reflection/dino_still_left.png";
 
 var dinoWalk = new Image();
-dinoWalk.src = "../assets/dino/dino_walk.png";
+dinoWalk.src = "../assets/dino_reflection/dino_walk.png";
 
 var dinoWalkLeft = new Image();
-dinoWalkLeft.src = "../assets/dino/dino_walk_left.png";
+dinoWalkLeft.src = "../assets/dino_reflection/dino_walk_left.png";
 
 
 class MansionDino extends Dino {
-  moveAround(game, sprite) {   
-    var collision = sprite.checkCollision(this.x, this.y, this.spriteWidth * this.scale, this.spriteHeight * this.scale);
+  moveAround(game, sprite) {
+    var collision = sprite.checkCollision(this.x, this.y, this.spriteWidth * this.scale, this.spriteHeight/ 2 * this.scale);
     var mouseX = game.mousePosition.x;
     var mouseY = game.mousePosition.y;
     var dx;
@@ -50,14 +50,18 @@ class MansionDino extends Dino {
         this.frameIndex = 0;
         this.draw(1, 1, dinoSpriteLeft, 0.8);
       }
-      else { this.draw(2, 2, dinoWalkLeft, 0.8) };
+      else {
+        this.draw(2, 2, dinoWalkLeft, 0.8)
+      };
     }
     else {
       if (this.isMoving == false) {
         this.frameIndex = 0;
         this.draw(1, 1, dinoSprite, 0.8);
       }
-      else { this.draw(2, 2, dinoWalk, 0.8) }
+      else {
+        this.draw(2, 2, dinoWalk, 0.8)
+      }
     }
   }
   checkBundaries(right, left, top, bottom) {
