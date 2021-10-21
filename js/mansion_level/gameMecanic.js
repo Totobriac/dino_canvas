@@ -26,24 +26,21 @@ export function pointNClick(ctx, game) {
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
     if (isReadingPoster === false) {
       dino.animateDino();
-      console.log(game.mouseMovePosition.x, dino.spriteWidth * dino.scale);
-      console.log(currentPuddle.x, dino.x + (dino.spriteWidth * dino.scale));
       if (currentPuddle.x == dino.x + (dino.spriteWidth * dino.scale)) {
         ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
       }
       if (hasReflection == false) {
         ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
       }
-      else if ((dino.x < currentPuddle.xw && dino.x + dino.spriteWidth * dino.scale > currentPuddle.xw)) {
+      if ((dino.x < currentPuddle.xw && dino.x + dino.spriteWidth * dino.scale > currentPuddle.xw)) {
         ctx.fillRect(dino.x + offset, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
       }
-      else if ((dino.x < currentPuddle.x && dino.x + dino.spriteWidth * dino.scale > currentPuddle.x)) {
-        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, offset, 30);
+      if ((dino.x < currentPuddle.x && dino.x + (dino.spriteWidth * dino.scale) > currentPuddle.x)) {
+        if (offset < 100) {
+          ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, offset, 30);
+        }
       }
-      else if ((dino.x + dino.spriteWidth * dino.scale < currentPuddle.x)) {
-        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
-      }
-      else if ((dino.x > currentPuddle.xw)) {
+      if ((dino.x + dino.spriteWidth * dino.scale < currentPuddle.x || dino.x > currentPuddle.xw)) {
         ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
       }
     }
