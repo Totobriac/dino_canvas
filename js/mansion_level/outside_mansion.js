@@ -244,6 +244,7 @@ function grabRope() {
   if (hasRope == false) {
     objects.push(["corde", ropeSprite]);
     hasRope = true;
+    removeObject("boite de conserve");
   }
 }
 
@@ -251,6 +252,15 @@ function wetRope() {
   if (hasWetRope == false) {
     objects.push(["corde mouillée", wetRopeSprite]);
     hasWetRope = true;
+    removeObject("corde");
+  }
+}
+
+function removeObject(object) {
+  for (let i = 0; i < objects.length; i++) {
+    if (object === objects[i][0]) {
+      objects.splice(i, 1);
+    }
   }
 }
 
