@@ -102,11 +102,11 @@ function checkAction(mouse, mouseMove, ctx) {
         actions[oldSelection].filter = "none";
       }
       selectedAction = actions[i].action;
-      actions[i].filter = filter;
+      //actions[i].filter = filter;
       oldSelection = i;
     }
     else {
-      if (oldSelection != null) actions[oldSelection].filter = filter;
+      //if (oldSelection != null) actions[oldSelection].filter = filter;
     }
   }
   if (mouse.y > 255 && mouse.x > 896 && oldSelection != undefined) {

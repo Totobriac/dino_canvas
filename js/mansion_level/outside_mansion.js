@@ -70,11 +70,17 @@ ductSprite.src = "../assets/mansion_level/duct_tape.png";
 var ropeSprite = new Image();
 ropeSprite.src = "../assets/mansion_level/ivy_rope.png";
 
+var wetRopeSprite = new Image();
+wetRopeSprite.src = "../assets/mansion_level/wet_rope.png";
+
 var smPuddleSprite = new Image();
 smPuddleSprite.src = "../assets/mansion_level/small_puddle.png";
 
+var poleSprite = new Image();
+poleSprite.src = "../assets/mansion_level/pole.png";
+
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
-var ivy = new Sprite("ivy", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
+var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
 var camera = new Sprite("cctv", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
 var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
@@ -90,6 +96,8 @@ var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
 
 var smPuddle = new Sprite("flaquette", smPuddleSprite, 800, 380, 1, 1, 238, 86, 0.7);
 var mdPuddle = new Sprite("flaque", smPuddleSprite, 112, 370, 1, 1, 238, 86, 0.8);
+
+var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
 
 var puddles = [{ "puddle": smPuddle, "collide": false }, { "puddle": mdPuddle, "collide": false }];
 
@@ -118,6 +126,7 @@ var hasTape = false;
 
 var hasRope = false;
 
+var hasWetRope = false;
 
 export function drawOutsideScenery(ctx) {
 
@@ -172,6 +181,8 @@ export function drawOutsideScenery(ctx) {
 
   sign.draw(ctx);
 
+  pole.draw(ctx);
+
   dodgyCat();
 
   checkReflection();
@@ -217,22 +228,29 @@ function push() {
 
 function grabCan() {
   if (hasCan == false) {
-    objects.push(["can", canSprite]);
+    objects.push(["boite de conserve", canSprite]);
     hasCan = true;
   }
 }
 
 function grabDuct() {
   if (hasTape == false) {
-    objects.push(["ductTape", ductSprite]);
+    objects.push(["boulle de scotch", ductSprite]);
     hasTape = true;
   }
 }
 
 function grabRope() {
   if (hasRope == false) {
-    objects.push(["ropeSprite", ropeSprite]);
+    objects.push(["corde", ropeSprite]);
     hasRope = true;
+  }
+}
+
+function wetRope() {
+  if (hasWetRope == false) {
+    objects.push(["corde mouillée", wetRopeSprite]);
+    hasWetRope = true;
   }
 }
 
@@ -274,7 +292,8 @@ var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
 ["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
 ];
 
-var outsideObjectAction = [["can", "ivy", grabRope]];
+var outsideObjectAction = [["boite de conserve", "plante grimpante", grabRope],
+["corde", "flaque", wetRope]];
 
 export {
   trash, sprites, outsideText, outsideAction, outsideObjectAction, objects,
