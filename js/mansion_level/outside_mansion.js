@@ -79,6 +79,22 @@ smPuddleSprite.src = "../assets/mansion_level/small_puddle.png";
 var poleSprite = new Image();
 poleSprite.src = "../assets/mansion_level/pole.png";
 
+var unrolledSprite = new Image();
+unrolledSprite.src = "../assets/mansion_level/unrolled_rope.png";
+
+var lionSprite = new Image;
+lionSprite.src = "../assets/mansion_level/lion_head.png";
+
+var runningWaterSprite = new Image;
+runningWaterSprite.src = "../assets/mansion_level/running_water.png";
+
+var bubbleSprite = new Image;
+bubbleSprite.src = "../assets/mansion_level/bubble.png";
+
+var bowlSprite = new Image;
+bowlSprite.src = "../assets/mansion_level/bowl.png";
+
+
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 var trash = new Sprite("trash", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
@@ -94,10 +110,20 @@ var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0
 var ring = new Sprite("ring", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
 
+var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
+
+var unrolledRope = new Sprite("cable", unrolledSprite, 270, 80, 1, 1, 35, 375, 0.4);
+
+var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2);
+
+var runningWater = new Sprite("eau", runningWaterSprite, 102, 318, 4, 2, 22.5, 130, 0.4);
+
+var bubble = new Sprite("bulles", bubbleSprite, 76, 350, 8, 1, 223, 45, 0.3);
+
+var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1,1,111,21, 1 )
+
 var smPuddle = new Sprite("flaquette", smPuddleSprite, 800, 380, 1, 1, 238, 86, 0.7);
 var mdPuddle = new Sprite("flaque", smPuddleSprite, 112, 370, 1, 1, 238, 86, 0.8);
-
-var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
 
 var puddles = [{ "puddle": smPuddle, "collide": false }, { "puddle": mdPuddle, "collide": false }];
 
@@ -141,8 +167,8 @@ export function drawOutsideScenery(ctx) {
   ctx.fillStyle = ("grey");
   ctx.fillRect(0, 370, canvas.width, 30);
 
-  smPuddle.draw(ctx);
-  mdPuddle.draw(ctx);
+  //smPuddle.draw(ctx);
+  //mdPuddle.draw(ctx);
 
   ctx.drawImage(wallSprite, 0, 210, 160, 160);
   ctx.drawImage(wallSprite, 160, 210, 160, 160);
@@ -173,6 +199,14 @@ export function drawOutsideScenery(ctx) {
 
   ivy.draw(ctx);
 
+  lionHead.draw(ctx);
+
+  runningWater.draw(ctx);
+
+  bubble.draw(ctx);
+
+  bowl.draw(ctx);
+
   trash.draw(ctx);
 
   camera.draw(ctx);
@@ -185,7 +219,7 @@ export function drawOutsideScenery(ctx) {
 
   dodgyCat();
 
-  checkReflection();
+  //checkReflection();
 
   if (isReadingPoster == true) {
     ctx.drawImage(wallSprite, 0, 0, 900, 400);
