@@ -1,12 +1,12 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions, animateText } from "./side_bar.js";
 import {
-  trash, sprites, outsideText, outsideAction, isReadingPoster,
-  outsideObjectAction, hasReflection, currentPuddle, offset
+  sprites, outsideText, outsideAction, isReadingPoster,
+  outsideObjectAction
 } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject } from "./side_bar.js";
-
+import { trash } from "./outside_sprite.js";
 
 var dino;
 var selectedSprite;
@@ -26,23 +26,6 @@ export function pointNClick(ctx, game) {
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
     if (isReadingPoster === false) {
       dino.animateDino();
-      if (currentPuddle.x == dino.x + (dino.spriteWidth * dino.scale)) {
-        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
-      }
-      if (hasReflection == false) {
-        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
-      }
-      if ((dino.x < currentPuddle.xw && dino.x + dino.spriteWidth * dino.scale > currentPuddle.xw)) {
-        ctx.fillRect(dino.x + offset, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
-      }
-      if ((dino.x < currentPuddle.x && dino.x + (dino.spriteWidth * dino.scale) > currentPuddle.x)) {
-        if (offset < 100) {
-          ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, offset, 30);
-        }
-      }
-      if ((dino.x + dino.spriteWidth * dino.scale < currentPuddle.x || dino.x > currentPuddle.xw)) {
-        ctx.fillRect(dino.x, dino.y + (dino.spriteHeight / 2 * dino.scale) + 4, dino.spriteWidth * dino.scale, 30);
-      }
     }
   }
 
