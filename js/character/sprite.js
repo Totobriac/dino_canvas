@@ -3,7 +3,7 @@ export class Sprite {
     this.name = name;
     this.sprite = sprite;
     this.frameIndex = 0;
-    this.ticksPerFrame = 12;
+    this.ticksPerFrame = 6;
     this.tickCount = 0;
     this.frames = frames;
     this.columns = columns;

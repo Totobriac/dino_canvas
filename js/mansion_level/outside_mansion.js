@@ -85,6 +85,9 @@ unrolledSprite.src = "../assets/mansion_level/unrolled_rope.png";
 var lionSprite = new Image;
 lionSprite.src = "../assets/mansion_level/lion_head.png";
 
+var lionSpriteSc = new Image;
+lionSpriteSc.src = "../assets/mansion_level/lion_head_sc.png";
+
 var runningWaterSprite = new Image;
 runningWaterSprite.src = "../assets/mansion_level/running_water.png";
 
@@ -94,6 +97,8 @@ bubbleSprite.src = "../assets/mansion_level/bubble.png";
 var bowlSprite = new Image;
 bowlSprite.src = "../assets/mansion_level/bowl.png";
 
+var fishSprite = new Image();
+fishSprite.src = "../assets/mansion_level/jumping_fish.png";
 
 var cat = new Sprite("cat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
@@ -115,12 +120,16 @@ var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
 var unrolledRope = new Sprite("cable", unrolledSprite, 270, 80, 1, 1, 35, 375, 0.4);
 
 var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2);
+var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 290, 1, 1, 162, 199, 0.2);
+
 
 var runningWater = new Sprite("eau", runningWaterSprite, 102, 318, 4, 2, 22.5, 130, 0.4);
 
 var bubble = new Sprite("bulles", bubbleSprite, 76, 350, 8, 1, 223, 45, 0.3);
 
-var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1,1,111,21, 1 )
+var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1, 1, 111, 21, 1);
+
+var fish = new Sprite("poisson", fishSprite, 65, 320, 58, 58, 100, 75, 0.8);
 
 var smPuddle = new Sprite("flaquette", smPuddleSprite, 800, 380, 1, 1, 238, 86, 0.7);
 var mdPuddle = new Sprite("flaque", smPuddleSprite, 112, 370, 1, 1, 238, 86, 0.8);
@@ -154,9 +163,11 @@ var hasRope = false;
 
 var hasWetRope = false;
 
+var isRunningWater = true;
+
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [cat, trash, camera, ring, gate, smallBowie, ivy, mdPuddle] : sprites = [bigBowie];
+  isReadingPoster === false ? sprites = [cat, trash, camera, ring, gate, smallBowie, lionHead, ivy, mdPuddle] : sprites = [bigBowie];
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
@@ -199,9 +210,11 @@ export function drawOutsideScenery(ctx) {
 
   ivy.draw(ctx);
 
-  lionHead.draw(ctx);
+  isRunningWater === true ? lionHead.draw(ctx) : lionHeadSc.draw(ctx);
 
-  runningWater.draw(ctx);
+  if (isRunningWater === true) runningWater.draw(ctx);
+
+  fish.draw(ctx);
 
   bubble.draw(ctx);
 
@@ -278,8 +291,12 @@ function grabRope() {
   if (hasRope == false) {
     objects.push(["corde", ropeSprite]);
     hasRope = true;
-    removeObject("boite de conserve");
   }
+}
+
+function stopWater() {
+  isRunningWater = false;
+  removeObject("boulle de scotch");
 }
 
 function wetRope() {
@@ -334,9 +351,10 @@ var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 
 var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
 ["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
+["Prendre", "plante grimpante", grabRope]
 ];
 
-var outsideObjectAction = [["boite de conserve", "plante grimpante", grabRope],
+var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater],
 ["corde", "flaque", wetRope]];
 
 export {
