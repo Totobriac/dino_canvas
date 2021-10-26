@@ -69,6 +69,9 @@ canSprite.src = "../assets/mansion_level/small_tin.png";
 export var canSpriteWater = new Image();
 canSpriteWater.src = "../assets/mansion_level/tin_water.png";
 
+export var canFull = new Image();
+canFull.src = "../assets/mansion_level/full_tin.png";
+
 export var ductSprite = new Image();
 ductSprite.src = "../assets/mansion_level/duct_tape.png";
 
@@ -152,3 +155,6 @@ export var ropeAnim = new Sprite("corde", ropeAnimaton, 512,168, 8, 8, 70, 530, 
 
 export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.11);
 
+export var canWater = new Sprite("boite de conserve", canFull, 500, 250, 1, 1, 140, 120, 0.3 );
+
+export var canWatertry = new Sprite("boite de conserve", canFull, 500, 350, 1, 1, 140, 120, 0.3 )

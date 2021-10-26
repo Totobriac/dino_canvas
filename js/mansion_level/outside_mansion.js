@@ -14,10 +14,12 @@ var hasFish = false;
 var trapSet = false;
 var hasLid = false;
 var isLidAttached = false;
+var isTinAttached = false;
+var isAnimated = true;
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring,sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
@@ -72,11 +74,25 @@ export function drawOutsideScenery(ctx) {
 
   if (hasLid === false) sprite.lid.draw(ctx);
 
-  if (trapSet === true) sprite.trap.draw(ctx);
+  if (trapSet === true && isTinAttached === false) {
+    sprite.trap.draw(ctx);
+  }
 
-  sprite.ropeAnim.draw(ctx);
+  var stopAnimation = sprite.canWater.checkCollision(0, 350, canvas.width, 50);
+  if (stopAnimation === true) isAnimated = false;
 
-  if (isLidAttached === true ) sprite.attachedLid.draw(ctx);
+  if (isTinAttached === true) sprite.canWater.draw(ctx);
+
+  if (isTinAttached === true && isAnimated === true) {
+    sprite.ropeAnim.draw(ctx);
+    sprite.attachedLid.update(0, -2);     
+  }
+
+  if (isTinAttached === true && isAnimated === true) {
+    sprite.canWater.update(0, 2);   
+  }
+
+  if (isLidAttached === true) sprite.attachedLid.draw(ctx);
 
   sprite.camera.draw(ctx);
 
@@ -85,6 +101,8 @@ export function drawOutsideScenery(ctx) {
   sprite.sign.draw(ctx);
 
   sprite.pole.draw(ctx);
+
+  //sprite.canWatertry.draw(ctx);
 
   dodgyCat();
 
@@ -175,11 +193,17 @@ function getLid() {
   }
 }
 
-
 function attachLid() {
-  if (hasLid === true) {
+  if (hasLid === true && trapSet === true) {
     isLidAttached = true;
     removeObject("couvercle");
+  }
+}
+
+function attachTin() {
+  if (isLidAttached === true && isTinAttached === false && hasWater === false) {
+    isTinAttached = true;
+    removeObject("boite de conserve");
   }
 }
 
@@ -216,7 +240,7 @@ var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grab
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],
-["corde", "camera", setTrap],["couvercle", "corde", attachLid]];
+["corde", "camera", setTrap], ["couvercle", "corde", attachLid], ["boite de conserve", "corde", attachTin]];
 
 export {
   sprites, outsideText, outsideAction, outsideObjectAction, objects,
