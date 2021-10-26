@@ -106,17 +106,20 @@ export var dyingFish = new Image();
 dyingFish.src = "../assets/mansion_level/fish.png";
 
 export var ropeCamera = new Image();
-ropeCamera.src = "../assets/mansion_level/rope_camera.png";
+ropeCamera.src = "../assets/mansion_level/rope_trap_4.png";
 
 export var lidObject = new Image();
 lidObject.src = "../assets/mansion_level/couvercle.png";
+
+export var ropeAnimaton = new Image();
+ropeAnimaton.src = "../assets/mansion_level/rope_anim.png";
 
 export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
 export var trash = new Sprite("poubelle", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
 export var lid = new Sprite("couvercle", lidSprite, 634, 306, 1, 1, 512, 512, 0.11);
 export var camera = new Sprite("camera", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
-export var gate = new Sprite("gate", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
+export var gate = new Sprite("porte", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
 
 export var smallBowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
 export var bigBowie = new Sprite("bigBowie", bowie, 270, 0, 1, 1, 570, 796, 0.6);
@@ -128,8 +131,6 @@ export var ring = new Sprite("sonette", ringSprite, 315, 250, 1, 1, 100, 100, 0.
 export var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
 
 export var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
-
-export var unrolledRope = new Sprite("cable", unrolledSprite, 270, 80, 1, 1, 35, 375, 0.4);
 
 export var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2);
 export var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 290, 1, 1, 162, 199, 0.2);
@@ -145,4 +146,9 @@ export var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1, 1, 111, 21, 1);
 
 export var fish = new Sprite("poisson", fishSprite, 65, 320, 58, 58, 100, 75, 0.8);
 
-export var trap = new Sprite("piége", ropeCamera, 512, 168, 1, 1, 70, 375, 0.5);
+export var trap = new Sprite("corde", ropeCamera, 512, 168, 1, 1, 70, 530, 0.5);
+
+export var ropeAnim = new Sprite("corde", ropeAnimaton, 512,168, 8, 8, 70, 530, 0.5 )
+
+export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.11);
+

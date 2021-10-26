@@ -13,10 +13,11 @@ var hasWater = true;
 var hasFish = false;
 var trapSet = false;
 var hasLid = false;
+var isLidAttached = false;
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring,sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
@@ -72,6 +73,10 @@ export function drawOutsideScenery(ctx) {
   if (hasLid === false) sprite.lid.draw(ctx);
 
   if (trapSet === true) sprite.trap.draw(ctx);
+
+  sprite.ropeAnim.draw(ctx);
+
+  if (isLidAttached === true ) sprite.attachedLid.draw(ctx);
 
   sprite.camera.draw(ctx);
 
@@ -164,15 +169,24 @@ function grabFish() {
 }
 
 function getLid() {
-  console.log("ok")
   if (hasLid === false) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
   }
 }
 
+
+function attachLid() {
+  if (hasLid === true) {
+    isLidAttached = true;
+    removeObject("couvercle");
+  }
+}
+
+
 function setTrap() {
   trapSet = true;
+  removeObject("corde");
 }
 
 function removeObject(object) {
@@ -191,9 +205,9 @@ function leavePoster() {
   isReadingPoster = false;
 }
 
-var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
-["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
-["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
+var outsideText = [["chat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
+["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "Ferme!!!!!"],
+["poubelle", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
 
 var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grabCan],
 ["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
@@ -202,7 +216,7 @@ var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grab
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],
-["corde", "camera", setTrap]];
+["corde", "camera", setTrap],["couvercle", "corde", attachLid]];
 
 export {
   sprites, outsideText, outsideAction, outsideObjectAction, objects,
