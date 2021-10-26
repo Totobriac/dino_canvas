@@ -11,10 +11,12 @@ var hasRope = false;
 var isRunningWater = true;
 var hasWater = true;
 var hasFish = false;
+var trapSet = false;
+var hasLid = false;
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.trash, sprite.camera, sprite.ring, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
@@ -67,6 +69,10 @@ export function drawOutsideScenery(ctx) {
 
   sprite.trash.draw(ctx);
 
+  if (hasLid === false) sprite.lid.draw(ctx);
+
+  if (trapSet === true) sprite.trap.draw(ctx);
+
   sprite.camera.draw(ctx);
 
   sprite.ring.draw(ctx);
@@ -117,21 +123,21 @@ function push() {
 }
 
 function grabCan() {
-  if (hasCan == false) {
+  if (hasCan === false && hasLid === true) {
     objects.push(["boite de conserve", sprite.canSprite]);
     hasCan = true;
   }
 }
 
 function grabDuct() {
-  if (hasTape == false) {
+  if (hasTape === false) {
     objects.push(["boulle de scotch", sprite.ductSprite]);
     hasTape = true;
   }
 }
 
 function grabRope() {
-  if (hasRope == false) {
+  if (hasRope === false) {
     objects.push(["corde", sprite.ropeSprite]);
     hasRope = true;
   }
@@ -143,15 +149,30 @@ function stopWater() {
 }
 
 function emptyWater() {
-  removeObject("boite de conserve");
-  hasWater = false;
+  if (isRunningWater === false) {
+    removeObject("boite de conserve");
+    hasWater = false;
+    objects.push(["boite de conserve", sprite.canSpriteWater]);
+  }
 }
 
 function grabFish() {
-  if (hasFish == false) {
+  if (hasFish === false && isRunningWater === false && hasWater === false) {
     objects.push(["poisson", sprite.dyingFish]);
     hasFish = true;
   }
+}
+
+function getLid() {
+  console.log("ok")
+  if (hasLid === false) {
+    objects.push(["couvercle", sprite.lidObject]);
+    hasLid = true;
+  }
+}
+
+function setTrap() {
+  trapSet = true;
 }
 
 function removeObject(object) {
@@ -174,12 +195,14 @@ var outsideText = [["cat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["ring", "Utiliser", "Bonjour!!"], ["gate", "Ouvrir", "Ferme!!!!!"],
 ["trash", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
 
-var outsideAction = [["Pousser", "trash", push], ["Prendre", "trash", grabCan],
+var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grabCan],
 ["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
-["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish]
+["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish],
+["Prendre", "couvercle", getLid]
 ];
 
-var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater]];
+var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],
+["corde", "camera", setTrap]];
 
 export {
   sprites, outsideText, outsideAction, outsideObjectAction, objects,
