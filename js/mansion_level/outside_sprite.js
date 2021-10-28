@@ -111,11 +111,23 @@ dyingFish.src = "../assets/mansion_level/fish.png";
 export var ropeCamera = new Image();
 ropeCamera.src = "../assets/mansion_level/rope_trap_4.png";
 
+export var ropeTrapSet = new Image();
+ropeTrapSet.src = "../assets/mansion_level/rope_trap_4_set.png";
+
 export var lidObject = new Image();
 lidObject.src = "../assets/mansion_level/couvercle.png";
 
-export var ropeAnimaton = new Image();
-ropeAnimaton.src = "../assets/mansion_level/rope_anim.png";
+export var ropeAnimation = new Image();
+ropeAnimation.src = "../assets/mansion_level/rope_anim.png";
+
+export var fishFloor = new Image();
+fishFloor.src = "../assets/mansion_level/fish_floor.png";
+
+export var flyingCat = new Image();
+flyingCat.src = "../assets/mansion_level/flying_cat.png";
+
+export var runningCat = new Image();
+runningCat.src = "../assets/mansion_level/running_cat.png";
 
 export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
@@ -149,12 +161,12 @@ export var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1, 1, 111, 21, 1);
 
 export var fish = new Sprite("poisson", fishSprite, 65, 320, 58, 58, 100, 75, 0.8);
 
-export var trap = new Sprite("corde", ropeCamera, 512, 168, 1, 1, 70, 530, 0.5);
+export var trap = new Sprite("corde", ropeCamera, 512, 162, 1, 1, 70, 530, 0.5);
 
-export var ropeAnim = new Sprite("corde", ropeAnimaton, 512,168, 8, 8, 70, 530, 0.5 )
+export var trapSet = new Sprite("corde", ropeTrapSet, 512, 162, 1, 1, 70, 530, 0.5);
+
+export var ropeAnim = new Sprite("corde", ropeAnimation, 512,162, 8, 8, 70, 530, 0.5 )
 
 export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.11);
 
 export var canWater = new Sprite("boite de conserve", canFull, 500, 250, 1, 1, 140, 120, 0.3 );
-
-export var canWatertry = new Sprite("boite de conserve", canFull, 500, 350, 1, 1, 140, 120, 0.3 )

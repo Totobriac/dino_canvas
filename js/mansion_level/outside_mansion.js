@@ -1,3 +1,4 @@
+import { Sprite } from "../character/sprite.js";
 import { dino } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 
@@ -16,10 +17,14 @@ var hasLid = false;
 var isLidAttached = false;
 var isTinAttached = false;
 var isAnimated = true;
+var isFishInside = false;
+var isTrapReady = true;
+var catOnTheFloor = false;
+var gettingIntoTrash = false,
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.trash, sprite.camera, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.camera, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
@@ -46,18 +51,48 @@ export function drawOutsideScenery(ctx) {
   sprite.poster.draw(ctx);
   ctx.restore();
 
-  if (isDinoLeft == true) {
-    if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
-    if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkRight;
-    if (sprite.cat.x == 230) sprite.cat.sprite = sprite.catSitRight;
+  if (isTrapReady === false) {
+    if (isDinoLeft == true) {
+      if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
+      if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkRight;
+      if (sprite.cat.x == 230) sprite.cat.sprite = sprite.catSitRight;
+    }
+    else {
+      if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
+      if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkLeft;
+    }
+  } else {
+    if (sprite.cat.y < 315 && catOnTheFloor === false) {
+      sprite.cat.sprite = sprite.flyingCat;
+      sprite.cat.frames = 1;
+      sprite.cat.columns = 1;
+      sprite.cat.update(1, 2.5);
+    }
+    else {
+      catOnTheFloor = true;
+      if (sprite.cat.x < 300) {
+        sprite.cat.sprite = sprite.runningCat;
+        sprite.cat.frames = 16;
+        sprite.cat.columns = 4;
+        sprite.cat.update(1, 0);
+      }
+      else if (sprite.cat.x < 420){
+        sprite.cat.sprite = sprite.flyingCat;
+        sprite.cat.frames = 1;
+        sprite.cat.columns = 1;
+        sprite.cat.update(1, -1);
+      }
+      else {
+        gettingIntoTrash = true;
+      }
+    }
   }
-  else {
-    if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
-    if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkLeft;
-  }
-  sprite.cat.draw(ctx);
 
   sprite.ivy.draw(ctx);
+
+  if (gettingIntoTrash === false) {
+    sprite.cat.draw(ctx);}
+    else {}
 
   isRunningWater === true ? sprite.lionHead.draw(ctx) : sprite.lionHeadSc.draw(ctx);
 
@@ -78,19 +113,22 @@ export function drawOutsideScenery(ctx) {
     sprite.trap.draw(ctx);
   }
 
-  var stopAnimation = sprite.canWater.checkCollision(0, 350, canvas.width, 50);
+
+  if (isTinAttached === true && isAnimated === false) {
+    sprite.trapSet.draw(ctx);
+  }
+
+  var stopAnimation = sprite.canWater.checkCollision(0, 330, canvas.width, 50);
   if (stopAnimation === true) isAnimated = false;
 
   if (isTinAttached === true) sprite.canWater.draw(ctx);
 
   if (isTinAttached === true && isAnimated === true) {
     sprite.ropeAnim.draw(ctx);
-    sprite.attachedLid.update(0, -2);     
+    sprite.attachedLid.update(0, -2);
+    sprite.canWater.update(0, 2);
   }
 
-  if (isTinAttached === true && isAnimated === true) {
-    sprite.canWater.update(0, 2);   
-  }
 
   if (isLidAttached === true) sprite.attachedLid.draw(ctx);
 
@@ -102,9 +140,8 @@ export function drawOutsideScenery(ctx) {
 
   sprite.pole.draw(ctx);
 
-  //sprite.canWatertry.draw(ctx);
+  isTrapReady === false ? dodgyCat() : catToTrap();
 
-  dodgyCat();
 
   if (isReadingPoster == true) {
     ctx.drawImage(sprite.wallSprite, 0, 0, 900, 400);
@@ -207,10 +244,15 @@ function attachTin() {
   }
 }
 
-
 function setTrap() {
   trapSet = true;
   removeObject("corde");
+}
+
+function leaveFish() {
+  removeObject("poisson");
+  isFishInside = true;
+  isTrapReady = true;
 }
 
 function removeObject(object) {
@@ -229,6 +271,11 @@ function leavePoster() {
   isReadingPoster = false;
 }
 
+function catToTrap() {
+  sprite.cat.sprite = sprite.catWalkRight;
+  sprite.cat.update(2, 0);
+}
+
 var outsideText = [["chat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
 ["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "Ferme!!!!!"],
 ["poubelle", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
@@ -240,7 +287,8 @@ var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grab
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],
-["corde", "camera", setTrap], ["couvercle", "corde", attachLid], ["boite de conserve", "corde", attachTin]];
+["corde", "camera", setTrap], ["couvercle", "corde", attachLid], ["boite de conserve", "corde", attachTin],
+["poisson", "poubelle", leaveFish]];
 
 export {
   sprites, outsideText, outsideAction, outsideObjectAction, objects,
