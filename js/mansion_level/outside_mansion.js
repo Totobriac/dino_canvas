@@ -1,4 +1,3 @@
-import { Sprite } from "../character/sprite.js";
 import { dino } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 
@@ -18,17 +17,20 @@ var isLidAttached = false;
 var isTinAttached = false;
 var isAnimated = true;
 var isFishInside = false;
-var isTrapReady = true;
+var isTrapReady = false;
 var catOnTheFloor = false;
-var gettingIntoTrash = false,
+var isCatFree = true;
+var cutTheRope = false;
+var isCatCaught = false;
+
 
 export function drawOutsideScenery(ctx) {
 
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.camera, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
-  ctx.drawImage(sprite.lightSprite, 650, 0, 130, 144);
+  ctx.drawImage(sprite.mansionLightSprite, 650, 0, 130, 144);
   ctx.drawImage(sprite.mansionSprite, 650, 0, 130, 144);
   ctx.drawImage(sprite.moonLightSprite, 85, 55, 80, 80);
   ctx.drawImage(sprite.moonSprite, 100, 70, 50, 50);
@@ -40,6 +42,10 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(sprite.wallSprite, 552, 210, 160, 160);
   ctx.drawImage(sprite.wallSprite, 712, 210, 160, 160);
   ctx.drawImage(sprite.wallSprite, 872, 210, 160, 160);
+
+  sprite.light1.draw(ctx);
+  sprite.light2.draw(ctx);
+
 
   sprite.gate.draw(ctx);
 
@@ -76,23 +82,25 @@ export function drawOutsideScenery(ctx) {
         sprite.cat.columns = 4;
         sprite.cat.update(1, 0);
       }
-      else if (sprite.cat.x < 420){
+      else if (sprite.cat.x < 420) {
         sprite.cat.sprite = sprite.flyingCat;
         sprite.cat.frames = 1;
         sprite.cat.columns = 1;
         sprite.cat.update(1, -1);
       }
       else {
-        gettingIntoTrash = true;
+        sprite.cat.sprite = sprite.divingCat;
+        sprite.cat.update(0.5, 1.5);
+        if (sprite.cat.y > 300) {
+          isCatFree = false;
+        }
       }
     }
   }
 
   sprite.ivy.draw(ctx);
 
-  if (gettingIntoTrash === false) {
-    sprite.cat.draw(ctx);}
-    else {}
+  if (isCatFree === true) sprite.cat.draw(ctx);
 
   isRunningWater === true ? sprite.lionHead.draw(ctx) : sprite.lionHeadSc.draw(ctx);
 
@@ -114,12 +122,17 @@ export function drawOutsideScenery(ctx) {
   }
 
 
-  if (isTinAttached === true && isAnimated === false) {
+  if (isTinAttached === true && isAnimated === false && cutTheRope == false) {
     sprite.trapSet.draw(ctx);
   }
 
   var stopAnimation = sprite.canWater.checkCollision(0, 330, canvas.width, 50);
+
+  var isCuttingRope = sprite.cat.checkCollision(sprite.ropeAnim.x, 0, sprite.ropeAnim.spriteWidth, canvas.height);
+
   if (stopAnimation === true) isAnimated = false;
+
+  if (isCuttingRope === true) cutTheRope = true;
 
   if (isTinAttached === true) sprite.canWater.draw(ctx);
 
@@ -129,10 +142,21 @@ export function drawOutsideScenery(ctx) {
     sprite.canWater.update(0, 2);
   }
 
+  var isLidOn = sprite.attachedLid.checkCollision(0, sprite.trash.y, canvas.width, 10);
+  if (isLidOn === true && cutTheRope === true) isCatCaught = true;
+  console.log(isCatCaught);
+
+  if (cutTheRope === true && isCatCaught === false) {
+    sprite.ropeAnimUp.draw(ctx);
+    sprite.lid.update(0, 1);
+  }
+
+  if (isFishInside === true && dino.x > 750) {
+    isTrapReady = true;
+  }
+
 
   if (isLidAttached === true) sprite.attachedLid.draw(ctx);
-
-  sprite.camera.draw(ctx);
 
   sprite.ring.draw(ctx);
 
@@ -252,7 +276,6 @@ function setTrap() {
 function leaveFish() {
   removeObject("poisson");
   isFishInside = true;
-  isTrapReady = true;
 }
 
 function removeObject(object) {
@@ -287,7 +310,7 @@ var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grab
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],
-["corde", "camera", setTrap], ["couvercle", "corde", attachLid], ["boite de conserve", "corde", attachTin],
+["corde", "lampe", setTrap], ["couvercle", "corde", attachLid], ["boite de conserve", "corde", attachTin],
 ["poisson", "poubelle", leaveFish]];
 
 export {

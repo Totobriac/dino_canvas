@@ -3,8 +3,8 @@ import { Sprite } from "../character/sprite.js";
 export var mansionSprite = new Image();
 mansionSprite.src = "../assets/mansion_level/maniac_no_light.png";
 
-export var lightSprite = new Image();
-lightSprite.src = "../assets/mansion_level/yellow_light.png";
+export var mansionLightSprite = new Image();
+mansionLightSprite.src = "../assets/mansion_level/yellow_light.png";
 
 export var gateSprite = new Image();
 gateSprite.src = "../assets/mansion_level/portail_essai.png";
@@ -30,8 +30,8 @@ binSprite.src = "../assets/mansion_level/trash.png";
 export var lidSprite = new Image();
 lidSprite.src = "../assets/mansion_level/trash_lid.png";
 
-export var cameraSprite = new Image();
-cameraSprite.src = "../assets/mansion_level/grey_cam_pix_2.png";
+export var lightSprite = new Image();
+lightSprite.src = "../assets/mansion_level/light.png";
 
 export var ringSprite = new Image();
 ringSprite.src = "../assets/mansion_level/ring.png";
@@ -81,9 +81,6 @@ ropeSprite.src = "../assets/mansion_level/ivy_rope.png";
 export var poleSprite = new Image();
 poleSprite.src = "../assets/mansion_level/pole.png";
 
-export var unrolledSprite = new Image();
-unrolledSprite.src = "../assets/mansion_level/unrolled_rope.png";
-
 export var lionSprite = new Image;
 lionSprite.src = "../assets/mansion_level/lion_head.png";
 
@@ -109,16 +106,19 @@ export var dyingFish = new Image();
 dyingFish.src = "../assets/mansion_level/fish.png";
 
 export var ropeCamera = new Image();
-ropeCamera.src = "../assets/mansion_level/rope_trap_4.png";
+ropeCamera.src = "../assets/mansion_level/rope_trap.png";
 
 export var ropeTrapSet = new Image();
-ropeTrapSet.src = "../assets/mansion_level/rope_trap_4_set.png";
+ropeTrapSet.src = "../assets/mansion_level/rope_trap_set.png";
 
 export var lidObject = new Image();
 lidObject.src = "../assets/mansion_level/couvercle.png";
 
 export var ropeAnimation = new Image();
 ropeAnimation.src = "../assets/mansion_level/rope_anim.png";
+
+export var ropeAnimationUp = new Image();
+ropeAnimationUp.src = "../assets/mansion_level/rope_up.png";
 
 export var fishFloor = new Image();
 fishFloor.src = "../assets/mansion_level/fish_floor.png";
@@ -129,11 +129,17 @@ flyingCat.src = "../assets/mansion_level/flying_cat.png";
 export var runningCat = new Image();
 runningCat.src = "../assets/mansion_level/running_cat.png";
 
+export var divingCat = new Image();
+divingCat.src = "../assets/mansion_level/diving_cat.png";
+
 export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
-export var trash = new Sprite("poubelle", binSprite, 640, 320, 1, 1, 1676, 2094, 0.03);
-export var lid = new Sprite("couvercle", lidSprite, 634, 306, 1, 1, 512, 512, 0.11);
-export var camera = new Sprite("camera", cameraSprite, 468, 113, 1, 1, 800, 800, 0.12);
+export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035);
+export var lid = new Sprite("couvercle", lidSprite, 634, 295, 1, 1, 512, 512, 0.125);
+
+export var light1 = new Sprite("lampe", lightSprite, 452, 78, 1, 1, 200, 200, 0.8);
+export var light2 = new Sprite("lampe2", lightSprite, 260, 78, 1, 1, 200, 200, 0.8);
+
 export var gate = new Sprite("porte", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
 
 export var smallBowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
@@ -167,6 +173,8 @@ export var trapSet = new Sprite("corde", ropeTrapSet, 512, 162, 1, 1, 70, 530, 0
 
 export var ropeAnim = new Sprite("corde", ropeAnimation, 512,162, 8, 8, 70, 530, 0.5 )
 
-export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.11);
+export var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512,162, 8, 8, 70, 530, 0.5 )
+
+export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.125);
 
 export var canWater = new Sprite("boite de conserve", canFull, 500, 250, 1, 1, 140, 120, 0.3 );
