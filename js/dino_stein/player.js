@@ -63,14 +63,14 @@ class Player {
     var squareY = parseInt(y / this.level.tileHeight);
 
     switch (this.level.grid[squareY][squareX]) {
-      case 10:
-        this.level.levelChange(10);
+      case 100:
+        this.level.levelChange(100);
         this.x = 64;
         this.y = 80;
         this.turnAngle = 1.675;
         break;
-      case 11:
-        this.level.levelChange(11);
+      case 101:
+        this.level.levelChange(101);
         this.newX = 305;
         this.newY = 220;
         this.turnAngle = 3.14;
@@ -98,7 +98,6 @@ class Player {
     }
   }
   draw() {
-    console.log(this.turnAngle)
     this.update();
     for (let i = 0; i < this.numbOfRays; i++) {
       this.rays[i].draw();

@@ -6,7 +6,7 @@ const FOV = 60;
 
 var tileSize = 40;
 var tiles = new Image();
-tiles.src = "../assets/sewer_level/walls.png";
+tiles.src = "../assets/sewer_level/walls_2.png";
 
 class Ray {
 
@@ -24,17 +24,17 @@ class Ray {
     this.wallHitX = 0;
     this.wallHitY = 0;
 
-    this.wallHitXHorizontal = 0;	
-    this.wallHitYHorizontal = 0;	
-    this.wallHitXVertical = 0;	
+    this.wallHitXHorizontal = 0;
+    this.wallHitYHorizontal = 0;
+    this.wallHitXVertical = 0;
     this.wallHitYVertical = 0;
 
 
-    this.stripe = stripe;		
-    this.distance = 0;	
+    this.stripe = stripe;
+    this.distance = 0;
 
-    this.pixelTexture = 0;	
-    this.textureId = 0;		
+    this.pixelTexture = 0;
+    this.textureId = 0;
 
     this.projectPlaneDist = (canvasWidth / 2) / Math.tan(FOV / 2);
   }
@@ -60,21 +60,21 @@ class Ray {
       this.left = true;
 
 
-    var horizontalHit = false;	
+    var horizontalHit = false;
     this.yIntercept = Math.floor(this.y / tileSize) * tileSize;
 
 
     if (this.down)
-      this.yIntercept += tileSize;		
+      this.yIntercept += tileSize;
 
-     var adjacente = (this.yIntercept - this.y) / Math.tan(this.angle);	
+     var adjacente = (this.yIntercept - this.y) / Math.tan(this.angle);
     this.xIntercept = this.x + adjacente;
 
-    
-    this.yStep = tileSize;
-    this.xStep = this.yStep / Math.tan(this.angle);	
 
-    
+    this.yStep = tileSize;
+    this.xStep = this.yStep / Math.tan(this.angle);
+
+
     if (!this.down)
       this.yStep = -this.yStep;
 
@@ -82,7 +82,7 @@ class Ray {
       this.xStep *= -1;
     }
 
-    
+
     var nextXHorizontal = this.xIntercept;
     var nextYHorizontal = this.yIntercept;
 
@@ -105,9 +105,9 @@ class Ray {
     }
 
 
-    var verticalHit = false;	
+    var verticalHit = false;
 
-    this.xIntercept = Math.floor(this.x / tileSize) * tileSize; 		
+    this.xIntercept = Math.floor(this.x / tileSize) * tileSize;
 
 
     if (!this.left)
@@ -117,18 +117,18 @@ class Ray {
       var opposite = (this.xIntercept - this.x) * Math.tan(this.angle);
     this.yIntercept = this.y + opposite;
 
-    
-    this.xStep = tileSize;								
+
+    this.xStep = tileSize;
 
     if (this.left)
       this.xStep *= -1;
-    this.yStep = tileSize * Math.tan(this.angle);	
+    this.yStep = tileSize * Math.tan(this.angle);
 
     if ((!this.down && this.yStep > 0) || (this.down && this.yStep < 0)) {
       this.yStep *= -1;
     }
 
-    
+
     var nextXVertical = this.xIntercept;
     var nextYVertical = this.yIntercept;
 
@@ -195,7 +195,7 @@ class Ray {
     var heightTileTexture = 64;
     var textureHeight = y0 - y1;
     this.ctx.imageSmoothingEnabled = false;
-    this.ctx.drawImage(tiles, this.pixelTexture, ((this.textureId - 1) * heightTileTexture), this.pixelTexture, 63, x + 300, y1, 1, textureHeight);
+      this.ctx.drawImage(tiles, this.pixelTexture, ((this.textureId - 1) * heightTileTexture), this.pixelTexture, 63, x + 300, y1, 1, textureHeight);
   }
   draw() {
     this.cast();
