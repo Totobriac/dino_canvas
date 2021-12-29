@@ -85,6 +85,10 @@ class Enemy extends Sprite {
     var pic = "shoot_" + this.frame;
     this.image = eval(pic);
   }
+  // checkIfInRange() {
+  //
+  //   }
+  // }
 }
 
 
@@ -98,6 +102,7 @@ function drawEnemies() {
     return obj2.distance - obj1.distance;
   });
   for (let a = 0; a < enemies.length; a++) {
+    //enemies[a].checkIfInRange();
     enemies[a].draw();
     enemies[a].alert();
   }
