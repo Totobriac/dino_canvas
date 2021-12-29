@@ -4,7 +4,7 @@ import { createSprites, drawSprites } from "./sprite.js";
 import { setUpControls } from "./control.js";
 
 var player;
-var level; 
+var level;
 
 var canvasWidth = 1200;
 var canvasHeight = 400;
@@ -28,6 +28,7 @@ function maze(ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawFloorCeiling(ctx);
   player.draw();
+  level.levelAnimate();
   drawSprites(player, ctx);
 }
 

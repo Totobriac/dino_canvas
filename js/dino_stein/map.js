@@ -13,7 +13,7 @@ var hall = [
   [1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 100, 3],
   [1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [12, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 5, 6, 7, 8, 9, 10, 1, 1]
@@ -61,6 +61,9 @@ class Level {
     this.gridWidth = this.grid[0].length;
     this.tileHeight = tileSize;
     this.tileWidth = tileSize;
+
+    this.tickCount = 0;
+    this.maxTickCount = 12;
   }
   colision(x, y) {
     var hit = false;
@@ -81,6 +84,13 @@ class Level {
       case 101:
         this.grid = hall;
         break;
+    }
+  }
+  levelAnimate() {
+    this.tickCount ++;
+    if (this.tickCount > this.maxTickCount) {
+      this.tickCount = 0;
+      this.grid[7][0] === 12 ? this.grid[7][0] = 11 : this.grid[7][0] = 12;
     }
   }
 }
