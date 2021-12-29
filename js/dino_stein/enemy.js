@@ -98,7 +98,6 @@ function drawEnemies() {
     return obj2.distance - obj1.distance;
   });
   for (let a = 0; a < enemies.length; a++) {
-    //enemies[a].animate();
     enemies[a].draw();
     enemies[a].alert();
   }
