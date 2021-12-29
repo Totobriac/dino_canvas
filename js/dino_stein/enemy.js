@@ -24,8 +24,9 @@ shoot_2.src = "../assets/sewer_level/soldier_1/shoot_2.png";
 var enemies = [];
 
 class Enemy extends Sprite {
-  constructor(x, y, image, player, ctx) {
+  constructor(x, y, image, player, ctx,level) {
     super(x, y, image, player, ctx);
+    this.level = level;
     this.speed = 1;
     this.radians;
     this.tickCount = 0;
@@ -35,17 +36,35 @@ class Enemy extends Sprite {
   alert() {
     if (this.distance < 80) {
       this.shoot();
-    } else if (this.distance < 200) {
+    } else if (this.distance < 160) {
       this.pursue();
+    }
+    else {
+      this.image = soldier;
+      this.frame = 0;
     }
   }
   pursue() {
     this.walkAnimation();
     this.radians = Math.atan2(this.player.y - this.y, this.player.x - this.x);
-    var x2 = Math.cos(this.radians) * 1.2
-    var y2 = Math.sin(this.radians) * 1.2
-    this.x += x2;
-    this.y += y2;
+    var X = this.x;
+    var Y = this.y;
+
+    var nextX = X += Math.cos(this.radians) * 1.2;
+    var nextY = Y += Math.sin(this.radians) * 1.2;
+
+    var squareX = parseInt(nextX / this.level.tileWidth);
+    var squareY = parseInt(nextY / this.level.tileHeight);
+
+    var noCollision = this.level.colision(squareX, squareY);
+    if(noCollision === false) {
+      this.x = nextX;
+      this.y = nextY;
+    }
+    else {
+      this.image = soldier;
+      this.frame = 0;
+    }
   }
   walkAnimation() {
     this.tickCount++;
@@ -69,8 +88,8 @@ class Enemy extends Sprite {
 }
 
 
-function createEnemies(player, ctx) {
-  enemies[0] = new Enemy(300, 120, soldier, player, ctx);
+function createEnemies(player, ctx,level) {
+  enemies[0] = new Enemy(300, 120, soldier, player, ctx,level);
 }
 
 

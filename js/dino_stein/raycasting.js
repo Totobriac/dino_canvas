@@ -21,7 +21,7 @@ function initMaze(game, ctx) {
     player = new Player(ctx, level, 60, 60);
     setUpControls(player);
     createSprites(player, ctx);
-    createEnemies(player, ctx);
+    createEnemies(player, ctx,level);
     game.level5Started = true
   }
 }
