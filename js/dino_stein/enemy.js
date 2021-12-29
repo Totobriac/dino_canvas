@@ -4,6 +4,7 @@ import {
 
 var soldier = new Image();
 soldier.src = "../assets/sewer_level/soldier_1/still.png";
+
 var walk_0 = new Image();
 walk_0.src = "../assets/sewer_level/soldier_1/0.png";
 var walk_1 = new Image();
@@ -12,6 +13,13 @@ var walk_2 = new Image();
 walk_2.src = "../assets/sewer_level/soldier_1/2.png";
 var walk_3 = new Image();
 walk_3.src = "../assets/sewer_level/soldier_1/3.png";
+
+var shoot_0 = new Image();
+shoot_0.src = "../assets/sewer_level/soldier_1/shoot_0.png";
+var shoot_1 = new Image();
+shoot_1.src = "../assets/sewer_level/soldier_1/shoot_1.png";
+var shoot_2 = new Image();
+shoot_2.src = "../assets/sewer_level/soldier_1/shoot_2.png";
 
 var enemies = [];
 
@@ -23,20 +31,19 @@ class Enemy extends Sprite {
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.frame = 0;
-    this.frames = 4;
   }
   alert() {
-    if (this.distance < 100) {
-      console.log("fire")
+    if (this.distance < 80) {
+      this.shoot();
     } else if (this.distance < 200) {
-      this.pursue()
+      this.pursue();
     }
   }
   pursue() {
     this.walkAnimation();
     this.radians = Math.atan2(this.player.y - this.y, this.player.x - this.x);
-    var x2 = Math.cos(this.radians) * 1;
-    var y2 = Math.sin(this.radians) * 1;
+    var x2 = Math.cos(this.radians) * 1.2
+    var y2 = Math.sin(this.radians) * 1.2
     this.x += x2;
     this.y += y2;
   }
@@ -47,7 +54,16 @@ class Enemy extends Sprite {
       this.frame < 3 ? this.frame++ : this.frame = 0;
     }
     var pic = "walk_" + this.frame;
-
+    this.image = eval(pic);
+  }
+  shoot() {
+    if (this.frame > 2) this.frame = 0;
+    this.tickCount++;
+    if (this.tickCount > this.maxTickCount) {
+      this.tickCount = 0;
+      this.frame < 2 ? this.frame++ : this.frame = 0;
+    }
+    var pic = "shoot_" + this.frame;
     this.image = eval(pic);
   }
 }
