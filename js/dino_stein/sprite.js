@@ -32,9 +32,10 @@ class Sprite {
       this.visible = true;
     else
       this.visible = false;
+    return angleDif
   }
   calculateDistance() {
-    this.distance = distBetweenTwoPoints(this.player.x, this.player.y, this.x, this.y)
+    this.distance = distBetweenTwoPoints(this.player.x, this.player.y, this.x, this.y);
   }
   update() {
     this.calculateAngle();
@@ -72,14 +73,13 @@ class Sprite {
 }
 
 function createSprites(player, ctx) {
-  // var imgArmor = new Image();
-  // imgArmor.src = "../assets/sewer_level/lamp.png";
-  // var imgPlanta = new Image();
-  // imgPlanta.src = "../assets/sewer_level/rat_try.png";
-  // sprites[0] = new Sprite(300, 120, imgArmor, player, ctx);
-  // sprites[1] = new Sprite(150, 150, imgArmor, player, ctx);
-  // sprites[2] = new Sprite(320, 300, imgPlanta, player, ctx);
-  // sprites[3] = new Sprite(300, 380, imgPlanta, player, ctx);
+  var lamp = new Image();
+  lamp.src = "../assets/sewer_level/lamp.png";
+  var plant = new Image();
+  plant.src = "../assets/sewer_level/plant.png";
+  sprites[0] = new Sprite(250, 150, lamp, player, ctx);
+  sprites[1] = new Sprite(320, 300, plant, player, ctx);
+  sprites[2] = new Sprite(300, 380, plant, player, ctx);
 }
 
 
@@ -92,4 +92,4 @@ function drawSprites() {
   }
 }
 
-export { createSprites, drawSprites }
+export { createSprites, drawSprites, Sprite }

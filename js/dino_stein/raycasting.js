@@ -1,6 +1,7 @@
 import { drawFloorCeiling, Level } from "./map.js";
 import { Player } from "./player.js";
 import { createSprites, drawSprites } from "./sprite.js";
+import { createEnemies, drawEnemies} from "./enemy.js";
 import { setUpControls } from "./control.js";
 
 var player;
@@ -20,6 +21,7 @@ function initMaze(game, ctx) {
     player = new Player(ctx, level, 60, 60);
     setUpControls(player);
     createSprites(player, ctx);
+    createEnemies(player, ctx);
     game.level5Started = true
   }
 }
@@ -30,6 +32,7 @@ function maze(ctx) {
   player.draw();
   level.levelAnimate();
   drawSprites(player, ctx);
+  drawEnemies(player, ctx);
 }
 
 export { zBuffer, initMaze, maze }
