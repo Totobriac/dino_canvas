@@ -21,6 +21,17 @@ shoot_1.src = "../assets/sewer_level/soldier_1/shoot_1.png";
 var shoot_2 = new Image();
 shoot_2.src = "../assets/sewer_level/soldier_1/shoot_2.png";
 
+var die_0 = new Image();
+die_0.src = "../assets/sewer_level/soldier_1/die_0.png";
+var die_1 = new Image();
+die_1.src = "../assets/sewer_level/soldier_1/die_1.png";
+var die_2 = new Image();
+die_2.src = "../assets/sewer_level/soldier_1/die_2.png";
+var die_3 = new Image();
+die_3.src = "../assets/sewer_level/soldier_1/die_3.png";
+var die_4 = new Image();
+die_4.src = "../assets/sewer_level/soldier_1/die_4.png";
+
 var enemies = [];
 
 class Enemy extends Sprite {
@@ -87,7 +98,13 @@ class Enemy extends Sprite {
     this.image = eval(pic);
   }
   isDying() {
-    console.log("die")
+    this.tickCount++;
+    if (this.tickCount > this.maxTickCount) {
+      this.tickCount = 0;
+      if (this.frame < 4 ) this.frame++;
+    }
+    var pic = "die_" + this.frame;
+    this.image = eval(pic);
   }
   checkIfInRange() {
     if (this.halfSprite + 20 < 592 || this.halfSprite > 638) {
@@ -96,6 +113,7 @@ class Enemy extends Sprite {
       this.isInRange = true;
     }
     if (this.isInRange === true && this.pistol.isShooting === true) {
+      this.isShot = true;
       this.isDying();
     }
   }
@@ -117,7 +135,7 @@ function drawEnemies() {
     if (enemies[a].isShot === false) {
       enemies[a].alert();
     } else {
-      enemies[a].isShot();
+      enemies[a].isDying();
     }
   }
 }
