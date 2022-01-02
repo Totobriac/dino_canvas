@@ -17,6 +17,7 @@ class Sprite {
     this.angle = 0;
     this.visible = false;
     this.ctx = ctx;
+    this.halfSprite= 0;
   }
   calculateAngle() {
     var vectX = this.x - this.player.x;
@@ -58,15 +59,16 @@ class Sprite {
       var viewDist = 500;
       var x0 = Math.tan(spriteAngle) * viewDist;
       var x = (canvasWidth / 2 + x0 - textureHeight / 2);
-
       this.ctx.imageSmoothingEnabled = false;
       var columnWidth = textureHeight / heightTileTexture;
 
       for (let i = 0; i < widthTileTexture; i++) {
         for (let j = 0; j < columnWidth; j++) {
+          if(i === 32 ) {
+            this.halfSprite = x1 + 300;
+          }
           var x1 = parseInt(x + ((i - 1) * columnWidth) + j);
           if (zBuffer[x1] > this.distance) {
-            console.log(x1 + 300)
             this.ctx.drawImage(this.image, i, 0, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
           }
         }

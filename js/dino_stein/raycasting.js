@@ -24,7 +24,7 @@ function initMaze(game, ctx) {
     pistol = new Pistol(ctx);
     setUpControls(player, pistol);
     createSprites(player, ctx);
-    createEnemies(player, ctx,level);
+    createEnemies(player, ctx,level,pistol);
     game.level5Started = true
   }
 }

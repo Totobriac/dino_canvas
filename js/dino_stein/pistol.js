@@ -24,6 +24,7 @@ class Pistol {
             this.frame = 0;
         }
       }
+      this.ctx.fillStyle="black"
       this.ctx.drawImage(pistol, this.frame * 64, 0, 64, 64, 450, 80, 320, 320);
     }
   }

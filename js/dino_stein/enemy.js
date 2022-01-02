@@ -24,7 +24,7 @@ shoot_2.src = "../assets/sewer_level/soldier_1/shoot_2.png";
 var enemies = [];
 
 class Enemy extends Sprite {
-  constructor(x, y, image, player, ctx,level) {
+  constructor(x, y, image, player, ctx, level, pistol) {
     super(x, y, image, player, ctx);
     this.level = level;
     this.speed = 1;
@@ -32,14 +32,16 @@ class Enemy extends Sprite {
     this.tickCount = 0;
     this.maxTickCount = 12;
     this.frame = 0;
+    this.isInRange = false;
+    this.isShot = false;
+    this.pistol = pistol;
   }
   alert() {
     if (this.distance < 80) {
       this.shoot();
     } else if (this.distance < 160) {
       this.pursue();
-    }
-    else {
+    } else {
       this.image = soldier;
       this.frame = 0;
     }
@@ -57,11 +59,10 @@ class Enemy extends Sprite {
     var squareY = parseInt(nextY / this.level.tileHeight);
 
     var noCollision = this.level.colision(squareX, squareY);
-    if(noCollision === false) {
+    if (noCollision === false) {
       this.x = nextX;
       this.y = nextY;
-    }
-    else {
+    } else {
       this.image = soldier;
       this.frame = 0;
     }
@@ -85,15 +86,24 @@ class Enemy extends Sprite {
     var pic = "shoot_" + this.frame;
     this.image = eval(pic);
   }
-  // checkIfInRange() {
-  //
-  //   }
-  // }
+  isDying() {
+    console.log("die")
+  }
+  checkIfInRange() {
+    if (this.halfSprite + 20 < 592 || this.halfSprite > 638) {
+      this.isInRange = false;
+    } else {
+      this.isInRange = true;
+    }
+    if (this.isInRange === true && this.pistol.isShooting === true) {
+      this.isDying();
+    }
+  }
 }
 
 
-function createEnemies(player, ctx,level) {
-  enemies[0] = new Enemy(300, 120, soldier, player, ctx,level);
+function createEnemies(player, ctx, level, pistol) {
+  enemies[0] = new Enemy(300, 120, soldier, player, ctx, level,pistol);
 }
 
 
@@ -102,9 +112,13 @@ function drawEnemies() {
     return obj2.distance - obj1.distance;
   });
   for (let a = 0; a < enemies.length; a++) {
-    //enemies[a].checkIfInRange();
+    enemies[a].checkIfInRange();
     enemies[a].draw();
-    enemies[a].alert();
+    if (enemies[a].isShot === false) {
+      enemies[a].alert();
+    } else {
+      enemies[a].isShot();
+    }
   }
 }
 
