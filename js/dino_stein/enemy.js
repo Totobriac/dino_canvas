@@ -62,9 +62,9 @@ class Enemy extends Sprite {
 
   alert() {
     if (this.dies === false) {
-      if (this.distance < 80) {
+      if (this.distance < 50) {
         this.shoot();
-      } else if (this.distance < 160) {
+      } else if (this.distance < 400) {
         this.pursue();
       } else {
         this.image = this.soldier;
@@ -73,7 +73,10 @@ class Enemy extends Sprite {
     }
     else {
       this.tickCount ++;
-      if (this.tickCount > this.maxTickCount) this.dies = false;
+      if (this.tickCount > this.maxTickCount) {
+        this.dies = false;
+        this.tickCount = 0;
+      }
       this.life > 0 ? this.bleeding() : this.isDying();
     }
   }
@@ -148,7 +151,7 @@ class Enemy extends Sprite {
 }
 
 function createEnemies(player, ctx, level, pistol) {
-  enemies[0] = new Enemy(300, 120, soldier, player, ctx, level, pistol, "soldier_1");
+  enemies[0] = new Enemy(300, 120, soldier, player, ctx, level, pistol, "dog");
 }
 
 function drawEnemies() {
