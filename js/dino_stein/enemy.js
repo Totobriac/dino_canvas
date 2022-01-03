@@ -3,34 +3,34 @@ import {
 } from "./sprite.js";
 
 var soldier = new Image();
-soldier.src = "../assets/sewer_level/soldier_1/still.png";
+soldier.src = "../assets/sewer_level/boss/still.png";
 
 var walk_0 = new Image();
-walk_0.src = "../assets/sewer_level/soldier_1/0.png";
+walk_0.src = "../assets/sewer_level/boss/0.png";
 var walk_1 = new Image();
-walk_1.src = "../assets/sewer_level/soldier_1/1.png";
+walk_1.src = "../assets/sewer_level/boss/1.png";
 var walk_2 = new Image();
-walk_2.src = "../assets/sewer_level/soldier_1/2.png";
+walk_2.src = "../assets/sewer_level/boss/2.png";
 var walk_3 = new Image();
-walk_3.src = "../assets/sewer_level/soldier_1/3.png";
+walk_3.src = "../assets/sewer_level/boss/3.png";
 
 var shoot_0 = new Image();
-shoot_0.src = "../assets/sewer_level/soldier_1/shoot_0.png";
+shoot_0.src = "../assets/sewer_level/boss/shoot_0.png";
 var shoot_1 = new Image();
-shoot_1.src = "../assets/sewer_level/soldier_1/shoot_1.png";
+shoot_1.src = "../assets/sewer_level/boss/shoot_1.png";
 var shoot_2 = new Image();
-shoot_2.src = "../assets/sewer_level/soldier_1/shoot_2.png";
+shoot_2.src = "../assets/sewer_level/boss/shoot_2.png";
 
 var die_0 = new Image();
-die_0.src = "../assets/sewer_level/soldier_1/die_0.png";
+die_0.src = "../assets/sewer_level/boss/die_0.png";
 var die_1 = new Image();
-die_1.src = "../assets/sewer_level/soldier_1/die_1.png";
+die_1.src = "../assets/sewer_level/boss/die_1.png";
 var die_2 = new Image();
-die_2.src = "../assets/sewer_level/soldier_1/die_2.png";
+die_2.src = "../assets/sewer_level/boss/die_2.png";
 var die_3 = new Image();
-die_3.src = "../assets/sewer_level/soldier_1/die_3.png";
+die_3.src = "../assets/sewer_level/boss/die_3.png";
 var die_4 = new Image();
-die_4.src = "../assets/sewer_level/soldier_1/die_4.png";
+die_4.src = "../assets/sewer_level/boss/die_4.png";
 
 var enemies = [];
 
