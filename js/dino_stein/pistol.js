@@ -21,7 +21,7 @@ class Pistol {
           this.frame++
         } else {
           this.isShooting = false;
-            this.frame = 0;
+          this.frame = 0;
         }
       }
       this.ctx.fillStyle="black"
