@@ -5,33 +5,37 @@ function drawFloorCeiling(ctx) {
   ctx.fillRect(300, 200, 600, 400);
 }
 
-var hall = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-  [1, 0, 0, 0, 2, 0, 0, 0, 100, 3],
-  [4, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-  [12, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [4, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 5, 6, 7, 8, 9, 10, 1, 1]
-];
+var hall = {
+  bluePrint: [
+    [7, 8, 7, 8, 7, 8, 7, 8, 7, 8],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 100, 3],
+    [4, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [12, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 5, 6, 7, 8, 9, 10, 1, 1]
+  ]
+};
 
-var corridor = [
-  [4, 1, 3],
-  [4, 101, 3],
-  [4, 0, 3],
-  [4, 0, 3],
-  [5, 0, 3],
-  [7, 0, 3],
-  [7, 0, 3],
-  [4, 0, 3],
-  [4, 0, 3],
-  [4, 0, 3],
-  [4, 1, 3]
-];
+var corridor = {
+  bluePrint: [
+    [4, 1, 3],
+    [4, 101, 3],
+    [4, 0, 3],
+    [4, 0, 3],
+    [5, 0, 3],
+    [7, 0, 3],
+    [7, 0, 3],
+    [4, 0, 3],
+    [4, 0, 3],
+    [4, 0, 3],
+    [4, 1, 3]
+  ]
+};
 
 var floor = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -48,14 +52,16 @@ var floor = [
 ];
 
 
-var doors = [100, 101]
+var doors = [100, 101];
+
+var levels = [corridor, hall];
 
 var tileSize = 40;
 
 class Level {
 
   constructor(canvas) {
-    this.grid = hall;
+    this.grid = hall.bluePrint;
     this.canvas = canvas;
     this.gridHeight = this.grid.length;
     this.gridWidth = this.grid[0].length;
@@ -79,15 +85,15 @@ class Level {
   levelChange(door) {
     switch (door) {
       case 100:
-        this.grid = corridor;
+        this.grid = corridor.bluePrint;
         break;
       case 101:
-        this.grid = hall;
+        this.grid = hall.bluePrint;
         break;
     }
   }
   levelAnimate() {
-    this.tickCount ++;
+    this.tickCount++;
     if (this.tickCount > this.maxTickCount) {
       this.tickCount = 0;
       this.grid[7][0] === 12 ? this.grid[7][0] = 11 : this.grid[7][0] = 12;
@@ -97,5 +103,6 @@ class Level {
 
 export {
   drawFloorCeiling,
-  Level
+  Level,
+  doors,
 }
