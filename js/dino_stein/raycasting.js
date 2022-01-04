@@ -41,7 +41,7 @@ canvas.height = canvasHeight;
 function initMaze(game, ctx) {
   if (game.level5Started == false) {
     level = new Level(canvas);
-    player = new Player(ctx, level, 60, 60);
+    player = new Player(ctx, level,80, 60);
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
     setUpControls(player, pistol);

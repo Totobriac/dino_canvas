@@ -6,6 +6,10 @@ import {
   Ray
 } from "./ray.js"
 
+import {
+  levels
+} from "./map.js";
+
 const FOV = 60;
 
 class Player {
@@ -21,7 +25,7 @@ class Player {
 
     this.move = 0;
     this.turn = 0;
-    this.turnAngle = 0;
+    this.turnAngle = 1.55;
     this.turnSpeed = convertToRadians(3);
     this.moveSpeed = 3;
 
@@ -67,14 +71,14 @@ class Player {
 
     switch (this.level.grid[squareY][squareX]) {
       case 100:
-        this.level.levelChange(100);
+        this.level.levelChange(levels[0]);
         this.x = 64;
         this.y = 80;
         this.turnAngle = 1.675;
         break;
       case 101:
-        this.level.levelChange(101);
-        this.newX = 305;
+        this.level.levelChange(levels[1]);
+        this.newX = 490;
         this.newY = 220;
         this.turnAngle = 3.14;
         break;
@@ -82,7 +86,28 @@ class Player {
         this.level.levelChange(102);
         break;
       case 103:
-        this.level.levelChange(103);
+        this.level.levelChange(levels[1]);
+        this.newX = 80;
+        this.newY = 60;
+        this.turnAngle = 6.22;
+        break;
+      case 104:
+        this.level.levelChange(levels[2]);
+        this.newX = 110;
+        this.newY = 350;
+        this.turnAngle = 4.7;
+        break;
+      case 105:
+        this.level.levelChange(levels[3]);
+        this.newX = 220;
+        this.newY = 80;
+        this.turnAngle = 1.55;
+        break;
+      case 106:
+        this.level.levelChange(levels[0]);
+        this.x = 65;
+        this.y = 350;
+        this.turnAngle = 4.65;
         break;
     }
 
@@ -100,6 +125,7 @@ class Player {
     }
     this.turnAngle += this.turn * this.turnSpeed;
     this.turnAngle = normalizeAngle(this.turnAngle);
+    console.log(this.turnAngle, this.x, this.y)
     for (let i = 0; i < this.numbOfRays; i++) {
       this.rays[i].x = this.x;
       this.rays[i].y = this.y;
