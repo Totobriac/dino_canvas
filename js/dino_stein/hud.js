@@ -1,6 +1,9 @@
 var hudSprite = new Image();
 hudSprite.src = "../assets/sewer_level/hud.png";
 
+var gunSprite = new Image();
+gunSprite.src = "../assets/sewer_level/gun.png";
+
 class Hud {
   constructor(ctx, player, pistol) {
     this.ctx = ctx;
@@ -13,6 +16,7 @@ class Hud {
     this.ctx.font = "40px Wolf";
     this.ctx.fillText("1", 345, 385);
     this.ctx.fillText("1", 515, 385);
+    this.ctx.drawImage(gunSprite, 780,335);
     this.update();
   }
   update() {

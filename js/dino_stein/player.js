@@ -78,6 +78,12 @@ class Player {
         this.newY = 220;
         this.turnAngle = 3.14;
         break;
+      case 102:
+        this.level.levelChange(102);
+        break;
+      case 103:
+        this.level.levelChange(103);
+        break;
     }
 
     if (this.level.colision(squareX, squareY))

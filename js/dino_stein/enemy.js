@@ -120,6 +120,10 @@ class Enemy extends Sprite {
       }
       else {
         this.player.life -= 5;
+        this.ctx.fillStyle = "red";
+        this.ctx.globalAlpha = 0.8;
+        this.ctx.fillRect(300,0, 600,325);
+        this.ctx.globalAlpha = 1;
         this.frame = 0;
       }
     }
