@@ -19,11 +19,15 @@ import {
 import {
   Pistol
 } from "./pistol.js";
+import{
+  Hud
+} from "./hud.js";
 
 var level;
 var player;
 var pistol;
 var miniMap;
+var hud;
 
 var canvasWidth = 1200;
 var canvasHeight = 400;
@@ -33,14 +37,13 @@ let zBuffer = [];
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
-var background = new Image();
-background.src = "../assets/sewer_level/back.gif";
 
 function initMaze(game, ctx) {
   if (game.level5Started == false) {
     level = new Level(canvas);
     player = new Player(ctx, level, 60, 60);
     pistol = new Pistol(ctx);
+    hud = new Hud(ctx, player, pistol);
     setUpControls(player, pistol);
     createSprites(player, ctx);
     createEnemies(player, ctx, level, pistol);
@@ -50,14 +53,13 @@ function initMaze(game, ctx) {
 
 function maze(ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.drawImage(background,0,0,canvas.width, canvas.height)
   drawFloorCeiling(ctx);
   player.draw();
   level.levelAnimate();
   drawSprites(player, ctx);
   drawEnemies(player, ctx);
   pistol.draw();
+  hud.draw(player);
 }
 
 export {

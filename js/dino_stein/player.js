@@ -10,8 +10,8 @@ const FOV = 60;
 
 class Player {
 
-  constructor(con, level, x, y) {
-    this.ctx = con;
+  constructor(ctx, level, x, y) {
+    this.ctx = ctx;
     this.level = level;
     this.x = x;
     this.y = y;
@@ -27,6 +27,9 @@ class Player {
 
     this.numbOfRays = 600;
     this.rays = [];
+
+    this.life = 100;
+    this.score = 0;
 
     var halfFOV = FOV / 2;
     var addedAngle = convertToRadians(FOV / this.numbOfRays);
