@@ -1,6 +1,14 @@
 import { convertToRadians, distBetweenTwoPoints } from "./functions.js";
 import { zBuffer } from "./raycasting.js";
 
+import {player, ctx } from "./raycasting.js";
+
+
+var lamp = new Image();
+lamp.src = "../assets/sewer_level/lamp.png";
+var plant = new Image();
+plant.src = "../assets/sewer_level/plant.png";
+
 const FOV = 60;
 const half_FOV = convertToRadians(FOV / 2);
 var canvasWidth = 600;
@@ -77,14 +85,10 @@ class Sprite {
   }
 }
 
-function createSprites(player, ctx) {
-  var lamp = new Image();
-  lamp.src = "../assets/sewer_level/lamp.png";
-  var plant = new Image();
-  plant.src = "../assets/sewer_level/plant.png";
-  sprites[0] = new Sprite(250, 150, lamp, player, ctx);
-  sprites[1] = new Sprite(320, 300, plant, player, ctx);
-  sprites[2] = new Sprite(300, 380, plant, player, ctx);
+function createSprites(spriteList) {
+  for (let i = 0; i < spriteList.length; i++) {
+    sprites[i] = new Sprite(spriteList[i][0],spriteList[i][1], eval( spriteList[i][2]), player, ctx);
+  }
 }
 
 

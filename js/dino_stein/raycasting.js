@@ -48,8 +48,6 @@ function initMaze(game, canvasCtx) {
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
     setUpControls(player, pistol);
-    createSprites(player, ctx);
-    //createEnemies(player, ctx, level, pistol);
     game.level5Started = true;
   }
 }

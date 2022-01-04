@@ -10,11 +10,6 @@ import {
   levels
 } from "./map.js";
 
-// import {
-//   createEnemies,
-//   removeEnemies,
-// } from "./enemy.js";
-
 const FOV = 60;
 
 class Player {

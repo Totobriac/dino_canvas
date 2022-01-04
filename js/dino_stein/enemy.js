@@ -162,11 +162,9 @@ class Enemy extends Sprite {
 }
 
 function createEnemies(enemyList) {
-  console.log(enemyList.length)
   for (let i = 0; i < enemyList.length; i++) {
     enemies[i] = new Enemy(enemyList[i][0],enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
   }
-  console.log(enemies)
 }
 
 function removeEnemies() {

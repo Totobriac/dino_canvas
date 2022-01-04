@@ -3,6 +3,10 @@ import {
   removeEnemies,
 } from "./enemy.js";
 
+import {
+  createSprites
+} from "./sprite.js";
+
 function drawFloorCeiling(ctx) {
   ctx.fillStyle = '#666666';
   ctx.fillRect(300, 0, 600, 200);
@@ -43,6 +47,7 @@ var hall = {
     [1, 1, 1, 7, 7, 5, 6, 7, 7, 8, 9, 8, 10, 1, 1]
   ],
   enemies: [[300,120,"soldier_1"],[100,120,"dog"]],
+  sprites: [[250, 150, "lamp"],[320, 300, "plant"],[300, 380, "plant"]],
 };
 
 var corridor = {
@@ -61,6 +66,7 @@ var corridor = {
     [4, 13, 3]
   ],
   enemies: [[64,320,"dog"]],
+  sprites: [],
 };
 
 var floor = {
@@ -79,6 +85,7 @@ var floor = {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ],
   enemies: [[64,320,"boss"]],
+  sprites: [[250, 150, "lamp"],[320, 300, "plant"],[300, 380, "plant"]],
 }
 
 
@@ -122,6 +129,7 @@ class Level {
     this.grid = this.level.bluePrint;
     removeEnemies();
     createEnemies(this.level.enemies);
+    createSprites(this.level.sprites);
   }
   levelAnimate() {
     this.tickCount++;
