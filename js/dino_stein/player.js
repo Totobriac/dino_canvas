@@ -125,7 +125,6 @@ class Player {
     }
     this.turnAngle += this.turn * this.turnSpeed;
     this.turnAngle = normalizeAngle(this.turnAngle);
-    console.log(this.turnAngle, this.x, this.y)
     for (let i = 0; i < this.numbOfRays; i++) {
       this.rays[i].x = this.x;
       this.rays[i].y = this.y;
