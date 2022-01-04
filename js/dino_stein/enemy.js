@@ -2,10 +2,10 @@ import {
   Sprite
 } from "./sprite.js";
 
+import {player, ctx, level, pistol} from "./raycasting.js";
+
 var soldier = new Image();
 soldier.src = "../assets/sewer_level/soldier_1/still.png";
-
-
 
 var enemies = [];
 
@@ -161,8 +161,16 @@ class Enemy extends Sprite {
   }
 }
 
-function createEnemies(player, ctx, level, pistol) {
-  enemies[0] = new Enemy(300, 120, soldier, player, ctx, level, pistol, "soldier_1");
+function createEnemies(enemyList) {
+  console.log(enemyList.length)
+  for (let i = 0; i < enemyList.length; i++) {
+    enemies[i] = new Enemy(enemyList[i][0],enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
+  }
+  console.log(enemies)
+}
+
+function removeEnemies() {
+  enemies = [];
 }
 
 function drawEnemies() {
@@ -180,5 +188,6 @@ function drawEnemies() {
 
 export {
   createEnemies,
-  drawEnemies
+  drawEnemies,
+  removeEnemies,
 }

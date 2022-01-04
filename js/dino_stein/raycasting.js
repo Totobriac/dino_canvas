@@ -29,6 +29,8 @@ var pistol;
 var miniMap;
 var hud;
 
+var ctx;
+
 var canvasWidth = 1200;
 var canvasHeight = 400;
 
@@ -38,16 +40,17 @@ canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
 
-function initMaze(game, ctx) {
+function initMaze(game, canvasCtx) {
   if (game.level5Started == false) {
+    ctx = canvasCtx;
     level = new Level(canvas);
     player = new Player(ctx, level,80, 60);
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
     setUpControls(player, pistol);
     createSprites(player, ctx);
-    createEnemies(player, ctx, level, pistol);
-    game.level5Started = true
+    //createEnemies(player, ctx, level, pistol);
+    game.level5Started = true;
   }
 }
 
@@ -65,5 +68,6 @@ function maze(ctx) {
 export {
   zBuffer,
   initMaze,
-  maze
+  maze,
+  player, ctx, level, pistol
 }
