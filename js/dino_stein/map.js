@@ -4,7 +4,8 @@ import {
 } from "./enemy.js";
 
 import {
-  createSprites
+  createSprites,
+  removeSprites,
 } from "./sprite.js";
 
 function drawFloorCeiling(ctx) {
@@ -28,7 +29,9 @@ var start = {
     [6, 0, 0, 0, 6],
     [5, 6, 103, 5, 5],
     [5, 6, 13, 5, 6],
-  ]
+  ],
+  enemies: [],
+  sprites: [],
 }
 
 var hall = {
@@ -46,7 +49,7 @@ var hall = {
     [1, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 7, 7, 5, 6, 7, 7, 8, 9, 8, 10, 1, 1]
   ],
-  enemies: [[300,120,"soldier_1"],[100,120,"dog"]],
+  enemies: [[300,120,"soldier_1",true],[100,120,"dog",true]],
   sprites: [[250, 150, "lamp"],[320, 300, "plant"],[300, 380, "plant"]],
 };
 
@@ -65,7 +68,7 @@ var corridor = {
     [4, 105, 3],
     [4, 13, 3]
   ],
-  enemies: [[64,320,"dog"]],
+  enemies: [[64,320,"dog", true]],
   sprites: [],
 };
 
@@ -84,7 +87,7 @@ var floor = {
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ],
-  enemies: [[64,320,"boss"]],
+  enemies: [[64,320,"boss",true]],
   sprites: [[250, 150, "lamp"],[320, 300, "plant"],[300, 380, "plant"]],
 }
 
@@ -128,6 +131,7 @@ class Level {
     this.level = level;
     this.grid = this.level.bluePrint;
     removeEnemies();
+    removeSprites();
     createEnemies(this.level.enemies);
     createSprites(this.level.sprites);
   }

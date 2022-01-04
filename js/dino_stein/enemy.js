@@ -2,7 +2,12 @@ import {
   Sprite
 } from "./sprite.js";
 
-import {player, ctx, level, pistol} from "./raycasting.js";
+import {
+  player,
+  ctx,
+  level,
+  pistol
+} from "./raycasting.js";
 
 var soldier = new Image();
 soldier.src = "../assets/sewer_level/soldier_1/still.png";
@@ -25,6 +30,8 @@ class Enemy extends Sprite {
     this.life = 5;
     this.lifeCounter = true;
     this.dies = false;
+    this.isDead = false;
+    this.isSpriteRemoved = false;
 
     this.soldier = new Image();
     this.soldier.src = "../assets/sewer_level/" + this.type + "/still.png";
@@ -70,9 +77,8 @@ class Enemy extends Sprite {
         this.image = this.soldier;
         this.frame = 0;
       }
-    }
-    else {
-      this.tickCount ++;
+    } else {
+      this.tickCount++;
       if (this.tickCount > this.maxTickCount) {
         this.dies = false;
         this.tickCount = 0;
@@ -116,13 +122,12 @@ class Enemy extends Sprite {
     if (this.tickCount > this.maxTickCount) {
       this.tickCount = 0;
       if (this.frame < 2) {
-        this.frame ++
-      }
-      else {
+        this.frame++
+      } else {
         this.player.life -= 5;
         this.ctx.fillStyle = "red";
         this.ctx.globalAlpha = 0.8;
-        this.ctx.fillRect(300,0, 600,325);
+        this.ctx.fillRect(300, 0, 600, 325);
         this.ctx.globalAlpha = 1;
         this.frame = 0;
       }
@@ -140,6 +145,7 @@ class Enemy extends Sprite {
     }
     var pic = "this.die_" + this.frame;
     this.image = eval(pic);
+    this.isDead = true;
   }
   bleeding() {
     this.image = this.hurt;
@@ -152,18 +158,25 @@ class Enemy extends Sprite {
     }
     if (this.isInRange === true && this.pistol.isShooting === true && this.lifeCounter === true) {
       this.lifeCounter = false;
-      this.life --;
+      this.life--;
       this.dies = true;
     }
     if (this.pistol.isShooting === false) {
       this.lifeCounter = true;
     }
   }
+  removeSprite(index, enemy) {
+    this.isSpriteRemoved = true;
+    this.level.level.enemies[index][3] = false;
+    this.level.level.sprites.push([enemy.x, enemy.y, enemy.type])
+  }
 }
 
 function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
-    enemies[i] = new Enemy(enemyList[i][0],enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
+    if (enemyList[i][3] === true) {
+      enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
+    }
   }
 }
 
@@ -176,11 +189,10 @@ function drawEnemies() {
     return obj2.distance - obj1.distance;
   });
   for (let a = 0; a < enemies.length; a++) {
-
     enemies[a].alert();
     enemies[a].checkIfInRange();
     enemies[a].draw();
-
+    if (enemies[a].isDead === true && enemies[a].isSpriteRemoved === false) enemies[a].removeSprite(a, enemies[a]);
   }
 }
 

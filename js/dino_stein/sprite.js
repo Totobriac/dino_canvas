@@ -9,6 +9,13 @@ lamp.src = "../assets/sewer_level/lamp.png";
 var plant = new Image();
 plant.src = "../assets/sewer_level/plant.png";
 
+var soldier_1 = new Image();
+soldier_1.src = "../assets/sewer_level/soldier_1/die_4.png";
+var boss = new Image();
+boss.src = "../assets/sewer_level/boss/die_4.png";
+var dog = new Image();
+dog.src = "../assets/sewer_level/dog/die_4.png";
+
 const FOV = 60;
 const half_FOV = convertToRadians(FOV / 2);
 var canvasWidth = 600;
@@ -91,6 +98,9 @@ function createSprites(spriteList) {
   }
 }
 
+function removeSprites() {
+  sprites = [];
+}
 
 function drawSprites() {
   sprites.sort(function (obj1, obj2) {
@@ -101,4 +111,4 @@ function drawSprites() {
   }
 }
 
-export { createSprites, drawSprites, Sprite }
+export { createSprites, drawSprites, Sprite, removeSprites }
