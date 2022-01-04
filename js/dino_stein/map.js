@@ -1,3 +1,8 @@
+import {
+  createEnemies,
+  removeEnemies,
+} from "./enemy.js";
+
 function drawFloorCeiling(ctx) {
   ctx.fillStyle = '#666666';
   ctx.fillRect(300, 0, 600, 200);
@@ -36,7 +41,8 @@ var hall = {
     [4, 0, 0, 0, 13, 102, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 7, 7, 5, 6, 7, 7, 8, 9, 8, 10, 1, 1]
-  ]
+  ],
+  enemies: [[300,120,"soldier_1"],[100,120,"dog"]],
 };
 
 var corridor = {
@@ -53,7 +59,8 @@ var corridor = {
     [4, 0, 3],
     [4, 105, 3],
     [4, 13, 3]
-  ]
+  ],
+  enemies: [[64,320,"dog"]],
 };
 
 var floor = {
@@ -70,7 +77,8 @@ var floor = {
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]
+  ],
+  enemies: [[64,320,"boss"]],
 }
 
 
@@ -112,6 +120,8 @@ class Level {
     }
     this.level = level;
     this.grid = this.level.bluePrint;
+    removeEnemies();
+    createEnemies(this.level.enemies);
   }
   levelAnimate() {
     this.tickCount++;
