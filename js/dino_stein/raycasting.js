@@ -1,32 +1,30 @@
 import {
   drawFloorCeiling,
-  Level
+  Level,
 } from "./map.js";
 import {
-  Player
+  Player,
 } from "./player.js";
 import {
+  drawSprites,
   createSprites,
-  drawSprites
 } from "./sprite.js";
 import {
-  createEnemies,
-  drawEnemies
+  drawEnemies,
 } from "./enemy.js";
 import {
-  setUpControls
+  setUpControls,
 } from "./control.js";
 import {
-  Pistol
+  Pistol,
 } from "./pistol.js";
-import{
-  Hud
+import {
+  Hud,
 } from "./hud.js";
 
 var level;
 var player;
 var pistol;
-var miniMap;
 var hud;
 
 var ctx;
@@ -44,7 +42,8 @@ function initMaze(game, canvasCtx) {
   if (game.level5Started == false) {
     ctx = canvasCtx;
     level = new Level(canvas);
-    player = new Player(ctx, level,80, 60);
+    player = new Player(ctx, level, 80, 60);
+    createSprites(level.level.sprites);    
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
     setUpControls(player, pistol);

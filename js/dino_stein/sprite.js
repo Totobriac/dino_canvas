@@ -93,6 +93,7 @@ class Sprite {
 }
 
 function createSprites(spriteList) {
+  console.log(spriteList);
   for (let i = 0; i < spriteList.length; i++) {
     sprites[i] = new Sprite(spriteList[i][0],spriteList[i][1], eval( spriteList[i][2]), player, ctx);
   }

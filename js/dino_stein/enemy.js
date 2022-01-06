@@ -167,16 +167,14 @@ class Enemy extends Sprite {
   }
   removeSprite(index, enemy) {
     this.isSpriteRemoved = true;
-    this.level.level.enemies[index][3] = false;
-    this.level.level.sprites.push([enemy.x, enemy.y, enemy.type])
+    this.level.level.sprites.push([enemy.x, enemy.y, enemy.type]);
+    this.level.level.enemies.splice(index, 1);
   }
 }
 
 function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
-    if (enemyList[i][3] === true) {
-      enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
-    }
+    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
   }
 }
 
@@ -185,7 +183,7 @@ function removeEnemies() {
 }
 
 function drawEnemies() {
-  enemies.sort(function(obj1, obj2) {
+  enemies.sort(function (obj1, obj2) {
     return obj2.distance - obj1.distance;
   });
   for (let a = 0; a < enemies.length; a++) {
