@@ -1,6 +1,6 @@
 import { createCactus } from "./desert_level/cactus.js"
 import { generateFloor } from "./desert_level/floor.js";
-import { generateBigBack, generateSmallBack } from "./desert_level/desertBack.js";
+import { generateBack } from "./desert_level/desertBack.js";
 import { drawPlane } from "./plane_level/plane.js";
 import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
@@ -32,8 +32,7 @@ export function anim(game, dino, ctx) {
   }
   if (game.level === 0) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateBigBack(ctx, game.gamespeed);
-    generateSmallBack(ctx, game.gamespeed);
+    generateBack(ctx, game.gamespeed);
     generateFloor(ctx, game.gamespeed);
     createCactus(game.frame, game.gamespeed, ctx);
     drawDinoDesert(ctx, dino, game);

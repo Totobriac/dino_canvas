@@ -19,7 +19,7 @@ const smallM = {
   height: 300,
 }
 
-export function generateBigBack(ctx, gamespeed) {
+function generateBigBack(ctx, gamespeed) {
   if (bigM.x1 <= -bigM.width + gamespeed) {
     bigM.x1 = bigM.width
   }
@@ -37,7 +37,7 @@ export function generateBigBack(ctx, gamespeed) {
   ctx.drawImage(mountainSprite, 0, 2, mountainSprite.width, 200, bigM.x2, bigM.y, bigM.width, bigM.height)
 }
 
-export function generateSmallBack(ctx, gamespeed) {
+function generateSmallBack(ctx, gamespeed) {
   if (smallM.x1 <= -smallM.width + gamespeed) {
     smallM.x1 = smallM.width
   }
@@ -54,6 +54,7 @@ export function generateSmallBack(ctx, gamespeed) {
   ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x2, smallM.y, smallM.width, smallM.height)
 }
 
-export function generateBinoBack(ctx, billbX) {
-  ctx.drawImage(mountainSprite, (-backX + billbX) - 100, 75, 300, 90, 0, 0, canvas.width, canvas.height )
+export function generateBack (ctx, gamespeed) {
+  generateBigBack(ctx, gamespeed);
+  generateSmallBack(ctx, gamespeed);
 }
