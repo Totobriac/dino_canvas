@@ -1,13 +1,11 @@
 import { convertToRadians, distBetweenTwoPoints } from "./functions.js";
 import { zBuffer } from "./raycasting.js";
 
-import {player, ctx } from "./raycasting.js";
+import { player, ctx } from "./raycasting.js";
 
 
-var lamp = new Image();
-lamp.src = "../assets/sewer_level/lamp.png";
-var plant = new Image();
-plant.src = "../assets/sewer_level/plant.png";
+var items = new Image();
+items.src = "../assets/sewer_level/items.png";
 
 var soldier_1 = new Image();
 soldier_1.src = "../assets/sewer_level/soldier_1/die_4.png";
@@ -20,6 +18,7 @@ const FOV = 60;
 const half_FOV = convertToRadians(FOV / 2);
 var canvasWidth = 600;
 var canvasHeight = 400;
+
 var sprites = [];
 
 class Sprite {
@@ -27,12 +26,20 @@ class Sprite {
     this.x = x;
     this.y = y;
     this.image = image;
+    this.imageX;
+    this.imageY;
     this.player = player;
     this.distance = 0;
     this.angle = 0;
     this.visible = false;
     this.ctx = ctx;
-    this.halfSprite= 0;
+    this.halfSprite = 0;
+    this.getImageXY(image);
+  }
+  getImageXY() {
+    var line = Math.floor(this.image / 4);
+    this.imageY = line * 64;
+    this.imageX = (this.image - (line * 4)) * 64;
   }
   calculateAngle() {
     var vectX = this.x - this.player.x;
@@ -79,12 +86,12 @@ class Sprite {
 
       for (let i = 0; i < widthTileTexture; i++) {
         for (let j = 0; j < columnWidth; j++) {
-          if(i === 32 ) {
+          if (i === 32) {
             this.halfSprite = x1 + 300;
           }
           var x1 = parseInt(x + ((i - 1) * columnWidth) + j);
           if (zBuffer[x1] > this.distance) {
-            this.ctx.drawImage(this.image, i, 0, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
+            this.ctx.drawImage(items, i + this.imageX, this.imageY, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
           }
         }
       }
@@ -93,9 +100,8 @@ class Sprite {
 }
 
 function createSprites(spriteList) {
-  console.log(spriteList);
   for (let i = 0; i < spriteList.length; i++) {
-    sprites[i] = new Sprite(spriteList[i][0],spriteList[i][1], eval( spriteList[i][2]), player, ctx);
+    sprites[i] = new Sprite(spriteList[i][0], spriteList[i][1], spriteList[i][2], player, ctx);
   }
 }
 
