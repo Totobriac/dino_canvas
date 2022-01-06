@@ -22,10 +22,11 @@ var canvasHeight = 400;
 var sprites = [];
 
 class Sprite {
-  constructor(x, y, image, player, ctx) {
+  constructor(x, y, image, frame, player, ctx) {
     this.x = x;
     this.y = y;
     this.image = image;
+    this.frame = frame;
     this.imageX;
     this.imageY;
     this.player = player;
@@ -33,13 +34,13 @@ class Sprite {
     this.angle = 0;
     this.visible = false;
     this.ctx = ctx;
-    this.halfSprite = 0;
-    this.getImageXY(image);
+    this.halfSprite = 0; 
+    this.getImageXY(this.frame);
   }
   getImageXY() {
-    var line = Math.floor(this.image / 4);
+    var line = Math.floor(this.frame / 4);
     this.imageY = line * 64;
-    this.imageX = (this.image - (line * 4)) * 64;
+    this.imageX = (this.frame - (line * 4)) * 64;
   }
   calculateAngle() {
     var vectX = this.x - this.player.x;
@@ -91,7 +92,7 @@ class Sprite {
           }
           var x1 = parseInt(x + ((i - 1) * columnWidth) + j);
           if (zBuffer[x1] > this.distance) {
-            this.ctx.drawImage(items, i + this.imageX, this.imageY, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
+            this.ctx.drawImage(this.image, i + this.imageX, this.imageY, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
           }
         }
       }
@@ -101,8 +102,9 @@ class Sprite {
 
 function createSprites(spriteList) {
   for (let i = 0; i < spriteList.length; i++) {
-    sprites[i] = new Sprite(spriteList[i][0], spriteList[i][1], spriteList[i][2], player, ctx);
+    sprites[i] = new Sprite(spriteList[i][0], spriteList[i][1], eval(spriteList[i][3]), spriteList[i][2], player, ctx);
   }
+  console.log(sprites);
 }
 
 function removeSprites() {

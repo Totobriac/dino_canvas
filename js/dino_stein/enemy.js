@@ -9,20 +9,20 @@ import {
   pistol
 } from "./raycasting.js";
 
-var soldier = new Image();
-soldier.src = "../assets/sewer_level/soldier_1/still.png";
-
 var enemies = [];
 
+var soldier = new Image();
+soldier.src = "../assets/sewer_level/dog/still.png";
+
+
 class Enemy extends Sprite {
-  constructor(x, y, image, player, ctx, level, pistol, type) {
-    super(x, y, image, player, ctx);
+  constructor(x, y, image, frame, player, ctx, level, pistol, type) {
+    super(x, y, image, frame, player, ctx);
     this.level = level;
     this.speed = 1;
     this.radians;
     this.tickCount = 0;
     this.maxTickCount = 12;
-    this.frame = 0;
     this.isInRange = false;
     this.isShot = false;
     this.pistol = pistol;
@@ -167,15 +167,16 @@ class Enemy extends Sprite {
   }
   removeSprite(index, enemy) {
     this.isSpriteRemoved = true;
-    this.level.level.sprites.push([enemy.x, enemy.y, enemy.type]);
+    this.level.level.sprites.push([enemy.x, enemy.y, 0, this.type]);
     this.level.level.enemies.splice(index, 1);
   }
 }
 
 function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
-    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, player, ctx, level, pistol, enemyList[i][2]);
+    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][3]);
   }
+  console.log(enemies);
 }
 
 function removeEnemies() {
