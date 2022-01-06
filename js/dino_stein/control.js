@@ -1,4 +1,4 @@
-function setUpControls(player) {
+function setUpControls(player, pistol) {
   document.addEventListener('keydown', function (event) {
     switch (event.key) {
       case "ArrowUp":
@@ -12,6 +12,9 @@ function setUpControls(player) {
         break;
       case "ArrowLeft":
         player.left();
+        break;
+      case " ":
+        pistol.shoot();
         break;
     }
   });

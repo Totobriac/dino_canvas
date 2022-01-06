@@ -17,3 +17,8 @@
   font-family: "Pixeboy";
   src: url("../assets/fonts/Pixeboy-z8XGD.ttf");
 }
+
+@font-face {
+  font-family: "Wolf";
+  src: url("../assets/fonts/wolfenstein.ttf");
+}

@@ -1,22 +1,46 @@
 import { convertToRadians, distBetweenTwoPoints } from "./functions.js";
 import { zBuffer } from "./raycasting.js";
 
+import { player, ctx } from "./raycasting.js";
+
+
+var items = new Image();
+items.src = "../assets/sewer_level/items.png";
+
+var soldier_1 = new Image();
+soldier_1.src = "../assets/sewer_level/soldier_1/die_4.png";
+var boss = new Image();
+boss.src = "../assets/sewer_level/boss/die_4.png";
+var dog = new Image();
+dog.src = "../assets/sewer_level/dog/die_4.png";
+
 const FOV = 60;
 const half_FOV = convertToRadians(FOV / 2);
 var canvasWidth = 600;
 var canvasHeight = 400;
+
 var sprites = [];
 
 class Sprite {
-  constructor(x, y, image, player, ctx) {
+  constructor(x, y, image, frame, player, ctx) {
     this.x = x;
     this.y = y;
     this.image = image;
+    this.frame = frame;
+    this.imageX;
+    this.imageY;
     this.player = player;
     this.distance = 0;
     this.angle = 0;
     this.visible = false;
     this.ctx = ctx;
+    this.halfSprite = 0; 
+    this.getImageXY(this.frame);
+  }
+  getImageXY() {
+    var line = Math.floor(this.frame / 4);
+    this.imageY = line * 64;
+    this.imageX = (this.frame - (line * 4)) * 64;
   }
   calculateAngle() {
     var vectX = this.x - this.player.x;
@@ -32,9 +56,10 @@ class Sprite {
       this.visible = true;
     else
       this.visible = false;
+    return angleDif
   }
   calculateDistance() {
-    this.distance = distBetweenTwoPoints(this.player.x, this.player.y, this.x, this.y)
+    this.distance = distBetweenTwoPoints(this.player.x, this.player.y, this.x, this.y);
   }
   update() {
     this.calculateAngle();
@@ -59,11 +84,15 @@ class Sprite {
       var x = (canvasWidth / 2 + x0 - textureHeight / 2);
       this.ctx.imageSmoothingEnabled = false;
       var columnWidth = textureHeight / heightTileTexture;
+
       for (let i = 0; i < widthTileTexture; i++) {
         for (let j = 0; j < columnWidth; j++) {
+          if (i === 32) {
+            this.halfSprite = x1 + 300;
+          }
           var x1 = parseInt(x + ((i - 1) * columnWidth) + j);
           if (zBuffer[x1] > this.distance) {
-            this.ctx.drawImage(this.image, i, 0, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
+            this.ctx.drawImage(this.image, i + this.imageX, this.imageY, 1, heightTileTexture - 1, x1 + 300, y1, 1, textureHeight);
           }
         }
       }
@@ -71,17 +100,15 @@ class Sprite {
   }
 }
 
-function createSprites(player, ctx) {
-  var imgArmor = new Image();
-  imgArmor.src = "../assets/sewer_level/lamp.png";
-  var imgPlanta = new Image();
-  imgPlanta.src = "../assets/sewer_level/rat_try.png";
-  sprites[0] = new Sprite(300, 120, imgArmor, player, ctx);
-  sprites[1] = new Sprite(150, 150, imgArmor, player, ctx);
-  sprites[2] = new Sprite(320, 300, imgPlanta, player, ctx);
-  sprites[3] = new Sprite(300, 380, imgPlanta, player, ctx);
+function createSprites(spriteList) {
+  for (let i = 0; i < spriteList.length; i++) {
+    sprites[i] = new Sprite(spriteList[i][0], spriteList[i][1], eval(spriteList[i][3]), spriteList[i][2], player, ctx);
+  }
 }
 
+function removeSprites() {
+  sprites = [];
+}
 
 function drawSprites() {
   sprites.sort(function (obj1, obj2) {
@@ -92,4 +119,4 @@ function drawSprites() {
   }
 }
 
-export { createSprites, drawSprites }
+export { createSprites, drawSprites, Sprite, removeSprites }
