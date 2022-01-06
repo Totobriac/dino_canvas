@@ -12,8 +12,6 @@ import {
 var enemies = [];
 
 var soldier = new Image();
-soldier.src = "../assets/sewer_level/dog/still.png";
-
 
 class Enemy extends Sprite {
   constructor(x, y, image, frame, player, ctx, level, pistol, type) {
@@ -176,7 +174,6 @@ function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
     enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][3]);
   }
-  console.log(enemies);
 }
 
 function removeEnemies() {

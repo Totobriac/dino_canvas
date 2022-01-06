@@ -104,7 +104,6 @@ function createSprites(spriteList) {
   for (let i = 0; i < spriteList.length; i++) {
     sprites[i] = new Sprite(spriteList[i][0], spriteList[i][1], eval(spriteList[i][3]), spriteList[i][2], player, ctx);
   }
-  console.log(sprites);
 }
 
 function removeSprites() {
