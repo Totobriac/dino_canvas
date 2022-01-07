@@ -30,7 +30,7 @@ export function createCactus(frame, gamespeed, ctx) {
   for (let i = 0; i < cactusArray.length; i++) {
     cactusArray[i].update();
   }
-  if (cactusArray.length > 20) {
+  if (cactusArray.length > 10) {
     cactusArray.pop(cactusArray[0])
   }
 }

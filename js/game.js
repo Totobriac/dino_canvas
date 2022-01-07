@@ -4,10 +4,10 @@ export class Game {
     this.score = 0;
     this.gamespeed = 0;
     this.isPlaying = false;
-    this.bino = false;
     this.level = 0;
     this.level === 8 ? this.mousePosition = { x: 881, y: 300 } : this.mousePosition = { x: 600, y: 200 };
     this.mouseMovePosition = { x: 600, y: 200 };
+    this.level1Started = false;
     this.level4Started = false;
     this.level5Started = false;
     this.level6Started = false;

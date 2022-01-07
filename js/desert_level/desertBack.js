@@ -1,60 +1,55 @@
 const mountainSprite = new Image();
-mountainSprite.src = "../assets/desert_level/desert_back.png";
+mountainSprite.src = "../assets/desert_level/desert_back-min.png";
 
-const bigM = {
-  x1: 0,
-  x2: mountainSprite.width,
-  y: 120,
-  width: mountainSprite.width,
-  height: 245,
+const floorSprite = new Image();
+floorSprite.src = "../assets/desert_level/floor_sm.png";
+
+var gameFrame = 0;
+var layer1;
+var layer2;
+var layer3;
+var layers;
+
+class Layer {
+  constructor(image, y, picY, picS, picH, speedMod, gameSpeed, ctx) {
+    this.image = image;
+    this.picY = picY;
+    this.picH = picH;
+    this.picS = picS;
+    this.width = image.width;
+    this.height = image.height;
+    this.gameSpeed = gameSpeed;
+    this.speedMod = speedMod;
+    this.ctx = ctx;
+    this.x = 0;
+    this.y = y;
+    this.speed = gameSpeed * this.speedMod;
+  }
+  update(gamespeed) {
+    this.gameSpeed = gamespeed;
+    this.speed = this.gameSpeed * this.speedMod;
+    this.x = gameFrame * this.speed % this.width;
+  }
+  draw() {
+    this.ctx.drawImage(this.image, 0, this.picY, this.width, this.picS, this.x, this.y, this.width, this.picH);
+    this.ctx.drawImage(this.image, 0, this.picY, this.width, this.picS, this.x + this.width, this.y, this.width, this.picH);
+  }
 }
 
-export var backX = 0
 
-const smallM = {
-  x1: 0,
-  x2: mountainSprite.width,
-  y: 245,
-  width: mountainSprite.width,
-  height: 300,
-}
+export function generateBack(ctx, game) {
 
-function generateBigBack(ctx, gamespeed) {
-  if (bigM.x1 <= -bigM.width + gamespeed) {
-    bigM.x1 = bigM.width
-  }
-  else {
-    bigM.x1 -= gamespeed * 0.1
-    backX = bigM.x1
-  }
-  if (bigM.x2 <= -bigM.width + gamespeed) {
-    bigM.x2 = bigM.width
-  }
-  else {
-    bigM.x2 -= gamespeed * 0.1
-  }
-  ctx.drawImage(mountainSprite, 0, 2, mountainSprite.width, 200, bigM.x1, bigM.y, bigM.width, bigM.height)
-  ctx.drawImage(mountainSprite, 0, 2, mountainSprite.width, 200, bigM.x2, bigM.y, bigM.width, bigM.height)
-}
+  if (game.level1Started === false) {
+    layer1 = new Layer(mountainSprite, 170, 2, 245, 200, 0.1, game.gamespeed, ctx);
+    layer2 = new Layer(mountainSprite, 250, 244, 300, 320, 0.8, game.gamespeed, ctx);
+    layer3 = new Layer(floorSprite, 350, 0, 14, 20, 1, game.gamespeed, ctx);
 
-function generateSmallBack(ctx, gamespeed) {
-  if (smallM.x1 <= -smallM.width + gamespeed) {
-    smallM.x1 = smallM.width
+    layers = [layer1, layer2, layer3];
+    game.level1Started = true;
   }
-  else {
-    smallM.x1 -= gamespeed * 0.8
-  }
-  if (smallM.x2 <= -smallM.width + gamespeed) {
-    smallM.x2 = smallM.width
-  }
-  else {
-    smallM.x2 -= gamespeed * 0.8
-  }
-  ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x1, smallM.y, smallM.width, smallM.height)
-  ctx.drawImage(mountainSprite, 0, 244, mountainSprite.width, 320, smallM.x2, smallM.y, smallM.width, smallM.height)
-}
-
-export function generateBack (ctx, gamespeed) {
-  generateBigBack(ctx, gamespeed);
-  generateSmallBack(ctx, gamespeed);
+  layers.forEach(layer => {
+    layer.update(game.gamespeed);
+    layer.draw();
+  })
+  gameFrame--;
 }
