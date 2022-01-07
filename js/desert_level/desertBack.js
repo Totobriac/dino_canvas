@@ -1,5 +1,7 @@
+import { generateDirt } from "./dirt.js";
+
 const mountainSprite = new Image();
-mountainSprite.src = "../assets/desert_level/desert_back-min.png";
+mountainSprite.src = "../assets/desert_level/desert_back.png";
 
 const floorSprite = new Image();
 floorSprite.src = "../assets/desert_level/floor_sm.png";
@@ -41,7 +43,7 @@ export function generateBack(ctx, game) {
 
   if (game.level1Started === false) {
     layer1 = new Layer(mountainSprite, 170, 2, 245, 200, 0.1, game.gamespeed, ctx);
-    layer2 = new Layer(mountainSprite, 250, 244, 300, 320, 0.8, game.gamespeed, ctx);
+    layer2 = new Layer(mountainSprite, 250, 244, 300, 320, 0.7, game.gamespeed, ctx);
     layer3 = new Layer(floorSprite, 350, 0, 14, 20, 1, game.gamespeed, ctx);
 
     layers = [layer1, layer2, layer3];
@@ -52,4 +54,7 @@ export function generateBack(ctx, game) {
     layer.draw();
   })
   gameFrame--;
+  
+  generateDirt(250, 300, game.gamespeed, ctx, 19)
+
 }

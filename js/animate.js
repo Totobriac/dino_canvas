@@ -26,13 +26,13 @@ import { pointNClick } from "./mansion_level/gameMecanic.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
-    game.gamespeed = 4;
+    game.gamespeed = 10;
     game.frame++;
   }
   if (game.level === 0) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateBack(ctx, game);
-    createCactus(game.frame, game.gamespeed, ctx);
+    createCactus(game,dino, ctx);
     drawDinoDesert(ctx, dino, game);
   }
   else if (game.level === 1) {
@@ -41,7 +41,7 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPlane(ctx, dino);
-    createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx);
+    createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx, -22);
     animateMonument(ctx);
     createBirds(ctx, game.gamespeed, game.frame);
     generateClouds(ctx, game.gamespeed);

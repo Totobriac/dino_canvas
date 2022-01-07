@@ -1,10 +1,13 @@
 import { dino } from "../script.js";
 
-const dinoSprite = new Image();
+var dinoSprite = new Image();
 dinoSprite.src = "../assets/dino/dino_all.png";
 
-const dinoWalk = new Image();
+var dinoWalk = new Image();
 dinoWalk.src = "../assets/dino/dino_walk.png";
+
+var jumpSound = new Audio();
+jumpSound.src = "../assets/sounds/jump.wav";
 
 var width = 66;
 var height = 70;
@@ -17,11 +20,12 @@ export function drawDinoDesert(ctx, dino, game) {
     ctx.drawImage(dinoSprite, 1676, 0, 90, 95, dino.x, dino.y, width, height);
   }
   else {
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
-  }
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);   
+  } 
 };
 
 export function jump() {
+  jumpSound.play();
   isJumping = true;
   dino.vy -= 21;
   dino.y += dino.vy;
@@ -34,6 +38,7 @@ function update(dino) {
   dino.tickCount += 1;
   dino.checkBundaries();
   dino.checkFrame(2);
+  
 };
 
-export { isJumping }
+export { isJumping };

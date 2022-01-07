@@ -3,6 +3,9 @@ cactusSprite.src = "../assets/desert_level/cactus.png";
 
 const cactusArray = [];
 
+var dieSound = new Audio();
+dieSound.src = "../assets/sounds/die.wav";
+
 class Cactus {
   constructor(gamespeed, ctx) {
     this.x = canvas.width;
@@ -22,13 +25,15 @@ class Cactus {
   }
 }
 
-export function createCactus(frame, gamespeed, ctx) {
+export function createCactus(game, dino, ctx) {
 
-  if (frame % 300 === 0 || frame % 110 === 0) {
-    cactusArray.unshift(new Cactus(gamespeed, ctx));
+  if (game.frame % 300 === 0 || game.frame % 110 === 0) {
+    cactusArray.unshift(new Cactus(game.gamespeed, ctx));
   }
   for (let i = 0; i < cactusArray.length; i++) {
     cactusArray[i].update();
+    var collision = dino.checkCollision(66, 70, cactusArray[i].x + 20, cactusArray[i].y + 15, 40, cactusArray[i].height);
+    if (collision === true) dieSound.play();
   }
   if (cactusArray.length > 10) {
     cactusArray.pop(cactusArray[0])

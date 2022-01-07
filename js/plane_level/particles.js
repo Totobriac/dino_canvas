@@ -1,7 +1,7 @@
 const particlesArray = []
 
 class Particle {
-  constructor(planeX, planeY, gamespeed, ctx) {
+  constructor(planeX, planeY, gamespeed, ctx, angle) {
     this.x = planeX + 5;
     this.y = planeY + 66;
     this.size = Math.random() * 7 + 3;
@@ -9,13 +9,14 @@ class Particle {
     this.color = "hsl(0, 0%," + (50 + Math.random() * 50) +"%)";
     this.gamespeed = gamespeed;
     this.ctx = ctx;
+    this.angle = angle;
   }
   update() {
     this.x -= this.gamespeed;
     this.y += this.speed;
   }
   draw() {
-    this.ctx.rotate(-22 * Math.PI / 180);
+    this.ctx.rotate(this.angle * Math.PI / 180);
     this.ctx.fillStyle = this.color;
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -24,8 +25,8 @@ class Particle {
   }
 }
 
-export function createParticles(planeX, planeY, gamespeed, ctx) {
-  particlesArray.unshift(new Particle(planeX, planeY, gamespeed, ctx))
+export function createParticles(planeX, planeY, gamespeed, ctx, angle) {
+  particlesArray.unshift(new Particle(planeX, planeY, gamespeed, ctx, angle))
   for (let i = 0; i < particlesArray.length; i++) {
     particlesArray[i].update();
     particlesArray[i].draw();
