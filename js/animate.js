@@ -22,6 +22,7 @@ import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
 import { pointNClick } from "./mansion_level/gameMecanic.js";
+import { drawProgBar } from "./desert_level/progress_bar.js";
 
 
 export function anim(game, dino, ctx) {
@@ -34,6 +35,7 @@ export function anim(game, dino, ctx) {
     generateBack(ctx, game);
     createCactus(game,dino, ctx);
     drawDinoDesert(ctx, dino, game);
+    drawProgBar(ctx, dino);
   }
   else if (game.level === 1) {
     // remove when game is all set//

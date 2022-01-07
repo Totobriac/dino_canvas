@@ -55,6 +55,6 @@ export function generateBack(ctx, game) {
   })
   gameFrame--;
   
-  generateDirt(250, 300, game.gamespeed, ctx, 19)
+  generateDirt(250, 300, game.gamespeed, ctx, 19); 
 
 }

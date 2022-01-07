@@ -33,12 +33,12 @@ export function jump() {
 };
 
 function update(dino) {
+  dino.score += 0.02;
   dino.vy += 1;
   dino.y += dino.vy;  
   dino.tickCount += 1;
   dino.checkBundaries();
-  dino.checkFrame(2);
-  
+  dino.checkFrame(2);  
 };
 
 export { isJumping };

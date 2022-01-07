@@ -33,7 +33,10 @@ export function createCactus(game, dino, ctx) {
   for (let i = 0; i < cactusArray.length; i++) {
     cactusArray[i].update();
     var collision = dino.checkCollision(66, 70, cactusArray[i].x + 20, cactusArray[i].y + 15, 40, cactusArray[i].height);
-    if (collision === true) dieSound.play();
+    if (collision === true) {
+      dieSound.play();
+      dino.score -= 0.3;
+    }
   }
   if (cactusArray.length > 10) {
     cactusArray.pop(cactusArray[0])

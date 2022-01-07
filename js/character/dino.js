@@ -10,6 +10,7 @@ export class Dino {
     this.mouseX = 600;
     this.mouseY = 200;
     this.radius = 40;
+    this.score = 0;
   };
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
