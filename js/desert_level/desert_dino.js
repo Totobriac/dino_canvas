@@ -1,4 +1,4 @@
-import { dino } from "../script.js";
+import { dino, game } from "../script.js";
 
 var dinoSprite = new Image();
 dinoSprite.src = "../assets/dino/dino_all.png";
@@ -14,17 +14,18 @@ var height = 70;
 var isJumping = false;
 
 
-export function drawDinoDesert(ctx, dino, game) {
-  update(dino);
+function drawDinoDesert(ctx, dino, game) {
+
+  update(dino, game);
   if (game.isPlaying === false || isJumping === true) {
     ctx.drawImage(dinoSprite, 1676, 0, 90, 95, dino.x, dino.y, width, height);
   }
   else {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);   
-  } 
+  }
 };
 
-export function jump() {
+function jump() {
   jumpSound.play();
   isJumping = true;
   dino.vy -= 21;
@@ -41,4 +42,4 @@ function update(dino) {
   dino.checkFrame(2);  
 };
 
-export { isJumping };
+export { isJumping, drawDinoDesert, jump };
