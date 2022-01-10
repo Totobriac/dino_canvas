@@ -11,6 +11,7 @@ export class Dino {
     this.mouseY = 200;
     this.radius = 40;
     this.score = 0;
+    this.isHit = false;
   };
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
@@ -37,10 +38,9 @@ export class Dino {
     }
   }
   checkCollision(dinoWidth, dinoHeight, spriteX, spriteY, spriteWidth, spriteHeight) {
-    if (this.x + dinoWidth < spriteX || this.x > spriteX + spriteWidth 
-      || this.y + dinoHeight < spriteY || this.y > this.spriteY + spriteHeight) {
+    if (this.x + dinoWidth < spriteX || this.x > spriteX + spriteWidth ||
+      this.y + dinoHeight < spriteY || this.y > this.spriteY + spriteHeight) {
       return false;
     } else return true;
   }
 }
-

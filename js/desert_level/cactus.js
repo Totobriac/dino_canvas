@@ -36,6 +36,8 @@ export function createCactus(game, dino, ctx) {
     if (collision === true) {
       dieSound.play();
       dino.score -= 0.3;
+      dino.isHit = true;
+      setTimeout(() => dino.isHit = false, 820)
     }
   }
   if (cactusArray.length > 10) {
