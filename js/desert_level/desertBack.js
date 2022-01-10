@@ -1,4 +1,10 @@
-import { generateDirt } from "./dirt.js";
+import {
+  generateDirt
+} from "./dirt.js";
+
+import {
+  drawSky
+} from "./sky.js";
 
 const mountainSprite = new Image();
 mountainSprite.src = "../assets/desert_level/desert_back.png";
@@ -11,6 +17,7 @@ var layer1;
 var layer2;
 var layer3;
 var layers;
+
 
 class Layer {
   constructor(image, y, picY, picS, picH, speedMod, gameSpeed, ctx) {
@@ -39,7 +46,7 @@ class Layer {
 }
 
 
-export function generateBack(ctx, game) {
+export function generateBack(ctx, game, dino) {
 
   if (game.level1Started === false) {
     layer1 = new Layer(mountainSprite, 170, 2, 245, 200, 0.1, game.gamespeed, ctx);
@@ -49,12 +56,15 @@ export function generateBack(ctx, game) {
     layers = [layer1, layer2, layer3];
     game.level1Started = true;
   }
+
+  drawSky(ctx, game, dino);
+
   layers.forEach(layer => {
     layer.update(game.gamespeed);
     layer.draw();
   })
   gameFrame--;
-  
-  generateDirt(250, 300, game.gamespeed, ctx, 19); 
+
+  generateDirt(250, 300, game.gamespeed, ctx, 19);
 
 }

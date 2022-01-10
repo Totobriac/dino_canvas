@@ -12,12 +12,11 @@ function drawProgBar(ctx, dino) {
   ctx.filter = "url(#turb" + filter + ")";
   ctx.strokeStyle = "black";
   ctx.lineWidth = 2;
-  ctx.strokeRect(780, 0, 400, 30);
+  ctx.strokeRect(780, 30, 400, 30);
 
   ctx.fillStyle = "green";
-  ctx.fillRect(782, 2, dino.score * 3, 26 )
+  ctx.fillRect(782, 32, dino.score * 3, 26 )
   ctx.filter = "none";
 }
 
 export { drawProgBar };
-

@@ -32,7 +32,7 @@ export function anim(game, dino, ctx) {
   }
   if (game.level === 0) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateBack(ctx, game);
+    generateBack(ctx, game, dino);
     createCactus(game,dino, ctx);
     drawDinoDesert(ctx, dino, game);
     drawProgBar(ctx, dino);
