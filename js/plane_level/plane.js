@@ -1,4 +1,6 @@
-import { dino } from "../script.js"
+import { dino } from "../script.js";
+import { createParticles } from "./particles.js";
+
 
 const planeSprite = new Image();
 planeSprite.src = "../assets/plane_level/plane_1.png";
@@ -15,6 +17,7 @@ export function drawPlane(ctx, dino) {
   ctx.rotate(-22 * Math.PI / 180);
   ctx.drawImage(planeSprite, x, y, planeWidth, planeHeight);
   ctx.resetTransform();
+  createParticles(x, y, 4, ctx, -22)
 }
 
 function update(dino) {

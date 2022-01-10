@@ -3,7 +3,6 @@ import { generateBack } from "./desert_level/desertBack.js";
 import { drawPlane } from "./plane_level/plane.js";
 import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
-import { createParticles } from "./plane_level/particles.js";
 import { createBirds } from "./plane_level/bird.js";
 import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
@@ -43,7 +42,6 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPlane(ctx, dino);
-    createParticles(dino.planeX, dino.planeY, game.gamespeed, ctx, -22);
     animateMonument(ctx);
     createBirds(ctx, game.gamespeed, game.frame);
     generateClouds(ctx, game.gamespeed);
