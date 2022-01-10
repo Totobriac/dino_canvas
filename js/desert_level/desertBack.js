@@ -18,6 +18,8 @@ var layer2;
 var layer3;
 var layers;
 
+var stars = [];
+
 
 class Layer {
   constructor(image, y, picY, picS, picH, speedMod, gameSpeed, ctx) {
@@ -45,6 +47,33 @@ class Layer {
   }
 }
 
+function generateStars() {
+  for (var i = 0; i < 100; i++) {
+    var starX = Math.random() * canvas.width;
+    var starY = Math.random() * canvas.height;
+    stars.push({
+      x: starX,
+      y: starY,
+      r: Math.random() + 0.5,
+    })
+  }
+}
+
+function drawStars(ctx) {
+  ctx.fillStyle = "white";
+  stars.forEach((star, i) => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+    ctx.fill();
+  });
+}
+
+function glow() {
+  stars.forEach((star, i) => {
+    star.r = Math.random() + 0.5;
+  });
+}
+
 
 export function generateBack(ctx, game, dino) {
 
@@ -54,10 +83,17 @@ export function generateBack(ctx, game, dino) {
     layer3 = new Layer(floorSprite, 350, 0, 14, 20, 1, game.gamespeed, ctx);
 
     layers = [layer1, layer2, layer3];
+
+    generateStars();
+
     game.level1Started = true;
   }
 
   drawSky(ctx, game, dino);
+
+  if (game.frame % 50 === 0) glow();
+
+  drawStars(ctx);
 
   layers.forEach(layer => {
     layer.update(game.gamespeed);

@@ -1,7 +1,9 @@
 let sunX = Math.floor((1.5 * Math.random() - 0.25) * canvas.width);
 
-
 export function drawSky(ctx, game, dino) {
+
+
+
   var gradient = ctx.createRadialGradient(
     sunX + 1600 - dino.score * 10, canvas.height * 2 + 600 - dino.score * 10, canvas.height * 3 - dino.score * 3,
     sunX + 1600 - dino.score * 10, canvas.height * 2 + 600 - dino.score * 10, 600 - dino.score * 3,
@@ -15,4 +17,6 @@ export function drawSky(ctx, game, dino) {
   gradient.addColorStop(1, '#FFF');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
 }
