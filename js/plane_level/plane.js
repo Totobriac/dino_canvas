@@ -1,4 +1,4 @@
-import { dino } from "../script.js";
+import { dino, game } from "../script.js";
 import { createParticles } from "./particles.js";
 
 
@@ -13,16 +13,22 @@ var tickCount = 0;
 var frame = 0;
 var maxFrame = 3;
 
-var x = 20;
-var y = 20;
+// var x = 20;
+// var y = 20;
 var angle = 0;
 
 export function drawPlane(ctx, dino) {
+
+  if(game.level1Started === false) {
+    dino.x = 20;
+    dino.y = 20;
+    game.level1Started = true;
+  }
   update(dino);
   ctx.rotate(-22 * Math.PI / 180);
-  ctx.drawImage(planeSprite,frame * 384, 0, 384, 230, x, y, planeWidth, planeHeight);
+  ctx.drawImage(planeSprite,frame * 384, 0, 384, 230, dino.x, dino.y, planeWidth, planeHeight);
   ctx.resetTransform();
-  createParticles(x, y, 4, ctx, -22)
+  createParticles(dino.x, dino.y, 4, ctx, -22)
 }
 
 function update(dino) {
@@ -33,28 +39,27 @@ function update(dino) {
   else {
     tickCount ++
   }
-  tickCount ++;
   angle += 0.2;
   let curve = Math.sin(angle) * 0.5;
-  if (y > 350) {
-    y = 350 + curve;
+  if (dino.y > 350) {
+    dino.y = 350 + curve;
   }
-  if (y < 50) {
-    y = 50 + curve;
+  if (dino.y < 50) {
+    dino.y = 50 + curve;
   }
   dino.vy += 0.02;
-  y += dino.vy + curve;
+  dino.y += dino.vy + curve;
 };
 
 function dinoFlyUp() {
-  if (y > 50) {
+  if (dino.y > 50) {
     dino.vy -= 1;
-    y += dino.vy;
+    dino.y += dino.vy;
   }
 };
 function dinoFlyDown() {
   dino.vy += 0.02;
-  y += dino.vy;
+  dino.y += dino.vy;
 };
 
 export { dinoFlyUp, dinoFlyDown }

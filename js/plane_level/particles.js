@@ -1,5 +1,8 @@
 const particlesArray = []
 
+var smokeSprite = new Image();
+smokeSprite.src = "../assets/plane_level/smoke.png";
+
 class Particle {
   constructor(planeX, planeY, gamespeed, ctx, angle) {
     this.x = planeX - 5 ;
@@ -31,7 +34,7 @@ export function createParticles(planeX, planeY, gamespeed, ctx, angle) {
     particlesArray[i].update();
     particlesArray[i].draw();
   }
-  if (particlesArray.length > 200) {
+  if (particlesArray.length > 40) {
     for (let i = 0; i < 20; i++) {
       particlesArray.pop(particlesArray[i])
     }

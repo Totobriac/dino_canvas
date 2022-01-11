@@ -2,7 +2,7 @@ var tick = 0;
 var maxTick = 3;
 var filter = 0;
 
-function drawProgBar(ctx, dino) {
+function drawProgBar(ctx, score) {
   tick += 1;
   if (tick >= maxTick) {
     tick = 0;
@@ -12,10 +12,10 @@ function drawProgBar(ctx, dino) {
   ctx.filter = "url(#turb" + filter + ")";
   ctx.strokeStyle = "black";
   ctx.lineWidth = 2;
-  ctx.strokeRect(780, 30, 400, 30);
+  ctx.strokeRect(450, 370, 300, 20);
 
-  ctx.fillStyle = "green";
-  ctx.fillRect(782, 32, dino.score * 3, 26 )
+  ctx.fillStyle = "orange";
+  ctx.fillRect(452, 371, score / 3  , 18 )
   ctx.filter = "none";
 }
 

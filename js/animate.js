@@ -21,20 +21,20 @@ import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
 import { pointNClick } from "./mansion_level/gameMecanic.js";
-import { drawProgBar } from "./desert_level/progress_bar.js";
+//import { drawProgBar } from "./desert_level/progress_bar.js";
 
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
     game.gamespeed = 10;
     game.frame++;
+    game.score++;
   }
   if (game.level === 0) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     generateBack(ctx, game, dino);
     createCactus(game,dino, ctx);
     drawDinoDesert(ctx, dino, game);
-    //drawProgBar(ctx, dino);
   }
   else if (game.level === 1) {
     // remove when game is all set//
@@ -44,7 +44,7 @@ export function anim(game, dino, ctx) {
     drawPlane(ctx, dino);
     animateMonument(ctx);
     createBirds(ctx, game.gamespeed, game.frame);
-    generateClouds(ctx, game.gamespeed);
+    generateClouds(ctx, game);
   }
   else if (game.level === 2) {
     // remove when game is all set//
