@@ -4,7 +4,7 @@ import { drawPlane } from "./plane_level/plane.js";
 import { animateMonument } from "./plane_level/ground.js";
 import { generateClouds } from "./plane_level/clouds.js";
 import { createBirds } from "./plane_level/bird.js";
-import { generateRestBack, generateSea, generateCustomers, generateGuyBrush } from "./restaurant_level/restBack.js";
+import { generateRestBack } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
@@ -25,7 +25,6 @@ import { pointNClick } from "./mansion_level/gameMecanic.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
-    game.gamespeed = 10;
     game.frame++;
     game.score++;
   }
@@ -50,10 +49,7 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     // remove when game is all set//
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    generateSea(ctx);
-    generateGuyBrush(ctx, game.gamespeed, game.frame);
-    generateRestBack(ctx);
-    generateCustomers(ctx);
+    generateRestBack(ctx, game);
     generatePlates(ctx, game.frame, dino);
     drawDinoWaiter(ctx, dino, game);
   }

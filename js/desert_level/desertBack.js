@@ -80,7 +80,7 @@ export function generateBack(ctx, game, dino) {
   if (game.level1Started === false) {
     layer1 = new Layer(mountainSprite, 170, 2, 245, 200, 0.1, game.gamespeed, ctx);
     layer2 = new Layer(mountainSprite, 250, 244, 300, 320, 0.7, game.gamespeed, ctx);
-    layer3 = new Layer(floorSprite, 350, 0, 14, 20, 1, game.gamespeed, ctx);
+    layer3 = new Layer(floorSprite, 350, 0, 14, 20, 2.5, game.gamespeed, ctx);
 
     layers = [layer1, layer2, layer3];
 

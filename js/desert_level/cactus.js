@@ -20,7 +20,7 @@ class Cactus {
     this.ctx.drawImage(cactusSprite, this.frameIndex * 103, 0, 103, 102, this.x, this.y, this.width, this.height);
   }
   update() {
-    this.x -= this.gamespeed;
+    this.x -= this.gamespeed * 2.5;
     this.draw();
   }
 }
