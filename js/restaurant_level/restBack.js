@@ -96,7 +96,6 @@ export function generateCustomers(ctx) {
 }
 
 export function generateGuyBrush(ctx, game) {
-  console.log(passerbyArray)
   if (game.frame % 300 === 0) {
     passerbyArray.unshift(new Guybrush(ctx, game));
   }

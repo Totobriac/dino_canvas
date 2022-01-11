@@ -32,8 +32,8 @@ export class Dino {
       this.x = 20;
       this.vx = 0;
     }
-    if (this.x > 1120) {
-      this.x = 1120;
+    if (this.x > 870) {
+      this.x = 870;
       this.vx = 0;
     }
   }

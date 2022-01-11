@@ -6,7 +6,7 @@ const platesArray = [];
 
 class Plates {
   constructor(ctx) {
-    this.x = 100 + Math.random() * 900;
+    this.x = 100 + Math.random() * 700;
     this.y = -60;
     this.vy = 0.4;
     this.acc = 0;
@@ -28,7 +28,7 @@ class Plates {
 }
 
 export function generatePlates(ctx, frame, dino) {
-  if (frame % 100 === 0) {
+  if (frame % 90 === 0) {
     platesArray.unshift(new Plates(ctx));
   }
   for (let i = 0; i < platesArray.length; i++) {
