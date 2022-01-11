@@ -3,6 +3,8 @@ birdSprite.src = "../assets/plane_level/bird.png";
 
 import {dino} from "../script.js";
 
+import { generateClouds } from "./clouds.js";
+
 const birdArray = [];
 
 const origin = {x: 600, y: 1200 };
@@ -16,12 +18,12 @@ const stepSize = (end - start)/totalSteps;
 
 
 class Bird {
-  constructor(ctx, gamespeed) {
+  constructor(ctx, game) {
     this.step = 0
     this.y = Math.random() * 300;
     this.ticksPerFrame = 5;
     this.ctx = ctx;
-    this.gamespeed = gamespeed;
+    this.game = game;
     this.frameIndex = 0;
     this.frames = 2;
     this.tickCount = 0;
@@ -35,14 +37,7 @@ class Bird {
     this.ctx.rotate(Math.PI/2);
     this.ctx.translate(0, 0);
     this.ctx.drawImage(birdSprite, this.frameIndex * 92, 0, 92, 80, 0, -this.y, 46, 40);
-    this.ctx.fillStyle="blue"
-
-    this.ctx.font = '48px serif';
-    this.ctx.fillText((400-this.y), 0, -this.y)
-
     this.ctx.resetTransform();
-this.ctx.fillStyle="red"
-      this.ctx.fillText((400-this.y), 0, -this.y)
   }
   update() {
     this.tickCount += 1;
@@ -56,10 +51,11 @@ this.ctx.fillStyle="red"
     }
     this.draw()
   }
+
 }
 
 function checkCollision(dino, bird) {
-  if (dino.y + 60 > bird.y || dino.y < bird.y + 40) {
+  if (dino.y > (400 - bird.y) + 20 || dino.y  < (400 - bird.y) - 10) {
     return false;
   }
   else if (bird.angle < 1.95 || bird.angle > 2.05) {
@@ -68,17 +64,19 @@ function checkCollision(dino, bird) {
   else {
     return true;
   }
+
 }
 
-export function createBirds(ctx, gamespeed, frame) {
-  if (frame % 200 === 0) {
-    birdArray.unshift(new Bird(ctx, gamespeed));
+export function createBirds(ctx, game) {
+  if (game.frame % 200 === 0) {
+    birdArray.unshift(new Bird(ctx, game));
   }
   for (let i = 0; i < birdArray.length; i++) {
     birdArray[i].update();
-    //console.log(dino.y)
+
     var collide = checkCollision(dino,birdArray[i])
-    if (collide === true) console.log("goog")
+
+    if (collide === true) game.score -= 14;
   }
   if (birdArray.length > 5) {
     birdArray.pop(birdArray[0])

@@ -13,8 +13,6 @@ var tickCount = 0;
 var frame = 0;
 var maxFrame = 3;
 
-// var x = 20;
-// var y = 20;
 var angle = 0;
 
 export function drawPlane(ctx, dino) {
@@ -25,6 +23,7 @@ export function drawPlane(ctx, dino) {
     game.level1Started = true;
   }
   update(dino);
+
   ctx.rotate(-22 * Math.PI / 180);
   ctx.drawImage(planeSprite,frame * 384, 0, 384, 230, dino.x, dino.y, planeWidth, planeHeight);
   ctx.resetTransform();

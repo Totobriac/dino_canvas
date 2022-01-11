@@ -15,7 +15,7 @@ function drawProgBar(ctx, score) {
   ctx.strokeRect(450, 370, 300, 20);
 
   ctx.fillStyle = "orange";
-  ctx.fillRect(452, 371, score / 3  , 18 )
+  ctx.fillRect(452, 371, score / 14  , 18 )
   ctx.filter = "none";
 }
 
