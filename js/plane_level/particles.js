@@ -2,8 +2,8 @@ const particlesArray = []
 
 class Particle {
   constructor(planeX, planeY, gamespeed, ctx, angle) {
-    this.x = planeX + 5;
-    this.y = planeY + 66;
+    this.x = planeX - 5 ;
+    this.y = planeY  + 25;
     this.size = Math.random() * 7 + 3;
     this.speed = (Math.random() * 1) - 0.5;
     this.color = "hsl(0, 0%," + (50 + Math.random() * 50) +"%)";

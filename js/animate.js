@@ -34,7 +34,7 @@ export function anim(game, dino, ctx) {
     generateBack(ctx, game, dino);
     createCactus(game,dino, ctx);
     drawDinoDesert(ctx, dino, game);
-    drawProgBar(ctx, dino);
+    //drawProgBar(ctx, dino);
   }
   else if (game.level === 1) {
     // remove when game is all set//
