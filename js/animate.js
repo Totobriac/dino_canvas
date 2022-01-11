@@ -6,7 +6,7 @@ import { generateClouds } from "./plane_level/clouds.js";
 import { createBirds } from "./plane_level/bird.js";
 import { generateRestBack } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
-import {drawNotePad} from "./restaurant_level/notepad.js";
+import {generateNote} from "./restaurant_level/notepad.js";
 import { generateFruits } from "./kitchen_level/ninja_fruit.js";
 import { handleParticle } from "./kitchen_level/sword.js";
 import { generateTable } from "./kitchen_level/cutting_table.js";
@@ -53,7 +53,7 @@ export function anim(game, dino, ctx) {
     generateRestBack(ctx, game);
     generatePlates(ctx, game.frame, dino);
     drawDinoWaiter(ctx, dino, game);
-    drawNotePad(ctx);
+    generateNote(ctx, game);
   }
   else if (game.level === 3) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

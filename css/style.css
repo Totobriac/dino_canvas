@@ -22,3 +22,8 @@
   font-family: "Wolf";
   src: url("../assets/fonts/wolfenstein.ttf");
 }
+
+@font-face {
+  font-family: "HandWritten";
+  src: url("../assets/fonts/handWritten.ttf");
+}

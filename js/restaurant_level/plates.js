@@ -1,5 +1,5 @@
 const food = new Image();
-food.src = "../assets/restaurant_level/food.png"
+food.src = "../assets/restaurant_level/food.png";
 
 const platesArray = [];
 
