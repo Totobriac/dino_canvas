@@ -1,5 +1,6 @@
 import {
-  servedDish, resetDish
+  servedDish,
+  resetDish
 } from "./plates.js";
 
 var notePadSprite = new Image();
@@ -52,7 +53,7 @@ class Note {
     for (let i = 0; dishes.length < this.customers; i++) {
       var newDish = new Dish(i);
       if (dishSelection.includes(newDish.variety)) {
-        i --;
+        i--;
         continue;
       } else {
         dishSelection.push(newDish.variety);
@@ -90,22 +91,14 @@ function generateNote(ctx, game) {
 }
 
 function checkIfServed() {
-  for (let i = 0; i < notes[0].customers; i++) {
-    if (notes[0].dishes[i].variety === servedDish) {
+  for (let i = 0; i < notes[0].dishes.length; i++) {
+    if (notes[0].dishes[i].isServed === false && notes[0].dishes[i].isWronglyServed === false && notes[0].dishes[i].variety === servedDish) {
       notes[0].dishes[i].isServed = true;
-      resetDish();
-    } else {
-      for (let i = 0; i < notes[0].customers; i++) {
-        if (notes[0].dishes[i].isServed === false && notes[0].dishes[i].isWronglyServed === false && servedDish != undefined) {
-          console.log(servedDish)
-          notes[0].dishes[i].isWronglyServed = true;
-          resetDish();
-          return
-        }
-      }
+      return;
     }
-  }
+  }  
 }
+
 
 export {
   generateNote,
