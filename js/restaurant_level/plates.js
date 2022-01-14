@@ -1,10 +1,12 @@
 var food = new Image();
 food.src = "../assets/restaurant_level/food.png";
 
-import { notes } from "./notepad.js";
-
 var platesArray = [];
 var servedDish;
+
+var canCollide = true;
+
+var moves = 0;
 
 class Plates {
   constructor(ctx) {
@@ -15,25 +17,28 @@ class Plates {
     this.ctx = ctx;
     this.height = 67;
     this.width = 70;
-    this.variety = Math.floor(Math.random() * 15);
+    this.variety = Math.floor(Math.random() * 16);
     this.hasCollided = false;
   }
   draw() {
-    this.ctx.drawImage(food, this.variety * 94, 0, 94, 100, this.x, this.y, this.height, this.width)
+    this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y, this.height, this.width)
   }
   update(dino, ctx) {
     this.acc += 0.02;
     this.y += (this.vy + this.acc);
-    if (checkCollision(this.x, this.y, dino, ctx)) {
+    if (checkCollision(this.x, this.y, dino, ctx) && canCollide === true) {
       this.hasCollided = true;
       servedDish = this.variety;
+      canCollide = false;
+      moves++;
+      setTimeout(() => canCollide = true, 300);
     }
     if (this.hasCollided == false) this.draw();
   }
 }
 
 export function generatePlates(ctx, frame, dino) {
-  if (frame % 90 === 0) {
+  if (frame % 50 === 0) {
     platesArray.unshift(new Plates(ctx));
   }
   for (let i = 0; i < platesArray.length; i++) {
@@ -59,8 +64,8 @@ function checkCollision(x, y, dino) {
   }
 }
 
-function resetDish() {
-  servedDish = undefined;
+function updateMoves() {
+  moves -= 2;
 }
 
-export { servedDish, resetDish };
+export { servedDish, moves, updateMoves };
