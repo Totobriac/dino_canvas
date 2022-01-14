@@ -12,6 +12,24 @@ foodSprite.src = "../assets/restaurant_level/food.png"
 
 var notes = [];
 
+class Dish {
+  constructor(index) {
+    this.index = index;
+    this.variety = this.getVariety();
+    this.line = this.getLine();
+    this.column = this.getColumn();
+  }
+  getLine() {
+    return Math.floor(this.index / 2);
+  }
+  getColumn() {
+    return ( this.index - this.line * 2);
+  }
+  getVariety() {
+    return Math.floor(Math.random() * 16);
+  }
+}
+
 class Note {
   constructor() {
     this.table = Math.floor(Math.random() * 21) + 1;
@@ -21,8 +39,9 @@ class Note {
   getDishes() {
     var dishes = [];
     for (let i = 0; i < this.customers; i++) {
-      dishes.push( Math.floor(Math.random() * 16))
+      dishes.push( new Dish(i))
     }
+    console.log(dishes)
     return dishes;
   }
 }
@@ -39,7 +58,7 @@ function generateNote(ctx, game) {
   ctx.fillText(notes[0].table, 1050, 90);
   ctx.fillText(notes[0].customers, 1060, 105);
   notes[0].dishes.forEach((dish, i) => {
-    ctx.drawImage(foodSprite, dish * 94, 0, 94, 100, 1060 + (10 * i), 205, 70, 67);
+    ctx.drawImage(foodSprite, dish.variety * 94, 0, 94, 100, 1000 + dish.column * 100, 105 + dish.line * 60, 70, 67);
   });
 
 }
