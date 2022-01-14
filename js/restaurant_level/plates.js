@@ -1,8 +1,10 @@
-const food = new Image();
+var food = new Image();
 food.src = "../assets/restaurant_level/food.png";
 
-const platesArray = [];
+import { notes } from "./notepad.js";
 
+var platesArray = [];
+var servedDish;
 
 class Plates {
   constructor(ctx) {
@@ -13,16 +15,19 @@ class Plates {
     this.ctx = ctx;
     this.height = 67;
     this.width = 70;
-    this.frame = Math.floor(Math.random() * 15);
+    this.variety = Math.floor(Math.random() * 15);
     this.hasCollided = false;
   }
   draw() {
-    this.ctx.drawImage(food, this.frame * 94, 0, 94, 100, this.x, this.y, this.height, this.width)
+    this.ctx.drawImage(food, this.variety * 94, 0, 94, 100, this.x, this.y, this.height, this.width)
   }
   update(dino, ctx) {
     this.acc += 0.02;
     this.y += (this.vy + this.acc);
-    if (checkCollision(this.x, this.y, dino, ctx) == true) this.hasCollided = true;
+    if (checkCollision(this.x, this.y, dino, ctx)) {
+      this.hasCollided = true;
+      servedDish = this.variety;
+    }
     if (this.hasCollided == false) this.draw();
   }
 }
@@ -53,3 +58,9 @@ function checkCollision(x, y, dino) {
     return true;
   }
 }
+
+function resetDish() {
+  servedDish = undefined;
+}
+
+export { servedDish, resetDish };
