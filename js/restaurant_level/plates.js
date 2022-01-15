@@ -29,8 +29,9 @@ class Plates {
     if (checkCollision(this.x, this.y, dino, ctx) && canCollide === true) {
       this.hasCollided = true;
       servedDish = this.variety;
+      var isServed = note.checkIfServed(servedDish);
+      isServed === true ? note.updateNote(1) : note.updateNote(-1); 
       canCollide = false;
-      note.updateNote(-1);
       setTimeout(() => canCollide = true, 300);
     }
     if (this.hasCollided == false) this.draw();

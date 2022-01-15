@@ -17,6 +17,8 @@ foodSprite.src = "../assets/restaurant_level/food.png";
 var checkSprite = new Image();
 checkSprite.src = "../assets/restaurant_level/check.png";
 
+var monoSprite = new Image();
+monoSprite.src = "../assets/restaurant_level/trip_mono.png";
 
 var note;
 var dishSelection = [];
@@ -63,18 +65,36 @@ class Note {
     return dishes;
   }
   updateNote(move) {
-    if (this.note > 1 && this.note < 5) {
+    if (this.note === 5 && move === 2) {
+      console.log('caughtt')
+      this.note = 5;
+    }
+    else if (this.note === 0 && move === -1) {
+      this.note = 0;
+    }
+    else {
       this.note += move;
     }
   }
   checkIfDone() {
+    var done;
     for (let i = 0; i < this.dishes.length; i++) {
       if (this.dishes[i].isServed === false) {
         return false;
       } else {
+        done = true;
+      }
+    }
+    return done;
+  }
+  checkIfServed(servedDish) {
+    for (let i = 0; i < this.dishes.length; i++) {
+      if (this.dishes[i].variety === servedDish && this.dishes[i].isServed === false) {
+        this.dishes[i].isServed = true;
         return true;
       }
     }
+    return false;
   }
 }
 
@@ -87,13 +107,16 @@ function generateNote(ctx, game) {
   ctx.drawImage(notePadSprite, 980, 20);
   ctx.drawImage(smileSprite, 1005, 300, 150, 56);
 
-  drawCursor(ctx),
+  ctx.fillStyle = "rgb(52, 224, 161,0.5)";
+  ctx.fillRect(13,15,120,82);
+  ctx.drawImage(monoSprite, 13,20,120,72);
 
+  drawCursor(ctx);
+
+  ctx.fillStyle = "black";
   ctx.font = "20px HandWritten";
   ctx.fillText(note.table, 1050, 90);
   ctx.fillText(note.customers, 1060, 105);
-
-  if (servedDish != undefined) checkIfServed();
 
   note.dishes.forEach((dish, i) => {
     ctx.drawImage(foodSprite, dish.variety * 94 + 94, 0, 94, 100, 1000 + dish.column * 100, 105 + dish.line * 60, 70, 67);
@@ -106,15 +129,6 @@ function generateNote(ctx, game) {
   if (isDone === true) note = new Note;
 }
 
-function checkIfServed() {
-  for (let i = 0; i < note.dishes.length; i++) {
-    if (note.dishes[i].variety === servedDish && note.dishes[i].isServed === false) {
-      note.dishes[i].isServed = true;
-      note.updateNote(2);
-      return
-    }
-  }
-}
 
 function drawCursor(ctx) {
   ctx.drawImage(cursorSprite, 980 + note.note * 30, 347, 25, 25);
