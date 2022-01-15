@@ -1,3 +1,5 @@
+import { notes } from "./notepad.js";
+
 var food = new Image();
 food.src = "../assets/restaurant_level/food.png";
 
@@ -5,8 +7,6 @@ var platesArray = [];
 var servedDish;
 
 var canCollide = true;
-
-var moves = 0;
 
 class Plates {
   constructor(ctx) {
@@ -30,7 +30,7 @@ class Plates {
       this.hasCollided = true;
       servedDish = this.variety;
       canCollide = false;
-      moves++;
+      notes[0].updateNote(-1);
       setTimeout(() => canCollide = true, 300);
     }
     if (this.hasCollided == false) this.draw();
@@ -68,4 +68,4 @@ function updateMoves() {
   moves -= 2;
 }
 
-export { servedDish, moves, updateMoves };
+export { servedDish, updateMoves };

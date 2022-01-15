@@ -1,7 +1,5 @@
 import {
   servedDish,
-  moves,
-  updateMoves
 } from "./plates.js";
 
 var notePadSprite = new Image();
@@ -22,8 +20,6 @@ checkSprite.src = "../assets/restaurant_level/check.png";
 
 var notes = [];
 var dishSelection = [];
-
-var move = moves; 
 
 
 class Dish {
@@ -51,6 +47,7 @@ class Note {
     this.table = Math.floor(Math.random() * 21) + 1;
     this.customers = Math.floor(Math.random() * 5) + 1;
     this.dishes = this.getDishes();
+    this.note = 4;
   }
   getDishes() {
     var dishes = [];
@@ -66,6 +63,11 @@ class Note {
     }
     return dishes;
   }
+  updateNote(move) {
+    if (this.note > 1 && this.note < 5) {
+      this.note += move;
+    }
+  }
 }
 
 function generateNote(ctx, game) {
@@ -76,14 +78,16 @@ function generateNote(ctx, game) {
   }
   ctx.drawImage(notePadSprite, 980, 20);
   ctx.drawImage(smileSprite, 1005, 300, 150, 56);
-  ctx.drawImage(cursorSprite, 1085, 347, 25, 25);
-  ctx.font = "20px HandWritten";
+
+  drawCursor(ctx),
+
+    ctx.font = "20px HandWritten";
   ctx.fillText(notes[0].table, 1050, 90);
   ctx.fillText(notes[0].customers, 1060, 105);
 
   if (servedDish != undefined) checkIfServed();
 
-  console.log(moves);
+  console.log(notes[0].note);
 
   notes[0].dishes.forEach((dish, i) => {
     ctx.drawImage(foodSprite, dish.variety * 94 + 94, 0, 94, 100, 1000 + dish.column * 100, 105 + dish.line * 60, 70, 67);
@@ -98,12 +102,16 @@ function generateNote(ctx, game) {
 
 function checkIfServed() {
   for (let i = 0; i < notes[0].dishes.length; i++) {
-    if (notes[0].dishes[i].variety === servedDish && notes[0].dishes[i].isServed === false ) {
+    if (notes[0].dishes[i].variety === servedDish && notes[0].dishes[i].isServed === false) {
       notes[0].dishes[i].isServed = true;
-      updateMoves();
+      notes[0].updateNote(2);
       return
     }
   }
+}
+
+function drawCursor(ctx) {
+  ctx.drawImage(cursorSprite, 980 + notes[0].note * 30, 347, 25, 25);
 }
 
 export {
