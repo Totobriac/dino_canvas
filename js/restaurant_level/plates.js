@@ -1,4 +1,4 @@
-import { notes } from "./notepad.js";
+import { note } from "./notepad.js";
 
 var food = new Image();
 food.src = "../assets/restaurant_level/food.png";
@@ -30,7 +30,7 @@ class Plates {
       this.hasCollided = true;
       servedDish = this.variety;
       canCollide = false;
-      notes[0].updateNote(-1);
+      note.updateNote(-1);
       setTimeout(() => canCollide = true, 300);
     }
     if (this.hasCollided == false) this.draw();
@@ -64,8 +64,4 @@ function checkCollision(x, y, dino) {
   }
 }
 
-function updateMoves() {
-  moves -= 2;
-}
-
-export { servedDish, updateMoves };
+export { servedDish };
