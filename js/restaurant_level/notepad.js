@@ -29,7 +29,6 @@ class Dish {
     this.line = this.getLine();
     this.column = this.getColumn();
     this.isServed = false;
-    this.isWronglyServed = false;
   }
   getLine() {
     return Math.floor(this.index / 2);
@@ -68,6 +67,15 @@ class Note {
       this.note += move;
     }
   }
+  checkIfDone() {
+    for (let i = 0; i < this.dishes.length; i++) {
+      if (this.dishes[i].isServed === false) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
 }
 
 function generateNote(ctx, game) {
@@ -81,23 +89,21 @@ function generateNote(ctx, game) {
 
   drawCursor(ctx),
 
-    ctx.font = "20px HandWritten";
+  ctx.font = "20px HandWritten";
   ctx.fillText(notes[0].table, 1050, 90);
   ctx.fillText(notes[0].customers, 1060, 105);
 
   if (servedDish != undefined) checkIfServed();
-
-  console.log(notes[0].note);
 
   notes[0].dishes.forEach((dish, i) => {
     ctx.drawImage(foodSprite, dish.variety * 94 + 94, 0, 94, 100, 1000 + dish.column * 100, 105 + dish.line * 60, 70, 67);
     if (dish.isServed === true) {
       ctx.drawImage(checkSprite, 0, 0, 50, 38, 1010 + dish.column * 100, 125 + dish.line * 60, 50, 38);
     };
-    if (dish.isWronglyServed === true) {
-      ctx.drawImage(checkSprite, 50, 0, 50, 38, 1010 + dish.column * 100, 125 + dish.line * 60, 50, 38);
-    };
   });
+
+  var isDone = notes[0].checkIfDone();
+  console.log(isDone)
 }
 
 function checkIfServed() {
