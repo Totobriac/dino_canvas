@@ -30,7 +30,7 @@ class Plates {
       this.hasCollided = true;
       servedDish = this.variety;
       var isServed = note.checkIfServed(servedDish);
-      isServed === true ? note.updateNote(1) : note.updateNote(-1); 
+      isServed === true ? note.updateNote(1) : note.updateNote(-1);
       canCollide = false;
       setTimeout(() => canCollide = true, 300);
     }
@@ -39,7 +39,7 @@ class Plates {
 }
 
 export function generatePlates(ctx, frame, dino) {
-  if (frame % 50 === 0) {
+  if (frame % 40 === 0) {
     platesArray.unshift(new Plates(ctx));
   }
   for (let i = 0; i < platesArray.length; i++) {

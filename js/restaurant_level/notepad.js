@@ -21,6 +21,9 @@ var monoSprite = new Image();
 monoSprite.src = "../assets/restaurant_level/trip_mono.png";
 
 var note;
+var globalPoints = 0;
+var globalNote = 0;
+var tables = 0;
 var dishSelection = [];
 
 
@@ -67,11 +70,9 @@ class Note {
   updateNote(move) {
     if (this.note === 5 && move === 1) {
       this.note = 5;
-    }
-    else if (this.note === 1 && move === -1) {
+    } else if (this.note === 1 && move === -1) {
       this.note = 1;
-    }
-    else {
+    } else {
       this.note += move;
     }
   }
@@ -84,6 +85,9 @@ class Note {
         done = true;
       }
     }
+    tables++;
+    globalPoints += this.note;
+    globalNote = roundHalf(globalPoints / tables);
     return done;
   }
   checkIfServed(servedDish) {
@@ -107,12 +111,12 @@ function generateNote(ctx, game) {
   ctx.drawImage(smileSprite, 1005, 300, 150, 56);
 
   ctx.fillStyle = "rgb(52, 224, 161,0.5)";
-  ctx.fillRect(13,15,120,82);
-  ctx.drawImage(monoSprite, 13,20,120,72);
+  ctx.fillRect(13, 15, 120, 82);
+  ctx.drawImage(monoSprite, 13, 20, 120, 72);
+
+  drawNote(ctx);
 
   drawCursor(ctx);
-
-  console.log(note.note)
 
   ctx.fillStyle = "black";
   ctx.font = "20px HandWritten";
@@ -135,7 +139,42 @@ function drawCursor(ctx) {
   ctx.drawImage(cursorSprite, 980 + note.note * 30, 347, 25, 25);
 }
 
+function drawNote(ctx) {
+  for (let i = 0; i < 5; i++) {
+    ctx.beginPath();
+    ctx.arc(32 + i * 20, 80, 8, 0, 2 * Math.PI, false);
+    ctx.stroke();
+  }
+
+  if (globalNote % 1 === 0) {
+    for (let j = 0; j < globalNote; j++) {
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(32 + j * 20, 80, 7, 0, 2 * Math.PI, false);
+      ctx.fill();
+    }
+  } else {
+    var fullCircle = Math.floor(globalNote);
+    for (let j = 0; j < fullCircle; j++) {
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(32 + j * 20, 80, 7, 0, 2 * Math.PI, false);
+      ctx.fill();
+    }
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(32 + fullCircle * 20, 80, 7, 0.5 * Math.PI, 1.5 * Math.PI, false);
+    ctx.fill();
+  }
+
+}
+
+function roundHalf(num) {
+  return Math.round(num * 2) / 2;
+}
+
+
 export {
-  generateNote,
   note,
+  generateNote,
 }
