@@ -65,12 +65,11 @@ class Note {
     return dishes;
   }
   updateNote(move) {
-    if (this.note === 5 && move === 2) {
-      console.log('caughtt')
+    if (this.note === 5 && move === 1) {
       this.note = 5;
     }
-    else if (this.note === 0 && move === -1) {
-      this.note = 0;
+    else if (this.note === 1 && move === -1) {
+      this.note = 1;
     }
     else {
       this.note += move;
@@ -112,6 +111,8 @@ function generateNote(ctx, game) {
   ctx.drawImage(monoSprite, 13,20,120,72);
 
   drawCursor(ctx);
+
+  console.log(note.note)
 
   ctx.fillStyle = "black";
   ctx.font = "20px HandWritten";
