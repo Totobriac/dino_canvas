@@ -134,7 +134,6 @@ function generateNote(ctx, game) {
   if (isDone === true) note = new Note;
 }
 
-
 function drawCursor(ctx) {
   ctx.drawImage(cursorSprite, 980 + note.note * 30, 347, 25, 25);
 }
@@ -148,7 +147,7 @@ function drawNote(ctx) {
 
   if (globalNote % 1 === 0) {
     for (let j = 0; j < globalNote; j++) {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "rgb(5,252,38)";
       ctx.beginPath();
       ctx.arc(32 + j * 20, 80, 7, 0, 2 * Math.PI, false);
       ctx.fill();
@@ -156,17 +155,16 @@ function drawNote(ctx) {
   } else {
     var fullCircle = Math.floor(globalNote);
     for (let j = 0; j < fullCircle; j++) {
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "rgb(5,252,38)";
       ctx.beginPath();
       ctx.arc(32 + j * 20, 80, 7, 0, 2 * Math.PI, false);
       ctx.fill();
     }
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "rgb(5,252,38)";
     ctx.beginPath();
     ctx.arc(32 + fullCircle * 20, 80, 7, 0.5 * Math.PI, 1.5 * Math.PI, false);
     ctx.fill();
   }
-
 }
 
 function roundHalf(num) {
