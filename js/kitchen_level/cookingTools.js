@@ -30,7 +30,7 @@ function setTools(game, ctx) {
   canvas.addEventListener("mouseup", onMouseUp);
 
   if (game.kitchenLevelStarted === false) {
-    pot = new Tool("pot", potSprite, 20, 20, 150, 150, ctx);
+    pot = new Tool("pot", potSprite, 20, 20, 100, 100, ctx);
     tools.push(pot);
     game.kitchenLevelStarted = true;
   }
@@ -42,7 +42,7 @@ function onMouseDown(e) {
   if (selectedTool) {
     var mouse = getCursorPosition(e);
     selectedTool.offset = {
-      x: mouse.x - selectedTool.x ,
+      x: mouse.x - selectedTool.x,
       y: mouse.y - selectedTool.y
     }
   }
@@ -53,6 +53,14 @@ function onMouseMove(e) {
     var mouse = getCursorPosition(e);
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
+
+    if (selectedTool.y > 100) {
+      selectedTool.width = 200;
+      selectedTool.height = 200;
+    } else {
+      selectedTool.width = 100;
+      selectedTool.height = 100;
+    }
   }
 }
 
