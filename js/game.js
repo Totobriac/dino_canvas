@@ -16,5 +16,7 @@ export class Game {
     this.level7Started = false;
     this.level8Started = false;
     this.level8Dino = false;
+
+    this.kitchenLevelStarted = false;
   }
 }

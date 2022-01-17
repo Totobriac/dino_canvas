@@ -22,7 +22,7 @@ import { generateBridge } from "./bridge_level/bridge.js";
 import { generatePiano } from "./bridge_level/piano.js";
 import { generateRoad, drawScenery } from "./race_level/road.js";
 import { pointNClick } from "./mansion_level/gameMecanic.js";
-
+import { setTools} from "./kitchen_level/cookingTools.js";
 
 export function anim(game, dino, ctx) {
   if (game.isPlaying === true) {
@@ -61,8 +61,9 @@ export function anim(game, dino, ctx) {
     game.isPlaying = true;
     // remove when game is all set//
     generateTable(ctx);
-    generateFruits(ctx, game.frame);
-    handleParticle(ctx, game.mousePosition);
+    setTools(game, ctx);
+    // generateFruits(ctx, game.frame);
+    // handleParticle(ctx, game.mousePosition);
   }
   else if (game.level === 4) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

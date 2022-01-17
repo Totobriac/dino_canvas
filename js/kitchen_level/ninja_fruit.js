@@ -32,7 +32,6 @@ class Fruit {
 }
 
 export function generateFruits(ctx, frame) {
-  console.log(spots);
 
   if (frame % 50 === 0) {
     fruitsArray.unshift(new Fruit(ctx));
