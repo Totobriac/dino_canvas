@@ -1,9 +1,29 @@
+import {
+  burners,
+  stoveSprite,
+  getSelectedButton
+} from "./stove.js";
+
+import {
+  sinkSprite,
+  faucetOnSprite,
+  faucetOffSprite,
+  sinkIsOn,
+  checkFaucet,
+} from "./sink.js";
+
+import {
+  getCursorPosition,
+} from "./function.js"
+
 var potSprite = new Image();
 potSprite.src = "../assets/kitchen_level/pot.png";
 
 var pot;
 var selectedTool = null;
+var selectedButton = null;
 var tools = [];
+
 
 class Tool {
   constructor(name, sprite, x, y, width, height, ctx) {
@@ -29,15 +49,31 @@ function setTools(game, ctx) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", onMouseUp);
 
-  if (game.kitchenLevelStarted === false) {
-    pot = new Tool("pot", potSprite, 20, 20, 100, 100, ctx);
-    tools.push(pot);
-    game.kitchenLevelStarted = true;
-  }
-  pot.draw();
+  ctx.drawImage(sinkSprite, 10, 10, 286, 243);
+
+  var faucetSprite;
+  sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite ;
+  ctx.drawImage(faucetSprite, -15, -10, 173, 159)
+
+  ctx.drawImage(stoveSprite, 750, 100, 425, 280);
+
+  burners.forEach((burner, i) => {
+    if (burner.isOn) ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
+  });
+
+  // if (game.kitchenLevelStarted === false) {
+  //   pot = new Tool("pot", potSprite, 20, 20, 100, 100, ctx);
+  //   tools.push(pot);
+  //   game.kitchenLevelStarted = true;
+  // }
+  // pot.draw();
 }
 
 function onMouseDown(e) {
+  checkFaucet(e);
+  selectedButton = getSelectedButton(e);
+  if (selectedButton != null) burners[selectedButton].isOn = !burners[selectedButton].isOn;
+
   selectedTool = getSelectedTool(e);
   if (selectedTool) {
     var mouse = getCursorPosition(e);
@@ -53,14 +89,6 @@ function onMouseMove(e) {
     var mouse = getCursorPosition(e);
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
-
-    if (selectedTool.y > 100) {
-      selectedTool.width = 200;
-      selectedTool.height = 200;
-    } else {
-      selectedTool.width = 100;
-      selectedTool.height = 100;
-    }
   }
 }
 
@@ -70,7 +98,6 @@ function onMouseUp(e) {
 
 function getSelectedTool(e) {
   var mouse = getCursorPosition(e);
-  var doesItCollide;
   for (let i = 0; i < tools.length; i++) {
     if (mouse.x < tools[i].x || mouse.x > tools[i].x + tools[i].width ||
       mouse.y < tools[i].y || mouse.y > tools[i].y + tools[i].height) {
@@ -81,21 +108,6 @@ function getSelectedTool(e) {
   }
 }
 
-
-
-function getCursorPosition(e) {
-  var isInside;
-  var xM = e.clientX;
-  var yM = e.clientY;
-  const rect = canvas.getBoundingClientRect();
-  const x = xM - rect.left;
-  const y = yM - rect.top;
-  xM > rect.left && xM < rect.right && yM < rect.bottom && yM > rect.top ? isInside = true : isInside = false;
-  if (isInside == true) return {
-    x: x,
-    y: y
-  };
-}
 
 export {
   setTools
