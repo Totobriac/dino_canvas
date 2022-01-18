@@ -10,11 +10,16 @@ import {
   faucetOffSprite,
   sinkIsOn,
   checkFaucet,
+  bottomSprite,
 } from "./sink.js";
 
 import {
   getCursorPosition,
-} from "./function.js"
+} from "./function.js";
+
+import {
+  Tool
+} from "./tools.js";
 
 var potSprite = new Image();
 potSprite.src = "../assets/kitchen_level/pot.png";
@@ -23,26 +28,9 @@ var pot;
 var selectedTool = null;
 var selectedButton = null;
 var tools = [];
+var faucetSprite;
+var waterLevel = 0;
 
-
-class Tool {
-  constructor(name, sprite, x, y, width, height, ctx) {
-    this.name = name;
-    this.sprite = sprite;
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.ctx = ctx;
-    this.offset = {
-      x: null,
-      y: null
-    };
-  }
-  draw() {
-    this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
-  }
-}
 
 function setTools(game, ctx) {
   canvas.addEventListener("mousedown", onMouseDown);
@@ -51,15 +39,19 @@ function setTools(game, ctx) {
 
   ctx.drawImage(sinkSprite, 10, 10, 286, 243);
 
-  ctx.arc(125, 130, 72, 0, 2 * Math.PI, false);
+  if (sinkIsOn) waterLevel += 0.2;
 
+  ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
   ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
   ctx.fill();
 
+  ctx.globalAlpha = 0.37;
+  ctx.drawImage(bottomSprite,100,100);
+  ctx.globalAlpha = 1;
 
-  var faucetSprite;
+
   sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite;
-  ctx.drawImage(faucetSprite, -15, -10, 173, 159)
+  ctx.drawImage(faucetSprite, -15, -10, 173, 159);
 
   ctx.drawImage(stoveSprite, 750, 100, 425, 280);
 
