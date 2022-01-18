@@ -1,4 +1,6 @@
-import {getCursorPosition} from "./function.js";
+import {
+  getCursorPosition
+} from "./function.js";
 
 var sinkSprite = new Image();
 sinkSprite.src = "../assets/kitchen_level/sink.png";
@@ -14,7 +16,7 @@ var sinkIsOn = false;
 function checkFaucet(e) {
   var mouse = getCursorPosition(e);
   if (mouse.x < 50 && mouse.y < 50) {
-    sinkIsOn = ! sinkIsOn;
+    sinkIsOn = !sinkIsOn;
   }
 }
 

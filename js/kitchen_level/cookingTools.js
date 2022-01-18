@@ -51,8 +51,14 @@ function setTools(game, ctx) {
 
   ctx.drawImage(sinkSprite, 10, 10, 286, 243);
 
+  ctx.arc(125, 130, 72, 0, 2 * Math.PI, false);
+
+  ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+  ctx.fill();
+
+
   var faucetSprite;
-  sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite ;
+  sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite;
   ctx.drawImage(faucetSprite, -15, -10, 173, 159)
 
   ctx.drawImage(stoveSprite, 750, 100, 425, 280);
