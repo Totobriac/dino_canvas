@@ -40,20 +40,29 @@ function setTools(game, ctx) {
 
   if (sinkIsOn) waterLevel += 0.2;
 
-
-  ctx.beginPath();
-  ctx.moveTo(260, 102);
-  ctx.arcTo(260, 233, 46, 233, 40);
-  ctx.arcTo(46, 233, 46, 62, 40);
-  ctx.arcTo(46, 62, 260, 62, 40);
-  ctx.arcTo(260, 62, 263, 233, 40);
-
   ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
 
+  if (waterLevel < 69) {
+    ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+    ctx.fill();
+  } else if (waterLevel >= 69 && waterLevel < 120) {
+    ctx.beginPath();
+    ctx.moveTo(194, 129);
+    ctx.arcTo(194, 199, 56, 199, 70);
+    ctx.arcTo(56, 199, 56, 61, 70);
+    ctx.arcTo(56, 61, 194, 61, 70);
+    ctx.arcTo(194, 61, 194, 199, 70);
+    ctx.fill();
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(260, 102);
+    ctx.arcTo(260, 233, 46, 233, 40);
+    ctx.arcTo(46, 233, 46, 62, 40);
+    ctx.arcTo(46, 62, 260, 62, 40);
+    ctx.arcTo(260, 62, 263, 233, 40);
+    ctx.fill();
+  }
 
-  // ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
-  // ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
-  ctx.fill();
 
 
 
