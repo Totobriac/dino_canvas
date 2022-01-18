@@ -11,9 +11,6 @@ faucetOffSprite.src = "../assets/kitchen_level/faucet.png";
 var faucetOnSprite = new Image();
 faucetOnSprite.src = "../assets/kitchen_level/faucet_on.png";
 
-var bottomSprite = new Image();
-bottomSprite.src = "../assets/kitchen_level/bottom_sink.png";
-
 var sinkIsOn = false;
 
 function checkFaucet(e) {
@@ -32,5 +29,4 @@ export {
   faucetOnSprite,
   sinkIsOn,
   checkFaucet,
-  bottomSprite,
 };

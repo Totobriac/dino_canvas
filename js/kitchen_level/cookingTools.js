@@ -10,7 +10,6 @@ import {
   faucetOffSprite,
   sinkIsOn,
   checkFaucet,
-  bottomSprite,
 } from "./sink.js";
 
 import {
@@ -41,13 +40,21 @@ function setTools(game, ctx) {
 
   if (sinkIsOn) waterLevel += 0.2;
 
-  ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+
+  ctx.beginPath();
+  ctx.moveTo(260, 102);
+  ctx.arcTo(260, 233, 46, 233, 40);
+  ctx.arcTo(46, 233, 46, 62, 40);
+  ctx.arcTo(46, 62, 260, 62, 40);
+  ctx.arcTo(260, 62, 263, 233, 40);
+
   ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+
+
+  // ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+  // ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
   ctx.fill();
 
-  ctx.globalAlpha = 0.37;
-  ctx.drawImage(bottomSprite,100,100);
-  ctx.globalAlpha = 1;
 
 
   sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite;
