@@ -1,8 +1,11 @@
 import { getCursorPosition, } from "./function.js";
 import { selectedTool } from "./control.js";
+import { sinkIsOn } from "./sink.js";
 
 var pot;
 var tools = [];
+
+var waterLevel = 0;
 
 var potSprite = new Image();
 potSprite.src = "../assets/kitchen_level/pot.png";
@@ -23,6 +26,7 @@ class Tool {
     this.perfX = perfX;
     this.perfY = perfY;
     this.shadow = shadow;
+    this.inPlace = false;
   }
   draw() {
     this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
@@ -31,6 +35,10 @@ class Tool {
     if (this.distance({ x: this.x, y: this.y }, { x: this.perfX, y: this.perfY }) < this.width / 3) {
       this.x = this.perfX;
       this.y = this.perfY;
+      this.inPlace = true;
+    }
+    else {
+      this.inPlace = false;
     }
   }
   distance(obj1, obj2) {
@@ -47,18 +55,26 @@ class Tool {
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
-    pot = new Tool("pot", potSprite, 500, 20, 210, 161, ctx, 24, 47, { x: 125, y: 130, r: 60 });
+    pot = new Tool("pot", potSprite, 500, 20, 210, 161, ctx, 22, 48, { x: 120, y: 132, r: 60 });
     tools.push(pot);
     game.kitchenLevelStarted = true;
   }
 
   if (selectedTool) {
     selectedTool.drawShadow();
-  }
+  }  
 
   for (let i = 0; i < tools.length; i++) {
     tools[i].draw();
     tools[i].isClose();
+  }
+
+  if (pot.inPlace && sinkIsOn) {
+    ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+    if (waterLevel < 72) waterLevel += 0.25;
+    ctx.beginPath();
+    ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+    ctx.fill();
   }
 }
 
@@ -74,4 +90,4 @@ function getSelectedTool(e) {
   }
 }
 
-export { drawTools, getSelectedTool };
+export { drawTools, getSelectedTool, pot };
