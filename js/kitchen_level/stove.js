@@ -66,11 +66,19 @@ function getSelectedButton(e) {
       mouse.y < 348 || mouse.y > 366) {
       var button = null;
     } else {
-      return i;
+      burners[i].isOn = !burners[i].isOn;
     }
   }
   return button;
 }
 
+function drawStove(ctx) {
+  ctx.drawImage(stoveSprite, 750, 100, 425, 280);
 
-export { burners, stoveSprite, getSelectedButton };
+  burners.forEach((burner, i) => {
+    if (burner.isOn) ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
+  });
+}
+
+
+export { drawStove, getSelectedButton };
