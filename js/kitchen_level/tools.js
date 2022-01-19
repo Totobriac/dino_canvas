@@ -1,4 +1,5 @@
 import { getCursorPosition, } from "./function.js";
+import { selectedTool } from "./control.js";
 
 var pot;
 var tools = [];
@@ -32,6 +33,12 @@ function drawTools(ctx, game) {
     game.kitchenLevelStarted = true;
   }
   pot.draw();
+  if (selectedTool === pot) {
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0, 0, 0, 0.17)";
+    ctx.arc(125, 130, 60, 0, 2 * Math.PI, false);
+    ctx.fill();
+  }
 }
 
 function getSelectedTool(e) {

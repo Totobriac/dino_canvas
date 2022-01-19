@@ -38,17 +38,35 @@ function checkDrain(e) {
 }
 
 function drawWater(ctx) {
-
   ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
 
-
-  if (sinkIsOn) waterLevel += 0.25;
+  if (sinkIsOn && drainOpen === false) {
+    waterLevel += 0.25;
+  }
 
   if (waterLevel < 69) {
-    ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
-    ctx.fill();
-  } else if (waterLevel >= 69 && angle <= 30) {
-    if (sinkIsOn) angle += 0.3;
+    if (drainOpen === false) {
+      ctx.beginPath();
+      ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+      ctx.fill();
+    }
+    else if (drainOpen === true && waterLevel > 0.25) {
+      waterLevel -= 0.25;
+      ctx.beginPath();
+      ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+      ctx.fill();
+    }
+  }
+  else if (waterLevel >= 69 && waterLevel < 93 && angle <= 30) {
+    if (sinkIsOn && drainOpen === false) angle += 0.3;
+    if (drainOpen && sinkIsOn === false) {
+      angle -= 0.3;
+      waterLevel -= 0.25;
+    }
+    if (drainOpen && sinkIsOn) {
+      angle -= 0.3;
+      waterLevel -= 0.25;
+    }
     ctx.beginPath();
     ctx.moveTo(194 + (angle * 2.2), 129 + (angle * -0.9));
     ctx.arcTo(194 + (angle * 2.2), 199 + (angle * 1.13), 56 + (angle * -0.33), 199 + (angle * 1.13), 70 + -angle);
@@ -56,8 +74,17 @@ function drawWater(ctx) {
     ctx.arcTo(56 + (angle * -0.33), 61, 194 + (angle * 2.2), 61, 70 + -angle);
     ctx.arcTo(194 + (angle * 2.2), 61, 194 + (angle * 2.45), 199 + (angle * 1.13), 70 + -angle);
     ctx.fill();
-  } else if (waterLevel >= 93 && level <= 10) {
-    if (sinkIsOn) level += 0.1;
+  }
+  else if (waterLevel >= 93 && waterLevel <= 118 && level <= 10) {
+    if (sinkIsOn && drainOpen === false) level += 0.1;
+    if (drainOpen && sinkIsOn === false) {
+      level -= 0.1;
+      waterLevel -= 0.25;
+    }
+    if (drainOpen && sinkIsOn) {
+      level -= 0.1;
+      waterLevel -= 0.25;
+    }
     ctx.beginPath();
     ctx.moveTo(260 + (level * 1.5), 102 + (level * 3.3));
     ctx.arcTo(260 + (level * 1.5), 233, 46 + (level * -1.6), 233, 40);
@@ -65,14 +92,21 @@ function drawWater(ctx) {
     ctx.arcTo(46 + (level * -1.6), 62 + (level * -2.7), 260 + (level * 1.5), 62 + (level * -2.7), 40);
     ctx.arcTo(260 + (level * 1.5), 62 + (level * -2.7), 263 + (level * 1.2), 233, 40);
     ctx.fill();
-  } else {
-    ctx.beginPath();
-    ctx.moveTo(275, 135);
-    ctx.arcTo(275, 234, 30, 234, 40);
-    ctx.arcTo(30, 234, 30, 35, 40);
-    ctx.arcTo(30, 35, 275, 35, 40);
-    ctx.arcTo(275, 35, 275, 230, 40);
-    ctx.fill();
+  }
+  else {
+    if (drainOpen === false) {
+      ctx.beginPath();
+      ctx.moveTo(275, 135);
+      ctx.arcTo(275, 234, 30, 234, 40);
+      ctx.arcTo(30, 234, 30, 35, 40);
+      ctx.arcTo(30, 35, 275, 35, 40);
+      ctx.arcTo(275, 35, 275, 230, 40);
+      ctx.fill();
+    }
+    if (drainOpen) {
+      waterLevel = 118;
+      level = 10;
+    }
   }
 }
 
@@ -81,13 +115,13 @@ function drawFaucet(ctx) {
   ctx.drawImage(faucetSprite, -15, -10, 173, 159);
 }
 
-function drawSink(ctx) {  
+function drawSink(ctx) {
 
   var button;
   if (drainOpen === true) {
     ctx.fillStyle = "black";
     button = buttonOpenSprite;
-  }else {
+  } else {
     ctx.fillStyle = "white";
     button = buttonSprite;
   }
@@ -97,11 +131,12 @@ function drawSink(ctx) {
   ctx.fillRect(120, 70, 70, 70);
   ctx.drawImage(sinkSprite, 10, 10, 286, 243);
   drawWater(ctx);
-  drawFaucet(ctx);
+  
 }
 
 export {
   drawSink,
   checkFaucet,
   checkDrain,
+  drawFaucet
 };

@@ -40,4 +40,4 @@ function onMouseUp(e) {
 
 
 
-export {setControls}
+export {setControls, selectedTool}
