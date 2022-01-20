@@ -1,5 +1,5 @@
 import { getCursorPosition, } from "./function.js";
-import { pot } from "./tools.js";
+import { potInSink } from "./tools.js";
 
 var sinkSprite = new Image();
 sinkSprite.src = "../assets/kitchen_level/sink.png";
@@ -40,9 +40,11 @@ function checkDrain(e) {
 
 function drawWater(ctx) {  
 
+  console.log(potInSink);
+
   ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
 
-  if (sinkIsOn && drainOpen === false) {
+  if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) {
     waterLevel += 0.25;
   }
 
@@ -60,12 +62,12 @@ function drawWater(ctx) {
     }
   }
   else if (waterLevel >= 69 && waterLevel < 93 && angle <= 30) {
-    if (sinkIsOn && drainOpen === false) angle += 0.3;
-    if (drainOpen && sinkIsOn === false) {
+    if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) angle += 0.3;
+    if (drainOpen && sinkIsOn === false && potInSink === false) {
       angle -= 0.3;
       waterLevel -= 0.25;
     }
-    if (drainOpen && sinkIsOn) {
+    if (drainOpen && sinkIsOn && potInSink === false) {
       angle -= 0.3;
       waterLevel -= 0.25;
     }
@@ -78,12 +80,12 @@ function drawWater(ctx) {
     ctx.fill();
   }
   else if (waterLevel >= 93 && waterLevel <= 118 && level <= 10) {
-    if (sinkIsOn && drainOpen === false) level += 0.1;
-    if (drainOpen && sinkIsOn === false) {
+    if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) level += 0.1;
+    if (drainOpen && sinkIsOn === false && potInSink === false) {
       level -= 0.1;
       waterLevel -= 0.25;
     }
-    if (drainOpen && sinkIsOn) {
+    if (drainOpen && sinkIsOn && potInSink === false) {
       level -= 0.1;
       waterLevel -= 0.25;
     }
@@ -96,7 +98,7 @@ function drawWater(ctx) {
     ctx.fill();
   }
   else {
-    if (drainOpen === false) {
+    if (drainOpen === false || potInSink === true) {
       ctx.beginPath();
       ctx.moveTo(275, 135);
       ctx.arcTo(275, 234, 30, 234, 40);

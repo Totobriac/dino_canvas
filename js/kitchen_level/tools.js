@@ -7,6 +7,8 @@ var tools = [];
 
 var waterLevel = 0;
 
+var potInSink = false;
+
 var potSprite = new Image();
 potSprite.src = "../assets/kitchen_level/pot.png";
 
@@ -69,11 +71,20 @@ function drawTools(ctx, game) {
     tools[i].isClose();
   }
 
+  pot.inPlace? potInSink = true : potInSink = false;
+
   if (pot.inPlace && sinkIsOn) {
     ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
     if (waterLevel < 72) waterLevel += 0.25;
     ctx.beginPath();
     ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+    ctx.fill();
+  }
+
+  if (pot.inPlace === false || pot.inPlace && sinkIsOn === false) {
+    ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+    ctx.beginPath();
+    ctx.arc(pot.x + pot.width/2, pot.y + pot.height/2, waterLevel, 0, 2 * Math.PI, false);
     ctx.fill();
   }
 }
@@ -90,4 +101,4 @@ function getSelectedTool(e) {
   }
 }
 
-export { drawTools, getSelectedTool, pot };
+export { drawTools, getSelectedTool, pot, potInSink };
