@@ -40,16 +40,14 @@ function checkDrain(e) {
 
 function drawWater(ctx) {  
 
-  console.log(potInSink);
-
-  ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+  ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
 
   if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) {
     waterLevel += 0.25;
   }
 
   if (waterLevel < 69) {
-    if (drainOpen === false) {
+    if (drainOpen === false || potInSink) {
       ctx.beginPath();
       ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
       ctx.fill();

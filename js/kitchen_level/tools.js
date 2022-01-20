@@ -3,6 +3,8 @@ import { selectedTool } from "./control.js";
 import { sinkIsOn } from "./sink.js";
 
 var pot;
+var salt;
+
 var tools = [];
 
 var waterLevel = 0;
@@ -11,6 +13,10 @@ var potInSink = false;
 
 var potSprite = new Image();
 potSprite.src = "../assets/kitchen_level/pot.png";
+
+var saltSprite = new Image();
+saltSprite.src = "../assets/kitchen_level/salt.png";
+
 
 class Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
@@ -58,47 +64,60 @@ class Tool {
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
     pot = new Tool("pot", potSprite, 500, 20, 210, 161, ctx, 22, 48, { x: 120, y: 132, r: 60 });
+    salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, 22, 48, { x: 120, y: 132, r: 60 });
+    tools.push(salt);
     tools.push(pot);
     game.kitchenLevelStarted = true;
   }
 
   if (selectedTool) {
     selectedTool.drawShadow();
-  }  
+  }
 
   for (let i = 0; i < tools.length; i++) {
     tools[i].draw();
     tools[i].isClose();
   }
 
-  pot.inPlace? potInSink = true : potInSink = false;
+  pot.inPlace ? potInSink = true : potInSink = false;
 
   if (pot.inPlace && sinkIsOn) {
-    ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+    ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
     if (waterLevel < 72) waterLevel += 0.25;
     ctx.beginPath();
     ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
     ctx.fill();
   }
 
+  if (waterLevel > 50 && waterLevel < 64 && selectedTool != undefined && selectedTool.name === "pot") {
+    pot.shadow = { x: 1092, y: 170, r: 60 };
+    pot.perfX = 1000;
+    pot.perfY = 90;
+  }
+
   if (pot.inPlace === false || pot.inPlace && sinkIsOn === false) {
-    ctx.fillStyle = "rgba(39, 200, 245, 0.37)";
+    ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
     ctx.beginPath();
-    ctx.arc(pot.x + pot.width/2, pot.y + pot.height/2, waterLevel, 0, 2 * Math.PI, false);
+    ctx.arc(pot.x + pot.width / 2, pot.y + pot.height / 2, waterLevel, 0, 2 * Math.PI, false);
     ctx.fill();
   }
 }
 
 function getSelectedTool(e) {
   var mouse = getCursorPosition(e);
+  var selection;
+
   for (let i = 0; i < tools.length; i++) {
     if (mouse.x < tools[i].x || mouse.x > tools[i].x + tools[i].width ||
       mouse.y < tools[i].y || mouse.y > tools[i].y + tools[i].height) {
-      return null;
+      selection = null;
     } else {
       return tools[i];
     }
+    return selection;
   }
 }
+
+
 
 export { drawTools, getSelectedTool, pot, potInSink };

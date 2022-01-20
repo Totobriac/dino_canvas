@@ -16,6 +16,7 @@ function onMouseDown(e) {
   getSelectedButton(e);
   checkDrain(e);
   selectedTool = getSelectedTool(e);
+  console.log(selectedTool);
 
   if (selectedTool) {
     var mouse = getCursorPosition(e);
