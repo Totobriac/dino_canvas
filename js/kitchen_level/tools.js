@@ -35,6 +35,7 @@ class Tool {
     this.perfY = perfY;
     this.shadow = shadow;
     this.inPlace = false;
+    this.isFilled = false;
   }
   draw() {
     this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
@@ -63,10 +64,12 @@ class Tool {
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
-    pot = new Tool("pot", potSprite, 500, 20, 210, 161, ctx, 22, 48, { x: 120, y: 132, r: 60 });
     salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, 22, 48, { x: 120, y: 132, r: 60 });
-    tools.push(salt);
+    pot = new Tool("pot", potSprite, 500, 20, 210, 161, ctx, 22, 48, { x: 120, y: 132, r: 60 });
+
     tools.push(pot);
+    tools.push(salt);
+
     game.kitchenLevelStarted = true;
   }
 
@@ -78,31 +81,6 @@ function drawTools(ctx, game) {
     tools[i].draw();
     tools[i].isClose();
   }
-
-  pot.inPlace ? potInSink = true : potInSink = false;
-
-  if (pot.inPlace && sinkIsOn) {
-    ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-    if (waterLevel < 72) waterLevel += 0.25;
-    ctx.beginPath();
-    ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
-    ctx.fill();
-  }
-
-  if (waterLevel > 50 && waterLevel < 64 && selectedTool != undefined && selectedTool.name === "pot") {
-    pot.shadow = { x: 1092, y: 170, r: 60 };
-    pot.perfX = 1000;
-    pot.perfY = 90;
-  }
-
-  if (pot.inPlace === false || pot.inPlace && sinkIsOn === false) {
-    ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-    ctx.beginPath();
-    ctx.arc(pot.x + pot.width / 2, pot.y + pot.height / 2, waterLevel, 0, 2 * Math.PI, false);
-    ctx.fill();
-  }
 }
-
-
 
 export { drawTools, pot, potInSink, tools };
