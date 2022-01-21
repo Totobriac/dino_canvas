@@ -1,20 +1,23 @@
+import { pot } from "../tools.js";
+
 var maxPoints = 50;
 var points = [];
 
 var frame = 0;
 var maxFrame = 8;
-var maxRadius = 3;
+var maxRadius = 2;
 
 class Point {
   constructor() {
-    this.x = Math.random() * 500;
-    this.y = Math.random() * 500;
+    this.x = pot.x +  Math.random() * pot.width;
+    this.y = pot.y + Math.random() * pot.height;
     this.dist = this.distance();
     this.radius = 0;
   }
   distance() {
     return Math.sqrt(
-      (this.x - 250) * (this.x - 250) + (this.y - 250) * (this.y - 250)
+      (this.x - (pot.x + pot.width / 2)) * (this.x - (pot.x + pot.width / 2)) +
+      (this.y - (pot.y + pot.height / 2)) * (this.y - (pot.y + pot.height / 2))
     )
   }
 }
@@ -22,17 +25,13 @@ class Point {
 function populatePoints() {
   for (let i = 0; points.length < maxPoints; i++) {
     var point = new Point();
-    if (point.dist < 48) {
+    if (point.dist < 63) {
       points.push(point);
     }
   }
 }
 
 function boil(ctx) {
-
-  ctx.beginPath();
-  ctx.arc(250, 250, 50, 0, 2 * Math.PI);
-  ctx.stroke();
 
   for (let i = 0; i < points.length; i++) {
     if (frame > maxFrame) {
@@ -41,7 +40,7 @@ function boil(ctx) {
     } else {
       frame++;
     }
-    if (points[i].dist + points[i].radius > 48 || points[i].radius > maxRadius) {
+    if (points[i].dist + points[i].radius > 63 || points[i].radius > maxRadius) {
       points.splice(i, 1);
       i --;
     } else {
