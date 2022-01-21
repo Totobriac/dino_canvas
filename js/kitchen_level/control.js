@@ -1,7 +1,7 @@
-import { getSelectedButton } from "./stove.js";
-import { checkDrain, checkFaucet } from "./sink.js";
+import { getSelectedButton } from "./tools/stove.js";
+import { checkDrain, checkFaucet } from "./tools/sink.js";
 import { getCursorPosition, } from "./function.js";
-import { getSelectedTool } from "./tools.js";
+import { getSelectedTool } from "./function.js";
 
 var selectedTool = null;
 
@@ -16,7 +16,6 @@ function onMouseDown(e) {
   getSelectedButton(e);
   checkDrain(e);
   selectedTool = getSelectedTool(e);
-  console.log(selectedTool);
 
   if (selectedTool) {
     var mouse = getCursorPosition(e);

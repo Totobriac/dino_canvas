@@ -7,9 +7,6 @@ import { createBirds } from "./plane_level/bird.js";
 import { generateRestBack } from "./restaurant_level/restBack.js";
 import { generatePlates } from "./restaurant_level/plates.js";
 import {generateNote} from "./restaurant_level/notepad.js";
-import { generateFruits } from "./kitchen_level/ninja_fruit.js";
-import { handleParticle } from "./kitchen_level/sword.js";
-import { generateTable } from "./kitchen_level/cutting_table.js";
 import { drawSubmarine } from "./submarine_level/submarine.js";
 import { generateBubbles, handleExplosion } from "./submarine_level/bubbles.js";
 import { generateEyes } from "./submarine_level/eyes.js";
@@ -60,7 +57,6 @@ export function anim(game, dino, ctx) {
     // remove when game is all set//
     game.isPlaying = true;
     // remove when game is all set//
-    generateTable(ctx);
     setTop(game, ctx);
     // generateFruits(ctx, game.frame);
     // handleParticle(ctx, game.mousePosition);

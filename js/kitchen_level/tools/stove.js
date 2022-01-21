@@ -1,4 +1,4 @@
-import { getCursorPosition} from "./function.js";
+import { getCursorPosition} from "../function.js";
 
 var stoveSprite = new Image();
 stoveSprite.src = "../assets/kitchen_level/stove.png";

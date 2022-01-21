@@ -1,6 +1,6 @@
 import { getCursorPosition, } from "./function.js";
 import { selectedTool } from "./control.js";
-import { sinkIsOn } from "./sink.js";
+import { sinkIsOn } from "./tools/sink.js";
 
 var pot;
 var salt;
@@ -103,21 +103,6 @@ function drawTools(ctx, game) {
   }
 }
 
-function getSelectedTool(e) {
-  var mouse = getCursorPosition(e);
-  var selection;
-  for (let i = 0; i < tools.length; i++) {
-    console.log(i )
-    if (mouse.x < tools[i].x || mouse.x > tools[i].x + tools[i].width ||
-      mouse.y < tools[i].y || mouse.y > tools[i].y + tools[i].height) {
-      selection = null;
-    } else {
-      return tools[i];
-    }
-  }
-  return selection;
-}
 
 
-
-export { drawTools, getSelectedTool, pot, potInSink };
+export { drawTools, pot, potInSink, tools };

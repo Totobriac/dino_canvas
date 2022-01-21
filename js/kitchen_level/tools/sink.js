@@ -1,5 +1,5 @@
-import { getCursorPosition, } from "./function.js";
-import { potInSink } from "./tools.js";
+import { getCursorPosition, } from "../function.js";
+import { potInSink } from "../tools.js";
 
 var sinkSprite = new Image();
 sinkSprite.src = "../assets/kitchen_level/sink.png";
@@ -38,7 +38,7 @@ function checkDrain(e) {
   }
 }
 
-function drawWater(ctx) {  
+function drawWater(ctx) {
 
   ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
 
@@ -133,7 +133,7 @@ function drawSink(ctx) {
   ctx.fillRect(120, 70, 70, 70);
   ctx.drawImage(sinkSprite, 10, 10, 286, 243);
   drawWater(ctx);
-  
+
 }
 
 export {
