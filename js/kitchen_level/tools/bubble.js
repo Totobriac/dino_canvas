@@ -4,12 +4,12 @@ var maxPoints = 50;
 var points = [];
 
 var frame = 0;
-var maxFrame = 8;
-var maxRadius = 2;
+var maxFrame = 12;
+var maxRadius = 6;
 
 class Point {
   constructor() {
-    this.x = pot.x +  Math.random() * pot.width;
+    this.x = pot.x + Math.random() * pot.width;
     this.y = pot.y + Math.random() * pot.height;
     this.dist = this.distance();
     this.radius = 0;
@@ -42,7 +42,7 @@ function boil(ctx) {
     }
     if (points[i].dist + points[i].radius > 63 || points[i].radius > maxRadius) {
       points.splice(i, 1);
-      i --;
+      i--;
     } else {
       ctx.beginPath();
       ctx.arc(points[i].x, points[i].y, points[i].radius, 0, 2 * Math.PI);
@@ -52,4 +52,4 @@ function boil(ctx) {
   populatePoints();
 };
 
-export {boil};
+export { boil };

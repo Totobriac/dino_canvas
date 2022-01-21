@@ -1,5 +1,5 @@
 import { getCursorPosition, } from "../function.js";
-import { potInSink } from "../tools.js";
+import { pot } from "../tools.js";
 
 var sinkSprite = new Image();
 sinkSprite.src = "../assets/kitchen_level/sink.png";
@@ -42,72 +42,75 @@ function drawWater(ctx) {
 
   ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
 
-  if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) {
-    waterLevel += 0.25;
-  }
 
-  if (waterLevel < 69) {
-    if (drainOpen === false || potInSink) {
+  if (pot) {
+    if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) {
+      waterLevel += 0.25;
+    }
+
+    if (waterLevel < 69) {
+      if (drainOpen === false || pot.inPlace && pot.perfX === 22) {
+        ctx.beginPath();
+        ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+        ctx.fill();
+      }
+      else if (drainOpen === true && waterLevel > 0.25) {
+        waterLevel -= 0.25;
+        ctx.beginPath();
+        ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+        ctx.fill();
+      }
+    }
+    else if (waterLevel >= 69 && waterLevel < 93 && angle <= 30) {
+      if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) angle += 0.3;
+      if (drainOpen && sinkIsOn === false && pot.inPlace === false) {
+        angle -= 0.3;
+        waterLevel -= 0.25;
+      }
+      if (drainOpen && sinkIsOn && pot.inPlace === false) {
+        angle -= 0.3;
+        waterLevel -= 0.25;
+      }
       ctx.beginPath();
-      ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+      ctx.moveTo(194 + (angle * 2.2), 129 + (angle * -0.9));
+      ctx.arcTo(194 + (angle * 2.2), 199 + (angle * 1.13), 56 + (angle * -0.33), 199 + (angle * 1.13), 70 + -angle);
+      ctx.arcTo(56 + (angle * -0.33), 199 + (angle * 1.113), 56 + (angle * -0.33), 61, 70 + -angle);
+      ctx.arcTo(56 + (angle * -0.33), 61, 194 + (angle * 2.2), 61, 70 + -angle);
+      ctx.arcTo(194 + (angle * 2.2), 61, 194 + (angle * 2.45), 199 + (angle * 1.13), 70 + -angle);
       ctx.fill();
     }
-    else if (drainOpen === true && waterLevel > 0.25) {
-      waterLevel -= 0.25;
+    else if (waterLevel >= 93 && waterLevel <= 118 && level <= 10) {
+      if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) level += 0.1;
+      if (drainOpen && sinkIsOn === false && pot.inPlace === false) {
+        level -= 0.1;
+        waterLevel -= 0.25;
+      }
+      if (drainOpen && sinkIsOn && pot.inPlace === false) {
+        level -= 0.1;
+        waterLevel -= 0.25;
+      }
       ctx.beginPath();
-      ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+      ctx.moveTo(260 + (level * 1.5), 102 + (level * 3.3));
+      ctx.arcTo(260 + (level * 1.5), 233, 46 + (level * -1.6), 233, 40);
+      ctx.arcTo(46 + (level * -1.6), 233, 46 + (level * -1.6), 62, 40);
+      ctx.arcTo(46 + (level * -1.6), 62 + (level * -2.7), 260 + (level * 1.5), 62 + (level * -2.7), 40);
+      ctx.arcTo(260 + (level * 1.5), 62 + (level * -2.7), 263 + (level * 1.2), 233, 40);
       ctx.fill();
     }
-  }
-  else if (waterLevel >= 69 && waterLevel < 93 && angle <= 30) {
-    if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) angle += 0.3;
-    if (drainOpen && sinkIsOn === false && potInSink === false) {
-      angle -= 0.3;
-      waterLevel -= 0.25;
-    }
-    if (drainOpen && sinkIsOn && potInSink === false) {
-      angle -= 0.3;
-      waterLevel -= 0.25;
-    }
-    ctx.beginPath();
-    ctx.moveTo(194 + (angle * 2.2), 129 + (angle * -0.9));
-    ctx.arcTo(194 + (angle * 2.2), 199 + (angle * 1.13), 56 + (angle * -0.33), 199 + (angle * 1.13), 70 + -angle);
-    ctx.arcTo(56 + (angle * -0.33), 199 + (angle * 1.113), 56 + (angle * -0.33), 61, 70 + -angle);
-    ctx.arcTo(56 + (angle * -0.33), 61, 194 + (angle * 2.2), 61, 70 + -angle);
-    ctx.arcTo(194 + (angle * 2.2), 61, 194 + (angle * 2.45), 199 + (angle * 1.13), 70 + -angle);
-    ctx.fill();
-  }
-  else if (waterLevel >= 93 && waterLevel <= 118 && level <= 10) {
-    if (sinkIsOn && drainOpen === false || sinkIsOn && potInSink) level += 0.1;
-    if (drainOpen && sinkIsOn === false && potInSink === false) {
-      level -= 0.1;
-      waterLevel -= 0.25;
-    }
-    if (drainOpen && sinkIsOn && potInSink === false) {
-      level -= 0.1;
-      waterLevel -= 0.25;
-    }
-    ctx.beginPath();
-    ctx.moveTo(260 + (level * 1.5), 102 + (level * 3.3));
-    ctx.arcTo(260 + (level * 1.5), 233, 46 + (level * -1.6), 233, 40);
-    ctx.arcTo(46 + (level * -1.6), 233, 46 + (level * -1.6), 62, 40);
-    ctx.arcTo(46 + (level * -1.6), 62 + (level * -2.7), 260 + (level * 1.5), 62 + (level * -2.7), 40);
-    ctx.arcTo(260 + (level * 1.5), 62 + (level * -2.7), 263 + (level * 1.2), 233, 40);
-    ctx.fill();
-  }
-  else {
-    if (drainOpen === false || potInSink === true) {
-      ctx.beginPath();
-      ctx.moveTo(275, 135);
-      ctx.arcTo(275, 234, 30, 234, 40);
-      ctx.arcTo(30, 234, 30, 35, 40);
-      ctx.arcTo(30, 35, 275, 35, 40);
-      ctx.arcTo(275, 35, 275, 230, 40);
-      ctx.fill();
-    }
-    if (drainOpen) {
-      waterLevel = 118;
-      level = 10;
+    else {
+      if (drainOpen === false || pot.inPlace === true) {
+        ctx.beginPath();
+        ctx.moveTo(275, 135);
+        ctx.arcTo(275, 234, 30, 234, 40);
+        ctx.arcTo(30, 234, 30, 35, 40);
+        ctx.arcTo(30, 35, 275, 35, 40);
+        ctx.arcTo(275, 35, 275, 230, 40);
+        ctx.fill();
+      }
+      if (drainOpen) {
+        waterLevel = 118;
+        level = 10;
+      }
     }
   }
 }
