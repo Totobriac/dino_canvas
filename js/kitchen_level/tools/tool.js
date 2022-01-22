@@ -20,7 +20,8 @@ class Tool {
     this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
   }
   isClose() {
-    if (this.distance({ x: this.x, y: this.y }, { x: this.perfX, y: this.perfY }) < this.width / 3) {
+    var distance = this.distance({ x: this.x, y: this.y }, { x: this.perfX, y: this.perfY })
+    if ( distance < this.width / 3 || distance < this.height / 3) {
       this.x = this.perfX;
       this.y = this.perfY;
       this.inPlace = true;
