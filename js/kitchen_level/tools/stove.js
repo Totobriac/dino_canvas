@@ -81,4 +81,4 @@ function drawStove(ctx) {
 }
 
 
-export { drawStove, getSelectedButton };
+export { drawStove, getSelectedButton, burners };

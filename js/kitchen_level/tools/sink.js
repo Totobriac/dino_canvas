@@ -41,8 +41,6 @@ function checkDrain(e) {
 function drawWater(ctx) {
 
   ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-
-
   if (pot) {
     if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) {
       waterLevel += 0.25;
