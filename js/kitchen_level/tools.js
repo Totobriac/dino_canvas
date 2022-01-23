@@ -97,23 +97,48 @@ function drawTools(ctx, game) {
   drawFaucet(ctx);
 
   if (butterKnife.inPlace === true) {
-    ctx.fillStyle = "rgba(0,0,0,80%)"
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    ctx.save();
+
+    ctx.fillStyle = "rgba(0,0,0,80%)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     butterBig.draw();
 
-    ctx.strokeStyle = "red";
-    ctx.beginPath();
     ctx.setLineDash([10, 10]);
+    ctx.strokeStyle = "red";
+
+    ctx.beginPath();
     ctx.moveTo(550, 65);
     ctx.lineTo(550, 350);
     ctx.stroke();
+    ctx.closePath();
 
     ctx.beginPath();
-    ctx.setLineDash([10, 10]);
     ctx.moveTo(530, 65);
     ctx.lineTo(530, 350);
     ctx.stroke();
+    ctx.closePath();
+
+    drawBlade(ctx);
+
   }
+}
+
+function drawBlade(ctx) {  
+
+  ctx.restore();
+
+  ctx.fillStyle = "black";
+  ctx.fillRect(600, 80, 6, 319);
+
+  var grd = ctx.createLinearGradient(0, 0, 0, 600);
+  grd.addColorStop(0, "white");
+  grd.addColorStop(1, "black");
+
+  ctx.fillStyle = grd;
+  ctx.fillRect(601, 81, 4, 319);
+
 }
 
 export {
