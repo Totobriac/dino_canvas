@@ -17,6 +17,7 @@ function onMouseDown(e) {
   getSelectedButton(e);
   checkDrain(e);
   butterKnife.checkButter();
+  butterKnife.checkCut();
   selectedTool = getSelectedTool(e);
 
   if (selectedTool) {
