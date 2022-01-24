@@ -57,12 +57,12 @@ function drawTools(ctx, game) {
       y: 0,
       r: 0
     });
-    pot = new Pot("pot", potSprite, 500, 16, 210, 161, ctx, 22, 48, {
+    pot = new Pot("pot", potSprite, 550, 16, 210, 161, ctx, 22, 48, {
       x: 120,
       y: 132,
       r: 60
     });
-    pan = new Tool("pan", panSprite, 300, 20, 200, 193, ctx, 837, 151, {
+    pan = new Tool("pan", panSprite, 350, 20, 200, 193, ctx, 837, 151, {
       x: 964,
       y: 225,
       r: 60
@@ -72,7 +72,7 @@ function drawTools(ctx, game) {
       y: 0,
       r: 0
     }, pan);
-    butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 40, 255, 14, 135, ctx, undefined, undefined, {
+    butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 340, 255, 14, 135, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 20
@@ -80,7 +80,7 @@ function drawTools(ctx, game) {
     chefKnife = new Tool("chefKnife", chefKnifeSprite, 400,190, 200, 30, ctx, undefined, undefined, {
       x: 0,
       y: 0,
-      r: 20
+      r: 0
     });
     butterBig = new Tool("butterBig", butterBigSprite, 405, 35, 462, 337, ctx, undefined, undefined, {
       x: 0,
@@ -88,12 +88,13 @@ function drawTools(ctx, game) {
       r: 20
     });
 
+    tools.push(chefKnife);
     tools.push(pot);
     tools.push(salt);
-    tools.push(pan);
+    tools.push(pan);   
     tools.push(butter);
     tools.push(butterKnife);
-    tools.push(chefKnife);
+    
 
 
     game.kitchenLevelStarted = true;

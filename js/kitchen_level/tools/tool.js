@@ -21,7 +21,7 @@ class Tool {
     if (this.isMoving === true) {
       this.ctx.shadowBlur = 10;
       this.ctx.shadowOffsetX = 20;
-      this.ctx.shadowColor = "grey";
+      this.ctx.shadowColor = "rgba(0,0,0,1)";
     }
     this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     this.ctx.shadowBlur = 0;
