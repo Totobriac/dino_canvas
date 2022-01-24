@@ -26,6 +26,7 @@ function onMouseDown(e) {
       x: mouse.x - selectedTool.x,
       y: mouse.y - selectedTool.y
     }
+      selectedTool.isMoving = true;
   }
 }
 
@@ -35,7 +36,6 @@ function onMouseMove(e) {
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
     selectedTool.isMoving = true;
-
   }
 }
 
