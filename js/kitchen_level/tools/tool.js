@@ -15,18 +15,31 @@ class Tool {
     this.perfY = perfY;
     this.shadow = shadow;
     this.inPlace = false;
+    this.isMoving = false;
   }
   draw() {
+    if (this.isMoving === true) {
+      this.ctx.shadowBlur = 10;
+      this.ctx.shadowOffsetX = 20;
+      this.ctx.shadowColor = "black";
+    }
     this.ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+    this.ctx.shadowBlur = 0;
+    this.ctx.shadowColor = "transparent"
   }
   isClose() {
-    var distance = this.distance({ x: this.x, y: this.y }, { x: this.perfX, y: this.perfY })
-    if ( distance < this.width / 3 || distance < this.height / 3) {
+    var distance = this.distance({
+      x: this.x,
+      y: this.y
+    }, {
+      x: this.perfX,
+      y: this.perfY
+    })
+    if (distance < this.width / 3 || distance < this.height / 3) {
       this.x = this.perfX;
       this.y = this.perfY;
       this.inPlace = true;
-    }
-    else {
+    } else {
       this.inPlace = false;
     }
   }
@@ -43,4 +56,6 @@ class Tool {
 }
 
 
-export { Tool };
+export {
+  Tool
+};

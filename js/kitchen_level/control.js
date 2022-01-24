@@ -34,10 +34,13 @@ function onMouseMove(e) {
     var mouse = getCursorPosition(e);
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
+    selectedTool.isMoving = true;
+
   }
 }
 
 function onMouseUp(e) {
+  if (selectedTool) selectedTool.isMoving = false;
   selectedTool = null;
 }
 
