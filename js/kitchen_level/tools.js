@@ -13,6 +13,9 @@ import {
 import {
   drawFaucet
 } from "./tools/sink.js";
+import {
+  Butter
+} from "./tools/butter.js";
 
 var pot;
 var salt;
@@ -55,16 +58,16 @@ function drawTools(ctx, game) {
       y: 132,
       r: 60
     });
-    pan = new Tool("pan", panSprite, 300, 20, 200, 193, ctx, undefined, undefined, {
-      x: 120,
-      y: 132,
+    pan = new Tool("pan", panSprite, 300, 20, 200, 193, ctx, 837, 151, {
+      x: 964,
+      y: 225,
       r: 60
     });
-    butter = new Tool("butter", butterSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
+    butter = new Butter("butter", butterSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
-    });
+    }, pan);
     butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 40, 255, 14, 135, ctx, undefined, undefined, {
       x: 0,
       y: 0,

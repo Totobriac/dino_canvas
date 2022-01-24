@@ -2,7 +2,7 @@ import {
   Tool
 } from "./tool.js";
 
-import { butterBig} from "../tools.js";
+import { butterBig } from "../tools.js";
 
 class ButterKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butter) {
@@ -69,6 +69,7 @@ class ButterKnife extends Tool {
       this.niceCut = true;
       this.x = 40;
       this.y = 255;
+      this.butter.isCut = true;
     }
     else {
       this.niceCut = false;
