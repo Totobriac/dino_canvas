@@ -7,4 +7,5 @@ choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
 export function generateTable(ctx) {
   ctx.drawImage(tableSprite, 0, 0);
   ctx.drawImage(choppingBoardSprite, 380, 230, 245, 161);
+
 }

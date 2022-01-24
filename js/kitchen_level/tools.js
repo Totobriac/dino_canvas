@@ -23,6 +23,7 @@ var pan;
 var butter;
 var butterBig;
 var butterKnife;
+var chefKnife;
 
 var tools = [];
 
@@ -43,6 +44,9 @@ butterBigSprite.src = "../assets/kitchen_level/butter_big.png";
 
 var butterKnifeSprite = new Image();
 butterKnifeSprite.src = "../assets/kitchen_level/butter_knife.png";
+
+var chefKnifeSprite = new Image();
+chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
 
 
 
@@ -73,6 +77,11 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     }, butter);
+    chefKnife = new Tool("chefKnife", chefKnifeSprite, 400,190, 200, 30, ctx, undefined, undefined, {
+      x: 0,
+      y: 0,
+      r: 20
+    });
     butterBig = new Tool("butterBig", butterBigSprite, 405, 35, 462, 337, ctx, undefined, undefined, {
       x: 0,
       y: 0,
@@ -84,6 +93,8 @@ function drawTools(ctx, game) {
     tools.push(pan);
     tools.push(butter);
     tools.push(butterKnife);
+    tools.push(chefKnife);
+
 
     game.kitchenLevelStarted = true;
   }
