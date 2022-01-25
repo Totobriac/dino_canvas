@@ -118,10 +118,6 @@ function drawTools(ctx, game) {
     tools[i].isClose();
   }
 
-  if (selectedTool) {
-    selectedTool.drawShadow();
-  }
-
   if (butterKnife.inPlace === false) drawFaucet(ctx);
 }
 

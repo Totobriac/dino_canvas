@@ -34,7 +34,7 @@ class Pot extends Tool {
       this.ctx.fill();
     }
 
-    if (waterLevel > 50 && waterLevel < 64 && selectedTool != undefined && selectedTool.name === "pot") {
+    if (waterLevel > 50 && waterLevel < 64 && this.isSelected === true) {
       this.isFilled = true;
       this.inPlace = false;
       this.shadow = { x: 1092, y: 170, r: 60 };
@@ -61,11 +61,11 @@ class Pot extends Tool {
     else {
       radiusFrame++;
     }
-  
+
     for (let i = 0; i < points.length; i++) {
-  
+
       this.ctx.strokeStyle = points[i].color;
-  
+
       if (frame > maxFrame) {
         frame = 0;
         points[i].radius += 1;

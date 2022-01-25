@@ -16,8 +16,11 @@ class Tool {
     this.shadow = shadow;
     this.inPlace = false;
     this.isMoving = false;
+    this.isSelected = false;
   }
   draw() {
+    if (this.isSelected === true ) this.drawShadow();
+
     if (this.isMoving === true) {
       this.ctx.shadowBlur = 10;
       this.ctx.shadowOffsetX = 20;

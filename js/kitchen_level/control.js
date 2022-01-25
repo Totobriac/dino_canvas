@@ -14,6 +14,7 @@ import {
 import {
   butterKnife,
   onion,
+  tools,
 } from "./tools.js";
 
 
@@ -29,34 +30,40 @@ function setControls() {
 }
 
 function onMouseDown(e) {
+
   var mouse = getCursorPosition(e);
+
   checkFaucet(e);
   getSelectedButton(e);
   checkDrain(e);
   butterKnife.checkButter();
   butterKnife.checkCut();
-  selectedTool = getSelectedTool(e);
+  getSelectedTool(e);
 
   onion.donePeeling(mouse);
 
-  if (selectedTool) {
-    var mouse = getCursorPosition(e);
-    selectedTool.offset = {
-      x: mouse.x - selectedTool.x,
-      y: mouse.y - selectedTool.y
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].isSelected === true) {
+      tools[i].offset = {
+        x: mouse.x - tools[i].x,
+        y: mouse.y - tools[i].y
+      }
+      tools[i].isMoving = true;
     }
-    selectedTool.isMoving = true;
   }
 }
 
 function onMouseMove(e) {
   var mouse = getCursorPosition(e);
 
-  if (selectedTool) {
-    selectedTool.x = mouse.x - selectedTool.offset.x;
-    selectedTool.y = mouse.y - selectedTool.offset.y;
-    selectedTool.isMoving = true;
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].isSelected === true) {
+      tools[i].x = mouse.x - tools[i].offset.x;
+      tools[i].y = mouse.y - tools[i].offset.y;
+      tools[i].isMoving = true;
+    }
   }
+
   if (onion.inPlace === true && e.offsetX > 400 && e.offsetX < 800) {
     points.push({
       x: e.offsetX,
@@ -66,8 +73,10 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
-  if (selectedTool) selectedTool.isMoving = false;
-  selectedTool = null;
+  for (let i = 0; i < tools.length; i++) {
+    tools[i].isSelected = false;
+    tools[i].isMoving = false;
+  }
 }
 
 
