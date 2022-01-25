@@ -12,8 +12,10 @@ import {
   getSelectedTool
 } from "./function.js";
 import {
-  butterKnife
+  butterKnife,
+  onion,
 } from "./tools.js";
+
 
 var selectedTool = null;
 
@@ -46,16 +48,18 @@ function onMouseDown(e) {
 
 function onMouseMove(e) {
   var mouse = getCursorPosition(e);
-  //console.log(mouse)
+
   if (selectedTool) {
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
     selectedTool.isMoving = true;
   }
-  points.push({
-    x: e.offsetX,
-    y: e.offsetY
-  })
+  if (onion.inPlace === true) {
+    points.push({
+      x: e.offsetX,
+      y: e.offsetY
+    })
+  }  
 }
 
 function onMouseUp(e) {
