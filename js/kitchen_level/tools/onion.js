@@ -2,7 +2,9 @@ import {
   Tool
 } from "./tool.js";
 
-import { points } from "../control.js";
+import {
+  points
+} from "../control.js";
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
@@ -10,13 +12,20 @@ choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
 var onionSprite = new Image();
 onionSprite.src = "../assets/kitchen_level/onion.png";
 
+var onionPeeledSprite = new Image();
+onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
+
 class Onion extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow)
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+    this.beeingUsed = false;
+    this.isPeeled = false;
   }
   draw() {
-    super.draw();
-    if (this.inPlace) {
+    if (this.beeingUsed === false) super.draw();
+
+    if (this.inPlace && this.isPeeled === false) {
+      this.beeingUsed = true;
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)"
@@ -25,6 +34,10 @@ class Onion extends Tool {
       var coef = 0.65;
       this.ctx.drawImage(onionSprite, (1200 - 548 * coef) / 2, 10, 548 * coef, 600 * coef);
 
+      this.ctx.fillStyle = "green";
+      this.ctx.beginPath();
+      this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
+      this.ctx.fill();
       this.peel();
     }
   }
@@ -37,8 +50,20 @@ class Onion extends Tool {
       this.ctx.fill();
     }
   }
-}
+  donePeeling(mouse) {
+    if (this.beeingUsed === true) {
+      var dist = Math.sqrt((mouse.x - 1100) * (mouse.x - 1100) + (mouse.y - 300) * (mouse.y - 300));
 
+      if (dist < 40 ) {
+        console.log(dist)
+        this.beeingUsed = false;
+        this.inPlace = false;
+        this.isPeeled = true;
+        this.sprite = onionPeeledSprite;
+      }
+    }
+  }
+}
 export {
   Onion
 }

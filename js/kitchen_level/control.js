@@ -29,12 +29,15 @@ function setControls() {
 }
 
 function onMouseDown(e) {
+  var mouse = getCursorPosition(e);
   checkFaucet(e);
   getSelectedButton(e);
   checkDrain(e);
   butterKnife.checkButter();
   butterKnife.checkCut();
   selectedTool = getSelectedTool(e);
+
+  onion.donePeeling(mouse);
 
   if (selectedTool) {
     var mouse = getCursorPosition(e);
@@ -54,12 +57,12 @@ function onMouseMove(e) {
     selectedTool.y = mouse.y - selectedTool.offset.y;
     selectedTool.isMoving = true;
   }
-  if (onion.inPlace === true) {
+  if (onion.inPlace === true && e.offsetX > 400 && e.offsetX < 800) {
     points.push({
       x: e.offsetX,
       y: e.offsetY
     })
-  }  
+  }
 }
 
 function onMouseUp(e) {

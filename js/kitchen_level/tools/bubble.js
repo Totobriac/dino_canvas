@@ -7,7 +7,6 @@ class Point {
     this.y = pot.y + Math.random() * pot.height;
     this.dist = this.distance();
     this.radius = 0;
-    //this.color = "hsl(" + Math.floor( 221 + Math.random() * 19 ) + ", 100%, 80%)";
     this.color = "white";
   }
   distance() {
