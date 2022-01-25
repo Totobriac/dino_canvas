@@ -129,4 +129,5 @@ export {
   butterKnife,
   butterBig,
   onion,
+  chefKnife
 };

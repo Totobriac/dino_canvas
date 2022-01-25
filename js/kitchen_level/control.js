@@ -15,6 +15,7 @@ import {
   butterKnife,
   onion,
   tools,
+  chefKnife,
 } from "./tools.js";
 
 
@@ -22,6 +23,7 @@ var selectedTool = null;
 
 var points = [];
 
+var mouse;
 
 function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
@@ -31,7 +33,7 @@ function setControls() {
 
 function onMouseDown(e) {
 
-  var mouse = getCursorPosition(e);
+  mouse = getCursorPosition(e);
 
   checkFaucet(e);
   getSelectedButton(e);
@@ -54,7 +56,7 @@ function onMouseDown(e) {
 }
 
 function onMouseMove(e) {
-  var mouse = getCursorPosition(e);
+  mouse = getCursorPosition(e);
 
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {
@@ -79,10 +81,9 @@ function onMouseUp(e) {
   }
 }
 
-
-
 export {
   setControls,
   selectedTool,
-  points
+  points,
+  mouse,
 }

@@ -55,11 +55,12 @@ class Onion extends Tool {
       var dist = Math.sqrt((mouse.x - 1100) * (mouse.x - 1100) + (mouse.y - 300) * (mouse.y - 300));
 
       if (dist < 40 ) {
-        console.log(dist)
         this.beeingUsed = false;
         this.inPlace = false;
         this.isPeeled = true;
         this.sprite = onionPeeledSprite;
+        var backPic = document.getElementById("back");
+        backPic.style.background = "none";
       }
     }
   }
