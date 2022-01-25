@@ -1,10 +1,24 @@
-import { getSelectedButton } from "./tools/stove.js";
-import { checkDrain, checkFaucet } from "./tools/sink.js";
-import { getCursorPosition, } from "./function.js";
-import { getSelectedTool } from "./function.js";
-import { butterKnife } from "./tools.js";
+import {
+  getSelectedButton
+} from "./tools/stove.js";
+import {
+  checkDrain,
+  checkFaucet
+} from "./tools/sink.js";
+import {
+  getCursorPosition,
+} from "./function.js";
+import {
+  getSelectedTool
+} from "./function.js";
+import {
+  butterKnife
+} from "./tools.js";
 
 var selectedTool = null;
+
+var points = [];
+
 
 function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
@@ -26,17 +40,22 @@ function onMouseDown(e) {
       x: mouse.x - selectedTool.x,
       y: mouse.y - selectedTool.y
     }
-      selectedTool.isMoving = true;
+    selectedTool.isMoving = true;
   }
 }
 
 function onMouseMove(e) {
+  var mouse = getCursorPosition(e);
+  //console.log(mouse)
   if (selectedTool) {
-    var mouse = getCursorPosition(e);
     selectedTool.x = mouse.x - selectedTool.offset.x;
     selectedTool.y = mouse.y - selectedTool.offset.y;
     selectedTool.isMoving = true;
   }
+  points.push({
+    x: e.offsetX,
+    y: e.offsetY
+  })
 }
 
 function onMouseUp(e) {
@@ -46,4 +65,8 @@ function onMouseUp(e) {
 
 
 
-export {setControls, selectedTool}
+export {
+  setControls,
+  selectedTool,
+  points
+}

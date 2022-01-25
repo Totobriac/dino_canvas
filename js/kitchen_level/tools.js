@@ -16,6 +16,10 @@ import {
 import {
   Butter
 } from "./tools/butter.js";
+import {
+  Onion
+} from "./tools/onion.js";
+
 
 var pot;
 var salt;
@@ -24,6 +28,7 @@ var butter;
 var butterBig;
 var butterKnife;
 var chefKnife;
+var onion;
 
 var tools = [];
 
@@ -48,7 +53,8 @@ butterKnifeSprite.src = "../assets/kitchen_level/butter_knife.png";
 var chefKnifeSprite = new Image();
 chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
 
-
+var onionSprite = new Image();
+onionSprite.src = "../assets/kitchen_level/onion.png";
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -82,6 +88,11 @@ function drawTools(ctx, game) {
       y: 0,
       r: 0
     });
+    onion = new Onion("onion", onionSprite, 140,300, 55, 60, ctx, 475, 275, {
+      x: 502,
+      y: 309,
+      r: 28
+    });
     butterBig = new Tool("butterBig", butterBigSprite, 405, 35, 462, 337, ctx, undefined, undefined, {
       x: 0,
       y: 0,
@@ -91,11 +102,10 @@ function drawTools(ctx, game) {
     tools.push(chefKnife);
     tools.push(pot);
     tools.push(salt);
-    tools.push(pan);   
+    tools.push(pan);
     tools.push(butter);
     tools.push(butterKnife);
-    
-
+    tools.push(onion);
 
     game.kitchenLevelStarted = true;
   }

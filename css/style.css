@@ -5,6 +5,7 @@
   transform: translate(-50%, -50%);
   height: 400px;
   width: 1200px;
+  background: transparent;
   /*border: 2px solid black;*/
 }
 
@@ -26,4 +27,15 @@
 @font-face {
   font-family: "HandWritten";
   src: url("../assets/fonts/handWritten.ttf");
+}
+
+#back {
+  /* background: url("../assets/kitchen_level/peeled_onion_back.png"); */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 400px;
+  width: 1200px;
+  background-size: cover;
 }
