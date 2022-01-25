@@ -19,6 +19,9 @@ import {
 import {
   Onion
 } from "./tools/onion.js";
+import {
+  ChefKnife
+} from "./tools/chefKnife.js";
 
 
 var pot;
@@ -83,7 +86,7 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     }, butter);
-    chefKnife = new Tool("chefKnife", chefKnifeSprite, 400,190, 200, 30, ctx, undefined, undefined, {
+    chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400,190, 200, 30, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
