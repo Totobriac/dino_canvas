@@ -15,7 +15,6 @@ import {
   butterKnife,
   onion,
   tools,
-  chefKnife,
 } from "./tools.js";
 
 
@@ -29,6 +28,22 @@ function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", onMouseUp);
+  window.addEventListener('keydown', function (e) {
+    switch (e.code) {
+      case "ArrowUp":
+        onion.spinOnion(0);
+        break;
+      case "ArrowRight":
+        onion.spinOnion(90)
+        break;
+      case "ArrowDown":
+        onion.spinOnion(180)
+        break;
+      case "ArrowLeft":
+        onion.spinOnion(270)
+        break;
+    };
+  })
 }
 
 function onMouseDown(e) {
@@ -42,7 +57,7 @@ function onMouseDown(e) {
   butterKnife.checkCut();
   getSelectedTool(e);
 
-  onion.donePeeling(mouse);  
+  onion.donePeeling(mouse);
 
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {
@@ -74,7 +89,7 @@ function onMouseMove(e) {
     })
   }
 
-  chefKnife.halfOnion();
+  onion.halfOnion();
 }
 
 function onMouseUp(e) {
@@ -82,7 +97,11 @@ function onMouseUp(e) {
     tools[i].isSelected = false;
     tools[i].isMoving = false;
   }
-  if(onion.state === "cut half") chefKnife.splitOnion();
+  if (onion.state === "cut half") onion.splitOnion();
+}
+
+function onKeyDown(e) {
+  console.log("rr");
 }
 
 export {

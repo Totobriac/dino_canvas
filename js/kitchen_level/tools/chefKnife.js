@@ -18,38 +18,33 @@ class ChefKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion);
     this.onion = onion;
+    this.isChopping = false;
   }
   draw() {
 
-    if (this.isSelected === true) {
+    if (this.isSelected === true && this.isChopping === false) {
       this.sprite = chefKnifeSpineSprite;
       this.width = 11;
-      this.height= 200;
+      this.height = 200;
       this.x = mouse.x - this.width;
-      this.y = mouse.y - this.height * 3/4;
+      this.y = mouse.y - this.height * 3 / 4;
+    }
+    else if (this.isSelected === true && this.isChopping === true) {
+      this.sprite = chefKnifeSpineSprite;
+      this.width = 22;
+      this.height = 400;
+      this.x = mouse.x - this.width;
+      this.y = mouse.y - this.height * 3 / 4;
     }
     else {
       this.sprite = chefKnifeSprite;
       this.width = 200;
-      this.height= 33;
+      this.height = 33;
       this.x = 400;
       this.y = 190;
     }
     super.draw();
 
-  }
-  halfOnion() {
-    if (this.onion.inPlace && this.isSelected === true && (this.onion.state === "intact" || this.onion.state === "can be halfed") ) {
-      if (mouse.x > 508 && mouse.x < 515) {
-        this.onion.state = "cut half";
-      }
-      else {
-        this.onion.state = "intact";
-      }
-    }
-  }
-  splitOnion() {
-    this.onion.state = "halfed";
   }
 }
 
