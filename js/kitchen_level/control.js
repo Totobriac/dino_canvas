@@ -88,8 +88,6 @@ function onMouseMove(e) {
       y: e.offsetY
     })
   }
-
-  onion.halfOnion();
 }
 
 function onMouseUp(e) {
@@ -98,11 +96,9 @@ function onMouseUp(e) {
     tools[i].isMoving = false;
   }
   if (onion.state === "cut half") onion.splitOnion();
+  if (onion.state === "can be beheaded") onion.beheadOnion();
 }
 
-function onKeyDown(e) {
-  console.log("rr");
-}
 
 export {
   setControls,

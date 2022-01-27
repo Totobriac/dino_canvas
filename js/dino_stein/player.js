@@ -130,7 +130,6 @@ class Player {
     }
   }
   draw() {
-    console.log(this.x, this.y)
     this.update();
     for (let i = 0; i < this.numbOfRays; i++) {
       this.rays[i].draw();

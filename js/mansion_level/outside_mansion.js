@@ -144,7 +144,6 @@ export function drawOutsideScenery(ctx) {
 
   var isLidOn = sprite.attachedLid.checkCollision(0, sprite.trash.y, canvas.width, 10);
   if (isLidOn === true && cutTheRope === true) isCatCaught = true;
-  console.log(isCatCaught);
 
   if (cutTheRope === true && isCatCaught === false) {
     sprite.ropeAnimUp.draw(ctx);

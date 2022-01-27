@@ -34,7 +34,7 @@ class ChefKnife extends Tool {
       this.width = 22;
       this.height = 400;
       this.x = mouse.x - this.width;
-      this.y = mouse.y - this.height * 3 / 4;
+      this.y = mouse.y - this.height * 2 / 3;
     }
     else {
       this.sprite = chefKnifeSprite;

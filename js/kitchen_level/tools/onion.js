@@ -6,7 +6,6 @@ import {
   points
 } from "../control.js";
 
-import { chefKnife } from "../tools.js";
 import { mouse } from "../control.js";
 
 
@@ -30,6 +29,7 @@ class Onion extends Tool {
     super.draw();
 
     if (this.inPlace && (this.state === "intact" || this.state === "cut half")) {
+
       this.ctx.setLineDash([4, 4]);
       this.ctx.strokeStyle = "red";
 
@@ -38,6 +38,8 @@ class Onion extends Tool {
       this.ctx.lineTo(505, 350);
       this.ctx.stroke();
       this.ctx.closePath();
+
+      this.halfOnion();
     }
 
     if (this.inPlace && this.state === "halfed") {
@@ -66,7 +68,7 @@ class Onion extends Tool {
       this.peel();
     }
 
-    if (this.inPlace && (this.state === "peeled" && chefKnife.isSelected || this.state === "to chop")) {
+    if (this.inPlace && (this.state === "peeled" && this.knife.isSelected || this.state === "to chop" || this.state === "can be beheaded")) {
 
       this.knife.isSelected = true;
       this.knife.isChopping = true;
@@ -85,18 +87,25 @@ class Onion extends Tool {
       this.ctx.translate(x, y);
 
       this.ctx.rotate((Math.PI / 180) * this.angle);
-      this.ctx.fillRect(-10, -10, 20, 20);
 
       var xOffset = - (548 * coef) / 2;
       var yOffset = - (600 * coef) / 2;
 
-      console.log(this.width, this.height);
-
       this.ctx.drawImage(onionPeeledSprite, xOffset, yOffset, 548 * coef, 600 * coef);
 
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.strokeStyle = "red";
+
+      if (this.state !== "beheaded") {
+        this.ctx.beginPath();
+        this.ctx.moveTo(-180, -80);
+        this.ctx.lineTo(180, -80);
+        this.ctx.stroke();
+        this.ctx.closePath();
+      }
+
       this.ctx.restore();
-
-
+      this.beheading();
     }
   }
   peel() {
@@ -109,7 +118,6 @@ class Onion extends Tool {
     }
   }
   donePeeling(mouse) {
-
     var dist = Math.sqrt((mouse.x - 1100) * (mouse.x - 1100) + (mouse.y - 300) * (mouse.y - 300));
     if (dist < 40) {
       this.inPlace = false;
@@ -120,7 +128,7 @@ class Onion extends Tool {
     }
   }
   halfOnion() {
-    if (this.inPlace && chefKnife.isSelected === true && (this.state === "intact" || this.state === "can be halfed")) {
+    if (this.inPlace && this.knife.isSelected === true && (this.state === "intact" || this.state === "can be halfed")) {
       if (mouse.x > 508 && mouse.x < 515) {
         this.state = "cut half";
       }
@@ -134,6 +142,19 @@ class Onion extends Tool {
   }
   spinOnion(angle) {
     this.angle = angle;
+  }
+  beheading() {
+    if ((this.angle === 90 && mouse.x > 690 && mouse.x < 694) ||
+        (this.angle === 270 && mouse.x > 529 && mouse.x < 534)) {
+        this.state = "can be beheaded";
+      }
+      else {
+        this.state = "to chop";
+      }
+  }
+  beheadOnion() {
+    onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
+    this.state = "beheaded";
   }
 }
 
