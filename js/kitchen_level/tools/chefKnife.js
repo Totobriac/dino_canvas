@@ -15,8 +15,9 @@ chefKnifeSpineSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
 
 
 class ChefKnife extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion);
+    this.onion = onion;
   }
   draw() {
 
@@ -36,6 +37,19 @@ class ChefKnife extends Tool {
     }
     super.draw();
 
+  }
+  halfOnion() {
+    if (this.onion.inPlace && this.isSelected === true && (this.onion.state === "intact" || this.onion.state === "can be halfed") ) {
+      if (mouse.x > 508 && mouse.x < 515) {
+        this.onion.state = "cut half";
+      }
+      else {
+        this.onion.state = "intact";
+      }
+    }
+  }
+  splitOnion() {
+    this.onion.state = "halfed";
   }
 }
 

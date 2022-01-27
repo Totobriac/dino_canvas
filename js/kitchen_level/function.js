@@ -21,7 +21,10 @@ function getSelectedTool(e) {
       mouse.y < tools[i].y || mouse.y > tools[i].y + tools[i].height) {
       tools[i].isSelected = false;
     } else {
-      tools[i].isSelected = true;
+      var tool = tools[i];
+      tools.splice(i,1);
+      tools.push(tool);
+      tools[tools.length - 1].isSelected = true;
       return ;
     }
   }

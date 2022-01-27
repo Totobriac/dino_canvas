@@ -90,29 +90,30 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     }, butter);
+    onion = new Onion("onion", onionSprite, 140,300, 60, 60, ctx, 475, 275, {
+      x: 506,
+      y: 304,
+      r: 28
+    });
     chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400,190, 200, 33, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
-    });
-    onion = new Onion("onion", onionSprite, 140,300, 60, 60, ctx, 475, 275, {
-      x: 502,
-      y: 309,
-      r: 28
-    });
+    }, onion);    
     butterBig = new Tool("butterBig", butterBigSprite, 405, 35, 462, 337, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 20
     });
 
-    tools.push(chefKnife);
+    
     tools.push(pot);
     tools.push(salt);
-    tools.push(pan);
     tools.push(butter);
     tools.push(butterKnife);
+    tools.push(pan);
     tools.push(onion);
+    tools.push(chefKnife);
 
     game.kitchenLevelStarted = true;
   }

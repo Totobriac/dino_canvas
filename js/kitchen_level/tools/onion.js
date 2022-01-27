@@ -18,13 +18,34 @@ onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
 class Onion extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
-    this.beeingUsed = false;
-    this.isPeeled = false;
+    this.state = "intact";
   }
   draw() {
-    if (this.beeingUsed === false) super.draw();
 
-    if (this.inPlace && this.isPeeled === false) {
+    super.draw();
+
+    if(this.inPlace && (this.state === "intact" || this.state === "can be halfed")) {
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.strokeStyle = "red";
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(505, 265);
+      this.ctx.lineTo(505, 350);
+      this.ctx.stroke();
+      this.ctx.closePath();      
+    }
+
+    if (this.inPlace && this.state === "halfed") {
+      this.sprite = onionSprite;
+      this.width = 55;
+      this.height = 55;
+    }
+
+    if (this.inPlace && this.state === "halfed" && this.isSelected === true) {
+      this.state = "to peel";
+    }
+
+    if (this.inPlace && this.state === "to peel") {
       this.beeingUsed = true;
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
@@ -51,18 +72,17 @@ class Onion extends Tool {
     }
   }
   donePeeling(mouse) {
-    if (this.beeingUsed === true) {
+    
       var dist = Math.sqrt((mouse.x - 1100) * (mouse.x - 1100) + (mouse.y - 300) * (mouse.y - 300));
 
       if (dist < 40 ) {
-        this.beeingUsed = false;
         this.inPlace = false;
-        this.isPeeled = true;
+        this.state = "peeled";
         this.sprite = onionPeeledSprite;
         var backPic = document.getElementById("back");
         backPic.style.background = "none";
       }
-    }
+    
   }
 }
 export {

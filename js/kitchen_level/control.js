@@ -42,7 +42,7 @@ function onMouseDown(e) {
   butterKnife.checkCut();
   getSelectedTool(e);
 
-  onion.donePeeling(mouse);
+  onion.donePeeling(mouse);  
 
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {
@@ -56,6 +56,7 @@ function onMouseDown(e) {
 }
 
 function onMouseMove(e) {
+
   mouse = getCursorPosition(e);
 
   for (let i = 0; i < tools.length; i++) {
@@ -66,12 +67,14 @@ function onMouseMove(e) {
     }
   }
 
-  if (onion.inPlace === true && e.offsetX > 400 && e.offsetX < 800) {
+  if (onion.inPlace === true && onion.state === "to peel" && e.offsetX > 400 && e.offsetX < 800) {
     points.push({
       x: e.offsetX,
       y: e.offsetY
     })
   }
+
+  chefKnife.halfOnion();
 }
 
 function onMouseUp(e) {
@@ -79,6 +82,7 @@ function onMouseUp(e) {
     tools[i].isSelected = false;
     tools[i].isMoving = false;
   }
+  if(onion.state === "cut half") chefKnife.splitOnion();
 }
 
 export {
