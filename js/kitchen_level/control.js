@@ -22,7 +22,12 @@ var selectedTool = null;
 
 var points = [];
 
-var mouse;
+var mouse = {
+  x: undefined,
+  y: undefined,
+  upX: undefined,
+  upY: undefined,
+};
 
 function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
@@ -82,7 +87,7 @@ function onMouseMove(e) {
     }
   }
 
-  if (onion.inPlace === true && onion.state === "to peel" && e.offsetX > 400 && e.offsetX < 800) {
+  if (onion.inPlace === true && onion.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
     points.push({
       x: e.offsetX,
       y: e.offsetY
@@ -95,8 +100,9 @@ function onMouseUp(e) {
     tools[i].isSelected = false;
     tools[i].isMoving = false;
   }
-  if (onion.state === "cut half") onion.splitOnion();
-  if (onion.state === "can be beheaded") onion.beheadOnion();
+  mouse.upX = e.offsetX;
+  mouse.upY = e.offsetY;
+  
 }
 
 

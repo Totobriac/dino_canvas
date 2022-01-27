@@ -115,8 +115,9 @@ function drawTools(ctx, game) {
     tools.push(butter);
     tools.push(butterKnife);
     tools.push(pan);
-    tools.push(onion);
     tools.push(chefKnife);
+    tools.push(onion);
+    
 
     game.kitchenLevelStarted = true;
   }
