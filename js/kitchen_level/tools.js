@@ -1,7 +1,4 @@
 import {
-  selectedTool
-} from "./control.js";
-import {
   Tool
 } from "./tools/tool.js";
 import {
@@ -57,7 +54,14 @@ var chefKnifeSprite = new Image();
 chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
 
 var onionSprite = new Image();
-onionSprite.src = "../assets/kitchen_level/onion.png";
+onionSprite.src = "../assets/kitchen_level/onion_top.png";
+
+var halfOnionSprite = new Image();
+halfOnionSprite.src = "../assets/kitchen_level/half_onion.png";
+
+var spineKnifeSprite = new Image();
+spineKnifeSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
+
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -86,12 +90,12 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     }, butter);
-    chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400,190, 200, 30, ctx, undefined, undefined, {
+    chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400,190, 200, 33, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
     });
-    onion = new Onion("onion", onionSprite, 140,300, 55, 60, ctx, 475, 275, {
+    onion = new Onion("onion", onionSprite, 140,300, 60, 60, ctx, 475, 275, {
       x: 502,
       y: 309,
       r: 28
@@ -119,6 +123,7 @@ function drawTools(ctx, game) {
   }
 
   if (butterKnife.inPlace === false) drawFaucet(ctx);
+
 }
 
 

@@ -10,6 +10,10 @@ chefKnifeUpSprite.src = "../assets/kitchen_level/chef_knife_up.png";
 var chefKnifeSprite = new Image();
 chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
 
+var chefKnifeSpineSprite = new Image();
+chefKnifeSpineSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
+
+
 class ChefKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -17,8 +21,8 @@ class ChefKnife extends Tool {
   draw() {
 
     if (this.isSelected === true) {
-      this.sprite = chefKnifeUpSprite;
-      this.width = 30;
+      this.sprite = chefKnifeSpineSprite;
+      this.width = 11;
       this.height= 200;
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 3/4;
@@ -26,7 +30,7 @@ class ChefKnife extends Tool {
     else {
       this.sprite = chefKnifeSprite;
       this.width = 200;
-      this.height= 30;
+      this.height= 33;
       this.x = 400;
       this.y = 190;
     }
