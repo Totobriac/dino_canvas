@@ -6,8 +6,12 @@ import {
   points
 } from "../control.js";
 
-import { mouse } from "../control.js";
-import { tools } from "../tools.js";
+import {
+  mouse
+} from "../control.js";
+import {
+  tools
+} from "../tools.js";
 
 
 var choppingBoardSprite = new Image();
@@ -26,8 +30,6 @@ class Onion extends Tool {
     this.angle = 0;
   }
   draw() {
-
-    console.log(this.knife.x)
 
     super.draw();
 
@@ -92,12 +94,12 @@ class Onion extends Tool {
 
         this.ctx.rotate((Math.PI / 180) * this.angle);
 
-        var xOffset = - (548 * coef) / 2;
-        var yOffset = - (600 * coef) / 2;
+        var xOffset = -(548 * coef) / 2;
+        var yOffset = -(600 * coef) / 2;
 
-        this.state === "peeled"
-        ? onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png"
-        : onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
+        this.state === "peeled" ?
+          onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png" :
+          onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
 
 
         this.ctx.drawImage(onionPeeledSprite, xOffset, yOffset, 548 * coef, 600 * coef);
@@ -111,6 +113,36 @@ class Onion extends Tool {
           this.ctx.lineTo(180, -80);
           this.ctx.stroke();
           this.ctx.closePath();
+        }
+
+        if (this.state === "beheaded") {
+          this.ctx.beginPath();
+          this.ctx.moveTo(-78, -80);
+          this.ctx.lineTo(80, -80);
+          this.ctx.stroke();
+          this.ctx.closePath();
+
+          this.ctx.beginPath();
+          this.ctx.moveTo(-60, -56);
+          this.ctx.lineTo(60, -56);
+          this.ctx.stroke();
+          this.ctx.closePath();
+
+          this.ctx.beginPath();
+          this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
+          this.ctx.stroke();
+
+          this.ctx.beginPath();
+          this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+          this.ctx.stroke();
+
+          this.ctx.beginPath();
+          this.ctx.arc(0, 0, 80, 7 * Math.PI / 4, Math.PI / 3, false);
+          this.ctx.stroke();
+
+          this.ctx.beginPath();
+          this.ctx.arc(0, 0, 80, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+          this.ctx.stroke();
         }
 
         this.ctx.restore();

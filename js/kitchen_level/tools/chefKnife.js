@@ -13,6 +13,9 @@ chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
 var chefKnifeSpineSprite = new Image();
 chefKnifeSpineSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
 
+var chefKnifeSideSprite = new Image();
+chefKnifeSideSprite.src = "../assets/kitchen_level/chef_knife_up.png";
+
 
 class ChefKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion) {
@@ -29,10 +32,17 @@ class ChefKnife extends Tool {
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 3 / 4;
     }
-    else if (this.isSelected === true && this.isChopping === true) {
+    else if (this.isSelected === true && this.isChopping === true && this.onion.state != "beheaded") {
       this.sprite = chefKnifeSpineSprite;
       this.width = 22;
-      this.height = 400;
+      this.height = 440;
+      this.x = mouse.x - this.width;
+      this.y = mouse.y - this.height * 2 / 3;
+    }
+    else if (this.onion.state === "beheaded") {
+      this.sprite = chefKnifeUpSprite;
+      this.width = 72;
+      this.height = 440;
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 2 / 3;
     }
