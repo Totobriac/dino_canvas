@@ -116,33 +116,44 @@ class Onion extends Tool {
         }
 
         if (this.state === "beheaded") {
+
+          context.globalCompositeOperation='destination-in';
+
           this.ctx.beginPath();
           this.ctx.moveTo(-78, -80);
           this.ctx.lineTo(80, -80);
-          this.ctx.stroke();
-          this.ctx.closePath();
 
-          this.ctx.beginPath();
-          this.ctx.moveTo(-60, -56);
-          this.ctx.lineTo(60, -56);
-          this.ctx.stroke();
-          this.ctx.closePath();
-
-          this.ctx.beginPath();
           this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
-          this.ctx.stroke();
-
-          this.ctx.beginPath();
           this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+
+          this.ctx.closePath();
+
           this.ctx.stroke();
 
-          this.ctx.beginPath();
-          this.ctx.arc(0, 0, 80, 7 * Math.PI / 4, Math.PI / 3, false);
-          this.ctx.stroke();
+          context.globalCompositeOperation='destination-over';
 
-          this.ctx.beginPath();
-          this.ctx.arc(0, 0, 80, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
-          this.ctx.stroke();
+
+          // this.ctx.beginPath();
+          // this.ctx.moveTo(-60, -56);
+          // this.ctx.lineTo(60, -56);
+          // this.ctx.stroke();
+          // this.ctx.closePath();
+
+          // this.ctx.beginPath();
+          // this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
+          // this.ctx.stroke();
+          //
+          // this.ctx.beginPath();
+          // this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+          // this.ctx.stroke();
+
+          // this.ctx.beginPath();
+          // this.ctx.arc(0, 0, 80, 7 * Math.PI / 4, Math.PI / 3, false);
+          // this.ctx.stroke();
+          //
+          // this.ctx.beginPath();
+          // this.ctx.arc(0, 0, 80, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+          // this.ctx.stroke();
         }
 
         this.ctx.restore();
