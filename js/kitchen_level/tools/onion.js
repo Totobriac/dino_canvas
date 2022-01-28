@@ -27,6 +27,8 @@ class Onion extends Tool {
   }
   draw() {
 
+    console.log(this.knife.x)
+
     super.draw();
 
     if (this.inPlace) {
@@ -43,8 +45,8 @@ class Onion extends Tool {
         this.ctx.closePath();
 
         this.halfOnion();
-      }
 
+      }
 
       if (this.state === "halfed") {
 
@@ -64,6 +66,7 @@ class Onion extends Tool {
         this.ctx.beginPath();
         this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
         this.ctx.fill();
+
         this.peel();
 
       }
@@ -139,7 +142,7 @@ class Onion extends Tool {
     }
   }
   halfOnion() {
-    if (mouse.upX > 508 && mouse.upX < 515) {
+    if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
     }
   }
@@ -158,9 +161,9 @@ class Onion extends Tool {
 function onTop(tool) {
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].name === tool) {
-      var onion = tools[i];
+      var tool = tools[i];
       tools.splice(i, 1);
-      tools.push(onion);
+      tools.push(tool);
     }
   }
 }
