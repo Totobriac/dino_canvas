@@ -14,6 +14,8 @@ import {
   generateTable
 } from "./tools/table.js";
 
+import { drawSlice } from "./tools/slice.js";
+
 function setTop(game, ctx) {
 
   ctx.globalCompositeOperation = 'source-over';
@@ -27,6 +29,8 @@ function setTop(game, ctx) {
   drawStove(ctx);
 
   drawTools(ctx, game);
+
+  drawSlice(ctx);
 
 }
 export {
