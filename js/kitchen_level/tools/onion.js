@@ -117,7 +117,35 @@ class Onion extends Tool {
 
         if (this.state === "beheaded") {
 
-          context.globalCompositeOperation='destination-in';
+          let tempCanvas = document.createElement("canvas");
+          let tempContext = tempCanvas.getContext("2d");
+          tempCanvas.width = 1200;
+          tempCanvas.height = 400;
+
+
+          tempContext.beginPath();
+
+          tempContext.moveTo(96, 120);
+          tempContext.lineTo(256, 120);
+          
+          tempContext.arc(-xOffset, -yOffset, 110, 7 * Math.PI / 4, Math.PI / 3, false);
+          tempContext.arc(-xOffset, -yOffset, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+
+
+          tempContext.closePath();
+
+
+          tempContext.fill();
+
+
+          tempContext.globalCompositeOperation = "source-in";
+
+
+          tempContext.drawImage(onionPeeledSprite, 0, 0, 548 * coef, 600 * coef);
+
+          this.ctx.drawImage(tempCanvas, xOffset, yOffset, 1200, 400);
+
+          
 
           this.ctx.beginPath();
           this.ctx.moveTo(-78, -80);
@@ -127,10 +155,9 @@ class Onion extends Tool {
           this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
 
           this.ctx.closePath();
-
           this.ctx.stroke();
 
-          context.globalCompositeOperation='destination-over';
+
 
 
           // this.ctx.beginPath();
