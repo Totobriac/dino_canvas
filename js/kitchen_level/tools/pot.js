@@ -1,9 +1,7 @@
-import { sinkIsOn } from "./sink.js";
-import { selectedTool } from "../control.js";
 import { Tool } from "./tool.js";
 import { burners } from "./stove.js";
 import {  Point } from "./bubble.js";
-
+import { sink } from "../tools.js";
 
 var waterLevel = 0;
 
@@ -26,7 +24,7 @@ class Pot extends Tool {
   draw() {
     super.draw();
 
-    if (this.inPlace && sinkIsOn) {
+    if (this.inPlace && sink.sinkIsOn) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       if (waterLevel < 72) waterLevel += 0.25;
       this.ctx.beginPath();
@@ -42,7 +40,7 @@ class Pot extends Tool {
       this.perfY = 90;
     }
 
-    if (this.inPlace === false || this.inPlace && sinkIsOn === false) {
+    if (this.inPlace === false || this.inPlace && sink.sinkIsOn === false) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       this.ctx.beginPath();
       this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, waterLevel, 0, 2 * Math.PI, false);

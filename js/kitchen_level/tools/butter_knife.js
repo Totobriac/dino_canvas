@@ -2,7 +2,7 @@ import {
   Tool
 } from "./tool.js";
 
-import { butterBig } from "../tools.js";
+import { butterBig, sink } from "../tools.js";
 
 class ButterKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butter) {
@@ -25,6 +25,8 @@ class ButterKnife extends Tool {
     super.draw();
 
     if (this.inPlace === true) {
+
+      sink.faucet = false;
 
       this.move += this.direction;
 
@@ -65,12 +67,12 @@ class ButterKnife extends Tool {
     this.direction === 1.2 ? this.direction = -1.2 : this.direction = 1.2;
   }
   checkCut() {
-    console.log(this.move);
     if (this.move > 30 && this.move < 50 ) {
       this.niceCut = true;      
       this.butter.isCut = true;
       this.x = 340;
       this.y = 255;     
+      sink.faucet = true;
     }
     else {
       this.niceCut = false;

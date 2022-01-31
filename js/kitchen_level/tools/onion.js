@@ -11,7 +11,9 @@ import {
 } from "../control.js";
 
 import {
-  tools
+  tools,
+  sink,
+  onion,
 } from "../tools.js";
 
 
@@ -125,6 +127,7 @@ class Onion extends Tool {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
       this.isChopping = true;
+      sink.faucet = false;
     }
   }
   spinOnion(angle) {

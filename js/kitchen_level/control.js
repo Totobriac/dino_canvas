@@ -2,10 +2,6 @@ import {
   getSelectedButton
 } from "./tools/stove.js";
 import {
-  checkDrain,
-  checkFaucet
-} from "./tools/sink.js";
-import {
   getCursorPosition,
 } from "./function.js";
 import {
@@ -15,6 +11,7 @@ import {
   butterKnife,
   onion,
   tools,
+  sink,
 } from "./tools.js";
 
 
@@ -54,9 +51,9 @@ function setControls() {
 function onMouseDown(e) {
   mouse = getCursorPosition(e);
 
-  checkFaucet(e);
+  sink.checkFaucet(e);
   getSelectedButton(e);
-  checkDrain(e);
+  sink.checkDrain(e);
   butterKnife.checkButter();
   butterKnife.checkCut();
   getSelectedTool(e);

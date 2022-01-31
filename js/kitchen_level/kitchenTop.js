@@ -1,11 +1,10 @@
 import {
   drawStove
 } from "./tools/stove.js";
+
 import {
-  drawSink
-} from "./tools/sink.js";
-import {
-  drawTools
+  drawTools, 
+  sink,
 } from "./tools.js";
 import {
   setControls,
@@ -24,7 +23,7 @@ function setTop(game, ctx) {
 
   generateTable(ctx);
 
-  drawSink(ctx);
+  if (sink) sink.drawSink(ctx);
 
   drawStove(ctx);
 

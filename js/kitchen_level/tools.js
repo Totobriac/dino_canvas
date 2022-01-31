@@ -7,9 +7,7 @@ import {
 import {
   ButterKnife
 } from "./tools/butter_knife.js";
-import {
-  drawFaucet
-} from "./tools/sink.js";
+
 import {
   Butter
 } from "./tools/butter.js";
@@ -20,6 +18,10 @@ import {
   ChefKnife
 } from "./tools/chefKnife.js";
 
+import {
+  Sink
+} from "./tools/sink.js";
+
 
 var pot;
 var salt;
@@ -29,6 +31,7 @@ var butterBig;
 var butterKnife;
 var chefKnife;
 var onion;
+var sink;
 
 var tools = [];
 
@@ -111,7 +114,9 @@ function drawTools(ctx, game) {
       x: 0,
       y: 0,
       r: 20
-    });
+    })
+    
+    sink = new Sink();
 
 
     tools.push(pot);
@@ -132,8 +137,8 @@ function drawTools(ctx, game) {
   }
   
   if (butterPlate.isCut === true && onion.isChopping === false) butterPlate.melt();
-  
-  if (butterKnife.inPlace === false || onion.isChopping === false) drawFaucet(ctx);
+
+  sink.drawFaucet(ctx);
 
 }
 
@@ -145,5 +150,6 @@ export {
   butterKnife,
   butterBig,
   onion,
-  chefKnife
+  chefKnife, 
+  sink,
 };

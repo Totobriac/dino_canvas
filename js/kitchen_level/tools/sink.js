@@ -16,131 +16,134 @@ buttonOpenSprite.src = "../assets/kitchen_level/sink_button_open.png";
 var buttonSprite = new Image();
 buttonSprite.src = "../assets/kitchen_level/sink_button.png";
 
-var sinkIsOn = false;
-var drainOpen = true;
-var faucetSprite;
-var waterLevel = 0;
-var angle = 0;
-var level = 0;
-
-function checkFaucet(e) {
-  var mouse = getCursorPosition(e);
-  if (mouse.x < 50 && mouse.y < 50) {
-    sinkIsOn = !sinkIsOn;
+class Sink {
+  constructor() {
+    this.sinkIsOn = false;
+    this.drainOpen = true;
+    this.faucetSprite;
+    this.waterLevel = 0;
+    this.angle = 0;
+    this.level = 0;
+    this.faucet = true;
   }
-}
 
-function checkDrain(e) {
-  var mouse = getCursorPosition(e);
-  if (mouse.y < 62 && mouse.y > 2 &&
-    mouse.x > 290 && mouse.x < 350) {
-    drainOpen = !drainOpen;
-  }
-}
-
-function drawWater(ctx) {
-
-  ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-  if (pot) {
-    if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) {
-      waterLevel += 0.25;
+  checkFaucet(e) {
+    var mouse = getCursorPosition(e);
+    if (mouse.x < 50 && mouse.y < 50) {
+      this.sinkIsOn = !this.sinkIsOn;
     }
-
-    if (waterLevel < 69) {
-      if (drainOpen === false || pot.inPlace && pot.perfX === 22) {
+  }
+  
+  checkDrain(e) {
+    var mouse = getCursorPosition(e);
+    if (mouse.y < 62 && mouse.y > 2 &&
+      mouse.x > 290 && mouse.x < 350) {
+      this.drainOpen = !this.drainOpen;
+    }
+  }
+  
+  drawWater(ctx) {
+  
+    ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
+    if (pot) {
+      if (this.sinkIsOn && this.drainOpen === false || this.sinkIsOn && pot.inPlace) {
+        this.waterLevel += 0.25;
+      }
+  
+      if (this.waterLevel < 69) {
+        if (this.drainOpen === false || pot.inPlace && pot.perfX === 22) {
+          ctx.beginPath();
+          ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
+          ctx.fill();
+        }
+        else if (this.drainOpen === true && this.waterLevel > 0.25) {
+          this.waterLevel -= 0.25;
+          ctx.beginPath();
+          ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
+          ctx.fill();
+        }
+      }
+      else if (this.waterLevel >= 69 && this.waterLevel < 93 && this.angle <= 30) {
+        if (this.sinkIsOn && this.drainOpen === false || this.sinkIsOn && pot.inPlace) this.angle += 0.3;
+        if (this.drainOpen && this.sinkIsOn === false && pot.inPlace === false) {
+          this.angle -= 0.3;
+          this.waterLevel -= 0.25;
+        }
+        if (this.drainOpen && this.sinkIsOn && pot.inPlace === false) {
+          this.angle -= 0.3;
+          this.waterLevel -= 0.25;
+        }
         ctx.beginPath();
-        ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+        ctx.moveTo(194 + (this.angle * 2.2), 129 + (this.angle * -0.9));
+        ctx.arcTo(194 + (this.angle * 2.2), 199 + (this.angle * 1.13), 56 + (this.angle * -0.33), 199 + (this.angle * 1.13), 70 + -this.angle);
+        ctx.arcTo(56 + (this.angle * -0.33), 199 + (this.angle * 1.113), 56 + (this.angle * -0.33), 61, 70 + -this.angle);
+        ctx.arcTo(56 + (this.angle * -0.33), 61, 194 + (this.angle * 2.2), 61, 70 + -this.angle);
+        ctx.arcTo(194 + (this.angle * 2.2), 61, 194 + (this.angle * 2.45), 199 + (this.angle * 1.13), 70 + -this.angle);
         ctx.fill();
       }
-      else if (drainOpen === true && waterLevel > 0.25) {
-        waterLevel -= 0.25;
+      else if (this.waterLevel >= 93 && this.waterLevel <= 118 && this.level <= 10) {
+        if (this.sinkIsOn && this.drainOpen === false || this.sinkIsOn && pot.inPlace) this.level += 0.1;
+        if (this.drainOpen && this.sinkIsOn === false && pot.inPlace === false) {
+          this.level -= 0.1;
+          this.waterLevel -= 0.25;
+        }
+        if (this.drainOpen && this.sinkIsOn && pot.inPlace === false) {
+          this.level -= 0.1;
+          this.waterLevel -= 0.25;
+        }
         ctx.beginPath();
-        ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+        ctx.moveTo(260 + (this.level * 1.5), 102 + (this.level * 3.3));
+        ctx.arcTo(260 + (this.level * 1.5), 233, 46 + (this.level * -1.6), 233, 40);
+        ctx.arcTo(46 + (this.level * -1.6), 233, 46 + (this.level * -1.6), 62, 40);
+        ctx.arcTo(46 + (this.level * -1.6), 62 + (this.level * -2.7), 260 + (this.level * 1.5), 62 + (this.level * -2.7), 40);
+        ctx.arcTo(260 + (this.level * 1.5), 62 + (this.level * -2.7), 263 + (this.level * 1.2), 233, 40);
         ctx.fill();
       }
-    }
-    else if (waterLevel >= 69 && waterLevel < 93 && angle <= 30) {
-      if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) angle += 0.3;
-      if (drainOpen && sinkIsOn === false && pot.inPlace === false) {
-        angle -= 0.3;
-        waterLevel -= 0.25;
-      }
-      if (drainOpen && sinkIsOn && pot.inPlace === false) {
-        angle -= 0.3;
-        waterLevel -= 0.25;
-      }
-      ctx.beginPath();
-      ctx.moveTo(194 + (angle * 2.2), 129 + (angle * -0.9));
-      ctx.arcTo(194 + (angle * 2.2), 199 + (angle * 1.13), 56 + (angle * -0.33), 199 + (angle * 1.13), 70 + -angle);
-      ctx.arcTo(56 + (angle * -0.33), 199 + (angle * 1.113), 56 + (angle * -0.33), 61, 70 + -angle);
-      ctx.arcTo(56 + (angle * -0.33), 61, 194 + (angle * 2.2), 61, 70 + -angle);
-      ctx.arcTo(194 + (angle * 2.2), 61, 194 + (angle * 2.45), 199 + (angle * 1.13), 70 + -angle);
-      ctx.fill();
-    }
-    else if (waterLevel >= 93 && waterLevel <= 118 && level <= 10) {
-      if (sinkIsOn && drainOpen === false || sinkIsOn && pot.inPlace) level += 0.1;
-      if (drainOpen && sinkIsOn === false && pot.inPlace === false) {
-        level -= 0.1;
-        waterLevel -= 0.25;
-      }
-      if (drainOpen && sinkIsOn && pot.inPlace === false) {
-        level -= 0.1;
-        waterLevel -= 0.25;
-      }
-      ctx.beginPath();
-      ctx.moveTo(260 + (level * 1.5), 102 + (level * 3.3));
-      ctx.arcTo(260 + (level * 1.5), 233, 46 + (level * -1.6), 233, 40);
-      ctx.arcTo(46 + (level * -1.6), 233, 46 + (level * -1.6), 62, 40);
-      ctx.arcTo(46 + (level * -1.6), 62 + (level * -2.7), 260 + (level * 1.5), 62 + (level * -2.7), 40);
-      ctx.arcTo(260 + (level * 1.5), 62 + (level * -2.7), 263 + (level * 1.2), 233, 40);
-      ctx.fill();
-    }
-    else {
-      if (drainOpen === false || pot.inPlace === true) {
-        ctx.beginPath();
-        ctx.moveTo(275, 135);
-        ctx.arcTo(275, 234, 30, 234, 40);
-        ctx.arcTo(30, 234, 30, 35, 40);
-        ctx.arcTo(30, 35, 275, 35, 40);
-        ctx.arcTo(275, 35, 275, 230, 40);
-        ctx.fill();
-      }
-      if (drainOpen) {
-        waterLevel = 118;
-        level = 10;
+      else {
+        if (this.drainOpen === false || pot.inPlace === true) {
+          ctx.beginPath();
+          ctx.moveTo(275, 135);
+          ctx.arcTo(275, 234, 30, 234, 40);
+          ctx.arcTo(30, 234, 30, 35, 40);
+          ctx.arcTo(30, 35, 275, 35, 40);
+          ctx.arcTo(275, 35, 275, 230, 40);
+          ctx.fill();
+        }
+        if (this.drainOpen) {
+          this.waterLevel = 118;
+          this.level = 10;
+        }
       }
     }
   }
-}
-
-function drawFaucet(ctx) {
-  sinkIsOn === false ? faucetSprite = faucetOffSprite : faucetSprite = faucetOnSprite;
-  ctx.drawImage(faucetSprite, -15, -10, 173, 159);
-}
-
-function drawSink(ctx) {
-
-  var button;
-  if (drainOpen === true) {
-    ctx.fillStyle = "black";
-    button = buttonOpenSprite;
-  } else {
-    ctx.fillStyle = "white";
-    button = buttonSprite;
+  
+  drawFaucet(ctx) {
+    if (this.faucet === true) {
+      this.sinkIsOn === false ? this.faucetSprite = faucetOffSprite : this.faucetSprite = faucetOnSprite;
+      ctx.drawImage(this.faucetSprite, -15, -10, 173, 159);
+    }    
   }
-
-  ctx.drawImage(button, 290, 2, 60, 60);
-
-  ctx.fillRect(120, 70, 70, 70);
-  ctx.drawImage(sinkSprite, 10, 10, 286, 243);
-  drawWater(ctx);
-
+  
+  drawSink(ctx) {
+  
+    var button;
+    if (this.drainOpen === true) {
+      ctx.fillStyle = "black";
+      button = buttonOpenSprite;
+    } else {
+      ctx.fillStyle = "white";
+      button = buttonSprite;
+    }
+  
+    ctx.drawImage(button, 290, 2, 60, 60);
+  
+    ctx.fillRect(120, 70, 70, 70);
+    ctx.drawImage(sinkSprite, 10, 10, 286, 243);
+    this.drawWater(ctx);
+  
+  }
 }
 
 export {
-  drawSink,
-  checkFaucet,
-  checkDrain,
-  drawFaucet,
-  sinkIsOn,
+  Sink,
 };
