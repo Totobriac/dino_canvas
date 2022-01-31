@@ -24,7 +24,7 @@ import {
 var pot;
 var salt;
 var pan;
-var butter;
+var butterPlate;
 var butterBig;
 var butterKnife;
 var chefKnife;
@@ -41,8 +41,8 @@ saltSprite.src = "../assets/kitchen_level/salt.png";
 var panSprite = new Image();
 panSprite.src = "../assets/kitchen_level/pan.png";
 
-var butterSprite = new Image();
-butterSprite.src = "../assets/kitchen_level/butter_sm.png";
+var butterPlateSprite = new Image();
+butterPlateSprite.src = "../assets/kitchen_level/butter_sm.png";
 
 var butterBigSprite = new Image();
 butterBigSprite.src = "../assets/kitchen_level/butter_big.png";
@@ -62,6 +62,9 @@ halfOnionSprite.src = "../assets/kitchen_level/half_onion.png";
 var spineKnifeSprite = new Image();
 spineKnifeSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
 
+var butterCutSprite = new Image();
+butterCutSprite.src = "../assets/kitchen_level/butter_sm_cut.png";
+
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -80,22 +83,23 @@ function drawTools(ctx, game) {
       y: 225,
       r: 60
     });
-    butter = new Butter("butter", butterSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
+    butterPlate = new Butter("butterPlate", butterPlateSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
     }, pan);
+
     butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 340, 255, 14, 135, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 20
-    }, butter);
-    onion = new Onion("onion", onionSprite, 140,300, 60, 60, ctx, 475, 275, {
+    }, butterPlate);
+    onion = new Onion("onion", onionSprite, 140, 300, 60, 60, ctx, 475, 275, {
       x: 506,
       y: 304,
       r: 28
     });
-    chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400,190, 200, 33, ctx, undefined, undefined, {
+    chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400, 190, 200, 33, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
@@ -109,15 +113,15 @@ function drawTools(ctx, game) {
       r: 20
     });
 
-    
+
     tools.push(pot);
     tools.push(salt);
-    tools.push(butter);
+    tools.push(butterPlate);
     tools.push(butterKnife);
     tools.push(pan);
     tools.push(chefKnife);
     tools.push(onion);
-    
+
 
     game.kitchenLevelStarted = true;
   }
@@ -127,6 +131,7 @@ function drawTools(ctx, game) {
     tools[i].isClose();
   }
 
+  if (butterPlate.isCut === true) butterPlate.melt();
   if (butterKnife.inPlace === false) drawFaucet(ctx);
 
 }

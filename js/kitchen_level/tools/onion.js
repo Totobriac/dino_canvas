@@ -28,15 +28,14 @@ class Onion extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.state = "intact";
     this.angle = 0;
+    this.slice = 0;
   }
   draw() {
 
     super.draw();
 
     if (this.inPlace) {
-
       if (this.state === "intact") {
-
         this.ctx.setLineDash([4, 4]);
         this.ctx.strokeStyle = "red";
 
@@ -45,68 +44,44 @@ class Onion extends Tool {
         this.ctx.lineTo(505, 350);
         this.ctx.stroke();
         this.ctx.closePath();
-
         this.halfOnion();
-
       }
-
       if (this.state === "halfed") {
-
         onTop("onion");
-
         var backPic = document.getElementById("back");
         backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
-
         this.ctx.fillStyle = "rgb(0,0,0,0.81)";
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
         var coef = 0.65;
         this.ctx.drawImage(onionSprite, (1200 - 548 * coef) / 2, 10, 548 * coef, 600 * coef);
-
         this.ctx.fillStyle = "green";
         this.ctx.beginPath();
         this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
         this.ctx.fill();
-
         this.peel();
-
       }
-
       if (this.state === "peeled" || this.state === "beheaded") {
-
         onTop("chefKnife");
-
         this.knife.isSelected = true;
         this.knife.isChopping = true;
-
         this.ctx.fillStyle = "rgb(0,0,0,0.81)";
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
-
         var coef = 0.65;
-
         var x = canvas.width / 2;
         var y = canvas.height / 2;
-
         this.ctx.save();
         this.ctx.translate(x, y);
-
         this.ctx.rotate((Math.PI / 180) * this.angle);
-
         var xOffset = -(548 * coef) / 2;
         var yOffset = -(600 * coef) / 2;
-
         this.state === "peeled" ?
           onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png" :
           onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
-
-
         this.ctx.drawImage(onionPeeledSprite, xOffset, yOffset, 548 * coef, 600 * coef);
-
         this.ctx.setLineDash([4, 4]);
         this.ctx.strokeStyle = "red";
-
         if (this.state === "peeled") {
           this.ctx.beginPath();
           this.ctx.moveTo(-180, -80);
@@ -115,81 +90,12 @@ class Onion extends Tool {
           this.ctx.closePath();
         }
 
-        if (this.state === "beheaded") {
-
-          let tempCanvas = document.createElement("canvas");
-          let tempContext = tempCanvas.getContext("2d");
-          tempCanvas.width = 1200;
-          tempCanvas.height = 400;
-
-
-          tempContext.beginPath();
-
-          tempContext.moveTo(96, 120);
-          tempContext.lineTo(256, 120);
-          
-          tempContext.arc(-xOffset, -yOffset, 110, 7 * Math.PI / 4, Math.PI / 3, false);
-          tempContext.arc(-xOffset, -yOffset, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
-
-
-          tempContext.closePath();
-
-
-          tempContext.fill();
-
-
-          tempContext.globalCompositeOperation = "source-in";
-
-
-          tempContext.drawImage(onionPeeledSprite, 0, 0, 548 * coef, 600 * coef);
-
-          this.ctx.drawImage(tempCanvas, xOffset, yOffset, 1200, 400);
-
-          
-
-          this.ctx.beginPath();
-          this.ctx.moveTo(-78, -80);
-          this.ctx.lineTo(80, -80);
-
-          this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
-          this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
-
-          this.ctx.closePath();
-          this.ctx.stroke();
-
-
-
-
-          // this.ctx.beginPath();
-          // this.ctx.moveTo(-60, -56);
-          // this.ctx.lineTo(60, -56);
-          // this.ctx.stroke();
-          // this.ctx.closePath();
-
-          // this.ctx.beginPath();
-          // this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
-          // this.ctx.stroke();
-          //
-          // this.ctx.beginPath();
-          // this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
-          // this.ctx.stroke();
-
-          // this.ctx.beginPath();
-          // this.ctx.arc(0, 0, 80, 7 * Math.PI / 4, Math.PI / 3, false);
-          // this.ctx.stroke();
-          //
-          // this.ctx.beginPath();
-          // this.ctx.arc(0, 0, 80, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
-          // this.ctx.stroke();
-        }
-
-        this.ctx.restore();
         this.beheading();
+        this.sliceOnion();
+        this.ctx.restore();
       }
-
       if (this.state === "beheaded") {
         onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
-
       }
     }
   }
@@ -225,7 +131,36 @@ class Onion extends Tool {
       this.state = "beheaded";
     }
   }
+  sliceOnion() {
+    if (this.slice === 0 && this.state === "beheaded") {
+      this.ctx.beginPath();
+      this.ctx.moveTo(-78, -80);
+      this.ctx.lineTo(80, -80);
 
+      this.ctx.arc(0, 0, 110, 7 * Math.PI / 4, Math.PI / 3, false);
+      this.ctx.arc(0, 0, 110, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+
+      this.ctx.closePath();
+      this.ctx.stroke();
+
+      if (this.knife.x > 499 && this.knife.x < 501) this.slice = 1;
+    }
+
+    if (this.slice === 1) {
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.strokeStyle = "blue";
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(-48, -50);
+      this.ctx.lineTo(50, -50);
+
+      this.ctx.arc(0, 0, 70, 7 * Math.PI / 4, Math.PI / 3, false);
+      this.ctx.arc(0, 0, 70, 2 * Math.PI / 3, 5 * Math.PI / 4, false);
+
+      this.ctx.closePath();
+      this.ctx.stroke();
+    }
+  }
 }
 
 function onTop(tool) {
