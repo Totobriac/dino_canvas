@@ -32,12 +32,12 @@ class ChefKnife extends Tool {
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 3 / 4;
     }
-    else if (this.isChopping === true && this.onion.state != "beheaded") {
+    else if (this.isChopping === true && (this.onion.state != "beheaded" || this.onion.canChop === true)) {
       this.sprite = chefKnifeSpineSprite;
       this.width = 22;
       this.height = 440;
       this.x = mouse.x - this.width;
-      this.y = mouse.y - this.height * 2 / 3;
+      this.y = mouse.y - this.height * 1 / 2;
     }
     else if (this.onion.state === "beheaded") {
       this.sprite = chefKnifeUpSprite;

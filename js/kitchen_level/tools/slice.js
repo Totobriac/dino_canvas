@@ -7,7 +7,7 @@ import {
 
 
 function drawSlice(ctx) {
-  if (onion.state === "beheaded" && (onion.canSlice1 === true || onion.canSlice2 === true)) {
+  if (onion.state === "beheaded" && (onion.canSlice1 === true || onion.canSlice2 === true) && onion.canChop === false) {
 
     var coef = 0.65;
 
