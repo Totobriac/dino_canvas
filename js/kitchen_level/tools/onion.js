@@ -32,11 +32,12 @@ class Onion extends Tool {
     this.slice = 0;
     this.canSlice1 = false;
     this.canSlice2 = false;
+    this.isChopping = false;
   }
   draw() {
 
     super.draw();
-
+    
     if (this.inPlace) {
       if (this.state === "intact") {
         this.ctx.setLineDash([4, 4]);
@@ -123,6 +124,7 @@ class Onion extends Tool {
   halfOnion() {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
+      this.isChopping = true;
     }
   }
   spinOnion(angle) {

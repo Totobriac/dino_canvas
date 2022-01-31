@@ -65,11 +65,12 @@ class ButterKnife extends Tool {
     this.direction === 1.2 ? this.direction = -1.2 : this.direction = 1.2;
   }
   checkCut() {
+    console.log(this.move);
     if (this.move > 30 && this.move < 50 ) {
-      this.niceCut = true;
-      this.x = 40;
-      this.y = 255;
+      this.niceCut = true;      
       this.butter.isCut = true;
+      this.x = 340;
+      this.y = 255;     
     }
     else {
       this.niceCut = false;

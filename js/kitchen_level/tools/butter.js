@@ -38,9 +38,6 @@ class Butter extends Tool {
     }
   }
   melt() {
-    this.ctx.fillStyle = "rgb(248,232,183)";
-    this.ctx.fillRect(this.pan.x + this.pan.width / 2 + this.xOffset, this.pan.y + this.pan.height / 3 + this.yOffset, this.pieceWidth, this.pieceHeight);
-
 
     if (burners[2].isOn === true && this.pan.inPlace === true && this.pieceWidth > 0) {
       this.xOffset += 0.1;
@@ -74,6 +71,10 @@ class Butter extends Tool {
       this.pan.y + this.pan.height / 3 + this.yOffset + this.pieceHeight / 3,
       this.radius * 0.5, 0, 2 * Math.PI);
     this.ctx.fill();
+
+    this.ctx.fillStyle = "rgb(248,232,183)";
+    this.ctx.fillRect(this.pan.x + this.pan.width / 2 + this.xOffset, this.pan.y + this.pan.height / 3 + this.yOffset, this.pieceWidth, this.pieceHeight);
+
   }
 
 }

@@ -130,9 +130,10 @@ function drawTools(ctx, game) {
     tools[i].draw();
     tools[i].isClose();
   }
-
-  if (butterPlate.isCut === true) butterPlate.melt();
-  if (butterKnife.inPlace === false) drawFaucet(ctx);
+  
+  if (butterPlate.isCut === true && onion.isChopping === false) butterPlate.melt();
+  
+  if (butterKnife.inPlace === false || onion.isChopping === false) drawFaucet(ctx);
 
 }
 
