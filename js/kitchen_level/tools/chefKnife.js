@@ -22,7 +22,6 @@ class ChefKnife extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion);
     this.onion = onion;
     this.isChopping = false;
-    this.putAside = false;
   }
   draw() {
 
@@ -33,14 +32,14 @@ class ChefKnife extends Tool {
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 3 / 4;
     }
-    else if (this.isSelected === true && this.isChopping === true && this.onion.state != "beheaded") {
+    else if (this.isChopping === true && this.onion.state != "beheaded") {
       this.sprite = chefKnifeSpineSprite;
       this.width = 22;
       this.height = 440;
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 2 / 3;
     }
-    else if (this.onion.state === "beheaded") {    
+    else if (this.onion.state === "beheaded") {
       this.sprite = chefKnifeUpSprite;
       this.width = 72;
       this.height = 440;

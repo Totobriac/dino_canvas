@@ -52,7 +52,6 @@ function setControls() {
 }
 
 function onMouseDown(e) {
-
   mouse = getCursorPosition(e);
 
   checkFaucet(e);
@@ -102,7 +101,7 @@ function onMouseUp(e) {
   }
   mouse.upX = e.offsetX;
   mouse.upY = e.offsetY;
-  
+
 }
 
 

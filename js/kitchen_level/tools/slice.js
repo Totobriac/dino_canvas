@@ -7,7 +7,7 @@ import {
 
 
 function drawSlice(ctx) {
-  if (onion.state === "beheaded") {
+  if (onion.state === "beheaded" && (onion.canSlice1 === true || onion.canSlice2 === true)) {
 
     var coef = 0.65;
 
@@ -27,7 +27,7 @@ function drawSlice(ctx) {
     tempCanvas.width = 1200;
     tempCanvas.height = 400;
 
-    if (onion.slice === 0) {
+    if (onion.slice === 0 && onion.canSlice1 === true) {
 
       tempContext.beginPath();
 
@@ -48,7 +48,8 @@ function drawSlice(ctx) {
       ctx.drawImage(tempCanvas, xOffset, yOffset, 1200, 400);
 
       ctx.restore();
-    } else if (onion.slice === 1) {
+
+    } else if (onion.slice === 1 && onion.canSlice2 === true) {
 
       tempContext.beginPath();
 

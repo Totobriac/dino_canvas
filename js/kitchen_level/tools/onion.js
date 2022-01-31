@@ -9,6 +9,7 @@ import {
 import {
   mouse
 } from "../control.js";
+
 import {
   tools
 } from "../tools.js";
@@ -29,6 +30,8 @@ class Onion extends Tool {
     this.state = "intact";
     this.angle = 0;
     this.slice = 0;
+    this.canSlice1 = false;
+    this.canSlice2 = false;
   }
   draw() {
 
@@ -143,7 +146,11 @@ class Onion extends Tool {
       this.ctx.closePath();
       this.ctx.stroke();
 
-      if (this.knife.x > 499 && this.knife.x < 501) this.slice = 1;
+      if (mouse.x > 750) this.canSlice1 = true;
+      if (this.knife.x > 499 && this.knife.x < 501) {
+        this.slice = 1;
+        this.canSlice1 = false;
+      }
     }
 
     if (this.slice === 1) {
@@ -159,6 +166,8 @@ class Onion extends Tool {
 
       this.ctx.closePath();
       this.ctx.stroke();
+
+      if (mouse.x > 750) this.canSlice2 = true;
     }
   }
 }
