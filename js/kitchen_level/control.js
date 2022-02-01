@@ -66,7 +66,6 @@ function onMouseDown(e) {
       x: chefKnife.x + chefKnife.width / 2,
       y:  chefKnife.y,
       width: undefined,
-      height: undefined,
     })
   }
 
@@ -74,10 +73,7 @@ function onMouseDown(e) {
     var x = chefKnife.x + chefKnife.width / 2;
     var startX;
     onion.angle === 90 ? startX = 678 - x : startX = x - 463;
-    onion.slices.forEach((slice, i) => {
-      slice.height = startX
-    });
-    console.log(onion.slices);
+    onion.pieceWidth = 180 + startX / 0.65;
   }
 
   for (let i = 0; i < tools.length; i++) {

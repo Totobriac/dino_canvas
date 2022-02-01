@@ -39,6 +39,7 @@ class Onion extends Tool {
     this.slices = [];
     this.canSlice = false;
     this.canMince = false;
+    this.pieceWidth = 0;
   }
   draw() {
 
@@ -70,6 +71,8 @@ class Onion extends Tool {
         this.ctx.fill();
         this.peel();
       }
+      if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
+
       if (this.state === "peeled" || this.state === "beheaded") {
         onTop("chefKnife");
         this.knife.isSelected = true;
@@ -82,12 +85,16 @@ class Onion extends Tool {
         this.ctx.save();
         this.ctx.translate(x, y);
         this.ctx.rotate((Math.PI / 180) * this.angle);
+
         var xOffset = -(548 * this.coef) / 2 - 3;
-        var yOffset = -(600 * this.coef) / 2;
-        this.state === "peeled" ?
-          onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png" :
-          onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
-        this.ctx.drawImage(onionPeeledSprite, xOffset, yOffset, 548 * this.coef, 600 * this.coef);
+
+        var yOffset = -((600 * this.coef) / 2) + this.pieceWidth * this.coef;
+
+
+        console.log(this.pieceWidth, yOffset);
+
+        this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
+
         this.ctx.setLineDash([4, 4]);
         this.ctx.strokeStyle = "red";
         if (this.state === "peeled") {
@@ -98,14 +105,9 @@ class Onion extends Tool {
           this.ctx.closePath();
         }
 
-        this.beheading();
         if (this.canChop === false) this.sliceOnion();
         this.ctx.restore();
       }
-      if (this.state === "beheaded") {
-        onionPeeledSprite.src = "../assets/kitchen_level/onion_beheaded.png";
-      }
-
       if (this.canChop === true) {
         this.chop();
       }
@@ -146,6 +148,7 @@ class Onion extends Tool {
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||
       (this.angle === 270 && mouse.upX > 529 && mouse.upX < 534)) {
       this.state = "beheaded";
+      this.pieceWidth = 180;
     }
   }
   sliceOnion() {
