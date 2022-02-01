@@ -60,14 +60,26 @@ function onMouseDown(e) {
   getSelectedTool(e);
 
   onion.donePeeling(mouse);
-console.log(chefKnife.x + chefKnife.width / 2);
+
   if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
     onion.slices.push({
       x: chefKnife.x + chefKnife.width / 2,
-      y: undefined,
+      y:  chefKnife.y,
       width: undefined,
+      height: undefined,
     })
   }
+
+  if ((onion.angle === 90 || onion.angle === 270) && onion.canMince === true) {
+    var x = chefKnife.x + chefKnife.width / 2;
+    var startX;
+    onion.angle === 90 ? startX = 678 - x : startX = x - 463;
+    onion.slices.forEach((slice, i) => {
+      slice.height = startX
+    });
+    console.log(onion.slices);
+  }
+
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {
       tools[i].offset = {

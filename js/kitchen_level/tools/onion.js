@@ -212,6 +212,7 @@ class Onion extends Tool {
     this.ctx.strokeStyle = "green";
     this.ctx.lineWidth = 1;
     this.ctx.setLineDash([]);
+
     this.slices.forEach((slice, i) => {
       this.ctx.beginPath();
       this.ctx.moveTo(-(slice.x - x), -(slice.y - y));
@@ -255,7 +256,6 @@ class Onion extends Tool {
       for (let i = 0; i < this.slices.length - 1; i++) {
         this.slices[i].width = this.slices[i + 1].x - this.slices[i].x;
       }
-      console.log(this.slices)
     };
   }
 }
