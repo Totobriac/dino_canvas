@@ -36,6 +36,9 @@ class Onion extends Tool {
     this.canSlice2 = false;
     this.canChop = false;
     this.coef = 0.65;
+    this.slices = [];
+    this.canSlice = false;
+    this.canMince = false;
   }
   draw() {
 
@@ -79,7 +82,7 @@ class Onion extends Tool {
         this.ctx.save();
         this.ctx.translate(x, y);
         this.ctx.rotate((Math.PI / 180) * this.angle);
-        var xOffset = -(548 * this.coef) / 2;
+        var xOffset = -(548 * this.coef) / 2 - 3;
         var yOffset = -(600 * this.coef) / 2;
         this.state === "peeled" ?
           onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png" :
@@ -105,6 +108,10 @@ class Onion extends Tool {
 
       if (this.canChop === true) {
         this.chop();
+      }
+
+      if (this.canMince === true) {
+        this.mince();
       }
     }
   }
@@ -189,22 +196,70 @@ class Onion extends Tool {
     this.ctx.translate(x, y);
     this.ctx.rotate((Math.PI / 180) * this.angle);
 
-    this.ctx.beginPath();
+    if (this.canMince === false) {
+      this.ctx.beginPath();
 
-    this.ctx.arc(4, 0, 125, 2 * Math.PI, Math.PI, false);
+      this.ctx.arc(0, 0, 125, 2 * Math.PI, Math.PI, false);
 
-    this.ctx.lineWidth = 15;
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.lineWidth = 15;
 
-    this.ctx.stroke();
+      this.ctx.stroke();
 
-    this.ctx.closePath();
+      this.ctx.closePath();
+    }
+
+    this.ctx.strokeStyle = "green";
+    this.ctx.lineWidth = 1;
+    this.ctx.setLineDash([]);
+    this.slices.forEach((slice, i) => {
+      this.ctx.beginPath();
+      this.ctx.moveTo(-(slice.x - x), -(slice.y - y));
+      this.ctx.lineTo(-(slice.x - x), -80);
+      this.ctx.stroke();
+    });
 
     this.ctx.restore();
+
     if (this.angle === 180) {
 
+      var distance = Math.sqrt((x - (this.knife.x + this.knife.width / 2)) * (x - (this.knife.x + this.knife.width / 2)) +
+        (y - this.knife.y) * (y - this.knife.y)
+      )
+      if (distance > 120 && this.knife.y < 200) {
+        this.canSlice = false;
+      } else {
+        this.canSlice = true;
+      }
+    };
+
+    if (this.slices.length === 10) {
+      this.canMince = true;
+      this.slices.sort(function(a, b) {
+        return a.x - b.x;
+      });
+      this.slices.push({
+        x: 735,
+        y: undefined,
+        width: undefined
+      });
+      this.slices.unshift({
+        x: 465,
+        y: undefined,
+        width: undefined
+      });
+    }
+  }
+  mince() {
+    if (this.angle === 90 || this.angle === 270) {
+      for (let i = 0; i < this.slices.length - 1; i++) {
+        this.slices[i].width = this.slices[i + 1].x - this.slices[i].x;
+      }
+      console.log(this.slices)
     };
   }
 }
+
 
 function onTop(tool) {
   for (let i = 0; i < tools.length; i++) {

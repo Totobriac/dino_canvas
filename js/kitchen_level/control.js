@@ -12,6 +12,7 @@ import {
   onion,
   tools,
   sink,
+  chefKnife,
 } from "./tools.js";
 
 
@@ -30,7 +31,7 @@ function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", onMouseUp);
-  window.addEventListener('keydown', function (e) {
+  window.addEventListener('keydown', function(e) {
     switch (e.code) {
       case "ArrowUp":
         onion.spinOnion(0);
@@ -59,7 +60,14 @@ function onMouseDown(e) {
   getSelectedTool(e);
 
   onion.donePeeling(mouse);
-
+console.log(chefKnife.x + chefKnife.width / 2);
+  if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
+    onion.slices.push({
+      x: chefKnife.x + chefKnife.width / 2,
+      y: undefined,
+      width: undefined,
+    })
+  }
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {
       tools[i].offset = {
