@@ -31,7 +31,7 @@ function setControls() {
   canvas.addEventListener("mousedown", onMouseDown);
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", onMouseUp);
-  window.addEventListener('keydown', function(e) {
+  window.addEventListener('keydown', function (e) {
     switch (e.code) {
       case "ArrowUp":
         onion.spinOnion(0);
@@ -64,16 +64,17 @@ function onMouseDown(e) {
   if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
     onion.slices.push({
       x: chefKnife.x + chefKnife.width / 2,
-      y:  chefKnife.y,
+      y: chefKnife.y,
       width: undefined,
     })
   }
 
-  if ((onion.angle === 90 || onion.angle === 270) && onion.canMince === true) {
+  if (onion.angle === 90 && onion.canMince === true) {
     var x = chefKnife.x + chefKnife.width / 2;
-    var startX;
-    onion.angle === 90 ? startX = 678 - x : startX = x - 463;
-    onion.pieceWidth = 180 + startX / 0.65;
+    var startX = 678 - x;
+    if (180 + startX / 0.65 > onion.pieceWidth) {
+      onion.pieceWidth = 180 + startX / 0.65;
+    }
   }
 
   for (let i = 0; i < tools.length; i++) {
@@ -116,7 +117,6 @@ function onMouseUp(e) {
   mouse.upY = e.offsetY;
 
 }
-
 
 export {
   setControls,
