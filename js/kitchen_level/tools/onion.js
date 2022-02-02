@@ -40,6 +40,7 @@ class Onion extends Tool {
     this.canSlice = false;
     this.canMince = false;
     this.pieceWidth = 0;
+    this.dif = -80;
   }
   draw() {
 
@@ -89,9 +90,6 @@ class Onion extends Tool {
         var xOffset = -(548 * this.coef) / 2 - 3;
 
         var yOffset = -((600 * this.coef) / 2) + this.pieceWidth * this.coef;
-
-
-        console.log(this.pieceWidth, yOffset);
 
         this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
 
@@ -216,11 +214,14 @@ class Onion extends Tool {
     this.ctx.lineWidth = 1;
     this.ctx.setLineDash([]);
 
+    
     this.slices.forEach((slice, i) => {
-      this.ctx.beginPath();
-      this.ctx.moveTo(-(slice.x - x), -(slice.y - y));
-      this.ctx.lineTo(-(slice.x - x), -80);
-      this.ctx.stroke();
+      if(-(slice.y - y) > onion.dif) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(-(slice.x - x), -(slice.y - y));
+        this.ctx.lineTo(-(slice.x - x), onion.dif);
+        this.ctx.stroke();
+      }        
     });
 
     this.ctx.restore();

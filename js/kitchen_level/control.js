@@ -68,12 +68,12 @@ function onMouseDown(e) {
       width: undefined,
     })
   }
-
   if (onion.angle === 90 && onion.canMince === true) {
     var x = chefKnife.x + chefKnife.width / 2;
     var startX = 678 - x;
     if (180 + startX / 0.65 > onion.pieceWidth) {
       onion.pieceWidth = 180 + startX / 0.65;
+      onion.dif = 612 - mouse.x;
     }
   }
 
