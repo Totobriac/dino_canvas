@@ -71,7 +71,10 @@ function onMouseDown(e) {
   if (onion.angle === 90 && onion.canMince === true) {
     var x = chefKnife.x + chefKnife.width / 2;
     var startX = 678 - x;
+    var oldWidth = onion.pieceWidth;
     if (180 + startX / 0.65 > onion.pieceWidth) {
+      var newW = 180 + startX / 0.65 - oldWidth;
+      onion.piecesWidth.push(newW)
       onion.pieceWidth = 180 + startX / 0.65;
       onion.dif = 612 - mouse.x;
     }

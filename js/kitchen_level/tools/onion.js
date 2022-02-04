@@ -41,6 +41,7 @@ class Onion extends Tool {
     this.canMince = false;
     this.pieceWidth = 0;
     this.dif = -80;
+    this.piecesWidth = [];
   }
   draw() {
 
@@ -214,14 +215,14 @@ class Onion extends Tool {
     this.ctx.lineWidth = 1;
     this.ctx.setLineDash([]);
 
-    
+
     this.slices.forEach((slice, i) => {
-      if(-(slice.y - y) > onion.dif) {
+      if (-(slice.y - y) > onion.dif) {
         this.ctx.beginPath();
         this.ctx.moveTo(-(slice.x - x), -(slice.y - y));
         this.ctx.lineTo(-(slice.x - x), onion.dif);
         this.ctx.stroke();
-      }        
+      }
     });
 
     this.ctx.restore();
@@ -256,10 +257,30 @@ class Onion extends Tool {
     }
   }
   mince() {
-    if (this.angle === 90 || this.angle === 270) {
+    if (this.angle === 90) {
       for (let i = 0; i < this.slices.length - 1; i++) {
         this.slices[i].width = this.slices[i + 1].x - this.slices[i].x;
       }
+
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+
+      this.ctx.save();
+      this.ctx.translate(x, y);
+      this.ctx.rotate((Math.PI / 180) * 90);
+
+      var xOffset = -(548 * this.coef) / 2 - 3;
+
+      for (let i = this.piecesWidth.length;  i > 0  ; i --) {
+        var Yoffset = -(600 * this.coef) / 2 - (i * 10);
+
+        this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth - this.piecesWidth[i], 548, this.piecesWidth[i], xOffset, Yoffset, 548 * this.coef, this.piecesWidth[i] * this.coef);
+
+      }
+
+
+      this.ctx.restore();
+      console.log(this.piecesWidth, this.pieceWidth);
     };
   }
 }
