@@ -271,20 +271,30 @@ class Onion extends Tool {
 
       var xOffset = -(548 * this.coef) / 2 - 3;
 
-      var Yoffset = -(600 * this.coef) / 2 - 10 + 180 * 0.65;
+      var Yoffset = -(600 * this.coef) / 2 - 10 + (this.pieceWidth - 30 )* 0.65;
 
-      // this.ctx.drawImage(onionPeeledSprite, 0, 0 , 548, this.pieceWidth, xOffset, Yoffset, 548 * this.coef, this.pieceWidth* this.coef);
+      // this.ctx.drawImage(
+      //   onionPeeledSprite,
+      //   0,
+      //   180,
+      //   548,
+      //   this.pieceWidth -180,
+      //   xOffset,
+      //   Yoffset,
+      //   548 * this.coef,
+      //   (this.pieceWidth - 180) * this.coef
+      // );
 
       this.ctx.drawImage(
         onionPeeledSprite,
         0,
-        180,
+        this.pieceWidth - 30,
         548,
-        this.pieceWidth -180,
+        30,
         xOffset,
         Yoffset,
         548 * this.coef,
-        (this.pieceWidth - 180) * this.coef
+        30 * this.coef
       );
 
       this.ctx.restore();
