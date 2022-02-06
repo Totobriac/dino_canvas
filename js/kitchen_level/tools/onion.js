@@ -42,7 +42,7 @@ class Onion extends Tool {
     this.pieceWidth = 0;
     this.dif = -80;
     this.piecesWidth = [];
-    this.angles = [];
+    this.piecesAXY = [];
   }
   draw() {
 
@@ -272,8 +272,16 @@ class Onion extends Tool {
 
       for (let i = 0; i < this.piecesWidth.length; i++) {
 
-        if (this.angles.length === i ) {          
-          this.angles.push(Array.from({length: 11}, () => -20 + Math.floor(Math.random() * 40)));
+        function setPiece () {
+          return {
+            angle : -20 + Math.floor(Math.random() * 40) ,
+            x: -8 + Math.floor(Math.random() * 16) ,
+            y: -8 + Math.floor(Math.random() * 16),
+          }
+        }
+
+        if (this.piecesAXY.length === i ) {
+          this.piecesAXY.push(Array.from({length: 11}, () => setPiece() ));
         }
 
         var Yoffset = -(600 * this.coef) / 2 - 10 + (this.piecesWidth[i].pW - this.piecesWidth[i].w) * 0.65;
@@ -284,7 +292,7 @@ class Onion extends Tool {
 
           this.ctx.save();
           this.ctx.translate(Xoffset, Yoffset);
-          this.ctx.rotate(this.angles[i][j] * Math.PI / 180);
+          this.ctx.rotate(this.piecesAXY[i][j].angle * Math.PI / 180);
 
           this.ctx.drawImage(
             onionPeeledSprite,
@@ -292,8 +300,8 @@ class Onion extends Tool {
             this.piecesWidth[i].pW - this.piecesWidth[i].w,
             54,
             this.piecesWidth[i].w,
-            Xoffset,
-            Yoffset,
+            this.piecesAXY[i][j].x,
+            this.piecesAXY[i][j].y,
             54 * this.coef,
             this.piecesWidth[i].w * this.coef
           );
