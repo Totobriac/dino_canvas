@@ -78,6 +78,9 @@ function onMouseDown(e) {
       onion.piecesWidth.push({w: newW, pW:onion.pieceWidth})
       onion.dif = 612 - mouse.x;
     }
+    if (startX > 200 && onion.piecesWidth.length > 9) {
+      onion.done();
+    }
   }
 
   for (let i = 0; i < tools.length; i++) {

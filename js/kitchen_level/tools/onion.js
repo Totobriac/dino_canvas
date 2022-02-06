@@ -314,6 +314,16 @@ class Onion extends Tool {
       this.ctx.restore();
     };
   }
+  done() {
+    this.state = "done";
+    this.canMince = false;
+    this.canChop = false;
+    this.knife.isChopping = false;
+    tools.forEach((tool, i) => {
+      tool.isSelected = false;
+    });
+
+  }
 }
 
 
