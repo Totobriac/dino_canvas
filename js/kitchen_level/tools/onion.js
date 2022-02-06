@@ -42,6 +42,7 @@ class Onion extends Tool {
     this.pieceWidth = 0;
     this.dif = -80;
     this.piecesWidth = [];
+    this.angles = [];
   }
   draw() {
 
@@ -241,7 +242,7 @@ class Onion extends Tool {
 
     if (this.slices.length === 10) {
       this.canMince = true;
-      this.slices.sort(function(a, b) {
+      this.slices.sort(function (a, b) {
         return a.x - b.x;
       });
       this.slices.push({
@@ -269,23 +270,37 @@ class Onion extends Tool {
       this.ctx.translate(x, y);
       this.ctx.rotate((Math.PI / 180) * 90);
 
-      var xOffset = -(548 * this.coef) / 2 - 3;
+      for (let i = 0; i < this.piecesWidth.length; i++) {
 
-      for (let i = 0; i < this.piecesWidth.length; i ++ ) {
+        if (this.angles.length === i ) {          
+          this.angles.push(Array.from({length: 11}, () => -20 + Math.floor(Math.random() * 40)));
+        }
 
-        var Yoffset = -(600 * this.coef) / 2 - 10 + (this.piecesWidth[i].pW - this.piecesWidth[i].w )* 0.65;
-        console.log(i, Yoffset);
-        this.ctx.drawImage(
-          onionPeeledSprite,
-          0,
-          this.piecesWidth[i].pW - this.piecesWidth[i].w,
-          548,
-          this.piecesWidth[i].w,
-          xOffset,
-          Yoffset,
-          548 * this.coef,
-          this.piecesWidth[i].w * this.coef
-        );
+        var Yoffset = -(600 * this.coef) / 2 - 10 + (this.piecesWidth[i].pW - this.piecesWidth[i].w) * 0.65;
+
+        for (let j = 0; j < 11; j++) {
+
+          var Xoffset = -(548 * this.coef) / 2 - 3 + j * 35;
+
+          this.ctx.save();
+          this.ctx.translate(Xoffset, Yoffset);
+          this.ctx.rotate(this.angles[i][j] * Math.PI / 180);
+
+          this.ctx.drawImage(
+            onionPeeledSprite,
+            j * 54,
+            this.piecesWidth[i].pW - this.piecesWidth[i].w,
+            54,
+            this.piecesWidth[i].w,
+            Xoffset,
+            Yoffset,
+            54 * this.coef,
+            this.piecesWidth[i].w * this.coef
+          );
+
+          this.ctx.restore();
+
+        }
       }
 
       this.ctx.restore();
