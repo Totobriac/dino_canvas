@@ -74,8 +74,8 @@ function onMouseDown(e) {
     var oldWidth = onion.pieceWidth;
     if (180 + startX / 0.65 > onion.pieceWidth) {
       var newW = 180 + startX / 0.65 - oldWidth;
-      onion.piecesWidth.push(newW)
       onion.pieceWidth = 180 + startX / 0.65;
+      onion.piecesWidth.push({w: newW, pW:onion.pieceWidth})
       onion.dif = 612 - mouse.x;
     }
   }

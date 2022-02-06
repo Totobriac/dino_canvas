@@ -271,31 +271,22 @@ class Onion extends Tool {
 
       var xOffset = -(548 * this.coef) / 2 - 3;
 
-      var Yoffset = -(600 * this.coef) / 2 - 10 + (this.pieceWidth - 30 )* 0.65;
+      for (let i = 0; i < this.piecesWidth.length; i ++ ) {
 
-      // this.ctx.drawImage(
-      //   onionPeeledSprite,
-      //   0,
-      //   180,
-      //   548,
-      //   this.pieceWidth -180,
-      //   xOffset,
-      //   Yoffset,
-      //   548 * this.coef,
-      //   (this.pieceWidth - 180) * this.coef
-      // );
-
-      this.ctx.drawImage(
-        onionPeeledSprite,
-        0,
-        this.pieceWidth - 30,
-        548,
-        30,
-        xOffset,
-        Yoffset,
-        548 * this.coef,
-        30 * this.coef
-      );
+        var Yoffset = -(600 * this.coef) / 2 - 10 + (this.piecesWidth[i].pW - this.piecesWidth[i].w )* 0.65;
+        console.log(i, Yoffset);
+        this.ctx.drawImage(
+          onionPeeledSprite,
+          0,
+          this.piecesWidth[i].pW - this.piecesWidth[i].w,
+          548,
+          this.piecesWidth[i].w,
+          xOffset,
+          Yoffset,
+          548 * this.coef,
+          this.piecesWidth[i].w * this.coef
+        );
+      }
 
       this.ctx.restore();
     };
