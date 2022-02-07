@@ -26,6 +26,9 @@ onionSprite.src = "../assets/kitchen_level/onion.png";
 var onionPeeledSprite = new Image();
 onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
 
+var onionChoppedSprite = new Image();
+onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
+
 class Onion extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -307,7 +310,6 @@ class Onion extends Tool {
           );
 
           this.ctx.restore();
-
         }
       }
 
@@ -322,7 +324,7 @@ class Onion extends Tool {
     tools.forEach((tool, i) => {
       tool.isSelected = false;
     });
-
+    this.sprite = onionChoppedSprite;
   }
 }
 

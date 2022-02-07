@@ -115,7 +115,7 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     })
-    
+
     sink = new Sink();
 
 
@@ -135,8 +135,8 @@ function drawTools(ctx, game) {
     tools[i].draw();
     tools[i].isClose();
   }
-  
-  if (butterPlate.isCut === true && onion.isChopping === false) butterPlate.melt();
+
+  if (butterPlate.isCut === true  && (onion.state === "intact" || onion.state === "done")) butterPlate.melt();
 
   sink.drawFaucet(ctx);
 
@@ -150,6 +150,6 @@ export {
   butterKnife,
   butterBig,
   onion,
-  chefKnife, 
+  chefKnife,
   sink,
 };

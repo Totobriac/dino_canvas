@@ -10,7 +10,6 @@ class ButterKnife extends Tool {
     this.butter = butter;
     this.move = 0;
     this.direction = 1.2;
-    this.niceCut = false;
   }
   checkButter() {
     this.perfX = this.butter.x + this.butter.width / 2;
@@ -68,14 +67,10 @@ class ButterKnife extends Tool {
   }
   checkCut() {
     if (this.move > 30 && this.move < 50 ) {
-      this.niceCut = true;      
       this.butter.isCut = true;
       this.x = 340;
-      this.y = 255;     
+      this.y = 255;
       sink.faucet = true;
-    }
-    else {
-      this.niceCut = false;
     }
   }
 }
