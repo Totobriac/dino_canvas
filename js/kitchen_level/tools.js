@@ -22,6 +22,9 @@ import {
   Sink
 } from "./tools/sink.js";
 
+import {
+  Pan
+} from "./tools/pan.js";
 
 var pot;
 var salt;
@@ -81,16 +84,18 @@ function drawTools(ctx, game) {
       y: 132,
       r: 60
     });
-    pan = new Tool("pan", panSprite, 350, 20, 200, 193, ctx, 837, 151, {
-      x: 964,
-      y: 225,
-      r: 60
-    });
+
     butterPlate = new Butter("butterPlate", butterPlateSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 0
-    }, pan);
+    });
+
+    pan = new Pan("pan", panSprite, 350, 20, 200, 193, ctx, 837, 151, {
+      x: 964,
+      y: 225,
+      r: 60
+    }, butterPlate);
 
     butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 340, 255, 14, 135, ctx, undefined, undefined, {
       x: 0,
@@ -136,7 +141,7 @@ function drawTools(ctx, game) {
     tools[i].isClose();
   }
 
-  if (butterPlate.isCut === true  && (onion.state === "intact" || onion.state === "done")) butterPlate.melt();
+  //if (butterPlate.isCut === true  && (onion.state === "intact" || onion.state === "done")) butterPlate.melt();
 
   sink.drawFaucet(ctx);
 
