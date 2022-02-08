@@ -66,71 +66,71 @@ class Onion extends Tool {
         this.halfOnion();
       }
     }
-      if (this.state === "halfed") {
-        onTop("onion");
-        var backPic = document.getElementById("back");
-        backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
-        this.ctx.fillStyle = "rgb(0,0,0,0.81)";
-        this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
-        this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
-        this.ctx.fillStyle = "green";
+    if (this.state === "halfed") {
+      onTop("onion");
+      var backPic = document.getElementById("back");
+      backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
+      this.ctx.fillStyle = "rgb(0,0,0,0.81)";
+      this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
+      this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
+      this.ctx.fillStyle = "green";
+      this.ctx.beginPath();
+      this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
+      this.ctx.fill();
+      this.peel();
+    }
+    if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
+
+    if (this.state === "peeled" || this.state === "beheaded") {
+      onTop("chefKnife");
+      this.knife.isSelected = true;
+      this.knife.isChopping = true;
+      this.ctx.fillStyle = "rgb(0,0,0,0.81)";
+      this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+      this.ctx.save();
+      this.ctx.translate(x, y);
+      this.ctx.rotate((Math.PI / 180) * this.angle);
+
+      var xOffset = -(548 * this.coef) / 2 - 3;
+
+      var yOffset = -((600 * this.coef) / 2) + this.pieceWidth * this.coef;
+
+      this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
+
+      this.ctx.setLineDash([4, 4]);
+      this.ctx.strokeStyle = "red";
+      if (this.state === "peeled") {
         this.ctx.beginPath();
-        this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
-        this.ctx.fill();
-        this.peel();
-      }
-      if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
-
-      if (this.state === "peeled" || this.state === "beheaded") {
-        onTop("chefKnife");
-        this.knife.isSelected = true;
-        this.knife.isChopping = true;
-        this.ctx.fillStyle = "rgb(0,0,0,0.81)";
-        this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
-        var x = canvas.width / 2;
-        var y = canvas.height / 2;
-        this.ctx.save();
-        this.ctx.translate(x, y);
-        this.ctx.rotate((Math.PI / 180) * this.angle);
-
-        var xOffset = -(548 * this.coef) / 2 - 3;
-
-        var yOffset = -((600 * this.coef) / 2) + this.pieceWidth * this.coef;
-
-        this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
-
-        this.ctx.setLineDash([4, 4]);
-        this.ctx.strokeStyle = "red";
-        if (this.state === "peeled") {
-          this.ctx.beginPath();
-          this.ctx.moveTo(-180, -80);
-          this.ctx.lineTo(180, -80);
-          this.ctx.stroke();
-          this.ctx.closePath();
-        }
-
-        if (this.canChop === false) this.sliceOnion();
-        this.ctx.restore();
-      }
-      if (this.canChop === true) {
-        this.chop();
+        this.ctx.moveTo(-180, -80);
+        this.ctx.lineTo(180, -80);
+        this.ctx.stroke();
+        this.ctx.closePath();
       }
 
-      if (this.canMince === true) {
-        this.mince();
-      }
+      if (this.canChop === false) this.sliceOnion();
+      this.ctx.restore();
+    }
+    if (this.canChop === true) {
+      this.chop();
+    }
+
+    if (this.canMince === true) {
+      this.mince();
+    }
     // }
     if (this.state === "done") {
       this.perfX = this.pan.x + this.pan.width / 2;
-      this.perfY = this.pan.y + this.pan.height/ 10;
+      this.perfY = this.pan.y + this.pan.height / 10;
       this.shadow = {
         x: this.perfX + 28,
         y: this.perfY + 28,
         r: 28
       }
-      if( this.inPlace === true ) {
+      if (this.inPlace === true) {
         this.pan.hasOnion = true;
         deleteTool("onion");
       }

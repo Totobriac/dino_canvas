@@ -137,17 +137,18 @@ function drawTools(ctx, game) {
       r: 20
     })
 
-    carrot = new Carrot("carrot", carrotSprite, 10, 330, 150, 80, ctx, 430, 275, {
-      x: 506,
-      y: 314,
-      r: 40
-    })
-
     grater = new Grater("grater", graterSprite, 200, 250, 160, 160, ctx, 430, 240, {
       x: 516,
       y: 314,
       r: 40
     })
+
+
+    carrot = new Carrot("carrot", carrotSprite, 10, 330, 150, 80, ctx, 430, 275, {
+      x: 506,
+      y: 314,
+      r: 40
+    }, grater)
 
     sink = new Sink();
 
