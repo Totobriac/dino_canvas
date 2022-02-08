@@ -30,6 +30,10 @@ import {
   Carrot
 } from "./tools/carrot.js";
 
+import {
+  Grater
+} from "./tools/grater.js";
+
 var pot;
 var salt;
 var pan;
@@ -40,6 +44,7 @@ var chefKnife;
 var onion;
 var sink;
 var carrot;
+var grater;
 
 var tools = [];
 
@@ -78,6 +83,9 @@ butterCutSprite.src = "../assets/kitchen_level/butter_sm_cut.png";
 
 var carrotSprite = new Image();
 carrotSprite.src = "../assets/kitchen_level/carrot.png";
+
+var graterSprite = new Image();
+graterSprite.src = "../assets/kitchen_level/grater.png";
 
 
 function drawTools(ctx, game) {
@@ -135,6 +143,12 @@ function drawTools(ctx, game) {
       r: 40
     })
 
+    grater = new Grater("grater", graterSprite, 200, 250, 160, 160, ctx, 430, 240, {
+      x: 516,
+      y: 314,
+      r: 40
+    })
+
     sink = new Sink();
 
 
@@ -146,6 +160,7 @@ function drawTools(ctx, game) {
     tools.push(chefKnife);
     tools.push(onion);
     tools.push(carrot);
+    tools.push(grater);
 
     game.kitchenLevelStarted = true;
   }
