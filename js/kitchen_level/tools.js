@@ -26,6 +26,10 @@ import {
   Pan
 } from "./tools/pan.js";
 
+import {
+  Carrot
+} from "./tools/carrot.js";
+
 var pot;
 var salt;
 var pan;
@@ -35,6 +39,7 @@ var butterKnife;
 var chefKnife;
 var onion;
 var sink;
+var carrot;
 
 var tools = [];
 
@@ -70,6 +75,9 @@ spineKnifeSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
 
 var butterCutSprite = new Image();
 butterCutSprite.src = "../assets/kitchen_level/butter_sm_cut.png";
+
+var carrotSprite = new Image();
+carrotSprite.src = "../assets/kitchen_level/carrot.png";
 
 
 function drawTools(ctx, game) {
@@ -121,6 +129,12 @@ function drawTools(ctx, game) {
       r: 20
     })
 
+    carrot = new Carrot("carrot", carrotSprite, 10, 330, 150, 80, ctx, 430, 275, {
+      x: 506,
+      y: 314,
+      r: 40
+    })
+
     sink = new Sink();
 
 
@@ -131,7 +145,7 @@ function drawTools(ctx, game) {
     tools.push(pan);
     tools.push(chefKnife);
     tools.push(onion);
-
+    tools.push(carrot);
 
     game.kitchenLevelStarted = true;
   }
