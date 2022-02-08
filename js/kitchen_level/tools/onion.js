@@ -14,6 +14,7 @@ import {
   tools,
   sink,
   onion,
+  deleteTool,
 } from "../tools.js";
 
 
@@ -30,7 +31,7 @@ var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
 
 class Onion extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.state = "intact";
     this.angle = 0;
@@ -46,6 +47,7 @@ class Onion extends Tool {
     this.dif = -80;
     this.piecesWidth = [];
     this.piecesAXY = [];
+    this.pan = pan;
   }
   draw() {
 
@@ -63,6 +65,7 @@ class Onion extends Tool {
         this.ctx.closePath();
         this.halfOnion();
       }
+    }
       if (this.state === "halfed") {
         onTop("onion");
         var backPic = document.getElementById("back");
@@ -117,6 +120,19 @@ class Onion extends Tool {
 
       if (this.canMince === true) {
         this.mince();
+      }
+    // }
+    if (this.state === "done") {
+      this.perfX = this.pan.x + this.pan.width / 2;
+      this.perfY = this.pan.y + this.pan.height/ 10;
+      this.shadow = {
+        x: this.perfX + 28,
+        y: this.perfY + 28,
+        r: 28
+      }
+      if( this.inPlace === true ) {
+        this.pan.hasOnion = true;
+        deleteTool("onion");
       }
     }
   }
@@ -245,7 +261,7 @@ class Onion extends Tool {
 
     if (this.slices.length === 10) {
       this.canMince = true;
-      this.slices.sort(function (a, b) {
+      this.slices.sort(function(a, b) {
         return a.x - b.x;
       });
       this.slices.push({
@@ -261,6 +277,8 @@ class Onion extends Tool {
     }
   }
   mince() {
+    this.perfX = undefined;
+    this.perfY = undefined;
     if (this.angle === 90) {
       for (let i = 0; i < this.slices.length - 1; i++) {
         this.slices[i].width = this.slices[i + 1].x - this.slices[i].x;
@@ -275,16 +293,18 @@ class Onion extends Tool {
 
       for (let i = 0; i < this.piecesWidth.length; i++) {
 
-        function setPiece () {
+        function setPiece() {
           return {
-            angle : -20 + Math.floor(Math.random() * 40) ,
-            x: -8 + Math.floor(Math.random() * 16) ,
+            angle: -20 + Math.floor(Math.random() * 40),
+            x: -8 + Math.floor(Math.random() * 16),
             y: -8 + Math.floor(Math.random() * 16),
           }
         }
 
-        if (this.piecesAXY.length === i ) {
-          this.piecesAXY.push(Array.from({length: 11}, () => setPiece() ));
+        if (this.piecesAXY.length === i) {
+          this.piecesAXY.push(Array.from({
+            length: 11
+          }, () => setPiece()));
         }
 
         var Yoffset = -(600 * this.coef) / 2 - 10 + (this.piecesWidth[i].pW - this.piecesWidth[i].w) * 0.65;
@@ -312,7 +332,6 @@ class Onion extends Tool {
           this.ctx.restore();
         }
       }
-
       this.ctx.restore();
     };
   }

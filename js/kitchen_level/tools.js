@@ -106,7 +106,7 @@ function drawTools(ctx, game) {
       x: 506,
       y: 304,
       r: 28
-    });
+    }, pan);
     chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400, 190, 200, 33, ctx, undefined, undefined, {
       x: 0,
       y: 0,
@@ -135,16 +135,18 @@ function drawTools(ctx, game) {
 
     game.kitchenLevelStarted = true;
   }
-
   for (let i = 0; i < tools.length; i++) {
     tools[i].draw();
     tools[i].isClose();
   }
 
-  //if (butterPlate.isCut === true  && (onion.state === "intact" || onion.state === "done")) butterPlate.melt();
-
   sink.drawFaucet(ctx);
 
+}
+
+function deleteTool(tool) {
+  var newTools = tools.filter(t => t.name != tool);
+  tools = newTools;
 }
 
 
@@ -157,4 +159,5 @@ export {
   onion,
   chefKnife,
   sink,
+  deleteTool,
 };

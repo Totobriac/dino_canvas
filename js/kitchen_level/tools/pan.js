@@ -1,6 +1,9 @@
 import { Tool } from  "./tool.js";
 import { burners } from "./stove.js";
 
+var onionChoppedSprite = new Image();
+onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
+
 class Pan extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -10,10 +13,12 @@ class Pan extends Tool {
     this.yOffset = 0;
     this.radius = 0;
     this.butter = butterPlate;
+    this.hasOnion = false;
   }
   draw () {
     super.draw();
     if (this.butter.isCut === true) this.buttMelt();
+    if (this.hasOnion === true) this.addOnion();
   }
   buttMelt() {
     if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
@@ -50,11 +55,10 @@ class Pan extends Tool {
     this.ctx.fill();
 
     this.ctx.fillStyle = "rgb(248,232,183)";
-    console.log(this.x + this.width / 2 ,this.y + this.height  /3  );
-    //this.ctx.fillRect(this.x + this.width / 2 + this.xOffset, this.y + this.height / 3 + this.yOffset, this.pieceWidth, this.pieceHeight);
     this.ctx.fillRect(this.x + this.width / 2 , this.y + this.height  /3, this.pieceWidth, this.pieceHeight);
-    //this.ctx.fillRect(450,85,25,25)
-
+  }
+  addOnion() {
+    this.ctx.drawImage(onionChoppedSprite, this.x + this.width / 2, this.y + this.height/ 10, 60, 60);
   }
 }
 

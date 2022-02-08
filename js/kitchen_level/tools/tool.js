@@ -19,7 +19,7 @@ class Tool {
     this.isSelected = false;
   }
   draw() {
-    if (this.isSelected === true ) this.drawShadow();
+    if (this.isSelected === true) this.drawShadow();
 
     if (this.isMoving === true) {
       this.ctx.shadowBlur = 10;
@@ -42,6 +42,8 @@ class Tool {
       this.x = this.perfX;
       this.y = this.perfY;
       this.inPlace = true;
+    } else if (distance === undefined) {
+      this.inPlace = false;
     } else {
       this.inPlace = false;
     }
