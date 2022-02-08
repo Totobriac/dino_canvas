@@ -20,6 +20,7 @@ class Carrot extends Tool {
     this.grater = grater;
     this.toBeGrated = false;
     this.oldX = 0;
+    this.cut = 0;
   }
   draw() {
 
@@ -43,22 +44,11 @@ class Carrot extends Tool {
         r: 40
       }
 
-      this.ctx.beginPath();
-      this.ctx.moveTo(410,0);
-      this.ctx.lineTo(410,400);
-      this.ctx.closePath();
-      this.ctx.stroke();
-
-      this.ctx.beginPath();
-      this.ctx.moveTo(490,0);
-      this.ctx.lineTo(490,400);
-      this.ctx.closePath();
-      this.ctx.stroke();
-
       if (this.isSelected === true) {
         if(mouse.x != this.oldX && (this.oldX < mouse.x || this.oldX > mouse.x) && (this.x > 385 && this.x < 465)) {
           this.oldX = mouse.x;
-          console.log("ok");
+          this.cut ++;
+          console.log(this.cut);
         }
       }
     }
