@@ -148,7 +148,7 @@ function drawTools(ctx, game) {
       x: 506,
       y: 314,
       r: 40
-    }, grater)
+    }, grater, pan)
 
     sink = new Sink();
 
