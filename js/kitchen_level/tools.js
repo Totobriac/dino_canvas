@@ -137,7 +137,7 @@ function drawTools(ctx, game) {
       r: 20
     })
 
-    grater = new Grater("grater", graterSprite, 200, 250, 160, 160, ctx, 430, 240, {
+    grater = new Grater("grater", graterSprite, 240, 250, 80, 160, ctx, 470, 240, {
       x: 516,
       y: 314,
       r: 40
