@@ -14,6 +14,9 @@ choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
 var graterUpSprite = new Image();
 graterUpSprite.src = "../assets/kitchen_level/grater_up.png";
 
+var carrotSprite = new Image();
+carrotSprite.src = "../assets/kitchen_level/carrot.png";
+
 class Carrot extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, grater) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -27,7 +30,7 @@ class Carrot extends Tool {
     if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
       this.grateMe();
     }
-    if (this.toBeGrated === true) {
+    else if (this.toBeGrated === true) {
 
       onTop("carrot");
       var backPic = document.getElementById("back");
@@ -36,32 +39,45 @@ class Carrot extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(graterUpSprite, 330, 10, 280, 380);
-      this.width = 432;
-      this.height = 230;
+      this.width = 524;
+      this.height = 110;
       this.shadow = {
         x: undefined,
         y: undefined,
         r: 40
       }
 
+      this.ctx.drawImage(
+        carrotSprite,
+        this.cut,
+        0,
+        this.width - this.cut,
+        this.height,       
+        this.x, 
+        this.y, 
+        this.width - this.cut, 
+        this.height);
+
       if (this.isSelected === true) {
-        if(mouse.x != this.oldX && (this.oldX < mouse.x || this.oldX > mouse.x) && (this.x > 385 && this.x < 465)) {
+        if(mouse.x != this.oldX && (this.oldX < mouse.x || this.oldX > mouse.x) 
+            && (this.x > 405 && this.x < 485) && (this.y > 60 && this.y < 230)) {
           this.oldX = mouse.x;
-          this.cut ++;
+          this.cut += 0.6;
           console.log(this.cut);
         }
       }
     }
-
-    super.draw();
+    else {
+      super.draw();
+    }
   }
   grateMe() {
     this.isSelected = false;
     this.toBeGrated = true;
     this.perfX = undefined;
     this.perfY = undefined;
-    this.y = 100;
-    this.x = 590;
+    this.y = 170;
+    this.x = 650;
   }
 }
 

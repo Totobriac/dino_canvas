@@ -144,7 +144,7 @@ function drawTools(ctx, game) {
     })
 
 
-    carrot = new Carrot("carrot", carrotSprite, 10, 330, 150, 80, ctx, 430, 275, {
+    carrot = new Carrot("carrot", carrotSprite, 10, 330, 105, 22, ctx, 450, 305, {
       x: 506,
       y: 314,
       r: 40
