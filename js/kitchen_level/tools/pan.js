@@ -4,6 +4,9 @@ import { burners } from "./stove.js";
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
 
+var gratedCarrotSprite = new Image();
+gratedCarrotSprite.src = "../assets/kitchen_level/grated_carrot.png";
+
 class Pan extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -14,11 +17,13 @@ class Pan extends Tool {
     this.radius = 0;
     this.butter = butterPlate;
     this.hasOnion = false;
+    this.hasCarrot = false;
   }
   draw () {
     super.draw();
     if (this.butter.isCut === true) this.buttMelt();
     if (this.hasOnion === true) this.addOnion();
+    if (this.hasCarrot === true) this.addCarrot();    
   }
   buttMelt() {
     if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
@@ -59,6 +64,9 @@ class Pan extends Tool {
   }
   addOnion() {
     this.ctx.drawImage(onionChoppedSprite, this.x + this.width / 2, this.y + this.height/ 10, 60, 60);
+  }
+  addCarrot() {
+    this.ctx.drawImage(gratedCarrotSprite, this.x + this.width / 3, this.y + this.height/ 4, 50, 50);
   }
 }
 
