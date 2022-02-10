@@ -34,6 +34,16 @@ import {
   Grater
 } from "./tools/grater.js";
 
+import {
+  Garlic
+} from "./tools/garlic.js";
+
+import {
+  GarlicPress
+} from "./tools/garlicPress.js";
+
+
+
 var pot;
 var salt;
 var pan;
@@ -45,6 +55,8 @@ var onion;
 var sink;
 var carrot;
 var grater;
+var garlic;
+var garlicPress;
 
 var tools = [];
 
@@ -86,6 +98,12 @@ carrotSprite.src = "../assets/kitchen_level/carrot.png";
 
 var graterSprite = new Image();
 graterSprite.src = "../assets/kitchen_level/grater.png";
+
+var garlicHeadSprite = new Image();
+garlicHeadSprite.src = "../assets/kitchen_level/garlic_head.png";
+
+var garlicPressSprite = new Image();
+garlicPressSprite.src = "../assets/kitchen_level/garlic_press.png";
 
 
 function drawTools(ctx, game) {
@@ -135,20 +153,31 @@ function drawTools(ctx, game) {
       x: 0,
       y: 0,
       r: 20
-    })
+    });
 
     grater = new Grater("grater", graterSprite, 240, 250, 80, 160, ctx, 470, 240, {
       x: 516,
       y: 314,
       r: 40
-    })
+    });
 
+    garlic = new Garlic("garlic", garlicHeadSprite, 105, 350, 40, 40, ctx, 495, 290, {
+      x: 516,
+      y: 314,
+      r: 20
+    });
+
+    garlicPress = new GarlicPress("garlicPress", garlicPressSprite, 850, 20, 100, 30, ctx, 475, 290, {
+      x: 516,
+      y: 314,
+      r: 30
+    });
 
     carrot = new Carrot("carrot", carrotSprite, 10, 330, 105, 22, ctx, 450, 305, {
       x: 506,
       y: 314,
       r: 40
-    }, grater, pan)
+    }, grater, pan);
 
     sink = new Sink();
 
@@ -162,6 +191,8 @@ function drawTools(ctx, game) {
     tools.push(onion);
     tools.push(carrot);
     tools.push(grater);
+    tools.push(garlic);
+    tools.push(garlicPress);
 
     game.kitchenLevelStarted = true;
   }

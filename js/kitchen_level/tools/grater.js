@@ -2,9 +2,6 @@ import {
   Tool
 } from "./tool.js";
 
-var choppingBoardSprite = new Image();
-choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
-
 
 class Grater extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
