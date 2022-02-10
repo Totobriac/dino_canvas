@@ -14,10 +14,16 @@ function drawBottomPress(ctx) {
     tempCanvas.width = 1200;
     tempCanvas.height = 400;
 
-    tempContext.drawImage(bottomSprite, 500, 200, 329, 281);
+    tempContext.save();
 
-    ctx.drawImage(tempCanvas,0,0);
+    tempContext.translate(500, 300);
+    tempContext.rotate(-40 * Math.PI / 180);
+    tempContext.drawImage(bottomSprite, 0, 0, 329, 281);
+
+    tempContext.restore();
+
+    ctx.drawImage(tempCanvas, 0, 0);
   }
 }
 
-export { drawBottomPress};
+export { drawBottomPress };

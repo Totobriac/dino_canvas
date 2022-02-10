@@ -25,7 +25,7 @@ class GarlicPress extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.garlic = garlic;
     this.pressIt = false;
-    this.angle = -30 ;
+    this.angle = -90;
   }
   draw() {
 
@@ -35,6 +35,10 @@ class GarlicPress extends Tool {
 
       onTop("garlic");
 
+      this.angle += 0.5
+
+      console.log(mouse);
+
       this.garlic.singleClove();
 
       this.garlic.isSelected = true;
@@ -43,19 +47,27 @@ class GarlicPress extends Tool {
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);   
-      
-      this.ctx.drawImage(bottomSprite, 500, 200, 329, 281);
+      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);  
 
       this.ctx.save();
 
-      this.ctx.translate(502, 190);
+      this.ctx.translate(500, 300);
+      this.ctx.rotate(-40 * Math.PI / 180);
+      this.ctx.drawImage(bottomSprite, 0, 0, 329, 281);
+
+      this.ctx.restore();
+      
+      this.ctx.save();      
+
+      this.ctx.translate(503, 283);
       this.ctx.rotate(this.angle * Math.PI / 180)
       this.x = -14;
-      this.y = -52;
+      this.y = -55;
       super.draw();
 
       this.ctx.restore();
+
+      this.ctx.fillRect(503, 283, 2,2)
     }
     else {
       super.draw();
