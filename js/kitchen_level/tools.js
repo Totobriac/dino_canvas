@@ -171,7 +171,7 @@ function drawTools(ctx, game) {
       x: 516,
       y: 314,
       r: 30
-    });
+    }, garlic);
 
     carrot = new Carrot("carrot", carrotSprite, 10, 330, 105, 22, ctx, 450, 305, {
       x: 506,
@@ -221,4 +221,5 @@ export {
   chefKnife,
   sink,
   deleteTool,
+  garlicPress,
 };

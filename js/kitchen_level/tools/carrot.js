@@ -61,7 +61,7 @@ class Carrot extends Tool {
         this.ctx.save();
         this.ctx.fillStyle = "hsl(" + peels[i].color + ", 100%, 50%)";
         this.ctx.translate(peels[i].x, peels[i].y);
-        this.ctx.rotate(peels[i].angle * Math.PI / 180)
+        this.ctx.rotate(peels[i].angle * Math.PI / 180);
         this.ctx.fillRect(0, 0, 12, 6);
         this.ctx.restore();
       }

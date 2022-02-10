@@ -15,6 +15,8 @@ import {
 
 import { drawSlice } from "./tools/slice.js";
 
+import { drawBottomPress } from "./tools/bottom_press.js";
+
 function setTop(game, ctx) {
 
   ctx.globalCompositeOperation = 'source-over';
@@ -31,6 +33,7 @@ function setTop(game, ctx) {
 
   drawSlice(ctx);
 
+  drawBottomPress(ctx);
 }
 export {
   setTop
