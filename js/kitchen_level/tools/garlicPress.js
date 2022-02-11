@@ -32,12 +32,14 @@ class GarlicPaste {
     this.ctx = ctx;
   }
   draw() {
-    this.y += 0.08;
-    this.x += -0.3 + Math.random() * 0.6;
     this.ctx.fillStyle = "hsl(" + this.color + ", 100%, 72%)";
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI, false);
     this.ctx.fill();
+  }
+  update() {
+    this.y += 0.08;
+    this.x += -0.3 + Math.random() * 0.6;
   }
 }
 
@@ -57,7 +59,15 @@ class GarlicPress extends Tool {
       // this.angle += 0.2;
       //
       // console.log(this.angle);
-      paste.push(new GarlicPaste(this.ctx))
+
+      if (mouse.y < 20) {
+        paste.push(new GarlicPaste(this.ctx))
+        paste.forEach((p, i) => {
+          p.update();
+        });
+
+      }
+
 
       onTop("garlic");
 
