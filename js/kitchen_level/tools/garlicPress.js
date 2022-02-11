@@ -22,6 +22,25 @@ topSprite.src = "../assets/kitchen_level/press_top.png";
 var bottomSprite = new Image();
 bottomSprite.src = "../assets/kitchen_level/press_bottom.png";
 
+var paste = [];
+
+class GarlicPaste {
+  constructor(ctx) {
+    this.x = 562 + Math.floor(Math.random() * 70);
+    this.y = 335;
+    this.color = 36 + Math.floor(Math.random() * 18);
+    this.ctx = ctx;
+  }
+  draw() {
+    this.y += 0.08;
+    this.x += -0.3 + Math.random() * 0.6;
+    this.ctx.fillStyle = "hsl(" + this.color + ", 100%, 72%)";
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI, false);
+    this.ctx.fill();
+  }
+}
+
 class GarlicPress extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, garlic) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -34,6 +53,11 @@ class GarlicPress extends Tool {
     if (this.inPlace && this.garlic.inPlace === true) this.pressMe();
 
     if (this.pressIt) {
+
+      // this.angle += 0.2;
+      //
+      // console.log(this.angle);
+      paste.push(new GarlicPaste(this.ctx))
 
       onTop("garlic");
 
@@ -67,7 +91,9 @@ class GarlicPress extends Tool {
 
       this.ctx.restore();
 
-      this.ctx.fillRect(503, 283, 2,2)
+      paste.forEach((p, i) => {
+        p.draw();
+      });
     }
     else {
       super.draw();
