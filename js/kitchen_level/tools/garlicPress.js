@@ -4,6 +4,8 @@ import {
 
 import {
   tools,
+  displayTool,
+  onTop,
 } from "../tools.js";
 
 import {
@@ -35,19 +37,17 @@ class GarlicPress extends Tool {
 
       onTop("garlic");
 
-      this.angle += 0.5
-
-      console.log(mouse);
+      displayTool(["garlic","garlicPress"])
 
       this.garlic.singleClove();
 
-      this.garlic.isSelected = true;
+      this.garlic.setBundaries();
 
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);  
+      this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
 
       this.ctx.save();
 
@@ -56,8 +56,8 @@ class GarlicPress extends Tool {
       this.ctx.drawImage(bottomSprite, 0, 0, 329, 281);
 
       this.ctx.restore();
-      
-      this.ctx.save();      
+
+      this.ctx.save();
 
       this.ctx.translate(503, 283);
       this.ctx.rotate(this.angle * Math.PI / 180)
@@ -86,19 +86,7 @@ class GarlicPress extends Tool {
       r: undefined
     }
   }
-
 }
-
-function onTop(tool) {
-  for (let i = 0; i < tools.length; i++) {
-    if (tools[i].name === tool) {
-      var tool = tools[i];
-      tools.splice(i, 1);
-      tools.push(tool);
-    }
-  }
-}
-
 
 export {
   GarlicPress

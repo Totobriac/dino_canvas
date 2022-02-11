@@ -15,6 +15,7 @@ import {
   sink,
   onion,
   deleteTool,
+  onTop,
 } from "../tools.js";
 
 
@@ -344,17 +345,6 @@ class Onion extends Tool {
       tool.isSelected = false;
     });
     this.sprite = onionChoppedSprite;
-  }
-}
-
-
-function onTop(tool) {
-  for (let i = 0; i < tools.length; i++) {
-    if (tools[i].name === tool) {
-      var tool = tools[i];
-      tools.splice(i, 1);
-      tools.push(tool);
-    }
   }
 }
 

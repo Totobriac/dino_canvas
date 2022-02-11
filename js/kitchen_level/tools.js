@@ -197,17 +197,40 @@ function drawTools(ctx, game) {
     game.kitchenLevelStarted = true;
   }
   for (let i = 0; i < tools.length; i++) {
-    tools[i].draw();
-    tools[i].isClose();
+    if (tools[i].isDesplayed === true) {
+      tools[i].draw();
+      tools[i].isClose();
+    }
   }
 
   sink.drawFaucet(ctx);
 
 }
 
+function displayTool(toolL) {
+  for (let i = 0; i < tools.length; i++) {
+    if(toolL.includes(tools[i].name)) {
+      tools[i].isDesplayed = true;
+    }
+    else {
+      tools[i].isDesplayed = false;
+    }
+  }
+}
+
 function deleteTool(tool) {
   var newTools = tools.filter(t => t.name != tool);
   tools = newTools;
+}
+
+function onTop(tool) {
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].name === tool) {
+      var tool = tools[i];
+      tools.splice(i, 1);
+      tools.push(tool);
+    }
+  }
 }
 
 
@@ -222,4 +245,6 @@ export {
   sink,
   deleteTool,
   garlicPress,
+  displayTool,
+  onTop,
 };

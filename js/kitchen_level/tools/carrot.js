@@ -5,6 +5,7 @@ import {
 import {
   tools,
   deleteTool,
+  onTop
 } from "../tools.js";
 
 import { mouse } from "../control.js";
@@ -112,7 +113,7 @@ class Carrot extends Tool {
             y: this.perfY + 28,
             r: 28
           }
-          this.grater.resetPosition();          
+          this.grater.resetPosition();
         };
       }
     }
@@ -138,16 +139,6 @@ class Carrot extends Tool {
       if (distance(peel, { x: 405, y: this.y + this.height / 2 }) < 90) {
         peels.push(peel);
       }
-    }
-  }
-}
-
-function onTop(tool) {
-  for (let i = 0; i < tools.length; i++) {
-    if (tools[i].name === tool) {
-      var tool = tools[i];
-      tools.splice(i, 1);
-      tools.push(tool);
     }
   }
 }

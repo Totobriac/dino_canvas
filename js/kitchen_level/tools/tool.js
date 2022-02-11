@@ -17,6 +17,7 @@ class Tool {
     this.inPlace = false;
     this.isMoving = false;
     this.isSelected = false;
+    this.isDesplayed = true;
   }
   draw() {
     if (this.isSelected === true) this.drawShadow();

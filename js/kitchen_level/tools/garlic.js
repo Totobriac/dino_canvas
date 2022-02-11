@@ -41,8 +41,8 @@ class Garlic extends Tool {
       this.single = true;
       this.width = 88;
       this.height = 113;
-      this.x = mouse.x;
-      this.y = mouse.y;
+      this.x =750;
+      this.y = 150;
       this.perfX = undefined;
       this.perfY = undefined;
       this.shadow = {
@@ -51,6 +51,13 @@ class Garlic extends Tool {
         r: undefined,
       }
     }
+  }
+  setBundaries() {
+    if (this.x < 550) this.x = 550;
+    if ( this.x > 552) {
+      if (this.y > 164 ) this.y = 164;
+    }
+    if (this.x < 552 && this.y > 220) this.y = 220;
   }
 }
 
