@@ -13,6 +13,7 @@ import {
   tools,
   sink,
   chefKnife,
+  garlicPress
 } from "./tools.js";
 
 
@@ -50,6 +51,9 @@ function setControls() {
 }
 
 function onMouseDown(e) {
+
+  garlicPress.addPoints();
+
   mouse = getCursorPosition(e);
 
   sink.checkFaucet(e);
