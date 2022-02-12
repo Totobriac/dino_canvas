@@ -6,6 +6,7 @@ import {
   displayTool,
   onTop,
   sink,
+  tools
 } from "../tools.js";
 
 
@@ -21,24 +22,27 @@ bottomSprite.src = "../assets/kitchen_level/press_bottom.png";
 var cursorSprite = new Image();
 cursorSprite.src = "../assets/kitchen_level/cursor.png";
 
+var singleCloveSprite = new Image();
+singleCloveSprite.src = "../assets/kitchen_level/single_clove.png";
+
 var paste = [];
 
 class GarlicPaste {
   constructor(ctx) {
-    this.x = 562 + Math.floor(Math.random() * 70);
+    this.x = 564 + Math.floor(Math.random() * 70);
     this.y = 335;
     this.color = 36 + Math.floor(Math.random() * 18);
     this.ctx = ctx;
   }
   draw() {
-    this.ctx.fillStyle = "hsl(" + this.color + ", 100%, 72%)";
+    this.ctx.fillStyle = "hsl(" + this.color + ", 100%, 82%)";
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI, false);
     this.ctx.fill();
   }
   update() {
-    this.y += 0.08;
-    this.x += -0.3 + Math.random() * 0.6;
+    this.y += 2;
+    this.x += -1.5 + Math.random() * 3;
   }
 }
 
@@ -47,10 +51,11 @@ class GarlicPress extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.garlic = garlic;
     this.pressIt = false;
-    this.angle = -90;
+    this.angle = -54;
     this.cursorH = 30;
     this.direction = 4;
     this.total = 0;
+    this.toCrush = false;
   }
   draw() {
 
@@ -75,7 +80,7 @@ class GarlicPress extends Tool {
 
       this.garlic.singleClove();
 
-      this.garlic.setBundaries();
+      if (this.toCrush === false) this.garlic.setBundaries();
 
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
@@ -101,20 +106,17 @@ class GarlicPress extends Tool {
 
       this.ctx.restore();
 
-
-      // if (mouse.y < 20) {
-      //   paste.push(new GarlicPaste(this.ctx))
-      //   paste.forEach((p, i) => {
-      //     p.update();
-      //   });
-      // }
-
       paste.forEach((p, i) => {
         p.draw();
       });
 
       if (this.garlic.y === 220) {
+
         this.garlic.isSelected = false;
+
+        this.toCrush = true;
+
+        displayTool(["garlicPress"]);
 
         this.ctx.fillStyle = myGradient;
         this.ctx.fillRect(1100, 50, 50, 300);
@@ -123,10 +125,10 @@ class GarlicPress extends Tool {
         if (this.cursorH > 320 || this.cursorH < 30) this.changeDirection();
 
         this.ctx.drawImage(cursorSprite, 1040, this.cursorH, 50, 50);
-        
+
+        this.ctx.drawImage(singleCloveSprite, 0, 0, 88, 113 - this.total, 551, 220 + this.total, 88, 113 - this.total);
       }
-    }
-    else {
+    } else {
       super.draw();
     }
   }
@@ -147,22 +149,37 @@ class GarlicPress extends Tool {
     this.direction === 4 ? this.direction = -4 : this.direction = 4;
   }
   addPoints() {
-    switch (true) {
-      case this.cursorH < 88:
-        this.angle += -2;
-        break;
-      case this.cursorH < 146:
-        this.angle += 5;
-        break;
-      case this.cursorH < 204:
-        this.angle += 0;
-        break;
-      case this.cursorH < 262:
-        this.angle += -1;
-        break;
-      case this.cursorH < 320:
-        this.angle += 5;
-        break;
+
+    if (this.angle < -4) {
+      // var newTotal = this.total + 3.4;
+      // newTotal
+      this.total += 3.4;
+
+      for (let i = 0; i < 25; i++) {
+        paste.push(new GarlicPaste(this.ctx))
+      }
+
+      paste.forEach((p, i) => {
+        p.update();
+      });
+
+      switch (true) {
+        case this.cursorH < 88:
+          this.angle += 2;
+          break;
+        case this.cursorH < 146:
+          this.angle -= 2;
+          break;
+        case this.cursorH < 204:
+          this.angle += 2;
+          break;
+        case this.cursorH < 262:
+          this.angle -= 2;
+          break;
+        case this.cursorH < 320:
+          this.angle += 2;
+          break;
+      }
     }
   }
 }

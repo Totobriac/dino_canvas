@@ -52,7 +52,7 @@ function setControls() {
 
 function onMouseDown(e) {
 
-  garlicPress.addPoints();
+  if(garlicPress.toCrush) garlicPress.addPoints();
 
   mouse = getCursorPosition(e);
 
