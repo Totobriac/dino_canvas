@@ -11,11 +11,15 @@ splitGarlicSprite.src = "../assets/kitchen_level/garlic_split.png";
 var singleCloveSprite = new Image();
 singleCloveSprite.src = "../assets/kitchen_level/single_clove.png";
 
+var crushedCloveSprite = new Image();
+crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
+
 
 class Garlic extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.single = false;
+    this.minced = false;
   }
   draw() {
 
@@ -31,6 +35,14 @@ class Garlic extends Tool {
 
     if (this.single) {
       this.sprite = singleCloveSprite;
+    }
+
+    if (this.minced) {
+      this.sprite = crushedCloveSprite;
+      this.width = 50;
+      this.height = 50;
+      this.x = 800;
+      this.y = 250;
     }
 
     super.draw();

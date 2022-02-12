@@ -6,7 +6,8 @@ import {
   displayTool,
   onTop,
   sink,
-  tools
+  tools,
+  deleteTool,
 } from "../tools.js";
 
 
@@ -24,6 +25,9 @@ cursorSprite.src = "../assets/kitchen_level/cursor.png";
 
 var singleCloveSprite = new Image();
 singleCloveSprite.src = "../assets/kitchen_level/single_clove.png";
+
+var garlicPressSprite = new Image();
+garlicPressSprite.src = "../assets/kitchen_level/garlic_press.png";
 
 var paste = [];
 
@@ -52,15 +56,13 @@ class GarlicPress extends Tool {
     this.garlic = garlic;
     this.pressIt = false;
     this.angle = -54;
+    this.oldAngle = -54
     this.cursorH = 30;
     this.direction = 4;
     this.total = 0;
     this.toCrush = false;
   }
   draw() {
-
-    console.log(this.angle);
-
     if (this.inPlace && this.garlic.inPlace === true) this.pressMe();
 
     if (this.pressIt) {
@@ -151,17 +153,6 @@ class GarlicPress extends Tool {
   addPoints() {
 
     if (this.angle < -4) {
-      // var newTotal = this.total + 3.4;
-      // newTotal
-      this.total += 3.4;
-
-      for (let i = 0; i < 25; i++) {
-        paste.push(new GarlicPaste(this.ctx))
-      }
-
-      paste.forEach((p, i) => {
-        p.update();
-      });
 
       switch (true) {
         case this.cursorH < 88:
@@ -180,6 +171,28 @@ class GarlicPress extends Tool {
           this.angle += 2;
           break;
       }
+
+      if (this.oldAngle < this.angle) {
+        this.total += 3.4;
+        for (let i = 0; i < 25; i++) {
+          paste.push(new GarlicPaste(this.ctx))
+        }
+        this.oldAngle = this.angle;
+        paste.forEach((p, i) => {
+          p.update();
+        });
+      };
+    }
+    else {
+      this.pressIt = false;
+      this.sprite = garlicPressSprite;
+      this.garlic.single = false;
+      this.garlic.minced = true;
+      this.width = 100;
+      this.height = 30;
+      this.x = 850;
+      this.y = 20;
+      displayTool(["pot", "tool", "butterPlate", "butterKnife", "pan", "chefKnife", "onion", "carrot", "grater", "garlic", "garlicPress"]);
     }
   }
 }
