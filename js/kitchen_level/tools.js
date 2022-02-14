@@ -42,6 +42,10 @@ import {
   GarlicPress
 } from "./tools/garlicPress.js";
 
+import {
+  Spoon
+} from "./tools/spoon.js";
+
 
 
 var pot;
@@ -57,6 +61,7 @@ var carrot;
 var grater;
 var garlic;
 var garlicPress;
+var spoon;
 
 var tools = [];
 
@@ -104,6 +109,9 @@ garlicHeadSprite.src = "../assets/kitchen_level/garlic_head.png";
 
 var garlicPressSprite = new Image();
 garlicPressSprite.src = "../assets/kitchen_level/garlic_press.png";
+
+var spoonSprite = new Image();
+spoonSprite.src = "../assets/kitchen_level/spoon.png";
 
 
 function drawTools(ctx, game) {
@@ -179,6 +187,12 @@ function drawTools(ctx, game) {
       r: 40
     }, grater, pan);
 
+    spoon = new Spoon("spoon", spoonSprite, 680, 180 ,40,213, ctx, undefined, undefined, {
+      x: undefined,
+      y: undefined,
+      r: 40
+    });
+
     sink = new Sink();
 
 
@@ -193,6 +207,7 @@ function drawTools(ctx, game) {
     tools.push(grater);
     tools.push(garlic);
     tools.push(garlicPress);
+    tools.push(spoon);
 
     game.kitchenLevelStarted = true;
   }
