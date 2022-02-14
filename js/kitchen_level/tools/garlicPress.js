@@ -192,7 +192,7 @@ class GarlicPress extends Tool {
       this.height = 30;
       this.x = 850;
       this.y = 20;
-      displayTool(["pot", "tool", "butterPlate", "butterKnife", "pan", "chefKnife", "onion", "carrot", "grater", "garlic", "garlicPress"]);
+      displayTool(["pot", "tool", "butterPlate", "butterKnife", "pan", "chefKnife", "onion", "carrot", "grater", "garlic", "garlicPress", "spoon"]);
     }
   }
 }

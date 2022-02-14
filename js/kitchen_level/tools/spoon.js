@@ -17,7 +17,6 @@ class Spoon extends Tool {
   }
   draw() {
     if (this.isSelected) {
-      console.log("oo")
       this.ctx.save();
       this.ctx.translate(mouse.x, mouse.y);
 

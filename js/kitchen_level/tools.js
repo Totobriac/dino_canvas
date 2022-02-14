@@ -193,6 +193,8 @@ function drawTools(ctx, game) {
       r: 40
     });
 
+    Pan.prototype.spoon = spoon;
+
     sink = new Sink();
 
 
