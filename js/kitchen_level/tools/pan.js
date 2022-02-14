@@ -5,6 +5,8 @@ import {
   burners
 } from "./stove.js";
 
+import { mouse } from "../control.js";
+
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
 
@@ -15,13 +17,28 @@ var crushedCloveSprite = new Image();
 crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
 
 class Veggy {
-  constructor(pX, pY, pWidth, pHeight, width, height, color) {
+  constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
     this.x = pX + pWidth / 2 + 28 - 56 + Math.floor(Math.random() * 112);
     this.y = pY + pHeight / 3 + 5 - 56 + Math.floor(Math.random() * 112);
     this.width = width;
     this.height = height;
     this.color = color;
     this.angle = -30 + Math.floor(Math.random() * 60);
+    this.ctx = ctx;
+  }
+  draw() {
+    this.ctx.save();
+    this.ctx.fillStyle = this.color;
+    this.ctx.translate(this.x, this.y);
+    this.ctx.rotate(this.angle * Math.PI / 180);
+    this.ctx.fillRect(0, 0, this.width, this.height);
+    this.ctx.restore();
+  }
+  update() {
+    if (distance({x: this.x, y: this.y},mouse) < 5) {
+      this.x += 5;
+      this.y += 5;
+    }
   }
 }
 
@@ -54,12 +71,8 @@ class Pan extends Tool {
 
     if (this.veggies.length > 0) {
       for (let i = 0; i < this.veggies.length; i++) {
-        this.ctx.save();
-        this.ctx.fillStyle = this.veggies[i].color;
-        this.ctx.translate(this.veggies[i].x, this.veggies[i].y);
-        this.ctx.rotate(this.veggies[i].angle * Math.PI / 180);
-        this.ctx.fillRect(0, 0, this.veggies[i].width, this.veggies[i].height);
-        this.ctx.restore();
+        this.veggies[i].update();
+        this.veggies[i].draw();
       }
     }
   }
@@ -131,7 +144,7 @@ class Pan extends Tool {
     ];
     vegetables.forEach((veg, i) => {
       for (let i = 0; i < veg.number; i++) {
-        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color);
+        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx);
 
         if (distance(newVeg, {
             x: this.x + this.width / 2 + 28,
