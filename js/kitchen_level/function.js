@@ -10,7 +10,9 @@ function getCursorPosition(e) {
   xM > rect.left && xM < rect.right && yM < rect.bottom && yM > rect.top ? isInside = true : isInside = false;
   if (isInside == true) return {
     x: x,
-    y: y
+    y: y,
+    moveX: e.movementX,
+    moveY: e.movementY,
   };
 }
 

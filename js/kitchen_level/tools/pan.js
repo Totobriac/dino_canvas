@@ -18,8 +18,10 @@ crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
 
 class Veggy {
   constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
+    this.panX = pX + pWidth / 2 + 28;
+    this.panY = pY + pHeight / 3 + 5;
     this.x = pX + pWidth / 2 + 28 - 56 + Math.floor(Math.random() * 112);
-    this.y = pY + pHeight / 3 + 5 - 56 + Math.floor(Math.random() * 112);
+    this.y = pY + pHeight / 3 + 5 - 56 + Math.floor(Math.random() * 112);    
     this.width = width;
     this.height = height;
     this.color = color;
@@ -35,9 +37,32 @@ class Veggy {
     this.ctx.restore();
   }
   update() {
-    if (distance({x: this.x, y: this.y},mouse) < 5) {
-      this.x += 5;
-      this.y += 5;
+    if (distance({ x: this.x, y: this.y }, mouse) < 5) {
+      
+      switch (true) {
+        case mouse.moveX > 0 && mouse.moveY > 0:
+          this.moveVeggy(2,2);       
+          break;
+        case mouse.moveX > 0 && mouse.moveY < 0:
+          this.moveVeggy(2,-2);
+          break;
+        case mouse.moveX < 0 && mouse.moveY > 0:
+          this.moveVeggy(-2,2);
+          break;
+        case mouse.moveX < 0 && mouse.moveY < 0:
+          this.moveVeggy(-2,-2);
+          break;
+      }
+    }
+  }
+  moveVeggy(x, y) {
+    for (let i = 0; i < 5; i++) {
+      var nextX = this.x + x;
+      var nextY = this.y + y;
+      if (distance({x: nextX, y: nextY}, { x: this.panX, y: this.panY }) < 56) {
+        this.x += x;
+        this.y += y;
+      }
     }
   }
 }
@@ -124,32 +149,32 @@ class Pan extends Tool {
   }
   generateVeggies() {
     var vegetables = [{
-        number: 250,
-        width: 4,
-        height: 4,
-        color: "white"
-      },
-      {
-        number: 150,
-        width: 2,
-        height: 2,
-        color: "yellow"
-      },
-      {
-        number: 350,
-        width: 3,
-        height: 3,
-        color: "orange"
-      },
+      number: 350,
+      width: 5,
+      height: 5,
+      color: "white"
+    },
+    {
+      number: 250,
+      width: 3,
+      height: 3,
+      color: "yellow"
+    },
+    {
+      number: 350,
+      width: 4,
+      height: 4,
+      color: "orange"
+    },
     ];
     vegetables.forEach((veg, i) => {
       for (let i = 0; i < veg.number; i++) {
         var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx);
 
         if (distance(newVeg, {
-            x: this.x + this.width / 2 + 28,
-            y: this.y + this.height / 3 + 5
-          }) < 56) {
+          x: this.x + this.width / 2 + 28,
+          y: this.y + this.height / 3 + 5
+        }) < 56) {
           this.veggies.push(newVeg);
           this.veggies.sort((a, b) => 0.5 - Math.random());
         }

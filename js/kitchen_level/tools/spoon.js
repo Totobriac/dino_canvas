@@ -22,7 +22,7 @@ class Spoon extends Tool {
 
       this.ctx.rotate((Math.PI / 180) * 150);
 
-      this.ctx.drawImage(spoonSprite, -20,  -20, 40, 213);
+      this.ctx.drawImage(spoonSprite, -16, 0, 40, 213);
 
       this.ctx.restore();
     } else {

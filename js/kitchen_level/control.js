@@ -24,6 +24,8 @@ var points = [];
 var mouse = {
   x: undefined,
   y: undefined,
+  moveX: undefined,
+  moveY: undefined,
   upX: undefined,
   upY: undefined,
 };
@@ -54,7 +56,7 @@ function onMouseDown(e) {
 
   if(garlicPress.toCrush) garlicPress.addPoints();
 
-  mouse = getCursorPosition(e);
+  mouse = getCursorPosition(e); 
 
   sink.checkFaucet(e);
   getSelectedButton(e);
