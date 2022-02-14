@@ -2,6 +2,7 @@ import {
   Tool
 } from "./tool.js";
 
+import { deleteTool } from "../tools.js";
 
 import { mouse } from "../control.js";
 
@@ -16,14 +17,16 @@ crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
 
 
 class Garlic extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow,pan) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow,pan);
+    this.pan = pan;
     this.single = false;
     this.minced = false;
+    this.resetPos = false;
   }
   draw() {
 
-    if (this.inPlace) {
+    if (this.inPlace && this.minced === false) {
       this.sprite = splitGarlicSprite;
       this.width = 122;
       this.height = 81;
@@ -41,8 +44,14 @@ class Garlic extends Tool {
       this.sprite = crushedCloveSprite;
       this.width = 50;
       this.height = 50;
-      this.x = 800;
-      this.y = 250;
+      if( this.resetPos === false) {
+        this.resetPosition();
+        this.resetPos = true;
+      }
+    }
+    if (this.inPlace === true && this.minced === true) {
+      this.pan.hasGarlic = true;
+      deleteTool("garlic");
     }
 
     super.draw();
@@ -70,6 +79,17 @@ class Garlic extends Tool {
       if (this.y > 164 ) this.y = 164;
     }
     if (this.x < 552 && this.y > 220) this.y = 220;
+  }
+  resetPosition() {
+    this.x = 470;
+    this.y = 280;
+    this.perfX = this.pan.x + 2 * this.pan.width / 3;
+    this.perfY = this.pan.y + this.pan.height / 4;
+    this.shadow = {
+      x: this.perfX + 28,
+      y: this.perfY + 28,
+      r: 28
+    }
   }
 }
 

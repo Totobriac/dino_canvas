@@ -165,7 +165,7 @@ function drawTools(ctx, game) {
       x: 516,
       y: 314,
       r: 20
-    });
+    }, pan);
 
     garlicPress = new GarlicPress("garlicPress", garlicPressSprite, 850, 20, 100, 30, ctx, 475, 290, {
       x: 516,

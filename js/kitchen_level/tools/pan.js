@@ -7,6 +7,9 @@ onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
 var gratedCarrotSprite = new Image();
 gratedCarrotSprite.src = "../assets/kitchen_level/grated_carrot.png";
 
+var crushedCloveSprite = new Image();
+crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
+
 class Pan extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -18,12 +21,14 @@ class Pan extends Tool {
     this.butter = butterPlate;
     this.hasOnion = false;
     this.hasCarrot = false;
+    this.hasGarlic = false;
   }
   draw () {
     super.draw();
     if (this.butter.isCut === true) this.buttMelt();
     if (this.hasOnion === true) this.addOnion();
-    if (this.hasCarrot === true) this.addCarrot();    
+    if (this.hasCarrot === true) this.addCarrot();
+    if (this.hasGarlic === true) this.addGarlic();
   }
   buttMelt() {
     if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
@@ -67,6 +72,9 @@ class Pan extends Tool {
   }
   addCarrot() {
     this.ctx.drawImage(gratedCarrotSprite, this.x + this.width / 3, this.y + this.height/ 4, 50, 50);
+  }
+  addGarlic() {
+    this.ctx.drawImage(crushedCloveSprite, this.x + 2 * this.width / 3, this.y + this.height/ 4, 50, 50);
   }
 }
 
