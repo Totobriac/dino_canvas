@@ -122,7 +122,7 @@ class Onion extends Tool {
     if (this.canMince === true) {
       this.mince();
     }
-    // }
+
     if (this.state === "done") {
       this.perfX = this.pan.x + this.pan.width / 2;
       this.perfY = this.pan.y + this.pan.height / 10;

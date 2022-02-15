@@ -5,7 +5,9 @@ import {
   burners
 } from "./stove.js";
 
-import { mouse } from "../control.js";
+import {
+  mouse
+} from "../control.js";
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
@@ -20,8 +22,8 @@ class Veggy {
   constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
     this.panX = pX + pWidth / 2 + 28;
     this.panY = pY + pHeight / 3 + 5;
-    this.x = pX + pWidth / 2 + 28 - 56 + Math.floor(Math.random() * 112);
-    this.y = pY + pHeight / 3 + 5 - 56 + Math.floor(Math.random() * 112);    
+    this.x = this.panX - 56 + Math.floor(Math.random() * 112);
+    this.y = this.panY - 56 + Math.floor(Math.random() * 112);
     this.width = width;
     this.height = height;
     this.color = color;
@@ -37,20 +39,23 @@ class Veggy {
     this.ctx.restore();
   }
   update() {
-    if (distance({ x: this.x, y: this.y }, mouse) < 5) {
-      
+    if (distance({
+        x: this.x,
+        y: this.y
+      }, mouse) < 5) {
+
       switch (true) {
         case mouse.moveX > 0 && mouse.moveY > 0:
-          this.moveVeggy(2,2);       
+          this.moveVeggy(2, 2);
           break;
         case mouse.moveX > 0 && mouse.moveY < 0:
-          this.moveVeggy(2,-2);
+          this.moveVeggy(2, -2);
           break;
         case mouse.moveX < 0 && mouse.moveY > 0:
-          this.moveVeggy(-2,2);
+          this.moveVeggy(-2, 2);
           break;
         case mouse.moveX < 0 && mouse.moveY < 0:
-          this.moveVeggy(-2,-2);
+          this.moveVeggy(-2, -2);
           break;
       }
     }
@@ -59,9 +64,18 @@ class Veggy {
     for (let i = 0; i < 5; i++) {
       var nextX = this.x + x;
       var nextY = this.y + y;
-      if (distance({x: nextX, y: nextY}, { x: this.panX, y: this.panY }) < 56) {
+      if (distance({
+          x: nextX,
+          y: nextY
+        }, {
+          x: this.panX,
+          y: this.panY
+        }) < 56) {
         this.x += x;
         this.y += y;
+      } else {
+        this.x -= x;
+        this.y -= y;
       }
     }
   }
@@ -80,25 +94,37 @@ class Pan extends Tool {
     this.hasCarrot = false;
     this.hasGarlic = false;
     this.canStir = false;
+    this.stirVeg = false;
     this.veggies = [];
   }
   draw() {
+
     super.draw();
-    if (this.butter.isCut === true) this.buttMelt();
-    if (this.hasOnion === true) this.addOnion();
-    if (this.hasCarrot === true) this.addCarrot();
-    if (this.hasGarlic === true) this.addGarlic();
 
-    if (this.spoon.isSelected && !this.canStir) {
-      this.generateVeggies();
-      this.canStir = true;
-    }
-
-    if (this.veggies.length > 0) {
+    if (!this.stirVeg) {
+      if (this.butter.isCut === true) this.buttMelt();
+      if (this.hasOnion === true) this.addOnion();
+      if (this.hasCarrot === true) this.addCarrot();
+      if (this.hasGarlic === true) this.addGarlic();
+    } else if (this.stirVeg) {
+      this.isSelected = false;
       for (let i = 0; i < this.veggies.length; i++) {
         this.veggies[i].update();
         this.veggies[i].draw();
       }
+    }
+
+    if (this.spoon.isSelected && !this.canStir && this.inPlace) {
+      this.generateVeggies();
+      this.canStir = true;
+    }
+
+    if (this.inPlace && this.spoon.isSelected && distance(mouse, {
+        x: this.x + this.width / 2 + 28,
+        y: this.y + this.height / 3 + 5
+      }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
+      this.hasCarrot === true && this.hasGarlic === true) {
+      this.stirVeg = true;
     }
   }
   buttMelt() {
@@ -142,39 +168,39 @@ class Pan extends Tool {
     this.ctx.drawImage(onionChoppedSprite, this.x + this.width / 2, this.y + this.height / 10, 60, 60);
   }
   addCarrot() {
-    this.ctx.drawImage(gratedCarrotSprite, this.x + this.width / 3, this.y + this.height / 4, 50, 50);
+    this.ctx.drawImage(gratedCarrotSprite, this.x + this.width / 2, this.y + this.height / 3, 50, 50);
   }
   addGarlic() {
     this.ctx.drawImage(crushedCloveSprite, this.x + 2 * this.width / 3, this.y + this.height / 4, 50, 50);
   }
   generateVeggies() {
     var vegetables = [{
-      number: 350,
-      width: 5,
-      height: 5,
-      color: "white"
-    },
-    {
-      number: 250,
-      width: 3,
-      height: 3,
-      color: "yellow"
-    },
-    {
-      number: 350,
-      width: 4,
-      height: 4,
-      color: "orange"
-    },
+        number: 350,
+        width: 5,
+        height: 5,
+        color: "white"
+      },
+      {
+        number: 250,
+        width: 3,
+        height: 3,
+        color: "yellow"
+      },
+      {
+        number: 350,
+        width: 4,
+        height: 4,
+        color: "orange"
+      },
     ];
     vegetables.forEach((veg, i) => {
       for (let i = 0; i < veg.number; i++) {
         var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx);
 
         if (distance(newVeg, {
-          x: this.x + this.width / 2 + 28,
-          y: this.y + this.height / 3 + 5
-        }) < 56) {
+            x: this.x + this.width / 2 + 28,
+            y: this.y + this.height / 3 + 5
+          }) < 56) {
           this.veggies.push(newVeg);
           this.veggies.sort((a, b) => 0.5 - Math.random());
         }

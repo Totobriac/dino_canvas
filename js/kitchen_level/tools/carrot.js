@@ -5,7 +5,8 @@ import {
 import {
   tools,
   deleteTool,
-  onTop
+  onTop,
+  sink
 } from "../tools.js";
 
 import { mouse } from "../control.js";
@@ -40,12 +41,13 @@ class Carrot extends Tool {
     this.pan = pan;
     this.toBeGrated = false;
     this.oldX = 0;
-    this.cut = 0;
+    this.cut = 490;
     this.isGrated = false;
   }
   draw() {
 
     if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
+      sink.faucet = false;
       this.grateMe();
     }
     else if (this.toBeGrated === true) {
@@ -96,6 +98,7 @@ class Carrot extends Tool {
           this.generatePeel();
         }
         if (this.cut > 490) {
+          sink.faucet = true;
           this.toBeGrated = false;
           this.isGrated = true;
           this.sprite = gratedCarrotSprite;
@@ -106,8 +109,8 @@ class Carrot extends Tool {
           this.height = 50;
           this.x = 475;
           this.y = 275;
-          this.perfX = this.pan.x + this.pan.width / 3;
-          this.perfY = this.pan.y + this.pan.height / 4;
+          this.perfX = this.pan.x + this.pan.width / 2;
+          this.perfY = this.pan.y + this.pan.height / 3;
           this.shadow = {
             x: this.perfX + 28,
             y: this.perfY + 28,
