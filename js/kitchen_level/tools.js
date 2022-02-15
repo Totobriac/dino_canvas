@@ -46,7 +46,9 @@ import {
   Spoon
 } from "./tools/spoon.js";
 
-
+import {
+  Meat
+} from "./tools/meat.js";
 
 var pot;
 var salt;
@@ -62,6 +64,7 @@ var grater;
 var garlic;
 var garlicPress;
 var spoon;
+var meat;
 
 var tools = [];
 
@@ -113,6 +116,9 @@ garlicPressSprite.src = "../assets/kitchen_level/garlic_press.png";
 var spoonSprite = new Image();
 spoonSprite.src = "../assets/kitchen_level/spoon.png";
 
+var meatSprite = new Image();
+meatSprite.src = "../assets/kitchen_level/meat.png";
+
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -139,7 +145,7 @@ function drawTools(ctx, game) {
       r: 60
     }, butterPlate);
 
-    butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 340, 255, 14, 135, ctx, undefined, undefined, {
+    butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 720, 255, 14, 135, ctx, undefined, undefined, {
       x: 0,
       y: 0,
       r: 20
@@ -163,7 +169,7 @@ function drawTools(ctx, game) {
       r: 20
     });
 
-    grater = new Grater("grater", graterSprite, 240, 250, 80, 160, ctx, 470, 240, {
+    grater = new Grater("grater", graterSprite, 618, 250, 80, 160, ctx, 470, 240, {
       x: 516,
       y: 314,
       r: 40
@@ -197,6 +203,11 @@ function drawTools(ctx, game) {
 
     sink = new Sink();
 
+    meat = new Meat("meat", meatSprite, 265, 290 ,60,60, ctx, pan.x + pan.width / 2 , pan.y + pan.height / 3 -25, {
+      x: undefined,
+      y: undefined,
+      r: 40
+    });
 
     tools.push(pot);
     tools.push(salt);
@@ -210,6 +221,7 @@ function drawTools(ctx, game) {
     tools.push(garlic);
     tools.push(garlicPress);
     tools.push(spoon);
+    tools.push(meat);
 
     game.kitchenLevelStarted = true;
   }

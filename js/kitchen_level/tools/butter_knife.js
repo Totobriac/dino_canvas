@@ -68,7 +68,7 @@ class ButterKnife extends Tool {
   checkCut() {
     if (this.move > 30 && this.move < 50 ) {
       this.butter.isCut = true;
-      this.x = 340;
+      this.x = 720;
       this.y = 255;
       sink.faucet = true;
     }

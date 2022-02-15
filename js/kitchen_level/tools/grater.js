@@ -8,7 +8,7 @@ class Grater extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
   }
   resetPosition() {
-    this.x = 240;
+    this.x = 618;
     this.y = 250;
     this.perfX = undefined;
     this.perfY = undefined;
@@ -19,7 +19,6 @@ class Grater extends Tool {
     }
   }
 }
-
 
 export {
   Grater
