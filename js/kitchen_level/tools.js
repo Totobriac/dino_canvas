@@ -193,7 +193,7 @@ function drawTools(ctx, game) {
       r: 40
     }, grater, pan);
 
-    spoon = new Spoon("spoon", spoonSprite, 680, 180 ,40,213, ctx, undefined, undefined, {
+    spoon = new Spoon("spoon", spoonSprite, 680, 180, 40, 213, ctx, undefined, undefined, {
       x: undefined,
       y: undefined,
       r: 40
@@ -203,10 +203,10 @@ function drawTools(ctx, game) {
 
     sink = new Sink();
 
-    meat = new Meat("meat", meatSprite, 265, 290 ,60,60, ctx, pan.x + pan.width / 2 , pan.y + pan.height / 3 -25, {
-      x: undefined,
-      y: undefined,
-      r: 40
+    meat = new Meat("meat", meatSprite, 265, 290, 60, 60, ctx, 934, 190, {
+      x: 964,
+      y: 225,
+      r: 30
     });
 
     tools.push(pot);
@@ -238,10 +238,9 @@ function drawTools(ctx, game) {
 
 function displayTool(toolL) {
   for (let i = 0; i < tools.length; i++) {
-    if(toolL.includes(tools[i].name)) {
+    if (toolL.includes(tools[i].name)) {
       tools[i].isDesplayed = true;
-    }
-    else {
+    } else {
       tools[i].isDesplayed = false;
     }
   }
