@@ -151,15 +151,17 @@ class Pan extends Tool {
     }
 
     if (this.meat.isCrushed) {
-      if (this.justCrushed === false) {
-        this.meat.pieces.forEach((piece, i) => {
-          this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx))
-        });
-        this.justCrushed = true;
-        console.log(this.meatP);
-      }
-    }
+      this.generateMeat();
 
+    }
+  }
+  generateMeat() {
+    if (this.justCrushed === false) {
+      this.meat.pieces.forEach((piece, i) => {
+        this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx))
+      });
+      this.justCrushed = true;
+    }
   }
   buttMelt() {
     if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
