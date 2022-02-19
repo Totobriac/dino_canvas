@@ -275,4 +275,5 @@ export {
   garlicPress,
   displayTool,
   onTop,
+  meat
 };

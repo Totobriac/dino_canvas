@@ -13,7 +13,8 @@ import {
   tools,
   sink,
   chefKnife,
-  garlicPress
+  garlicPress,
+  meat,
 } from "./tools.js";
 
 
@@ -56,7 +57,9 @@ function onMouseDown(e) {
 
   if(garlicPress.toCrush) garlicPress.addPoints();
 
-  mouse = getCursorPosition(e); 
+  mouse = getCursorPosition(e);
+
+  meat.selectedPiece(mouse.x, mouse.y)
 
   sink.checkFaucet(e);
   getSelectedButton(e);
