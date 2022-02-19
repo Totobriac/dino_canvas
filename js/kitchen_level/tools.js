@@ -207,7 +207,9 @@ function drawTools(ctx, game) {
       x: 964,
       y: 225,
       r: 30
-    });
+    }, spoon);
+
+    Pan.prototype.meat = meat;
 
     tools.push(pot);
     tools.push(salt);

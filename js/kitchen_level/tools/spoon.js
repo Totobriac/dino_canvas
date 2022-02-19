@@ -17,7 +17,7 @@ spoonSprite.src = "../assets/kitchen_level/spoon.png";
 class Spoon extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
-    this.breakMeat = false
+    this.breakMeat = false;
   }
   draw() {
     if (this.isSelected) {
@@ -27,7 +27,7 @@ class Spoon extends Tool {
       this.ctx.drawImage(spoonSprite, -16, 0, 40, 213);
       this.ctx.restore();
     }
-    if (this.isSelected && meat.inPlace){
+    if (this.isSelected && meat.break){
       this.breakMeat = true;
     }
     if(this.breakMeat) {

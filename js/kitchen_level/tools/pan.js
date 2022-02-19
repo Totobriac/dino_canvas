@@ -18,6 +18,9 @@ gratedCarrotSprite.src = "../assets/kitchen_level/grated_carrot.png";
 var crushedCloveSprite = new Image();
 crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
 
+var meatSprite = new Image();
+meatSprite.src = "../assets/kitchen_level/meat.png";
+
 class Veggy {
   constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
     this.panX = pX + pWidth / 2 + 28;
@@ -81,6 +84,24 @@ class Veggy {
   }
 }
 
+class MeatPiece extends Veggy {
+  constructor(pX, pY, pWidth, pHeight, x, y, picX, picY, ctx) {
+    super();
+    this.panX = pX + pWidth / 2 + 28;
+    this.panY = pY + pHeight / 3 + 5;
+    this.width = 6;
+    this.height = 6;
+    this.x = x;
+    this.y = y;
+    this.picX = picX;
+    this.picY = picY;
+    this.ctx = ctx;
+  }
+  draw() {
+    this.ctx.drawImage(meatSprite, this.picX, this.picY, 33, 33, this.x, this.y, this.width, this.height);
+  }
+}
+
 class Pan extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -96,6 +117,8 @@ class Pan extends Tool {
     this.canStir = false;
     this.stirVeg = false;
     this.veggies = [];
+    this.meatP = [];
+    this.justCrushed = false;
   }
   draw() {
 
@@ -126,6 +149,17 @@ class Pan extends Tool {
       this.hasCarrot === true && this.hasGarlic === true) {
       this.stirVeg = true;
     }
+
+    if (this.meat.isCrushed) {
+      if (this.justCrushed === false) {
+        this.meat.pieces.forEach((piece, i) => {
+          this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx))
+        });
+        this.justCrushed = true;
+        console.log(this.meatP);
+      }
+    }
+
   }
   buttMelt() {
     if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
