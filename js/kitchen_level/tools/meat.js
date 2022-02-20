@@ -2,6 +2,8 @@ import {
   Tool
 } from "./tool.js";
 
+import { deleteTool } from "../tools.js";
+
 var meatSprite = new Image();
 meatSprite.src = "../assets/kitchen_level/meat.png";
 
@@ -80,6 +82,7 @@ class Meat extends Tool {
     if (this.piecesNum > 18) {
       this.canCrush = false;
       this.isCrushed = true;
+      deleteTool("meat");
     };
   }
 }

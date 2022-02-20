@@ -97,7 +97,7 @@ class MeatPiece extends Veggy {
     this.picY = picY;
     this.ctx = ctx;
   }
-  draw() {
+  drawMeat() {
     this.ctx.drawImage(meatSprite, this.picX, this.picY, 33, 33, this.x, this.y, this.width, this.height);
   }
 }
@@ -134,7 +134,13 @@ class Pan extends Tool {
       for (let i = 0; i < this.veggies.length; i++) {
         this.veggies[i].update();
         this.veggies[i].draw();
-      }
+      };      
+    } 
+    if (this.justCrushed) {
+      for (let i = 0; i < this.meatP.length; i++) {
+        this.meatP[i].update();
+        this.meatP[i].drawMeat();
+      };
     }
 
     if (this.spoon.isSelected && !this.canStir && this.inPlace) {
@@ -152,7 +158,6 @@ class Pan extends Tool {
 
     if (this.meat.isCrushed) {
       this.generateMeat();
-
     }
   }
   generateMeat() {
