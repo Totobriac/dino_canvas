@@ -68,6 +68,8 @@ class Onion extends Tool {
       }
     }
     if (this.state === "halfed") {
+      sink.faucet = false;
+
       onTop("onion");
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
@@ -158,7 +160,6 @@ class Onion extends Tool {
   halfOnion() {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
-      sink.faucet = false;
     }
   }
   spinOnion(angle) {

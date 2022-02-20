@@ -50,6 +50,10 @@ import {
   Meat
 } from "./tools/meat.js";
 
+import {
+  Tin
+} from "./tools/tin.js";
+
 var pot;
 var salt;
 var pan;
@@ -65,6 +69,7 @@ var garlic;
 var garlicPress;
 var spoon;
 var meat;
+var tin;
 
 var tools = [];
 
@@ -119,6 +124,9 @@ spoonSprite.src = "../assets/kitchen_level/spoon.png";
 var meatSprite = new Image();
 meatSprite.src = "../assets/kitchen_level/meat.png";
 
+var tinSprite = new Image();
+tinSprite.src = "../assets/kitchen_level/tin.png";
+
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -150,11 +158,13 @@ function drawTools(ctx, game) {
       y: 0,
       r: 20
     }, butterPlate);
+
     onion = new Onion("onion", onionSprite, 140, 300, 60, 60, ctx, 475, 275, {
       x: 506,
       y: 304,
       r: 28
     }, pan);
+
     chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400, 190, 200, 33, ctx, undefined, undefined, {
       x: 0,
       y: 0,
@@ -209,6 +219,12 @@ function drawTools(ctx, game) {
       r: 30
     }, spoon);
 
+    tin = new Tin("tin", tinSprite, 35, 350, 50, 50, ctx, 475, 275, {
+      x: 502,
+      y: 300,
+      r: 28
+    });
+
     Pan.prototype.meat = meat;
 
     tools.push(pot);
@@ -224,6 +240,8 @@ function drawTools(ctx, game) {
     tools.push(garlicPress);
     tools.push(spoon);
     tools.push(meat);
+    tools.push(tin);
+
 
     game.kitchenLevelStarted = true;
   }

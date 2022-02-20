@@ -121,7 +121,6 @@ class Pan extends Tool {
     this.justCrushed = false;
   }
   draw() {
-
     super.draw();
 
     if (!this.stirVeg) {
