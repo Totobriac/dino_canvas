@@ -54,6 +54,10 @@ import {
   Tin
 } from "./tools/tin.js";
 
+import {
+  TinOpener
+} from "./tools/TinOpener.js";
+
 var pot;
 var salt;
 var pan;
@@ -70,6 +74,7 @@ var garlicPress;
 var spoon;
 var meat;
 var tin;
+var tinOpener;
 
 var tools = [];
 
@@ -127,6 +132,8 @@ meatSprite.src = "../assets/kitchen_level/meat.png";
 var tinSprite = new Image();
 tinSprite.src = "../assets/kitchen_level/tin.png";
 
+var tinOpenerSprite = new Image();
+tinOpenerSprite.src = "../assets/kitchen_level/tin_opener.png";
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -219,13 +226,20 @@ function drawTools(ctx, game) {
       r: 30
     }, spoon);
 
+    Pan.prototype.meat = meat;
+
     tin = new Tin("tin", tinSprite, 35, 350, 50, 50, ctx, 475, 275, {
       x: 502,
       y: 300,
       r: 28
     });
 
-    Pan.prototype.meat = meat;
+    tinOpener = new TinOpener("tinOpener", tinOpenerSprite, 852, 50, 90, 40, ctx, 475, 275, {
+      x: 502,
+      y: 300,
+      r: 28
+    });
+
 
     tools.push(pot);
     tools.push(salt);
@@ -241,6 +255,7 @@ function drawTools(ctx, game) {
     tools.push(spoon);
     tools.push(meat);
     tools.push(tin);
+    tools.push(tinOpener);
 
 
     game.kitchenLevelStarted = true;
