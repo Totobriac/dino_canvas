@@ -13,6 +13,10 @@ import {
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
 
+var sideTinSprite = new Image();
+sideTinSprite.src = "../assets/kitchen_level/side_tin.png";
+
+
 var label = new Image();
 label.src = "https://www.mockofun.com/wp-content/uploads/2020/04/tomato-sauce-label-5828.jpg";
 
@@ -21,7 +25,7 @@ var tempContext = tempCanvas.getContext("2d");
 tempCanvas.width = 400;
 tempCanvas.height = 200;
 
-var bibi = 0;
+var bibi = 9000;
 
 class Tin extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
@@ -39,11 +43,11 @@ class Tin extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
 
+      this.ctx.drawImage(sideTinSprite,488,96, 225,300)
+
       bibi += 10;
+      console.log(bibi);
       drawLabel(bibi / 20000, 40, 30, this.ctx);
-
-      //this.ctx.drawImage(tempCanvas,100,60)
-
     }
   }
 }
@@ -80,7 +84,7 @@ function drawLabel(ang, tilt, perspective,ctx) {
         iw,
         tempCanvas.height,
         x1,
-        y - s * perspective * 0.5,
+        y - s * perspective * 0.5 + 90,
         x - x1,
         200 + s * perspective
       );
