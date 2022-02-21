@@ -22,8 +22,8 @@ function drawSlice(ctx) {
     var xOffset = -(548 * coef) / 2;
     var yOffset = -(600 * coef) / 2;
 
-    let tempCanvas = document.createElement("canvas");
-    let tempContext = tempCanvas.getContext("2d");
+    var tempCanvas = document.createElement("canvas");
+    var tempContext = tempCanvas.getContext("2d");
     tempCanvas.width = 1200;
     tempCanvas.height = 400;
 
