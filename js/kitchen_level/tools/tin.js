@@ -16,7 +16,6 @@ choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
 var sideTinSprite = new Image();
 sideTinSprite.src = "../assets/kitchen_level/side_tin.png";
 
-
 var label = new Image();
 label.src = "https://www.mockofun.com/wp-content/uploads/2020/04/tomato-sauce-label-5828.jpg";
 
@@ -28,14 +27,16 @@ tempCanvas.height = 200;
 var bibi = 9000;
 
 class Tin extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow)
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+    this.tinOpener = tinOpener;
   }
   draw() {
     super.draw();
 
-    if (this.inPlace) {
+    if (this.inPlace && this.tinOpener.inPlace) {
       sink.faucet = false;
+      this.tinOpener.isOpening = true;
 
       var backPic = document.getElementById("back");
       backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
@@ -46,7 +47,6 @@ class Tin extends Tool {
       this.ctx.drawImage(sideTinSprite,488,96, 225,300)
 
       bibi += 10;
-      console.log(bibi);
       drawLabel(bibi / 20000, 40, 30, this.ctx);
     }
   }

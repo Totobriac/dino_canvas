@@ -228,17 +228,17 @@ function drawTools(ctx, game) {
 
     Pan.prototype.meat = meat;
 
-    tin = new Tin("tin", tinSprite, 35, 350, 50, 50, ctx, 475, 275, {
+    tinOpener = new TinOpener("tinOpener", tinOpenerSprite, 852 , 50, 90, 40, ctx, 475, 275, {
       x: 502,
       y: 300,
       r: 28
     });
 
-    tinOpener = new TinOpener("tinOpener", tinOpenerSprite, 852, 50, 90, 40, ctx, 475, 275, {
+    tin = new Tin("tin", tinSprite, 35, 350, 50, 50, ctx, 475, 275, {
       x: 502,
       y: 300,
       r: 28
-    });
+    }, tinOpener);
 
 
     tools.push(pot);
