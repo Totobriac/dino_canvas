@@ -1,9 +1,11 @@
 import {
   Tool
 } from "./tools/tool.js";
+
 import {
   Pot
 } from "./tools/pot.js";
+
 import {
   ButterKnife
 } from "./tools/butter_knife.js";
@@ -14,6 +16,7 @@ import {
 import {
   Onion
 } from "./tools/onion.js";
+
 import {
   ChefKnife
 } from "./tools/chefKnife.js";
@@ -56,7 +59,11 @@ import {
 
 import {
   TinOpener
-} from "./tools/TinOpener.js";
+} from "./tools/tinOpener.js";
+
+import {
+  Pasta
+} from "./tools/pasta.js";
 
 var pot;
 var salt;
@@ -75,6 +82,7 @@ var spoon;
 var meat;
 var tin;
 var tinOpener;
+var pasta;
 
 var tools = [];
 
@@ -135,6 +143,9 @@ tinSprite.src = "../assets/kitchen_level/tin.png";
 var tinOpenerSprite = new Image();
 tinOpenerSprite.src = "../assets/kitchen_level/tin_opener.png";
 
+var pastaUpSprite = new Image();
+pastaUpSprite.src = "../assets/kitchen_level/pasta_up.png";
+
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
     salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, undefined, undefined, {
@@ -192,7 +203,7 @@ function drawTools(ctx, game) {
       r: 40
     });
 
-    garlic = new Garlic("garlic", garlicHeadSprite, 105, 350, 40, 40, ctx, 495, 290, {
+    garlic = new Garlic("garlic", garlicHeadSprite, 85, 350, 40, 40, ctx, 495, 290, {
       x: 516,
       y: 314,
       r: 20
@@ -234,13 +245,19 @@ function drawTools(ctx, game) {
       r: 28
     });
 
-    tin = new Tin("tin", tinSprite, 35, 350, 50, 50, ctx, 475, 275, {
+    tin = new Tin("tin", tinSprite, 135, 350, 50, 50, ctx, 475, 275, {
       x: 502,
       y: 300,
       r: 28
     }, tinOpener);
 
     TinOpener.prototype.tin = tin;
+
+    pasta = new Pasta("pasta", pastaUpSprite, 20,240,55,150,ctx, undefined, undefined, {
+      x: 502,
+      y: 300,
+      r: 28
+    } )
 
 
     tools.push(pot);
@@ -258,6 +275,7 @@ function drawTools(ctx, game) {
     tools.push(meat);
     tools.push(tin);
     tools.push(tinOpener);
+    tools.push(pasta);
 
 
     game.kitchenLevelStarted = true;
