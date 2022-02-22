@@ -2,6 +2,10 @@ import {
   Tool
 } from "./tool.js";
 
+import {
+  deleteTool,
+} from "../tools.js";
+
 var pastaSprite = new Image();
 pastaSprite.src = "../assets/kitchen_level/pasta.png";
 
@@ -19,6 +23,7 @@ class Pasta extends Tool {
     else{
       super.draw();
     }
+    if (this.inPlace) deleteTool("pasta");
   }
 }
 

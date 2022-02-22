@@ -253,12 +253,11 @@ function drawTools(ctx, game) {
 
     TinOpener.prototype.tin = tin;
 
-    pasta = new Pasta("pasta", pastaUpSprite, 20,240,55,150,ctx, undefined, undefined, {
-      x: 502,
-      y: 300,
-      r: 28
+    pasta = new Pasta("pasta", pastaUpSprite, 20,240,55,150,ctx,1062, 91, {
+      x: 1092,
+      y: 172,
+      r: 68,
     } )
-
 
     tools.push(pot);
     tools.push(salt);
