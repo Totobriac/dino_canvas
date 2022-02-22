@@ -240,6 +240,8 @@ function drawTools(ctx, game) {
       r: 28
     }, tinOpener);
 
+    TinOpener.prototype.tin = tin;
+
 
     tools.push(pot);
     tools.push(salt);

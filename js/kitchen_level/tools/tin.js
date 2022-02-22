@@ -24,12 +24,12 @@ var tempContext = tempCanvas.getContext("2d");
 tempCanvas.width = 400;
 tempCanvas.height = 200;
 
-var bibi = 9000;
 
 class Tin extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.tinOpener = tinOpener;
+    this.bibi = 9000;
   }
   draw() {
     super.draw();
@@ -44,11 +44,13 @@ class Tin extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
 
-      this.ctx.drawImage(sideTinSprite,488,96, 225,300)
+      this.ctx.drawImage(sideTinSprite,488,96, 225,300);
 
-      bibi += 10;
-      drawLabel(bibi / 20000, 40, 30, this.ctx);
+      drawLabel(this.bibi / 20000, 40, 30, this.ctx);
     }
+  }
+  rotate() {
+    this.bibi += 20;
   }
 }
 
