@@ -28,13 +28,19 @@ class TinOpener extends Tool {
 
       this.isSelected = true;
 
-      this.ctx.drawImage(handleSprite, 530, 100, 396, 105);
+      //  this.ctx.drawImage(handleSprite, 530, 100, 396, 105);
+
+      this.ctx.beginPath();
+      this.ctx.strokeStyle = "red";
+      this.ctx.lineWidth = 3;
+      this.ctx.ellipse(600, 125, 25, 106, 90 * Math.PI / 180,  2 * Math.PI ,-10 * Math.PI / 180);
+      this.ctx.stroke();
 
       this.ctx.save();
       this.ctx.translate(600, 150);
       this.ctx.rotate(-this.angle * Math.PI / 180);
 
-      this.ctx.drawImage(crankSprite, -80, -22, 160, 44)
+      //this.ctx.drawImage(crankSprite, -80, -22, 160, 44)
 
       this.ctx.restore();
 
