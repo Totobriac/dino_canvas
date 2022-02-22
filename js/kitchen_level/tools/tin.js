@@ -34,7 +34,7 @@ class Tin extends Tool {
   draw() {
     super.draw();
 
-    if (this.inPlace && this.tinOpener.inPlace) {
+    if (this.inPlace && this.tinOpener.inPlace || this.tinOpener.isOpening) {
       sink.faucet = false;
       this.tinOpener.isOpening = true;
 

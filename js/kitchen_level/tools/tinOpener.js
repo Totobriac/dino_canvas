@@ -1,6 +1,11 @@
 import {
-  Tool
+  Tool,
 } from "./tool.js";
+
+import {
+  onTop,
+  displayTool,
+} from "../tools.js";
 
 var handleSprite = new Image();
 handleSprite.src = "../assets/kitchen_level/handle_tin_opener.png";
@@ -16,8 +21,10 @@ class TinOpener extends Tool {
   }
   draw() {
     if (this.isOpening) {
-      this.angle ++;
-      this.ctx.drawImage(handleSprite,530,100,396,105)
+
+      this.isSelected = true;
+
+      this.ctx.drawImage(handleSprite,530,100,396,105);
 
       this.ctx.save();
       this.ctx.translate(600,150);

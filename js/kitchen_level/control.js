@@ -66,6 +66,7 @@ function onMouseDown(e) {
   sink.checkDrain(e);
   butterKnife.checkButter();
   butterKnife.checkCut();
+
   getSelectedTool(e);
 
   onion.donePeeling(mouse);
