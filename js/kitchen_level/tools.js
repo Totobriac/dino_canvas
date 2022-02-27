@@ -257,7 +257,9 @@ function drawTools(ctx, game) {
       x: 1092,
       y: 172,
       r: 68,
-    } )
+    });
+
+    Pot.prototype.pasta = pasta;
 
     tools.push(pot);
     tools.push(salt);

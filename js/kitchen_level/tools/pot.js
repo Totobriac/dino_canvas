@@ -1,7 +1,7 @@
 import { Tool } from "./tool.js";
 import { burners } from "./stove.js";
 import {  Point } from "./bubble.js";
-import { sink } from "../tools.js";
+import { sink, deleteTool } from "../tools.js";
 
 var waterLevel = 0;
 
@@ -32,7 +32,7 @@ class Pot extends Tool {
       this.ctx.fill();
     }
 
-    if (waterLevel > 50 && waterLevel < 64 && this.isSelected === true) {
+    if (waterLevel > 50 && this.isSelected === true) {
       this.isFilled = true;
       this.inPlace = false;
       this.shadow = { x: 1092, y: 170, r: 60 };
@@ -40,7 +40,7 @@ class Pot extends Tool {
       this.perfY = 90;
     }
 
-    if (this.inPlace === false || this.inPlace && sink.sinkIsOn === false) {
+    if (sink.sinkIsOn === false) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       this.ctx.beginPath();
       this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, waterLevel, 0, 2 * Math.PI, false);
@@ -48,6 +48,10 @@ class Pot extends Tool {
     }
 
     if (this.isFilled === true && this.inPlace === true && burners[3].isOn === true) {
+      if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
+        this.pasta.inPot();   
+        deleteTool("pasta");    
+      }
       this.boil();
     }
   }
