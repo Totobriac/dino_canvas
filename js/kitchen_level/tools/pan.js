@@ -21,6 +21,8 @@ crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
 var meatSprite = new Image();
 meatSprite.src = "../assets/kitchen_level/meat.png";
 
+var sauceRadius = 0;
+
 class Veggy {
   constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
     this.panX = pX + pWidth / 2 + 28;
@@ -114,6 +116,7 @@ class Pan extends Tool {
     this.hasOnion = false;
     this.hasCarrot = false;
     this.hasGarlic = false;
+    this.hasSauce = false;
     this.canStir = false;
     this.stirVeg = false;
     this.veggies = [];
@@ -123,6 +126,13 @@ class Pan extends Tool {
   draw() {
     super.draw();
 
+    if (this.hasSauce) {
+      if (sauceRadius < 57) sauceRadius += 0.2;
+      this.ctx.fillStyle = "red";
+      this.ctx.beginPath();
+      this.ctx.arc(this.x + this.width / 2 + 28 , this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
     if (!this.stirVeg) {
       if (this.butter.isCut === true) this.buttMelt();
       if (this.hasOnion === true) this.addOnion();
@@ -133,8 +143,8 @@ class Pan extends Tool {
       for (let i = 0; i < this.veggies.length; i++) {
         this.veggies[i].update();
         this.veggies[i].draw();
-      };      
-    } 
+      };
+    }
     if (this.justCrushed) {
       for (let i = 0; i < this.meatP.length; i++) {
         this.meatP[i].update();

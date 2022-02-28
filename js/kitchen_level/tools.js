@@ -249,7 +249,7 @@ function drawTools(ctx, game) {
       x: 502,
       y: 300,
       r: 28
-    }, tinOpener);
+    }, tinOpener, pan);
 
     TinOpener.prototype.tin = tin;
 

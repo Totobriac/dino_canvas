@@ -26,10 +26,11 @@ tempCanvas.height = 200;
 
 
 class Tin extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener) {
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener, pan) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.tinOpener = tinOpener;
     this.bibi = 9000;
+    this.pan = pan;
     this.isOpen = false;
   }
   draw() {
@@ -58,9 +59,24 @@ class Tin extends Tool {
 
       drawLabel(this.bibi / 20000, 40, 30, this.ctx);
     }
+
+    if (this.inPlace && this.isOpen && this.isSelected) {
+      this.pan.hasSauce = true;
+      deleteTool("tin");
+    }
   }
   rotate() {
     this.bibi += 20;
+  }
+  open() {
+    this.perfX = this.pan.x + this.pan.width / 2;
+    this.perfY = this.pan.y + this.pan.height / 10;
+    this.shadow = {
+      x: this.perfX + 28,
+      y: this.perfY + 28,
+      r: 28
+    }
+    this.isOpen = true;
   }
 }
 
