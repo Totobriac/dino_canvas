@@ -36,6 +36,8 @@ class ButterKnife extends Tool {
 
       butterBig.draw();
 
+      this.ctx.save();
+
       this.ctx.setLineDash([10, 10]);
       this.ctx.strokeStyle = "red";
 
@@ -50,6 +52,8 @@ class ButterKnife extends Tool {
       this.ctx.lineTo(530, 350);
       this.ctx.stroke();
       this.ctx.closePath();
+
+      this.ctx.restore();
 
       this.ctx.fillStyle = "black";
       this.ctx.fillRect(500 + this.move, 80, 6, 319);

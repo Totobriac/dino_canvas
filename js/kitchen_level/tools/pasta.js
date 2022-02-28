@@ -12,7 +12,6 @@ class singlePasta {
     this.color = 60 + Math.floor(Math.random() * 14);
     this.start = Math.floor(Math.random() * 10);
     this.five = Math.floor(Math.random() * 5);
-    // this.bezier = Math.random() < 0.5 ? -1 : 1;
     this.bezier = -2 + Math.floor(Math.random() * 4);
   }
 }
@@ -24,7 +23,7 @@ class Pasta extends Tool {
     this.pastas = [];
     this.populatePastas();
     this.count = 0;
-    this.maxCount = 12;
+    this.maxCount = 24;
     this.size = 0;
     this.shriking = true;
   }
@@ -49,7 +48,6 @@ class Pasta extends Tool {
     } else {
       this.count++;
     };
-    console.log(this.size);
     var start = 0;
     var end = 2 * Math.PI;
 
@@ -60,7 +58,6 @@ class Pasta extends Tool {
     this.pastas.forEach(pasta => {
       var angle = start + step++ * stepSize;
       var pastaLength = -pasta.length + this.size;
-
 
       this.ctx.save();
       this.ctx.strokeStyle = "hsla(57, 100%," + pasta.color + "%, 1)";
