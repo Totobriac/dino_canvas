@@ -69,8 +69,6 @@ console.log(mouse);
 
   getSelectedTool(e);
 
-  onion.donePeeling(mouse);
-
   if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
     onion.slices.push({
       x: chefKnife.x + chefKnife.width / 2,

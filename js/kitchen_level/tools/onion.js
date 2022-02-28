@@ -3,10 +3,7 @@ import {
 } from "./tool.js";
 
 import {
-  points
-} from "../control.js";
-
-import {
+  points,
   mouse
 } from "../control.js";
 
@@ -30,6 +27,15 @@ onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
+
+var rgb = {
+  r: 0,
+  g: 0,
+  b: 0
+};
+var count = 0;
+var i = -4;
+var blockSize = 5;
 
 class Onion extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan) {
@@ -77,10 +83,7 @@ class Onion extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
-      this.ctx.fillStyle = "green";
-      this.ctx.beginPath();
-      this.ctx.arc(1100, 300, 40, 0, 2 * Math.PI);
-      this.ctx.fill();
+    
       this.peel();
     }
     if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
@@ -147,15 +150,41 @@ class Onion extends Tool {
       this.ctx.arc(points[i].x, points[i].y, 30, 0, 2 * Math.PI);
       this.ctx.fill();
     }
+
+    rgb = {
+      r: 0,
+      g: 0,
+      b: 0
+    };
+    count = 0;
+    i = -4;
+    blockSize = 5;
+    this.getAverageColor();
   }
-  donePeeling(mouse) {
-    var dist = Math.sqrt((mouse.x - 1100) * (mouse.x - 1100) + (mouse.y - 300) * (mouse.y - 300));
-    if (dist < 40) {
-      this.inPlace = false;
-      this.state = "peeled";
-      var backPic = document.getElementById("back");
-      backPic.style.background = "none";
+  getAverageColor() {
+    var imgData = this.ctx.getImageData(465, 40, 290, 320);
+    var data = imgData.data;
+    while ((i += blockSize * 4) < data.length) {
+      ++count;
+      rgb.r += data[i];
+      rgb.g += data[i + 1];
+      rgb.b += data[i + 2];
     }
+
+    rgb.r = Math.floor(rgb.r / count);
+    rgb.g = Math.floor(rgb.g / count);
+    rgb.b = Math.floor(rgb.b / count);
+
+    if (rgb.r != 0 && rgb.r < 11 && rgb.g < 23 && rgb.b < 10 && this.state === "halfed") {
+      console.log(data);
+      this.donePeeling();
+    }
+  }
+  donePeeling() {
+    this.inPlace = false;
+    this.state = "peeled";
+    var backPic = document.getElementById("back");
+    backPic.style.background = "none";
   }
   halfOnion() {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
