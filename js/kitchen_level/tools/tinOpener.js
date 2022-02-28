@@ -71,7 +71,13 @@ class TinOpener extends Tool {
         }
       }
 
-      if (this.angle > 740) this.isOpening = false
+      if (this.angle > 740) {
+        this.isOpening = false;
+        this.isSelected = false;
+        this.tin.isOpen = true;
+        this.x = 852;
+        this.y = 50;
+      }
     } else {
       super.draw();
     }

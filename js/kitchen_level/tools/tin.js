@@ -30,9 +30,19 @@ class Tin extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.tinOpener = tinOpener;
     this.bibi = 9000;
+    this.isOpen = false;
   }
   draw() {
+
     super.draw();
+
+    if (this.isOpen === true) {
+      sink.faucet = true;
+      this.ctx.fillStyle = "red";
+      this.ctx.beginPath();
+      this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, 19, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
 
     if (this.inPlace && this.tinOpener.inPlace || this.tinOpener.isOpening) {
       sink.faucet = false;
@@ -44,7 +54,7 @@ class Tin extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
 
-      this.ctx.drawImage(sideTinSprite,488,96, 225,300);
+      this.ctx.drawImage(sideTinSprite, 488, 96, 225, 300);
 
       drawLabel(this.bibi / 20000, 40, 30, this.ctx);
     }
@@ -54,7 +64,7 @@ class Tin extends Tool {
   }
 }
 
-function drawLabel(ang, tilt, perspective,ctx) {
+function drawLabel(ang, tilt, perspective, ctx) {
 
   tempContext.drawImage(label, 0, 0, 400, 200);
 
