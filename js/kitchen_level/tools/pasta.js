@@ -26,6 +26,7 @@ class Pasta extends Tool {
     this.maxCount = 24;
     this.size = 0;
     this.shriking = true;
+    this.bezierSize = 0;
   }
   populatePastas() {
     for (let i = 0; i < 150; i++) {
@@ -42,7 +43,7 @@ class Pasta extends Tool {
     }
   }
   inPot() {
-    if (this.count > this.maxCount && this.size < 35) {
+    if (this.count > this.maxCount && this.size < 42) {
       this.size++;
       this.count = 0;
     } else {
@@ -70,9 +71,12 @@ class Pasta extends Tool {
         this.ctx.lineTo(pastaLength, -pasta.five);
         this.ctx.stroke();
       } else {
+        this.bezierSize ++;
         this.ctx.beginPath();
         this.ctx.moveTo(pasta.start, -pasta.five * 5);
-        this.ctx.quadraticCurveTo(pasta.bezier * this.size ,pasta.bezier * this.size * -1 , pastaLength, -pasta.five);
+
+        this.ctx.quadraticCurveTo(pasta.start + pasta.bezier * (this.size-31) * 1.4, -pasta.five * 5 + pasta.bezier * (this.size-31)*1.4, pastaLength, -pasta.five);
+
         this.ctx.stroke();
       }
       this.ctx.restore();
