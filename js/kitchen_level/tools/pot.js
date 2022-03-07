@@ -20,10 +20,11 @@ class Pot extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow)
     this.isFilled = false;
+    this.pastas = [];
   }
   draw() {
     super.draw();
-
+    console.log(this.inPlace);
     if (this.inPlace && sink.sinkIsOn) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       if (waterLevel < 72) waterLevel += 0.25;
@@ -50,7 +51,6 @@ class Pot extends Tool {
     if (this.isFilled === true && this.inPlace === true && burners[3].isOn === true) {
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
         this.pasta.inPot();   
-        deleteTool("pasta");    
       }
       this.boil();
     }

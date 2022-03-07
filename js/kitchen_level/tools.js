@@ -65,6 +65,10 @@ import {
   Pasta
 } from "./tools/pasta.js";
 
+import {
+  Colander
+} from "./tools/colander.js";
+
 var pot;
 var salt;
 var pan;
@@ -83,6 +87,7 @@ var meat;
 var tin;
 var tinOpener;
 var pasta;
+var colander;
 
 var tools = [];
 
@@ -146,6 +151,9 @@ tinOpenerSprite.src = "../assets/kitchen_level/tin_opener.png";
 var pastaUpSprite = new Image();
 pastaUpSprite.src = "../assets/kitchen_level/pasta_up.png";
 
+var colanderSprite = new Image();
+colanderSprite.src = "../assets/kitchen_level/colander.png";
+
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
     salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, undefined, undefined, {
@@ -153,7 +161,14 @@ function drawTools(ctx, game) {
       y: 0,
       r: 0
     });
-    pot = new Pot("pot", potSprite, 550, 16, 210, 161, ctx, 22, 48, {
+
+    pot = new Pot("pot", potSprite, 860, 166, 210, 161, ctx, 22, 48, {
+      x: 120,
+      y: 132,
+      r: 60
+    });
+
+    colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
       x: 120,
       y: 132,
       r: 60
@@ -254,12 +269,12 @@ function drawTools(ctx, game) {
     TinOpener.prototype.tin = tin;
 
     pasta = new Pasta("pasta", pastaUpSprite, 20,240,55,150,ctx,1062, 91, {
-      x: 1092,
+      x: 1102,
       y: 172,
-      r: 68,
-    });
+      r: 28,
+    }, pot, colander);
 
-    Pot.prototype.pasta = pasta;
+    Pot.prototype.pasta = pasta;    
 
     tools.push(pot);
     tools.push(salt);
@@ -277,6 +292,7 @@ function drawTools(ctx, game) {
     tools.push(tin);
     tools.push(tinOpener);
     tools.push(pasta);
+    tools.push(colander);
 
 
     game.kitchenLevelStarted = true;

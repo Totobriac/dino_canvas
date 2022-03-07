@@ -41,7 +41,7 @@ class Carrot extends Tool {
     this.pan = pan;
     this.toBeGrated = false;
     this.oldX = 0;
-    this.cut = 490;
+    this.cut = 0;
     this.isGrated = false;
   }
   draw() {
