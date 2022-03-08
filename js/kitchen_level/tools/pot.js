@@ -1,9 +1,16 @@
-import { Tool } from "./tool.js";
-import { burners } from "./stove.js";
-import {  Point } from "./bubble.js";
-import { sink, deleteTool } from "../tools.js";
-
-var waterLevel = 0;
+import {
+  Tool
+} from "./tool.js";
+import {
+  burners
+} from "./stove.js";
+import {
+  Point
+} from "./bubble.js";
+import {
+  sink,
+  deleteTool
+} from "../tools.js";
 
 var points = [];
 
@@ -21,22 +28,28 @@ class Pot extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow)
     this.isFilled = false;
     this.pastas = [];
+    this.onBurner = false;
+    this.waterLevel = 0;
   }
   draw() {
     super.draw();
-    console.log(this.inPlace);
+
     if (this.inPlace && sink.sinkIsOn) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-      if (waterLevel < 72) waterLevel += 0.25;
+      if (this.waterLevel < 72) this.waterLevel += 0.25;
       this.ctx.beginPath();
-      this.ctx.arc(125, 130, waterLevel, 0, 2 * Math.PI, false);
+      this.ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
       this.ctx.fill();
     }
 
-    if (waterLevel > 50 && this.isSelected === true) {
+    if (this.waterLevel > 50 && this.isSelected && !this.onBurner) {
       this.isFilled = true;
       this.inPlace = false;
-      this.shadow = { x: 1092, y: 170, r: 60 };
+      this.shadow = {
+        x: 1092,
+        y: 170,
+        r: 60
+      };
       this.perfX = 1000;
       this.perfY = 90;
     }
@@ -44,13 +57,14 @@ class Pot extends Tool {
     if (sink.sinkIsOn === false) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       this.ctx.beginPath();
-      this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, waterLevel, 0, 2 * Math.PI, false);
+      this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.waterLevel, 0, 2 * Math.PI, false);
       this.ctx.fill();
     }
 
     if (this.isFilled === true && this.inPlace === true && burners[3].isOn === true) {
+      this.onBurner = true;
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
-        this.pasta.inPot();   
+        this.pasta.inPot();
       }
       this.boil();
     }
@@ -59,8 +73,7 @@ class Pot extends Tool {
     if (radiusFrame > maxFrame * 10 && maxRadius < 5) {
       maxRadius++;
       radiusFrame = 0;
-    }
-    else {
+    } else {
       radiusFrame++;
     }
 
@@ -97,4 +110,6 @@ function populatePoints() {
 }
 
 
-export { Pot };
+export {
+  Pot
+};

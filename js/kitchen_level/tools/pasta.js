@@ -33,6 +33,7 @@ class Pasta extends Tool {
     this.doneCooking = false;
     this.pot = pot;
     this.colander = colander;
+    this.top = "pasta";
   }
   populatePastas() {
     for (let i = 0; i < 150; i++) {
@@ -40,7 +41,6 @@ class Pasta extends Tool {
     }
   }
   draw() {
-    console.log(this.doneCooking);
     if (this.isSelected) this.isUp = false;
 
     if (!this.isUp && !this.areCooking) {
@@ -50,7 +50,7 @@ class Pasta extends Tool {
 
     if (this.areCooking === true) {
 
-      onTop("pasta");
+      onTop(this.top);
 
       if (!this.colander.hasPastas) {
         var X = this.pot.x + 106;
@@ -97,7 +97,7 @@ class Pasta extends Tool {
           this.ctx.stroke();
         }
         this.ctx.restore();
-        if (this.size === 42) {
+        if (this.size === 42 && !this.colander.hasPastas) {
           this.pot.perfX = 22;
           this.pot.perfY = 48;
           this.pot.shadow = {
@@ -116,7 +116,16 @@ class Pasta extends Tool {
     }
     if(this.doneCooking && this.pot.inPlace && this.colander.inPlace) {
       this.colander.hasPastas = true;
-      onTop("pot");
+      this.pot.waterLevel = 0;
+      this.pot.isFilled = false;
+      this.pot.perfX = undefined;
+      this.pot.perfY = undefined;
+      this.pot.shadow = {
+        x: undefined,
+        y: undefined,
+        r: undefined,
+      };
+      this.top = "pot";
     }
   }
   inPot() {

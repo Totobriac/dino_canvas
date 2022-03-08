@@ -274,7 +274,7 @@ function drawTools(ctx, game) {
       r: 28,
     }, pot, colander);
 
-    Pot.prototype.pasta = pasta;    
+    Pot.prototype.pasta = pasta;
 
     tools.push(pot);
     tools.push(salt);
@@ -293,7 +293,6 @@ function drawTools(ctx, game) {
     tools.push(tinOpener);
     tools.push(pasta);
     tools.push(colander);
-
 
     game.kitchenLevelStarted = true;
   }
