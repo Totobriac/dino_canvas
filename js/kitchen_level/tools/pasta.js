@@ -13,6 +13,10 @@ pastaSprite.src = "../assets/kitchen_level/pasta.png";
 var steamSprite = new Image();
 steamSprite.src = "../assets/kitchen_level/steam_2.png";
 
+var steamCloudSprite = new Image();
+steamCloudSprite.src = "../assets/kitchen_level/steam_cloud.png";
+
+var add = 0.5;
 
 class singlePasta {
   constructor() {
@@ -40,7 +44,7 @@ class Pasta extends Tool {
     this.pot = pot;
     this.colander = colander;
     this.top = "pasta";
-    this.angle= 0 ;
+    this.angle = 0;
   }
   populatePastas() {
     for (let i = 0; i < 150; i++) {
@@ -135,40 +139,28 @@ class Pasta extends Tool {
     }
     if (this.colander.hasPastas) {
 
-      this.angle < 180 ? this.angle += 0.5 : this.angle -= 0.5;
+      if (this.angle > 110) {
+        add = -0.2;
+      } else if (this.angle < 0) {
+        add = 0.2;
+      };
+
+      this.angle += add;
 
       var tempCanvas = document.createElement("canvas");
       var tempContext = tempCanvas.getContext("2d");
-      tempCanvas.width = 500;
-      tempCanvas.height = 500;
+      tempCanvas.width = 1400;
+      tempCanvas.height = 400;
 
-      tempContext.translate(126,134);
-
+      tempContext.translate(this.colander.x , this.colander.y);
+      tempContext.rotate(this.angle * 0.5 * Math.PI / 180);
       tempContext.drawImage(steamSprite, -250 + this.angle * 0.1, -250 + this.angle);
-      tempContext.setTransform(1,0,0,1,0,0);
+      tempContext.setTransform(1, 0, 0, 1, 0, 0);
       tempContext.globalCompositeOperation = 'destination-in';
-      tempContext.beginPath();
-      tempContext.arc(126, 134, 70, 0, 2 * Math.PI);
-      tempContext.fill();
+
+      tempContext.drawImage(steamCloudSprite, this.colander.x + 24, this.colander.y + 18);
 
       this.ctx.drawImage(tempCanvas, 0, 0);
-
-      var tempCanvas2 = document.createElement("canvas");
-      var tempContext2 = tempCanvas2.getContext("2d");
-      tempCanvas2.width = 500;
-      tempCanvas2.height = 500;
-
-      tempContext2.translate(126,134);
-
-      tempContext2.drawImage(steamSprite, -250 - this.angle, -250 - this.angle * 0.2);
-      tempContext2.setTransform(1,0,0,1,0,0);
-      tempContext2.globalCompositeOperation = 'destination-in';
-      tempContext2.beginPath();
-      tempContext2.arc(126, 134, 70, 0, 2 * Math.PI);
-      tempContext2.fill();
-
-      this.ctx.drawImage(tempCanvas2, 0, 0);
-
     }
   }
   inPot() {

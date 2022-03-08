@@ -8,7 +8,7 @@ import {
 class Colander extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
-    this.hasPastas = true;
+    this.hasPastas = false;
   }
   draw() {
     super.draw();
