@@ -4,8 +4,6 @@ import {
 
 import { deleteTool } from "../tools.js";
 
-import { mouse } from "../control.js";
-
 var splitGarlicSprite = new Image();
 splitGarlicSprite.src = "../assets/kitchen_level/garlic_split.png";
 
@@ -44,7 +42,7 @@ class Garlic extends Tool {
       this.sprite = crushedCloveSprite;
       this.width = 50;
       this.height = 50;
-      if( this.resetPos === false) {
+      if( !this.resetPos ) {
         this.resetPosition();
         this.resetPos = true;
       }
@@ -92,7 +90,6 @@ class Garlic extends Tool {
     }
   }
 }
-
 
 export {
   Garlic

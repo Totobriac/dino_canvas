@@ -319,6 +319,12 @@ function displayTool(toolL) {
   }
 }
 
+function displayAllTools() {
+  for (let i = 0; i < tools.length; i++) {
+    tools[i].isDesplayed = true;
+  }
+}
+
 function deleteTool(tool) {
   var newTools = tools.filter(t => t.name != tool);
   tools = newTools;
@@ -347,6 +353,7 @@ export {
   deleteTool,
   garlicPress,
   displayTool,
+  displayAllTools,
   onTop,
   meat
 };

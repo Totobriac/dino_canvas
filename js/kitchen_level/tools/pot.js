@@ -34,7 +34,7 @@ class Pot extends Tool {
     if (this.inPlace && this.sink.sinkIsOn && !this.isFilled) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       if (this.waterLevel < 72) {
-        this.waterLevel += 0.25;        
+        this.waterLevel += 0.25;
       }
       else {
         this.sink.overFlow()
@@ -83,7 +83,7 @@ class Pot extends Tool {
     for (let i = 0; i < points.length; i++) {
 
       this.ctx.strokeStyle = points[i].color;
-
+      this.ctx.setLineDash([]);
       if (frame > maxFrame) {
         frame = 0;
         points[i].radius += 1;

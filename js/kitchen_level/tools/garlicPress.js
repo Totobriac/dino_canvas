@@ -3,11 +3,10 @@ import {
 } from "./tool.js";
 
 import {
+  displayAllTools,
   displayTool,
   onTop,
   sink,
-  tools,
-  deleteTool,
 } from "../tools.js";
 
 
@@ -192,7 +191,7 @@ class GarlicPress extends Tool {
       this.height = 30;
       this.x = 850;
       this.y = 20;
-      displayTool(["pot", "tool", "butterPlate", "butterKnife", "pan", "chefKnife", "onion", "carrot", "grater", "garlic", "garlicPress", "spoon","meat"]);
+      displayAllTools();
     }
   }
 }

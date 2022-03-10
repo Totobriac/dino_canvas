@@ -89,6 +89,7 @@ class Onion extends Tool {
     if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
 
     if (this.state === "peeled" || this.state === "beheaded") {
+      sink.faucet = false;
       onTop("chefKnife");
       this.knife.isSelected = true;
       this.knife.isChopping = true;
@@ -106,9 +107,9 @@ class Onion extends Tool {
       var yOffset = -((600 * this.coef) / 2) + this.pieceWidth * this.coef;
 
       this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
-
-      this.ctx.setLineDash([4, 4]);
       this.ctx.strokeStyle = "red";
+      this.ctx.setLineDash([4, 4]);
+      
       if (this.state === "peeled") {
         this.ctx.beginPath();
         this.ctx.moveTo(-180, -80);
@@ -176,7 +177,6 @@ class Onion extends Tool {
     rgb.b = Math.floor(rgb.b / count);
 
     if (rgb.r != 0 && rgb.r < 11 && rgb.g < 23 && rgb.b < 10 && this.state === "halfed") {
-      console.log(data);
       this.donePeeling();
     }
   }
@@ -253,6 +253,8 @@ class Onion extends Tool {
       this.ctx.beginPath();
 
       this.ctx.arc(0, 0, 125, 2 * Math.PI, Math.PI, false);
+
+      this.ctx.strokeStyle = "red";
 
       this.ctx.setLineDash([4, 4]);
       this.ctx.lineWidth = 15;
@@ -367,6 +369,7 @@ class Onion extends Tool {
     };
   }
   done() {
+    sink.faucet = true;
     this.state = "done";
     this.canMince = false;
     this.canChop = false;

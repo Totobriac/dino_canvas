@@ -59,7 +59,6 @@ class Meat extends Tool {
     }
   }
   crushMeat(i) {
-    console.log(this.piecesNum);
     this.piecesNum++;
     var pLin = Math.floor(i / 10);
     var pCol = i - pLin * 10;
