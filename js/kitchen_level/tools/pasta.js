@@ -11,7 +11,7 @@ var pastaSprite = new Image();
 pastaSprite.src = "../assets/kitchen_level/pasta.png";
 
 var steamSprite = new Image();
-steamSprite.src = "../assets/kitchen_level/steam_2.png";
+steamSprite.src = "../assets/kitchen_level/steam.png";
 
 var steamCloudSprite = new Image();
 steamCloudSprite.src = "../assets/kitchen_level/steam_cloud.png";
@@ -154,7 +154,11 @@ class Pasta extends Tool {
 
       tempContext.translate(this.colander.x , this.colander.y);
       tempContext.rotate(this.angle * 0.5 * Math.PI / 180);
+
+      tempContext.globalAlpha = 0.7;
       tempContext.drawImage(steamSprite, -250 + this.angle * 0.1, -250 + this.angle);
+      tempContext.drawImage(steamSprite, -250 + this.angle, -250 + this.angle * 0.1);
+
       tempContext.setTransform(1, 0, 0, 1, 0, 0);
       tempContext.globalCompositeOperation = 'destination-in';
 
