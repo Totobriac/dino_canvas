@@ -45,6 +45,7 @@ class Pot extends Tool {
     }
 
     if (this.waterLevel > 65 && this.isSelected && !this.onBurner) {
+      this.sink.overFlowded = false;
       this.isFilled = true;
       this.inPlace = false;
       this.shadow = {
