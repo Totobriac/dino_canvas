@@ -162,11 +162,13 @@ function drawTools(ctx, game) {
       r: 0
     });
 
+    sink = new Sink();
+
     pot = new Pot("pot", potSprite, 860, 166, 210, 161, ctx, 22, 48, {
       x: 120,
       y: 132,
       r: 60
-    });
+    }, sink);
 
     colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
       x: 120,
@@ -242,9 +244,7 @@ function drawTools(ctx, game) {
       r: 40
     });
 
-    Pan.prototype.spoon = spoon;
-
-    sink = new Sink();
+    Pan.prototype.spoon = spoon;    
 
     meat = new Meat("meat", meatSprite, 265, 290, 60, 60, ctx, 934, 190, {
       x: 964,

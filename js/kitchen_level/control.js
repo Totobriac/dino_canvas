@@ -58,8 +58,7 @@ function onMouseDown(e) {
   if(garlicPress.toCrush) garlicPress.addPoints();
 
   mouse = getCursorPosition(e);
-console.log(mouse);
-  meat.selectedPiece(mouse.x, mouse.y)
+  meat.selectedPiece(mouse.x, mouse.y);
 
   sink.checkFaucet(e);
   getSelectedButton(e);

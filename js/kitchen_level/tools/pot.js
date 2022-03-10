@@ -7,9 +7,6 @@ import {
 import {
   Point
 } from "./bubble.js";
-import {
-  sink,
-} from "../tools.js";
 
 var points = [];
 
@@ -23,25 +20,31 @@ var maxPoints = 50;
 
 
 class Pot extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sink) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow)
     this.isFilled = false;
     this.pastas = [];
     this.onBurner = false;
     this.waterLevel = 0;
+    this.sink = sink;
   }
   draw() {
     super.draw();
 
-    if (this.inPlace && sink.sinkIsOn) {
+    if (this.inPlace && this.sink.sinkIsOn && !this.isFilled) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-      if (this.waterLevel < 72) this.waterLevel += 0.25;
+      if (this.waterLevel < 72) {
+        this.waterLevel += 0.25;        
+      }
+      else {
+        this.sink.overFlow()
+      }
       this.ctx.beginPath();
       this.ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
       this.ctx.fill();
     }
 
-    if (this.waterLevel > 50 && this.isSelected && !this.onBurner) {
+    if (this.waterLevel > 65 && this.isSelected && !this.onBurner) {
       this.isFilled = true;
       this.inPlace = false;
       this.shadow = {
@@ -53,7 +56,7 @@ class Pot extends Tool {
       this.perfY = 90;
     }
 
-    if (sink.sinkIsOn === false) {
+    if (this.waterLevel) {
       this.ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
       this.ctx.beginPath();
       this.ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.waterLevel, 0, 2 * Math.PI, false);
