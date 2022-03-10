@@ -24,10 +24,12 @@ function getSelectedTool(e) {
       tools[i].isSelected = false;
     } else {
       var tool = tools[i];
-      tools.splice(i,1);
-      tools.push(tool);
-      tools[tools.length - 1].isSelected = true;
-      return ;
+      if (tool.canBeSelected) {
+        tools.splice(i,1);
+        tools.push(tool);
+        tools[tools.length - 1].isSelected = true;
+        return ;
+      }      
     }
   }
   return;

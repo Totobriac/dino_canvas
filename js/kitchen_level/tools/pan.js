@@ -267,6 +267,4 @@ function distance(obj1, obj2) {
     (obj1.y - obj2.y) * (obj1.y - obj2.y))
 }
 
-export {
-  Pan
-};
+export { Pan };

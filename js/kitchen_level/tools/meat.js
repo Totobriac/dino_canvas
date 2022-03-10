@@ -1,6 +1,4 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
 
 import { deleteTool } from "../tools.js";
 
@@ -8,7 +6,7 @@ var meatSprite = new Image();
 meatSprite.src = "../assets/kitchen_level/meat.png";
 
 class Meat extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon) {
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon, pan) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon);
     this.minced = false;
     this.pieces = [];
@@ -17,6 +15,7 @@ class Meat extends Tool {
     this.spoon = spoon;
     this.canCrush = true;
     this.isCrushed = false;
+    this.pan = pan;
   }
   draw() {
     if (this.inPlace && !this.minced) {
@@ -42,20 +41,25 @@ class Meat extends Tool {
     }
   }
   selectedPiece(x, y) {
-    for (let i = 0; i < this.pieces.length; i++) {
-      if (
-        x < this.pieces[i].x ||
-        x > this.pieces[i].x + 6 ||
-        y < this.pieces[i].y ||
-        y > this.pieces[i].y + 6
-      ) {
-        continue;
-      } else {
-        if(this.canCrush) this.crushMeat(i);
+    if (this.pieces.length > 0) {
+      this.pan.canBeSelected = false;
+      this.canBeSelected = false;
+      for (let i = 0; i < this.pieces.length; i++) {
+        if (
+          x < this.pieces[i].x ||
+          x > this.pieces[i].x + 6 ||
+          y < this.pieces[i].y ||
+          y > this.pieces[i].y + 6
+        ) {
+          continue;
+        } else {
+          if (this.canCrush) this.crushMeat(i);
+        }
       }
     }
   }
   crushMeat(i) {
+    console.log(this.piecesNum);
     this.piecesNum++;
     var pLin = Math.floor(i / 10);
     var pCol = i - pLin * 10;
@@ -82,11 +86,10 @@ class Meat extends Tool {
     if (this.piecesNum > 18) {
       this.canCrush = false;
       this.isCrushed = true;
+      this.break = false;
       deleteTool("meat");
     };
   }
 }
 
-export {
-  Meat
-};
+export { Meat };

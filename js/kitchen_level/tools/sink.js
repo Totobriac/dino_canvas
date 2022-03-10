@@ -44,7 +44,6 @@ class Sink {
 
   drawWater(ctx) {
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-    console.log(this.overFlowded);
     if (this.sinkIsOn && !this.drainOpen) {
       this.waterLevel += 0.25;
     } 
