@@ -45,18 +45,19 @@ class Sink {
   drawWater(ctx) {
   
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
+
     if (pot) {
-      if (this.sinkIsOn && this.drainOpen === false || this.sinkIsOn && pot.inPlace) {
+      if (this.sinkIsOn && !this.drainOpen || this.sinkIsOn && pot.inPlace) {
         this.waterLevel += 0.25;
       }
   
       if (this.waterLevel < 69) {
-        if (this.drainOpen === false || pot.inPlace && pot.perfX === 22) {
+        if (!this.drainOpen || pot.inPlace && pot.perfX === 22) {
           ctx.beginPath();
           ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
           ctx.fill();
         }
-        else if (this.drainOpen === true && this.waterLevel > 0.25) {
+        else if (this.drainOpen && this.waterLevel > 0.25) {
           this.waterLevel -= 0.25;
           ctx.beginPath();
           ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
@@ -100,7 +101,7 @@ class Sink {
         ctx.fill();
       }
       else {
-        if (this.drainOpen === false || pot.inPlace === true) {
+        if (!this.drainOpen || pot.inPlace) {
           ctx.beginPath();
           ctx.moveTo(275, 135);
           ctx.arcTo(275, 234, 30, 234, 40);

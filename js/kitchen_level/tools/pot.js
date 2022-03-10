@@ -9,7 +9,6 @@ import {
 } from "./bubble.js";
 import {
   sink,
-  deleteTool
 } from "../tools.js";
 
 var points = [];
