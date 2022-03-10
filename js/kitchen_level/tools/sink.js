@@ -43,9 +43,8 @@ class Sink {
   }
 
   drawWater(ctx) {
-    console.log(this.overFlowded);
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
-
+    console.log(this.overFlowded);
     if (this.sinkIsOn && !this.drainOpen) {
       this.waterLevel += 0.25;
     } 
@@ -74,6 +73,11 @@ class Sink {
       };
 
       if (this.sinkIsOn && this.drainOpen && !this.overFlowded) {
+        this.angle -= 0.3;
+        this.waterLevel -= 0.25;
+      };
+
+      if (!this.sinkIsOn && this.drainOpen) {
         this.angle -= 0.3;
         this.waterLevel -= 0.25;
       };

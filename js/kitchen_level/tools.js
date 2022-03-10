@@ -170,6 +170,8 @@ function drawTools(ctx, game) {
       r: 60
     }, sink);
 
+    Sink.prototype.pot = pot;
+
     colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
       x: 120,
       y: 132,
