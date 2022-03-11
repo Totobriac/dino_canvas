@@ -12,6 +12,7 @@ class Notepad extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.big = false;
+    this.stepDone = 20;
   }
   draw() {
     if (this.isSelected) {
@@ -27,7 +28,14 @@ class Notepad extends Tool {
       this.ctx.font = "30px Cooking";
       steps.forEach((step, i) => {
         this.ctx.fillText(step, this.x + 60, this.y + 54 + i *25);
-      });      
+      });
+      for (let i = 0; i < this.stepDone; i ++) {
+        this.ctx.strokeStyle = "red";
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.x + 60, this.y + 44 + i *25 );
+        this.ctx.lineTo(this.x + 360, this.y + 44 + i *25 )
+        this.ctx.stroke();
+      } 
     }
     else {
       this.width = 69;
