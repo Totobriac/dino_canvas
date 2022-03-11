@@ -1,5 +1,5 @@
 var pistol = new Image();
-pistol.src = "../assets/sewer_level/pistol.png";
+pistol.src = "./assets/sewer_level/pistol.png";
 
 class Pistol {
   constructor(ctx) {

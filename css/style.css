@@ -5,8 +5,7 @@
   transform: translate(-50%, -50%);
   height: 400px;
   width: 1200px;
-  background: transparent;
-  /*border: 2px solid black;*/
+  background: transparent;  
 }
 
 @font-face {
@@ -29,8 +28,13 @@
   src: url("../assets/fonts/handWritten.ttf");
 }
 
+@font-face {
+  font-family: "Cooking";
+  src: url("../assets/fonts/Cooking.ttf");
+}
+
 #back {
-  /* background: url("../assets/kitchen_level/peeled_onion_back.png"); */
+  /* background: url("./assets/kitchen_level/peeled_onion_back.png"); */
   position: absolute;
   top: 50%;
   left: 50%;

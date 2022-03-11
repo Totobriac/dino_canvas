@@ -5,14 +5,14 @@ import { player, ctx } from "./raycasting.js";
 
 
 var items = new Image();
-items.src = "../assets/sewer_level/items.png";
+items.src = "./assets/sewer_level/items.png";
 
 var soldier_1 = new Image();
-soldier_1.src = "../assets/sewer_level/soldier_1/die_4.png";
+soldier_1.src = "./assets/sewer_level/soldier_1/die_4.png";
 var boss = new Image();
-boss.src = "../assets/sewer_level/boss/die_4.png";
+boss.src = "./assets/sewer_level/boss/die_4.png";
 var dog = new Image();
-dog.src = "../assets/sewer_level/dog/die_4.png";
+dog.src = "./assets/sewer_level/dog/die_4.png";
 
 const FOV = 60;
 const half_FOV = convertToRadians(FOV / 2);

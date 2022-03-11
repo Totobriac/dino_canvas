@@ -1,11 +1,11 @@
 const dinoWalk = new Image();
-dinoWalk.src = "../assets/dino/dino_walk.png";
+dinoWalk.src = "./assets/dino/dino_walk.png";
 
 const dinoSprite = new Image();
-dinoSprite.src = "../assets/dino/dino_all.png";
+dinoSprite.src = "./assets/dino/dino_all.png";
 
 const pianoSprite = new Image();
-pianoSprite.src = "../assets/bridge_level/piano.png";
+pianoSprite.src = "./assets/bridge_level/piano.png";
 
 var frame = 0;
 var width = 66;

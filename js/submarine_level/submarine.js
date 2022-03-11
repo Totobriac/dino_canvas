@@ -1,14 +1,14 @@
 const subRight = new Image();
-subRight.src = "../assets/submarine_level/right_submarine.png";
+subRight.src = "./assets/submarine_level/right_submarine.png";
 
 const subLeft = new Image();
-subLeft.src = "../assets/submarine_level/left_submarine.png";
+subLeft.src = "./assets/submarine_level/left_submarine.png";
 
 const subJet = new Image();
-subJet.src = "../assets/submarine_level/bubble_jet.png";
+subJet.src = "./assets/submarine_level/bubble_jet.png";
 
 const subJetRight = new Image();
-subJetRight.src = "../assets/submarine_level/bubble_jet_right.png";
+subJetRight.src = "./assets/submarine_level/bubble_jet_right.png";
 
 import { game } from "../script.js";
 

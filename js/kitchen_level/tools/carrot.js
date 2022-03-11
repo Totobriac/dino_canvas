@@ -12,16 +12,16 @@ import {
 import { mouse } from "../control.js";
 
 var choppingBoardSprite = new Image();
-choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
+choppingBoardSprite.src = "./assets/kitchen_level/chopping_board.png";
 
 var graterUpSprite = new Image();
-graterUpSprite.src = "../assets/kitchen_level/grater_up.png";
+graterUpSprite.src = "./assets/kitchen_level/grater_up.png";
 
 var carrotSprite = new Image();
-carrotSprite.src = "../assets/kitchen_level/carrot.png";
+carrotSprite.src = "./assets/kitchen_level/carrot.png";
 
 var gratedCarrotSprite = new Image();
-gratedCarrotSprite.src = "../assets/kitchen_level/grated_carrot.png";
+gratedCarrotSprite.src = "./assets/kitchen_level/grated_carrot.png";
 
 var peels = [];
 
@@ -54,7 +54,7 @@ class Carrot extends Tool {
 
       onTop("carrot");
       var backPic = document.getElementById("back");
-      backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
+      backPic.style.background = "url('./assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);

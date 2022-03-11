@@ -1,22 +1,22 @@
 import { getCursorPosition} from "../function.js";
 
 var stoveSprite = new Image();
-stoveSprite.src = "../assets/kitchen_level/stove.png";
+stoveSprite.src = "./assets/kitchen_level/stove.png";
 
 var burner0Sprite = new Image();
-burner0Sprite.src = "../assets/kitchen_level/burner_0.png";
+burner0Sprite.src = "./assets/kitchen_level/burner_0.png";
 
 var burner1Sprite = new Image();
-burner1Sprite.src = "../assets/kitchen_level/burner_1.png";
+burner1Sprite.src = "./assets/kitchen_level/burner_1.png";
 
 var burner2Sprite = new Image();
-burner2Sprite.src = "../assets/kitchen_level/burner_2.png";
+burner2Sprite.src = "./assets/kitchen_level/burner_2.png";
 
 var burner3Sprite = new Image();
-burner3Sprite.src = "../assets/kitchen_level/burner_3.png";
+burner3Sprite.src = "./assets/kitchen_level/burner_3.png";
 
 var burner4Sprite = new Image();
-burner4Sprite.src = "../assets/kitchen_level/burner_4.png";
+burner4Sprite.src = "./assets/kitchen_level/burner_4.png";
 
 var buttons = [880, 910, 950, 995, 1027];
 

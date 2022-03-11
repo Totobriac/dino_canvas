@@ -3,7 +3,7 @@ import { createParticles } from "./particles.js";
 
 
 const planeSprite = new Image();
-planeSprite.src = "../assets/plane_level/red_plane.png";
+planeSprite.src = "./assets/plane_level/red_plane.png";
 
 var planeWidth = 100;
 var planeHeight = 60;

@@ -1,5 +1,5 @@
 var onionPeeledSprite = new Image();
-onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
+onionPeeledSprite.src = "./assets/kitchen_level/onion_peeled.png";
 
 import {
   onion

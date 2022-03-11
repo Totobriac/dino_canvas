@@ -1,10 +1,10 @@
 const cactusSprite = new Image();
-cactusSprite.src = "../assets/desert_level/cactus.png";
+cactusSprite.src = "./assets/desert_level/cactus.png";
 
 const cactusArray = [];
 
 var dieSound = new Audio();
-dieSound.src = "../assets/sounds/die.wav";
+dieSound.src = "./assets/sounds/die.wav";
 
 class Cactus {
   constructor(gamespeed, ctx) {

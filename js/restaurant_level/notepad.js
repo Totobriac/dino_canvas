@@ -3,22 +3,22 @@ import {
 } from "./plates.js";
 
 var notePadSprite = new Image();
-notePadSprite.src = "../assets/restaurant_level/note.png";
+notePadSprite.src = "./assets/restaurant_level/note.png";
 
 var smileSprite = new Image();
-smileSprite.src = "../assets/restaurant_level/emotion.png";
+smileSprite.src = "./assets/restaurant_level/emotion.png";
 
 var cursorSprite = new Image();
-cursorSprite.src = "../assets/restaurant_level/cursor.png";
+cursorSprite.src = "./assets/restaurant_level/cursor.png";
 
 var foodSprite = new Image();
-foodSprite.src = "../assets/restaurant_level/food.png";
+foodSprite.src = "./assets/restaurant_level/food.png";
 
 var checkSprite = new Image();
-checkSprite.src = "../assets/restaurant_level/check.png";
+checkSprite.src = "./assets/restaurant_level/check.png";
 
 var monoSprite = new Image();
-monoSprite.src = "../assets/restaurant_level/trip_mono.png";
+monoSprite.src = "./assets/restaurant_level/trip_mono.png";
 
 var note;
 var globalPoints = 0;

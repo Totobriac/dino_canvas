@@ -5,13 +5,13 @@ import {
 import { deleteTool } from "../tools.js";
 
 var splitGarlicSprite = new Image();
-splitGarlicSprite.src = "../assets/kitchen_level/garlic_split.png";
+splitGarlicSprite.src = "./assets/kitchen_level/garlic_split.png";
 
 var singleCloveSprite = new Image();
-singleCloveSprite.src = "../assets/kitchen_level/single_clove.png";
+singleCloveSprite.src = "./assets/kitchen_level/single_clove.png";
 
 var crushedCloveSprite = new Image();
-crushedCloveSprite.src = "../assets/kitchen_level/crushed_garlic.png";
+crushedCloveSprite.src = "./assets/kitchen_level/crushed_garlic.png";
 
 
 class Garlic extends Tool {

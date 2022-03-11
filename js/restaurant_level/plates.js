@@ -1,7 +1,7 @@
 import { note } from "./notepad.js";
 
 var food = new Image();
-food.src = "../assets/restaurant_level/food.png";
+food.src = "./assets/restaurant_level/food.png";
 
 var platesArray = [];
 var servedDish;

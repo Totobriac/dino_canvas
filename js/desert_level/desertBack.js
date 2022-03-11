@@ -7,10 +7,10 @@ import {
 } from "./sky.js";
 
 const mountainSprite = new Image();
-mountainSprite.src = "../assets/desert_level/desert_back.png";
+mountainSprite.src = "./assets/desert_level/desert_back.png";
 
 const floorSprite = new Image();
-floorSprite.src = "../assets/desert_level/floor_sm.png";
+floorSprite.src = "./assets/desert_level/floor_sm.png";
 
 var gameFrame = 0;
 var layer1;

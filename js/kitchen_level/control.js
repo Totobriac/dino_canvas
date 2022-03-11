@@ -15,6 +15,7 @@ import {
   chefKnife,
   garlicPress,
   meat,
+  notepad,
 } from "./tools.js";
 
 
@@ -29,6 +30,8 @@ var mouse = {
   moveY: undefined,
   upX: undefined,
   upY: undefined,
+  downX: undefined,
+  downY: undefined,
 };
 
 function setControls() {
@@ -54,6 +57,10 @@ function setControls() {
 }
 
 function onMouseDown(e) {
+
+  mouse.downX = e.offsetX;
+  mouse.downY = e.offsetY;
+  notepad.reset(e.offsetX, e.offsetY)
 
   if(garlicPress.toCrush) garlicPress.addPoints();
 

@@ -1,8 +1,8 @@
 const mineSprite = new Image();
-mineSprite.src = "../assets/submarine_level/mine_large.png";
+mineSprite.src = "./assets/submarine_level/mine_large.png";
 
 const mineExplSprite = new Image();
-mineExplSprite.src = "../assets/submarine_level/mine_explosion_hor.png";
+mineExplSprite.src = "./assets/submarine_level/mine_explosion_hor.png";
 
 const bubblesArray = [];
 const explArray = [];

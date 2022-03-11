@@ -1,10 +1,10 @@
 import { dino, game } from "../script.js";
 
 var dinoSprite = new Image();
-dinoSprite.src = "../assets/dino/dino_run.png";
+dinoSprite.src = "./assets/dino/dino_run.png";
 
 var jumpSound = new Audio();
-jumpSound.src = "../assets/sounds/jump.wav";
+jumpSound.src = "./assets/sounds/jump.wav";
 
 var width = 66;
 var height = 70;

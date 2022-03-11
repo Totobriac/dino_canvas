@@ -1,16 +1,16 @@
 import { Dino } from "./mainDino.js";
 
 var dinoSprite = new Image();
-dinoSprite.src = "../assets/dino/dino_still.png";
+dinoSprite.src = "./assets/dino/dino_still.png";
 
 var dinoSpriteLeft = new Image();
-dinoSpriteLeft.src = "../assets/dino/dino_still_left.png";
+dinoSpriteLeft.src = "./assets/dino/dino_still_left.png";
 
 var dinoWalk = new Image();
-dinoWalk.src = "../assets/dino/dino_walk.png";
+dinoWalk.src = "./assets/dino/dino_walk.png";
 
 var dinoWalkLeft = new Image();
-dinoWalkLeft.src = "../assets/dino/dino_walk_left.png";
+dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 
 
 class MansionDino extends Dino {

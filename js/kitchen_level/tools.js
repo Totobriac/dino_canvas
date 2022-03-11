@@ -97,70 +97,70 @@ var notepad;
 var tools = [];
 
 var potSprite = new Image();
-potSprite.src = "../assets/kitchen_level/pot.png";
+potSprite.src = "./assets/kitchen_level/pot.png";
 
 var saltSprite = new Image();
-saltSprite.src = "../assets/kitchen_level/salt.png";
+saltSprite.src = "./assets/kitchen_level/salt.png";
 
 var panSprite = new Image();
-panSprite.src = "../assets/kitchen_level/pan.png";
+panSprite.src = "./assets/kitchen_level/pan.png";
 
 var butterPlateSprite = new Image();
-butterPlateSprite.src = "../assets/kitchen_level/butter_sm.png";
+butterPlateSprite.src = "./assets/kitchen_level/butter_sm.png";
 
 var butterBigSprite = new Image();
-butterBigSprite.src = "../assets/kitchen_level/butter_big.png";
+butterBigSprite.src = "./assets/kitchen_level/butter_big.png";
 
 var butterKnifeSprite = new Image();
-butterKnifeSprite.src = "../assets/kitchen_level/butter_knife.png";
+butterKnifeSprite.src = "./assets/kitchen_level/butter_knife.png";
 
 var chefKnifeSprite = new Image();
-chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
+chefKnifeSprite.src = "./assets/kitchen_level/chef_knife.png";
 
 var onionSprite = new Image();
-onionSprite.src = "../assets/kitchen_level/onion_top.png";
+onionSprite.src = "./assets/kitchen_level/onion_top.png";
 
 var halfOnionSprite = new Image();
-halfOnionSprite.src = "../assets/kitchen_level/half_onion.png";
+halfOnionSprite.src = "./assets/kitchen_level/half_onion.png";
 
 var spineKnifeSprite = new Image();
-spineKnifeSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
+spineKnifeSprite.src = "./assets/kitchen_level/chef_knife_spine.png";
 
 var butterCutSprite = new Image();
-butterCutSprite.src = "../assets/kitchen_level/butter_sm_cut.png";
+butterCutSprite.src = "./assets/kitchen_level/butter_sm_cut.png";
 
 var carrotSprite = new Image();
-carrotSprite.src = "../assets/kitchen_level/carrot.png";
+carrotSprite.src = "./assets/kitchen_level/carrot.png";
 
 var graterSprite = new Image();
-graterSprite.src = "../assets/kitchen_level/grater.png";
+graterSprite.src = "./assets/kitchen_level/grater.png";
 
 var garlicHeadSprite = new Image();
-garlicHeadSprite.src = "../assets/kitchen_level/garlic_head.png";
+garlicHeadSprite.src = "./assets/kitchen_level/garlic_head.png";
 
 var garlicPressSprite = new Image();
-garlicPressSprite.src = "../assets/kitchen_level/garlic_press.png";
+garlicPressSprite.src = "./assets/kitchen_level/garlic_press.png";
 
 var spoonSprite = new Image();
-spoonSprite.src = "../assets/kitchen_level/spoon.png";
+spoonSprite.src = "./assets/kitchen_level/spoon.png";
 
 var meatSprite = new Image();
-meatSprite.src = "../assets/kitchen_level/meat.png";
+meatSprite.src = "./assets/kitchen_level/meat.png";
 
 var tinSprite = new Image();
-tinSprite.src = "../assets/kitchen_level/tin.png";
+tinSprite.src = "./assets/kitchen_level/tin.png";
 
 var tinOpenerSprite = new Image();
-tinOpenerSprite.src = "../assets/kitchen_level/tin_opener.png";
+tinOpenerSprite.src = "./assets/kitchen_level/tin_opener.png";
 
 var pastaUpSprite = new Image();
-pastaUpSprite.src = "../assets/kitchen_level/pasta_up.png";
+pastaUpSprite.src = "./assets/kitchen_level/pasta_up.png";
 
 var colanderSprite = new Image();
-colanderSprite.src = "../assets/kitchen_level/colander.png";
+colanderSprite.src = "./assets/kitchen_level/colander.png";
 
 var notepadSprite = new Image();
-notepadSprite.src = "../assets/kitchen_level/notepad.png";
+notepadSprite.src = "./assets/kitchen_level/notepad.png";
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
@@ -286,7 +286,7 @@ function drawTools(ctx, game) {
 
     Pot.prototype.pasta = pasta;
 
-    notepad = new Notepad("notepad", notepadSprite, 0,0,524,476, ctx, undefined, undefined,{
+    notepad = new Notepad("notepad", notepadSprite, 296,60,69,90, ctx, undefined, undefined,{
       x: undefined,
       y: undefined,
       r: undefined,
@@ -319,9 +319,7 @@ function drawTools(ctx, game) {
       tools[i].isClose();
     }
   }
-
   sink.drawFaucet(ctx);
-
 }
 
 function displayTool(toolL) {
@@ -370,5 +368,6 @@ export {
   displayTool,
   displayAllTools,
   onTop,
-  meat
+  meat,
+  notepad
 };

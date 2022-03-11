@@ -3,7 +3,7 @@ import { Tool } from "./tool.js";
 import { deleteTool } from "../tools.js";
 
 var meatSprite = new Image();
-meatSprite.src = "../assets/kitchen_level/meat.png";
+meatSprite.src = "./assets/kitchen_level/meat.png";
 
 class Meat extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon, pan) {

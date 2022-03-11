@@ -4,7 +4,7 @@ import {
 
 
 var butterCutSprite = new Image();
-butterCutSprite.src = "../assets/kitchen_level/butter_sm_cut.png";
+butterCutSprite.src = "./assets/kitchen_level/butter_sm_cut.png";
 
 var maxPoints = 50;
 

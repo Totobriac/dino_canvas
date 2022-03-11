@@ -5,7 +5,7 @@ import { mouse } from "../control.js";
 import { meat, onTop } from "../tools.js";
 
 var spoonSprite = new Image();
-spoonSprite.src = "../assets/kitchen_level/spoon.png";
+spoonSprite.src = "./assets/kitchen_level/spoon.png";
 
 
 class Spoon extends Tool {

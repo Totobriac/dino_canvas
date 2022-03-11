@@ -17,16 +17,16 @@ import {
 
 
 var choppingBoardSprite = new Image();
-choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
+choppingBoardSprite.src = "./assets/kitchen_level/chopping_board.png";
 
 var onionSprite = new Image();
-onionSprite.src = "../assets/kitchen_level/onion.png";
+onionSprite.src = "./assets/kitchen_level/onion.png";
 
 var onionPeeledSprite = new Image();
-onionPeeledSprite.src = "../assets/kitchen_level/onion_peeled.png";
+onionPeeledSprite.src = "./assets/kitchen_level/onion_peeled.png";
 
 var onionChoppedSprite = new Image();
-onionChoppedSprite.src = "../assets/kitchen_level/onion_chopped.png";
+onionChoppedSprite.src = "./assets/kitchen_level/onion_chopped.png";
 
 var rgb = {
   r: 0,
@@ -78,7 +78,7 @@ class Onion extends Tool {
 
       onTop("onion");
       var backPic = document.getElementById("back");
-      backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
+      backPic.style.background = "url('./assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);

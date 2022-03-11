@@ -11,10 +11,10 @@ import {
 } from "../tools.js";
 
 var choppingBoardSprite = new Image();
-choppingBoardSprite.src = "../assets/kitchen_level/chopping_board.png";
+choppingBoardSprite.src = "./assets/kitchen_level/chopping_board.png";
 
 var sideTinSprite = new Image();
-sideTinSprite.src = "../assets/kitchen_level/side_tin.png";
+sideTinSprite.src = "./assets/kitchen_level/side_tin.png";
 
 var label = new Image();
 label.src = "https://www.mockofun.com/wp-content/uploads/2020/04/tomato-sauce-label-5828.jpg";
@@ -50,7 +50,7 @@ class Tin extends Tool {
       this.tinOpener.isOpening = true;
 
       var backPic = document.getElementById("back");
-      backPic.style.background = "url('../assets/kitchen_level/peeled_onion_back.png')";
+      backPic.style.background = "url('./assets/kitchen_level/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);

@@ -1,11 +1,11 @@
 var hudSprite = new Image();
-hudSprite.src = "../assets/sewer_level/hud.png";
+hudSprite.src = "./assets/sewer_level/hud.png";
 
 var gunSprite = new Image();
-gunSprite.src = "../assets/sewer_level/gun.png";
+gunSprite.src = "./assets/sewer_level/gun.png";
 
 var faceSprite = new Image();
-faceSprite.src = "../assets/sewer_level/face.png";
+faceSprite.src = "./assets/sewer_level/face.png";
 
 class Hud {
   constructor(ctx, player, pistol) {

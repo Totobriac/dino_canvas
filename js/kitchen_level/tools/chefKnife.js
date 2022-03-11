@@ -5,16 +5,16 @@ import {
 import { mouse } from "../control.js";
 
 var chefKnifeUpSprite = new Image();
-chefKnifeUpSprite.src = "../assets/kitchen_level/chef_knife_up.png";
+chefKnifeUpSprite.src = "./assets/kitchen_level/chef_knife_up.png";
 
 var chefKnifeSprite = new Image();
-chefKnifeSprite.src = "../assets/kitchen_level/chef_knife.png";
+chefKnifeSprite.src = "./assets/kitchen_level/chef_knife.png";
 
 var chefKnifeSpineSprite = new Image();
-chefKnifeSpineSprite.src = "../assets/kitchen_level/chef_knife_spine.png";
+chefKnifeSpineSprite.src = "./assets/kitchen_level/chef_knife_spine.png";
 
 var chefKnifeSideSprite = new Image();
-chefKnifeSideSprite.src = "../assets/kitchen_level/chef_knife_up.png";
+chefKnifeSideSprite.src = "./assets/kitchen_level/chef_knife_up.png";
 
 
 class ChefKnife extends Tool {
