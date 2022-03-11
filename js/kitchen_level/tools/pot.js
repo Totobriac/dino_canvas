@@ -64,7 +64,7 @@ class Pot extends Tool {
       this.ctx.fill();
     }
 
-    if (this.isFilled === true && this.inPlace === true && burners[3].isOn === true) {
+    if (this.isFilled && this.inPlace && burners[3].isOn) {
       this.onBurner = true;
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
         this.pasta.inPot();
@@ -81,12 +81,11 @@ class Pot extends Tool {
     }
 
     for (let i = 0; i < points.length; i++) {
-
       this.ctx.strokeStyle = points[i].color;
       this.ctx.setLineDash([]);
       if (frame > maxFrame) {
         frame = 0;
-        points[i].radius += 1;
+        points[i].radius += 0.1;
       } else {
         frame++;
       }

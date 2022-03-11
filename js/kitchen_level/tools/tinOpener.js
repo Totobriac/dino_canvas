@@ -29,6 +29,7 @@ class TinOpener extends Tool {
       this.isSelected = true;
 
       this.ctx.beginPath();
+      this.ctx.setLineDash([4,3]);
       this.ctx.strokeStyle = "red";
       this.ctx.lineWidth = 3;
       this.ctx.ellipse(600, 125, 25, 106, 90 * Math.PI / 180,  0 ,-this.angle /2 * Math.PI / 180,true);
