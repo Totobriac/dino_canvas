@@ -395,6 +395,15 @@ function selectable() {
     case 10:
       objects = ["spoon"];
     break;
+    case 11:
+      objects = ["spoon", "meat"];
+    break;
+    case 11:
+      objects = ["pasta"];
+    break;
+    case 12:
+      objects = ["spoon"];
+    break;
     
   }
     
@@ -412,6 +421,7 @@ function selectable() {
 }
 
 function addStep(step) {
+  console.log(step);
   if (step > stepDone ) stepDone = step;
 }
 

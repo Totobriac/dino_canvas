@@ -116,6 +116,7 @@ class Pan extends Tool {
     this.veggies = [];
     this.meatP = [];
     this.justCrushed = false;
+    this.stir = 0;
   }
   draw() {
     super.draw();
@@ -132,12 +133,20 @@ class Pan extends Tool {
       if (this.hasOnion === true) this.addOnion();
       if (this.hasCarrot === true) this.addCarrot();
       if (this.hasGarlic === true) this.addGarlic();
-    } else if (this.stirVeg) {
+    } else if (this.stirVeg) {      
       this.isSelected = false;
       for (let i = 0; i < this.veggies.length; i++) {
         this.veggies[i].update();
         this.veggies[i].draw();
       };
+    }
+
+    var x = this.x + this.width / 2 + 28;
+    var y = this.y + this.height / 3 + 5;
+
+    if(this.stirVeg && this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
+      this.stir ++;
+      if (this.stir > 600) addStep(11);
     }
     if (this.justCrushed) {
       for (let i = 0; i < this.meatP.length; i++) {
@@ -182,7 +191,6 @@ class Pan extends Tool {
     if (this.pieceWidth < 0) {
       addStep(7);
     }
-    console.log("width " + this.pieceWidth);
     this.ctx.fillStyle = "rgb(236,210,137)";
     this.ctx.beginPath();
     this.ctx.arc(this.x + this.width / 2 + this.xOffset + this.pieceWidth / 2,

@@ -1,6 +1,6 @@
 import { Tool } from "./tool.js";
 
-import { deleteTool } from "../tools.js";
+import { deleteTool, addStep } from "../tools.js";
 
 var meatSprite = new Image();
 meatSprite.src = "./assets/kitchen_level/meat.png";
@@ -86,6 +86,8 @@ class Meat extends Tool {
       this.canCrush = false;
       this.isCrushed = true;
       this.break = false;
+      console.log("ttoto");
+      addStep(11);
       deleteTool("meat");
     };
   }

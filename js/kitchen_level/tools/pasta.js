@@ -1,10 +1,6 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
 
-import {
-  onTop
-} from "../tools.js";
+import { onTop , addStep } from "../tools.js";
 
 
 var pastaSprite = new Image();
@@ -109,6 +105,7 @@ class Pasta extends Tool {
         }
         this.ctx.restore();
         if (this.size === 42 && !this.colander.hasPastas) {
+          addStep(12);
           this.pot.perfX = 22;
           this.pot.perfY = 48;
           this.pot.shadow = {

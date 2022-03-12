@@ -43,7 +43,7 @@ class Carrot extends Tool {
       this.grateMe();
     }
     else if (this.toBeGrated === true) {
-
+      sink.faucet = false;
       onTop("carrot");
       var backPic = document.getElementById("back");
       backPic.style.background = "url('./assets/kitchen_level/peeled_onion_back.png')";

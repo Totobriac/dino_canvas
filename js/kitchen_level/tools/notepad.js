@@ -18,7 +18,6 @@ class Notepad extends Tool {
     this.lines = this.createLines();
   }
   draw() {
-    console.log(stepDone);
     if (oldStep != stepDone) {
       this.makeItBig();
       oldStep = stepDone;
