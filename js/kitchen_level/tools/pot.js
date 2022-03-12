@@ -1,13 +1,6 @@
-import {
-  Tool
-} from "./tool.js";
-import {
-  burners
-} from "./stove.js";
-import {
-  Point
-} from "./bubble.js";
-
+import { Tool } from "./tool.js";
+import { burners } from "./stove.js";
+import { Point } from "./bubble.js";
 import { addStep } from "../tools.js";
 
 var points = [];

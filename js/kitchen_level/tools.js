@@ -165,11 +165,6 @@ notepadSprite.src = "./assets/kitchen_level/notepad.png";
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
-    salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, undefined, undefined, {
-      x: 0,
-      y: 0,
-      r: 0
-    });
 
     sink = new Sink();
 
@@ -180,6 +175,12 @@ function drawTools(ctx, game) {
     }, sink);
 
     Sink.prototype.pot = pot;
+
+    salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, pot.x + 30, pot.y + 20, {
+      x: pot.x + 30,
+      y: pot.y + 20,
+      r: 20,
+    });
 
     colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
       x: 120,
@@ -287,7 +288,7 @@ function drawTools(ctx, game) {
 
     Pot.prototype.pasta = pasta;
 
-    notepad = new Notepad("notepad", notepadSprite, 296,60,69,90, ctx, undefined, undefined,{
+    notepad = new Notepad("notepad", notepadSprite, 296, 60, 69, 90, ctx, undefined, undefined, {
       x: undefined,
       y: undefined,
       r: undefined,
@@ -358,24 +359,23 @@ function onTop(tool) {
 
 function selectable() {
   var objects;
-  switch(stepDone){
-    case 0 :
+  switch (stepDone) {
+    case 0:
       objects = ["pot"];
-    break;
-    case 1 :
-      objects = ["pot", "salt"];
-    break;
+      break;
+    case 1:
+      objects = [];
+      break;
 
   }
-    
-    
 
-  var selectableTools = ["notepad", ...objects ];
+
+  var selectableTools = ["notepad", ...objects];
   for (const tool of tools) {
     if (selectableTools.includes(tool.name)) {
       tool.canBeSelected = true;
     }
-    else{
+    else {
       tool.canBeSelected = false;
     }
   }

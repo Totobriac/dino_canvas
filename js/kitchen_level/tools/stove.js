@@ -1,4 +1,5 @@
 import { getCursorPosition} from "../function.js";
+import { addStep, stepDone } from "../tools";
 
 var stoveSprite = new Image();
 stoveSprite.src = "./assets/kitchen_level/stove.png";
@@ -75,7 +76,9 @@ function getSelectedButton(e) {
 function drawStove(ctx) {
   ctx.drawImage(stoveSprite, 750, 100, 425, 280);
 
-  burners.forEach((burner, i) => {
+  if (stepDone === 1 && burners[3].isOn) addStep(2);
+
+  burners.forEach((burner) => {
     if (burner.isOn) ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
   });
 }
