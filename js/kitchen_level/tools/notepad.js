@@ -1,4 +1,5 @@
 import { Tool } from "./tool.js";
+import { stepDone } from "../tools.js";
 
 var steps = ["Remplir la casserole d'eau", "Ajouter du sel", "Allumer le feu en haut à droite",
   "Y mettre la casserole", "Ajouter du beurre à la poele", "Allumer le feu du milieu", "Y placer la poele",
@@ -7,15 +8,22 @@ var steps = ["Remplir la casserole d'eau", "Ajouter du sel", "Allumer le feu en 
   "Egouter les pâtes", "Les ajouter à la sauce"
 ]
 
+var oldStep = 0;
+
 
 class Notepad extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.big = false;
-    this.stepDone = 20;
     this.lines = this.createLines();
   }
-  draw() { 
+  draw() {
+
+    if (oldStep != stepDone) {
+      this.makeItBig();
+      oldStep = stepDone;
+    };
+
     if (this.isSelected) {
       this.makeItBig();
     };
@@ -30,7 +38,7 @@ class Notepad extends Tool {
       steps.forEach((step, i) => {
         this.ctx.fillText(step, this.x + 60, this.y + 54 + i *25);
       });
-      for (let i = 0; i < this.stepDone - 2; i ++) {
+      for (let i = 0; i < stepDone; i ++) {
         this.ctx.strokeStyle = "red";
         this.ctx.lineWidth = this.lines[i].width;
         this.ctx.filter = "url(#turb0)";
@@ -60,7 +68,6 @@ class Notepad extends Tool {
   createLines() {
     var lines = [];   
     for (let step of steps) {
-      console.log(step.length);
       var line = {
         rightY : - 3 + Math.floor(Math.random() * 6),
         leftY : - 2 + Math.floor(Math.random() * 4),

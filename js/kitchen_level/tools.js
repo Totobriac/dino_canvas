@@ -95,6 +95,7 @@ var colander;
 var notepad;
 
 var tools = [];
+var stepDone = 0;
 
 var potSprite = new Image();
 potSprite.src = "./assets/kitchen_level/pot.png";
@@ -312,6 +313,7 @@ function drawTools(ctx, game) {
     tools.push(notepad);
 
     game.kitchenLevelStarted = true;
+
   }
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
@@ -319,6 +321,7 @@ function drawTools(ctx, game) {
       tools[i].isClose();
     }
   }
+  selectable();
   sink.drawFaucet(ctx);
 }
 
@@ -353,6 +356,35 @@ function onTop(tool) {
   }
 }
 
+function selectable() {
+  var objects;
+  switch(stepDone){
+    case 0 :
+      objects = ["pot"];
+    break;
+    case 1 :
+      objects = ["pot", "salt"];
+    break;
+
+  }
+    
+    
+
+  var selectableTools = ["notepad", ...objects ];
+  for (const tool of tools) {
+    if (selectableTools.includes(tool.name)) {
+      tool.canBeSelected = true;
+    }
+    else{
+      tool.canBeSelected = false;
+    }
+  }
+}
+
+function addStep(step) {
+  stepDone = step;
+}
+
 
 export {
   drawTools,
@@ -369,5 +401,7 @@ export {
   displayAllTools,
   onTop,
   meat,
-  notepad
+  notepad,
+  addStep,
+  stepDone,
 };

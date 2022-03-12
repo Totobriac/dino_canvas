@@ -8,6 +8,8 @@ import {
   Point
 } from "./bubble.js";
 
+import { addStep } from "../tools.js";
+
 var points = [];
 
 var frame = 0;
@@ -43,6 +45,10 @@ class Pot extends Tool {
       this.ctx.arc(125, 130, this.waterLevel, 0, 2 * Math.PI, false);
       this.ctx.fill();
     }
+
+    if (this.waterLevel > 65 && !this.onBurner) {
+      addStep(1);
+    };
 
     if (this.waterLevel > 65 && this.isSelected && !this.onBurner) {
       this.sink.overFlowded = false;
