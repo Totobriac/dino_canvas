@@ -13,8 +13,9 @@ class Notepad extends Tool {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.big = false;
     this.stepDone = 20;
+    this.lines = this.createLines();
   }
-  draw() {
+  draw() { 
     if (this.isSelected) {
       this.makeItBig();
     };
@@ -29,12 +30,15 @@ class Notepad extends Tool {
       steps.forEach((step, i) => {
         this.ctx.fillText(step, this.x + 60, this.y + 54 + i *25);
       });
-      for (let i = 0; i < this.stepDone; i ++) {
+      for (let i = 0; i < this.stepDone - 2; i ++) {
         this.ctx.strokeStyle = "red";
+        this.ctx.lineWidth = this.lines[i].width;
+        this.ctx.filter = "url(#turb0)";
         this.ctx.beginPath();
-        this.ctx.moveTo(this.x + 60, this.y + 44 + i *25 );
-        this.ctx.lineTo(this.x + 360, this.y + 44 + i *25 )
+        this.ctx.moveTo(this.x + 60, this.y + 44 + i *25 + this.lines[i].leftY);
+        this.ctx.lineTo(this.x + this.lines[i].length, this.y + 44 + i *25 + this.lines[i].rightY)
         this.ctx.stroke();
+        this.ctx.filter = "none";
       } 
     }
     else {
@@ -53,6 +57,20 @@ class Notepad extends Tool {
       this.big = false;
     }
   }
+  createLines() {
+    var lines = [];   
+    for (let step of steps) {
+      console.log(step.length);
+      var line = {
+        rightY : - 3 + Math.floor(Math.random() * 6),
+        leftY : - 2 + Math.floor(Math.random() * 4),
+        width : 1 + Math.floor(Math.random() * 2),
+        length : step.length * 12,
+      }
+      lines.push(line);
+    }
+    return lines
+  };
 }
 
 export { Notepad };
