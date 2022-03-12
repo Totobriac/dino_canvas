@@ -13,6 +13,7 @@ import {
   onion,
   deleteTool,
   onTop,
+  addStep
 } from "../tools.js";
 
 
@@ -139,6 +140,7 @@ class Onion extends Tool {
       }
       if (this.inPlace === true) {
         this.pan.hasOnion = true;
+        addStep(8);
         deleteTool("onion");
       }
     }

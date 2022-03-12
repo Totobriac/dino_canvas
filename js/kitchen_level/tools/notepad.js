@@ -3,7 +3,7 @@ import { stepDone, onTop } from "../tools.js";
 
 var steps = ["Remplir la casserole d'eau", "Allumer le feu en haut à droite",
   "Y mettre la casserole", "Ajouter du sel",  "Ajouter du beurre à la poele", "Allumer le feu du milieu", "Y placer la poele",
-  "Hacher l'oignon","Presser l'ail", "Raper la carotte","Remuer et faire suer","Ajouter la viande, l'égrenner",
+  "Hacher l'oignon, mettre dans la poele","Presser l'ail, mettre dans la poele", "Raper la carotte, mettre dans la poele","Remuer et faire suer","Ajouter la viande, l'égrenner",
   "Ajouter les pâtes à la casserole", "Faire revenir la viande", "Ouvrir la boite de sauce tomate","L'ajouter à la préparation",
   "Egouter les pâtes", "Les ajouter à la sauce"
 ]

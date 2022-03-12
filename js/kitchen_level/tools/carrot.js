@@ -1,13 +1,5 @@
-import {
-  Tool
-} from "./tool.js";
-
-import {
-  tools,
-  deleteTool,
-  onTop,
-  sink
-} from "../tools.js";
+import { Tool } from "./tool.js";
+import { tools, deleteTool, onTop, sink, addStep } from "../tools.js";
 
 import { mouse } from "../control.js";
 
@@ -123,6 +115,7 @@ class Carrot extends Tool {
     else {
       if (this.inPlace === true && this.isGrated === true) {
         this.pan.hasCarrot = true;
+        addStep(10);
         deleteTool("carrot");
       }
       super.draw();

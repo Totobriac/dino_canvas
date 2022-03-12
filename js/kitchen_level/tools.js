@@ -377,6 +377,24 @@ function selectable() {
     case 4:
       objects = ["butterKnife"];
     break;
+    case 5:
+      objects = [];
+    break;
+    case 6:
+      objects = ["pan"];
+    break;
+    case 7:
+      objects = ["onion", "chefKnife"];
+    break;
+    case 8:
+      objects = ["garlic", "garlicPress"];
+    break;
+    case 9:
+      objects = ["carrot", "grater"];
+    break;
+    case 10:
+      objects = ["spoon"];
+    break;
     
   }
     

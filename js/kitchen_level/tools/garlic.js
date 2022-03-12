@@ -1,8 +1,6 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
 
-import { deleteTool } from "../tools.js";
+import { deleteTool, addStep } from "../tools.js";
 
 var splitGarlicSprite = new Image();
 splitGarlicSprite.src = "./assets/kitchen_level/garlic_split.png";
@@ -49,6 +47,7 @@ class Garlic extends Tool {
     }
     if (this.inPlace === true && this.minced === true) {
       this.pan.hasGarlic = true;
+      addStep(9);
       deleteTool("garlic");
     }
 

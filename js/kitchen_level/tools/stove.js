@@ -78,6 +78,7 @@ function drawStove(ctx) {
   ctx.drawImage(stoveSprite, 750, 100, 425, 280);
 
   if (stepDone === 1 && burners[3].isOn) addStep(2);
+  if (stepDone === 5 && burners[2].isOn) addStep(6);
 
   burners.forEach((burner, i) => {
     if (burner.isOn) ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);

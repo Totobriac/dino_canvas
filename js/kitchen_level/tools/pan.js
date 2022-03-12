@@ -1,13 +1,7 @@
-import {
-  Tool
-} from "./tool.js";
-import {
-  burners
-} from "./stove.js";
-
-import {
-  mouse
-} from "../control.js";
+import { Tool } from "./tool.js";
+import { burners } from "./stove.js";
+import { mouse } from "../control.js";
+import { addStep } from "../tools.js";
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/kitchen_level/onion_chopped.png";
@@ -184,8 +178,11 @@ class Pan extends Tool {
       this.pieceWidth -= 0.1;
       this.pieceHeight -= 0.1;
       this.radius += 0.15;
+    } 
+    if (this.pieceWidth < 0) {
+      addStep(7);
     }
-
+    console.log("width " + this.pieceWidth);
     this.ctx.fillStyle = "rgb(236,210,137)";
     this.ctx.beginPath();
     this.ctx.arc(this.x + this.width / 2 + this.xOffset + this.pieceWidth / 2,
