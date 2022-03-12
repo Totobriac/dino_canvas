@@ -73,6 +73,10 @@ import {
   Notepad
 } from "./tools/notepad.js";
 
+import {
+  Salt
+} from "./tools/salt.js";
+
 var pot;
 var salt;
 var pan;
@@ -164,12 +168,7 @@ var notepadSprite = new Image();
 notepadSprite.src = "./assets/kitchen_level/notepad.png";
 
 function drawTools(ctx, game) {
-  if (game.kitchenLevelStarted === false) {
-    salt = new Tool("salt", saltSprite, 1100, 20, 50, 50, ctx, undefined, undefined, {
-      x: 0,
-      y: 0,
-      r: 0
-    });
+  if (game.kitchenLevelStarted === false) {    
 
     sink = new Sink();
 
@@ -180,6 +179,12 @@ function drawTools(ctx, game) {
     }, sink);
 
     Sink.prototype.pot = pot;
+
+    salt = new Salt("salt", saltSprite, 1100, 20, 50, 50, ctx, 1077, 145, {
+      x: 1102,
+      y: 170,
+      r: 20
+    }, pot);
 
     colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
       x: 120,
@@ -368,6 +373,9 @@ function selectable() {
     break;
     case 3:
       objects = ["salt"];
+    break;
+    case 4:
+      objects = ["butterKnife"];
     break;
     
   }

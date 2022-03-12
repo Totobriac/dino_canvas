@@ -70,7 +70,10 @@ class Pot extends Tool {
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
         this.pasta.inPot();
       }
-      if(this.hasSalt) this.boil();
+      if(this.hasSalt) {
+        this.boil();
+        addStep(4);
+      } 
     }
   }
   boil() {
@@ -100,6 +103,9 @@ class Pot extends Tool {
       }
     }
     populatePoints();
+  }
+  addSalt() {
+    this.hasSalt = true;
   }
 }
 
