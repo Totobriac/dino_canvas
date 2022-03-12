@@ -1,13 +1,6 @@
-import {
-  Tool
-} from "./tool.js";
-import {
-  burners
-} from "./stove.js";
-import {
-  Point
-} from "./bubble.js";
-
+import { Tool } from "./tool.js";
+import { burners } from "./stove.js";
+import { Point } from "./bubble.js";
 import { addStep } from "../tools.js";
 
 var points = [];
@@ -29,6 +22,7 @@ class Pot extends Tool {
     this.onBurner = false;
     this.waterLevel = 0;
     this.sink = sink;
+    this.hasSalt = false;
   }
   draw() {
     super.draw();
@@ -71,11 +65,12 @@ class Pot extends Tool {
     }
 
     if (this.isFilled && this.inPlace && burners[3].isOn) {
+      addStep(3);
       this.onBurner = true;
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
         this.pasta.inPot();
       }
-      this.boil();
+      if(this.hasSalt) this.boil();
     }
   }
   boil() {

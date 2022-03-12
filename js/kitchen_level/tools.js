@@ -362,10 +362,14 @@ function selectable() {
     case 0 :
       objects = ["pot"];
     break;
-    case 1 :
-      objects = [];
+    case 1:
+    case 2:
+      objects = ["pot"];
     break;
-
+    case 3:
+      objects = ["salt"];
+    break;
+    
   }
     
     
@@ -382,7 +386,7 @@ function selectable() {
 }
 
 function addStep(step) {
-  stepDone = step;
+  if (step > stepDone ) stepDone = step;
 }
 
 
