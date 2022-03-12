@@ -363,7 +363,7 @@ function selectable() {
       objects = ["pot"];
     break;
     case 1 :
-      objects = ["pot", "salt"];
+      objects = [];
     break;
 
   }
