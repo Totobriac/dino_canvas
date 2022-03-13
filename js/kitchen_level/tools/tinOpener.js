@@ -5,6 +5,7 @@ import {
 import {
   onTop,
   displayTool,
+  addStep,
 } from "../tools.js";
 
 import {
@@ -78,6 +79,7 @@ class TinOpener extends Tool {
         this.tin.open();
         this.x = 852;
         this.y = 50;
+        addStep(15);
       }
     } else {
       super.draw();

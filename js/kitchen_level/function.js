@@ -1,4 +1,4 @@
-import {tools} from "./tools.js";
+import { tools } from "./tools.js";
 
 function getCursorPosition(e) {
   var isInside;
@@ -29,7 +29,7 @@ function getSelectedTool(e) {
         tools.push(tool);
         tools[tools.length - 1].isSelected = true;
         return ;
-      }      
+      }
     }
   }
   return;

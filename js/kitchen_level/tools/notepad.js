@@ -38,6 +38,7 @@ class Notepad extends Tool {
         this.ctx.fillText(step, this.x + 60, this.y + 54 + i *25);
       });
       for (let i = 0; i < stepDone; i ++) {
+        this.ctx.setLineDash([]);
         this.ctx.strokeStyle = "red";
         this.ctx.lineWidth = this.lines[i].width;
         this.ctx.filter = "url(#turb0)";
@@ -46,7 +47,7 @@ class Notepad extends Tool {
         this.ctx.lineTo(this.x + this.lines[i].length, this.y + 44 + i *25 + this.lines[i].rightY)
         this.ctx.stroke();
         this.ctx.filter = "none";
-      } 
+      }
     }
     else {
       this.width = 69;
@@ -66,7 +67,7 @@ class Notepad extends Tool {
     }
   }
   createLines() {
-    var lines = [];   
+    var lines = [];
     for (let step of steps) {
       var line = {
         rightY : - 3 + Math.floor(Math.random() * 6),

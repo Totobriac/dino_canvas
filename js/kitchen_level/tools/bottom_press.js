@@ -1,10 +1,7 @@
 var bottomSprite = new Image();
 bottomSprite.src = "./assets/kitchen_level/press_bottom_hole.png";
 
-import {
-  garlicPress
-} from "../tools.js";
-
+import { garlicPress } from "../toolGeneration.js";
 
 function drawBottomPress(ctx) {
 

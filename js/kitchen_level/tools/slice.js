@@ -1,9 +1,7 @@
 var onionPeeledSprite = new Image();
 onionPeeledSprite.src = "./assets/kitchen_level/onion_peeled.png";
 
-import {
-  onion
-} from "../tools.js";
+import { onion } from "../toolGeneration.js";
 
 
 function drawSlice(ctx) {

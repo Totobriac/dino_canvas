@@ -5,7 +5,6 @@ import {
 import {
   tools,
   sink,
-  onion,
   deleteTool,
   onTop,
 } from "../tools.js";
@@ -66,7 +65,7 @@ class Tin extends Tool {
     }
   }
   rotate() {
-    this.bibi += 20;
+    this.bibi += 30;
   }
   open() {
     this.perfX = this.pan.x + this.pan.width / 2;

@@ -1,4 +1,4 @@
-import { pot } from "../tools.js";
+import { pot } from "../toolGeneration.js";
 
 
 class Point {

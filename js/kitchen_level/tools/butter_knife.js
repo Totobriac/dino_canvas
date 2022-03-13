@@ -1,5 +1,6 @@
 import { Tool } from "./tool.js";
-import { butterBig, sink, addStep } from "../tools.js";
+import { addStep, sink } from "../tools.js";
+import { butterBig } from "../toolGeneration.js";
 
 class ButterKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butter) {

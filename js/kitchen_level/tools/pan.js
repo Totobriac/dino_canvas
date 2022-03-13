@@ -116,13 +116,15 @@ class Pan extends Tool {
     this.veggies = [];
     this.meatP = [];
     this.justCrushed = false;
-    this.stir = 0;
+    this.stirV = 0;
+    this.stirM = 0;
   }
   draw() {
     super.draw();
 
     if (this.hasSauce) {
       if (sauceRadius < 57) sauceRadius += 0.2;
+      if (Math.floor(sauceRadius) === 57) addStep(16);
       this.ctx.fillStyle = "red";
       this.ctx.beginPath();
       this.ctx.arc(this.x + this.width / 2 + 28 , this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
@@ -133,7 +135,7 @@ class Pan extends Tool {
       if (this.hasOnion === true) this.addOnion();
       if (this.hasCarrot === true) this.addCarrot();
       if (this.hasGarlic === true) this.addGarlic();
-    } else if (this.stirVeg) {      
+    } else if (this.stirVeg) {
       this.isSelected = false;
       for (let i = 0; i < this.veggies.length; i++) {
         this.veggies[i].update();
@@ -145,14 +147,18 @@ class Pan extends Tool {
     var y = this.y + this.height / 3 + 5;
 
     if(this.stirVeg && this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
-      this.stir ++;
-      if (this.stir > 600) addStep(11);
+      this.stirV ++;
+      if (this.stirV > 600) addStep(11);
     }
     if (this.justCrushed) {
       for (let i = 0; i < this.meatP.length; i++) {
         this.meatP[i].update();
         this.meatP[i].drawMeat();
       };
+      if(this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
+        this.stirM ++;
+        if (this.stirM > 600) addStep(14);
+      }
     }
 
     if (this.spoon.isSelected && !this.canStir && this.inPlace) {
@@ -187,7 +193,7 @@ class Pan extends Tool {
       this.pieceWidth -= 0.1;
       this.pieceHeight -= 0.1;
       this.radius += 0.15;
-    } 
+    }
     if (this.pieceWidth < 0) {
       addStep(7);
     }

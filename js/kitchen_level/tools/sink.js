@@ -26,14 +26,12 @@ class Sink {
     this.faucet = true;
     this.overFlowded = false;
   }
-
   checkFaucet(e) {
     var mouse = getCursorPosition(e);
     if (mouse.x < 50 && mouse.y < 50) {
       this.sinkIsOn = !this.sinkIsOn;
     }
   }
-
   checkDrain(e) {
     var mouse = getCursorPosition(e);
     if (mouse.y < 62 && mouse.y > 2 &&
@@ -41,12 +39,11 @@ class Sink {
       this.drainOpen = !this.drainOpen;
     }
   }
-
   drawWater(ctx) {
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
     if (this.sinkIsOn && !this.drainOpen) {
       this.waterLevel += 0.25;
-    } 
+    }
 
     if (this.waterLevel < 69) {
       if (!this.drainOpen) {
@@ -80,8 +77,7 @@ class Sink {
         this.angle -= 0.3;
         this.waterLevel -= 0.25;
       };
-      
-      
+
       ctx.beginPath();
       ctx.moveTo(194 + (this.angle * 2.2), 129 + (this.angle * -0.9));
       ctx.arcTo(194 + (this.angle * 2.2), 199 + (this.angle * 1.13), 56 + (this.angle * -0.33), 199 + (this.angle * 1.13), 70 + -this.angle);
@@ -98,7 +94,7 @@ class Sink {
         this.level -= 0.1;
         this.waterLevel -= 0.25;
       }
-      
+
       ctx.beginPath();
       ctx.moveTo(260 + (this.level * 1.5), 102 + (this.level * 3.3));
       ctx.arcTo(260 + (this.level * 1.5), 233, 46 + (this.level * -1.6), 233, 40);
@@ -121,25 +117,22 @@ class Sink {
         this.waterLevel = 118;
         this.level = 10;
       }
-    }    
+    }
   }
   overFlow() {
     if (!this.overFlowded) {
       this.waterLevel = 72;
       this.angle = 3.6;
       this.overFlowded = true;
-    }  
+    }
   }
-
   drawFaucet(ctx) {
     if (this.faucet === true) {
       this.sinkIsOn === false ? this.faucetSprite = faucetOffSprite : this.faucetSprite = faucetOnSprite;
       ctx.drawImage(this.faucetSprite, -15, -10, 173, 159);
     }
   }
-
   drawSink(ctx) {
-
     var button;
     if (this.drainOpen === true) {
       ctx.fillStyle = "black";
@@ -150,7 +143,6 @@ class Sink {
     }
 
     ctx.drawImage(button, 290, 2, 60, 60);
-
     ctx.fillRect(120, 70, 70, 70);
     ctx.drawImage(sinkSprite, 10, 10, 286, 243);
     this.drawWater(ctx);

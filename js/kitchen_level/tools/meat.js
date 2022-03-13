@@ -86,8 +86,7 @@ class Meat extends Tool {
       this.canCrush = false;
       this.isCrushed = true;
       this.break = false;
-      console.log("ttoto");
-      addStep(11);
+      addStep(12);
       deleteTool("meat");
     };
   }

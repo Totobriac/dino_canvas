@@ -2,21 +2,19 @@ import {
   getSelectedButton
 } from "./tools/stove.js";
 import {
-  getCursorPosition,
+  getCursorPosition, getSelectedTool
 } from "./function.js";
-import {
-  getSelectedTool
-} from "./function.js";
+
 import {
   butterKnife,
-  onion,
-  tools,
-  sink,
+  onion,  
   chefKnife,
   garlicPress,
   meat,
   notepad,
-} from "./tools.js";
+} from "./toolGeneration.js";
+
+import { tools, sink } from "./tools.js";
 
 
 var selectedTool = null;

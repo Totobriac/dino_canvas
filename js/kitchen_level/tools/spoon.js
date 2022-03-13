@@ -1,8 +1,7 @@
 import { Tool } from "./tool.js";
-
 import { mouse } from "../control.js";
-
-import { meat, onTop } from "../tools.js";
+import { onTop } from "../tools.js";
+import { meat } from "../toolGeneration.js";
 
 var spoonSprite = new Image();
 spoonSprite.src = "./assets/kitchen_level/spoon.png";
@@ -23,8 +22,8 @@ class Spoon extends Tool {
     }
     else {
       super.draw();
-    }    
-  } 
+    }
+  }
 }
 
 export {

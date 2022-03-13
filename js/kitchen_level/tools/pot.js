@@ -68,12 +68,13 @@ class Pot extends Tool {
       addStep(3);
       this.onBurner = true;
       if (maxRadius == 5 && this.pasta.inPlace && !this.pasta.isUp) {
+        addStep(13);
         this.pasta.inPot();
       }
       if(this.hasSalt) {
         this.boil();
         addStep(4);
-      } 
+      }
     }
   }
   boil() {

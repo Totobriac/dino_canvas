@@ -1,19 +1,17 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
+
+import { points, mouse } from "../control.js";
 
 import {
-  points,
-  mouse
-} from "../control.js";
-
-import {
-  tools,
-  sink,
   onion,
+} from "../toolGeneration.js";
+
+import {
+  sink,
   deleteTool,
   onTop,
-  addStep
+  addStep,
+  tools,
 } from "../tools.js";
 
 
@@ -84,7 +82,7 @@ class Onion extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
-    
+
       this.peel();
     }
     if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
@@ -110,7 +108,7 @@ class Onion extends Tool {
       this.ctx.drawImage(onionPeeledSprite, 0, this.pieceWidth, 548, 600 - this.pieceWidth, xOffset, yOffset, 548 * this.coef, (600 - this.pieceWidth) * this.coef);
       this.ctx.strokeStyle = "red";
       this.ctx.setLineDash([4, 4]);
-      
+
       if (this.state === "peeled") {
         this.ctx.beginPath();
         this.ctx.moveTo(-180, -80);

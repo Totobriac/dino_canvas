@@ -2,7 +2,7 @@ import {
   Tool
 } from "./tool.js";
 import {
-  onTop
+  onTop, addStep
 } from "../tools.js";
 
 class Colander extends Tool {
@@ -14,6 +14,7 @@ class Colander extends Tool {
     super.draw();
     if (this.hasPastas && this.isSelected) onTop("pasta");
     if( this.hasPastas) {
+      addStep(17);
       this.perfX = undefined;
       this.perfY = undefined;
       this.shadow = {
@@ -25,6 +26,4 @@ class Colander extends Tool {
   }
 }
 
-export {
-  Colander
-};
+export { Colander };

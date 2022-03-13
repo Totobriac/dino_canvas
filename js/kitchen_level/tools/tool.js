@@ -59,10 +59,8 @@ class Tool {
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.17)";
     this.ctx.arc(this.shadow.x, this.shadow.y, this.shadow.r, 0, 2 * Math.PI, false);
     this.ctx.fill();
-  }  
+  }
 }
 
 
-export {
-  Tool
-};
+export { Tool };
