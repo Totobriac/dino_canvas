@@ -1,10 +1,8 @@
 import { Tool } from "./tool.js";
 
-import { points, mouse } from "../control.js";
+import { points, mouse, key } from "../control.js";
 
-import {
-  onion,
-} from "../toolGeneration.js";
+import { onion } from "../toolGeneration.js";
 
 import {
   sink,
@@ -56,6 +54,8 @@ class Onion extends Tool {
     this.pan = pan;
   }
   draw() {
+
+    this.spinOnion();
 
     super.draw();
 
@@ -191,8 +191,21 @@ class Onion extends Tool {
       this.state = "halfed";
     }
   }
-  spinOnion(angle) {
-    this.angle = angle;
+  spinOnion() {
+    switch (key) {
+      case "ArrowUp":
+      this.angle = 0;
+      break;
+      case "ArrowRight":
+      this.angle = 90;
+      break;
+      case "ArrowDown":
+      this.angle = 180;
+      break;
+      case "ArrowLeft":
+      this.angle = 270;
+      break;
+    };
   }
   beheading() {
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||

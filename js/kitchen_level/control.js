@@ -1,26 +1,19 @@
-import {
-  getSelectedButton
-} from "./tools/stove.js";
-import {
-  getCursorPosition, getSelectedTool
-} from "./function.js";
-
+import { getSelectedButton } from "./tools/stove.js";
+import { getCursorPosition, getSelectedTool } from "./function.js";
 import {
   butterKnife,
-  onion,  
+  onion,
   chefKnife,
   garlicPress,
   meat,
   notepad,
 } from "./toolGeneration.js";
-
 import { tools, sink } from "./tools.js";
 
 
 var selectedTool = null;
-
 var points = [];
-
+var key = "";
 var mouse = {
   x: undefined,
   y: undefined,
@@ -37,20 +30,7 @@ function setControls() {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mouseup", onMouseUp);
   window.addEventListener('keydown', function (e) {
-    switch (e.code) {
-      case "ArrowUp":
-        onion.spinOnion(0);
-        break;
-      case "ArrowRight":
-        onion.spinOnion(90)
-        break;
-      case "ArrowDown":
-        onion.spinOnion(180)
-        break;
-      case "ArrowLeft":
-        onion.spinOnion(270)
-        break;
-    };
+    key = e.code;
   })
 }
 
@@ -141,4 +121,5 @@ export {
   selectedTool,
   points,
   mouse,
+  key,
 }
