@@ -53,27 +53,29 @@ function onMouseDown(e) {
 
   getSelectedTool(e);
 
-  if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
-    onion.slices.push({
-      x: chefKnife.x + chefKnife.width / 2,
-      y: chefKnife.y,
-      width: undefined,
-    })
-  }
-  if (onion.angle === 90 && onion.canMince === true) {
-    var x = chefKnife.x + chefKnife.width / 2;
-    var startX = 678 - x;
-    var oldWidth = onion.pieceWidth;
-    if (180 + startX / 0.65 > onion.pieceWidth) {
-      var newW = 180 + startX / 0.65 - oldWidth;
-      onion.pieceWidth = 180 + startX / 0.65;
-      onion.piecesWidth.push({w: newW, pW:onion.pieceWidth})
-      onion.dif = 612 - mouse.x;
-    }
-    if (startX > 200 && onion.piecesWidth.length > 9) {
-      onion.done();
-    }
-  }
+  onion.sliceIt();
+
+  // if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
+  //   onion.slices.push({
+  //     x: chefKnife.x + chefKnife.width / 2,
+  //     y: chefKnife.y,
+  //     width: undefined,
+  //   })
+  // }
+  // if (onion.angle === 90 && onion.canMince === true) {
+  //   var x = chefKnife.x + chefKnife.width / 2;
+  //   var startX = 678 - x;
+  //   var oldWidth = onion.pieceWidth;
+  //   if (180 + startX / 0.65 > onion.pieceWidth) {
+  //     var newW = 180 + startX / 0.65 - oldWidth;
+  //     onion.pieceWidth = 180 + startX / 0.65;
+  //     onion.piecesWidth.push({w: newW, pW:onion.pieceWidth})
+  //     onion.dif = 612 - mouse.x;
+  //   }
+  //   if (startX > 200 && onion.piecesWidth.length > 9) {
+  //     onion.done();
+  //   }
+  // }
 
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isSelected === true) {

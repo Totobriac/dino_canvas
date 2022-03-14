@@ -58,7 +58,6 @@ class Onion extends Tool {
     this.spinOnion();
 
     super.draw();
-
     if (this.inPlace) {
       if (this.state === "intact") {
         this.ctx.setLineDash([4, 4]);
@@ -90,8 +89,8 @@ class Onion extends Tool {
     if (this.state === "peeled" || this.state === "beheaded") {
       sink.faucet = false;
       onTop("chefKnife");
-      this.knife.isSelected = true;
-      this.knife.isChopping = true;
+      this.chefKnife.isSelected = true;
+      this.chefKnife.isChopping = true;
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
@@ -227,7 +226,7 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice1 = true;
-      if (this.knife.x > 499 && this.knife.x < 502) {
+      if (this.chefKnife.x > 499 && this.chefKnife.x < 502) {
         this.slice = 1;
         this.canSlice1 = false;
       }
@@ -248,8 +247,31 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice2 = true;
-      if (this.knife.x > 534 && this.knife.x < 540) {
+      if (this.chefKnife.x > 534 && this.chefKnife.x < 540) {
         this.canChop = true;
+      }
+    }
+  }
+  sliceIt() {
+    if (this.canSlice === true && this.angle === 180 && this.canMince === false) {
+      this.slices.push({
+        x: this.chefKnife.x + this.chefKnife.width / 2,
+        y: this.chefKnife.y,
+        width: undefined,
+      })
+    }
+    if (this.angle === 90 && this.canMince === true) {
+      var x = this.chefKnife.x + this.chefKnife.width / 2;
+      var startX = 678 - x;
+      var oldWidth = this.pieceWidth;
+      if (180 + startX / 0.65 > this.pieceWidth) {
+        var newW = 180 + startX / 0.65 - oldWidth;
+        this.pieceWidth = 180 + startX / 0.65;
+        this.piecesWidth.push({w: newW, pW:this.pieceWidth})
+        this.dif = 612 - mouse.x;
+      }
+      if (startX > 200 && this.piecesWidth.length > 9) {
+        this.done();
       }
     }
   }
@@ -295,10 +317,10 @@ class Onion extends Tool {
 
     if (this.angle === 180) {
 
-      var distance = Math.sqrt((x - (this.knife.x + this.knife.width / 2)) * (x - (this.knife.x + this.knife.width / 2)) +
-        (y - this.knife.y) * (y - this.knife.y)
+      var distance = Math.sqrt((x - (this.chefKnife.x + this.chefKnife.width / 2)) * (x - (this.chefKnife.x + this.chefKnife.width / 2)) +
+        (y - this.chefKnife.y) * (y - this.chefKnife.y)
       )
-      if (distance > 120 && this.knife.y < 200) {
+      if (distance > 120 && this.chefKnife.y < 200) {
         this.canSlice = false;
       } else {
         this.canSlice = true;
@@ -386,7 +408,7 @@ class Onion extends Tool {
     this.state = "done";
     this.canMince = false;
     this.canChop = false;
-    this.knife.isChopping = false;
+    this.chefKnife.isChopping = false;
     tools.forEach((tool, i) => {
       tool.isSelected = false;
     });

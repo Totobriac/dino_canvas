@@ -202,7 +202,7 @@ function generateTools(ctx) {
     r: 0
   }, onion);
 
-  Onion.prototype.knife = chefKnife;
+  Onion.prototype.chefKnife = chefKnife;
 
   butterBig = new Tool("butterBig", butterBigSprite, 405, 35, 462, 337, ctx, undefined, undefined, {
     x: 0,

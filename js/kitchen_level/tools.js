@@ -137,7 +137,6 @@ function addStep(step) {
   if (step > stepDone ) stepDone = step;
 }
 
-
 export {
   drawTools,
   tools,
