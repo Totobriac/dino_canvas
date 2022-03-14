@@ -58,6 +58,13 @@ function onTop(tool) {
   }
 }
 
+function deselect(e) {
+  for (let i = 0; i < tools.length; i++) {
+    tools[i].isSelected = false;
+    tools[i].isMoving = false;
+  }
+}
+
 function selectable() {
   var objects;
   switch(stepDone){
@@ -141,4 +148,5 @@ export {
   onTop,
   addStep,
   stepDone,
+  deselect,
 };

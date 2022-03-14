@@ -8,7 +8,7 @@ import {
   meat,
   notepad,
 } from "./toolGeneration.js";
-import { tools, sink } from "./tools.js";
+import { tools, sink, deselect } from "./tools.js";
 
 
 var selectedTool = null;
@@ -107,10 +107,7 @@ function onMouseMove(e) {
 }
 
 function onMouseUp(e) {
-  for (let i = 0; i < tools.length; i++) {
-    tools[i].isSelected = false;
-    tools[i].isMoving = false;
-  }
+  deselect(e);
   mouse.upX = e.offsetX;
   mouse.upY = e.offsetY;
 
