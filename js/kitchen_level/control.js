@@ -1,7 +1,7 @@
 import { getSelectedButton } from "./tools/stove.js";
 import { getCursorPosition, getSelectedTool } from "./function.js";
 import { butterKnife, onion, chefKnife, garlicPress, meat, notepad } from "./toolGeneration.js";
-import { tools, sink, deselect, calculateOffset, stepDone } from "./tools.js";
+import { tools, sink, deselect, calculateOffset, stepDone, move } from "./tools.js";
 
 
 var selectedTool = null;
@@ -54,18 +54,8 @@ function onMouseDown(e) {
 
 function onMouseMove(e) {
   mouse = getCursorPosition(e);
-  if (stepDone === 7) {
-    onion.addPoints(e);
-  }
-
-  for (let i = 0; i < tools.length; i++) {
-    if (tools[i].isSelected === true) {
-      tools[i].x = e.offsetX - tools[i].offset.x;
-      tools[i].y = e.offsetY - tools[i].offset.y;
-      tools[i].isMoving = true;
-    }
-  }
-
+  move(e);
+  if (stepDone === 7) { onion.addPoints(e) };
 }
 
 function onMouseUp(e) {

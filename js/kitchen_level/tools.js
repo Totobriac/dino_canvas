@@ -4,18 +4,14 @@ import { generateTools } from "./toolGeneration.js";
 
 var sink;
 var tools = [];
-var stepDone = 7;
+var stepDone = 0;
 
 
 function drawTools(ctx, game) {
   if (game.kitchenLevelStarted === false) {
-
     sink = new Sink();
-
     tools = generateTools(ctx);
-
     game.kitchenLevelStarted = true;
-
   }
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
@@ -146,6 +142,16 @@ function calculateOffset(e) {
   }
 }
 
+function move(e) {
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].isSelected === true) {
+      tools[i].x = e.offsetX - tools[i].offset.x;
+      tools[i].y = e.offsetY - tools[i].offset.y;
+      tools[i].isMoving = true;
+    }
+  }
+}
+
 function addStep(step) {
   if (step > stepDone ) stepDone = step;
 }
@@ -162,4 +168,5 @@ export {
   stepDone,
   deselect,
   calculateOffset,
+  move
 };

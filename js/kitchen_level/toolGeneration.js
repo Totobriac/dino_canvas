@@ -1,64 +1,23 @@
-import {
-  Tool
-} from "./tools/tool.js";
-import {
-  Pot
-} from "./tools/pot.js";
-import {
-  ButterKnife
-} from "./tools/butter_knife.js";
-import {
-  Butter
-} from "./tools/butter.js";
-import {
-  Onion
-} from "./tools/onion.js";
-import {
-  ChefKnife
-} from "./tools/chefKnife.js";
-import {
-  Pan
-} from "./tools/pan.js";
-import {
-  Carrot
-} from "./tools/carrot.js";
-import {
-  Grater
-} from "./tools/grater.js";
-import {
-  Garlic
-} from "./tools/garlic.js";
-import {
-  GarlicPress
-} from "./tools/garlicPress.js";
-import {
-  Spoon
-} from "./tools/spoon.js";
-import {
-  Meat
-} from "./tools/meat.js";
-import {
-  Tin
-} from "./tools/tin.js";
-import {
-  TinOpener
-} from "./tools/tinOpener.js";
-import {
-  Pasta
-} from "./tools/pasta.js";
-import {
-  Colander
-} from "./tools/colander.js";
-import {
-  Notepad
-} from "./tools/notepad.js";
-import {
-  Salt
-} from "./tools/salt.js";
-
-import {
-  Sink
-} from "./tools/sink.js";
+import { Tool } from "./tools/tool.js";
+import { Pot } from "./tools/pot.js";
+import { ButterKnife } from "./tools/butter_knife.js";
+import { Butter } from "./tools/butter.js";
+import { Onion } from "./tools/onion.js";
+import { ChefKnife } from "./tools/chefKnife.js";
+import { Pan } from "./tools/pan.js";
+import { Carrot } from "./tools/carrot.js";
+import { Grater } from "./tools/grater.js";
+import { Garlic } from "./tools/garlic.js";
+import { GarlicPress } from "./tools/garlicPress.js";
+import { Spoon } from "./tools/spoon.js";
+import { Meat } from "./tools/meat.js";
+import { Tin } from "./tools/tin.js";
+import { TinOpener } from "./tools/tinOpener.js";
+import { Pasta } from "./tools/pasta.js";
+import { Colander } from "./tools/colander.js";
+import { Notepad } from "./tools/notepad.js";
+import { Salt } from "./tools/salt.js";
+import { Sink } from "./tools/sink.js";
 
 import { sink } from "./tools.js";
 
