@@ -40,7 +40,9 @@ class Meat extends Tool {
       super.draw();
     }
   }
-  selectedPiece(x, y) {
+  selectedPiece(e) {
+    var x = e.offsetX;
+    var y = e.offsetY;
     if (this.pieces.length > 0) {
       this.pan.canBeSelected = false;
       this.canBeSelected = false;

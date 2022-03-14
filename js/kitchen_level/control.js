@@ -1,14 +1,7 @@
 import { getSelectedButton } from "./tools/stove.js";
 import { getCursorPosition, getSelectedTool } from "./function.js";
-import {
-  butterKnife,
-  onion,
-  chefKnife,
-  garlicPress,
-  meat,
-  notepad,
-} from "./toolGeneration.js";
-import { tools, sink, deselect } from "./tools.js";
+import { butterKnife, onion, chefKnife, garlicPress, meat, notepad } from "./toolGeneration.js";
+import { tools, sink, deselect, calculateOffset } from "./tools.js";
 
 
 var selectedTool = null;
@@ -35,57 +28,21 @@ function setControls() {
 }
 
 function onMouseDown(e) {
-
   mouse.downX = e.offsetX;
   mouse.downY = e.offsetY;
-  notepad.reset(e.offsetX, e.offsetY)
-
-  if(garlicPress.toCrush) garlicPress.addPoints();
-
-  mouse = getCursorPosition(e);
-  meat.selectedPiece(mouse.x, mouse.y);
-
+  getSelectedTool(e);
+  calculateOffset(e);
+  notepad.reset(e);
   sink.checkFaucet(e);
-  getSelectedButton(e);
   sink.checkDrain(e);
+  getSelectedButton(e);
+
+  garlicPress.points();
+  meat.selectedPiece(e);
+
   butterKnife.checkButter();
   butterKnife.checkCut();
-
-  getSelectedTool(e);
-
   onion.sliceIt();
-
-  // if (onion.canSlice === true && onion.angle === 180 && onion.canMince === false) {
-  //   onion.slices.push({
-  //     x: chefKnife.x + chefKnife.width / 2,
-  //     y: chefKnife.y,
-  //     width: undefined,
-  //   })
-  // }
-  // if (onion.angle === 90 && onion.canMince === true) {
-  //   var x = chefKnife.x + chefKnife.width / 2;
-  //   var startX = 678 - x;
-  //   var oldWidth = onion.pieceWidth;
-  //   if (180 + startX / 0.65 > onion.pieceWidth) {
-  //     var newW = 180 + startX / 0.65 - oldWidth;
-  //     onion.pieceWidth = 180 + startX / 0.65;
-  //     onion.piecesWidth.push({w: newW, pW:onion.pieceWidth})
-  //     onion.dif = 612 - mouse.x;
-  //   }
-  //   if (startX > 200 && onion.piecesWidth.length > 9) {
-  //     onion.done();
-  //   }
-  // }
-
-  for (let i = 0; i < tools.length; i++) {
-    if (tools[i].isSelected === true) {
-      tools[i].offset = {
-        x: mouse.x - tools[i].x,
-        y: mouse.y - tools[i].y
-      }
-      tools[i].isMoving = true;
-    }
-  }
 }
 
 function onMouseMove(e) {
@@ -112,13 +69,6 @@ function onMouseUp(e) {
   deselect(e);
   mouse.upX = e.offsetX;
   mouse.upY = e.offsetY;
-
 }
 
-export {
-  setControls,
-  selectedTool,
-  points,
-  mouse,
-  key,
-}
+export { setControls, selectedTool, points, mouse, key };

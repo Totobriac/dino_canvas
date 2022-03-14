@@ -4,7 +4,7 @@ import { generateTools } from "./toolGeneration.js";
 
 var sink;
 var tools = [];
-var stepDone = 7;
+var stepDone = 11;
 
 
 function drawTools(ctx, game) {
@@ -133,6 +133,19 @@ function selectable() {
   }
 }
 
+function calculateOffset(e) {
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].isSelected === true) {
+      tools[i].offset = {
+        x: e.offsetX - tools[i].x,
+        y: e.offsetY - tools[i].y
+      }
+      tools[i].isMoving = true;
+      console.log(tools[i]);
+    }
+  }
+}
+
 function addStep(step) {
   if (step > stepDone ) stepDone = step;
 }
@@ -148,4 +161,5 @@ export {
   addStep,
   stepDone,
   deselect,
+  calculateOffset,
 };

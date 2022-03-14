@@ -61,7 +61,9 @@ class Notepad extends Tool {
     onTop("notepad");
     this.big = true;
   }
-  reset(x, y) {
+  reset(e) {
+    var x = e.offsetX;
+    var y = e.offsetY;
     if (x < 367 || x > 833 || y < this.y || y > this.y + this.height) {
       this.big = false;
     }

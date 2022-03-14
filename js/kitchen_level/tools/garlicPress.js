@@ -149,9 +149,11 @@ class GarlicPress extends Tool {
   changeDirection() {
     this.direction === 4 ? this.direction = -4 : this.direction = 4;
   }
+  points() {
+    if(this.toCrush) this.addPoints();
+  }
   addPoints() {
-
-    if (this.angle < -4) {
+    if (this.angle < -4 ) {
 
       switch (true) {
         case this.cursorH < 88:
