@@ -1,16 +1,7 @@
 import { Tool } from "./tool.js";
-
-import { points, mouse, key } from "../control.js";
-
+import { mouse, key } from "../control.js";
 import { onion } from "../toolGeneration.js";
-
-import {
-  sink,
-  deleteTool,
-  onTop,
-  addStep,
-  tools,
-} from "../tools.js";
+import { sink, deleteTool, onTop, addStep, tools } from "../tools.js";
 
 
 var choppingBoardSprite = new Image();
@@ -52,6 +43,7 @@ class Onion extends Tool {
     this.piecesWidth = [];
     this.piecesAXY = [];
     this.pan = pan;
+    this.points = [];
   }
   draw() {
 
@@ -145,9 +137,9 @@ class Onion extends Tool {
   peel() {
     this.ctx.globalCompositeOperation = 'destination-out';
     this.ctx.fillStyle = "rgba(0,0,0,1)"
-    for (let i = 0; i < points.length; i++) {
+    for (let i = 0; i < this.points.length; i++) {
       this.ctx.beginPath();
-      this.ctx.arc(points[i].x, points[i].y, 30, 0, 2 * Math.PI);
+      this.ctx.arc(this.points[i].x, this.points[i].y, 30, 0, 2 * Math.PI);
       this.ctx.fill();
     }
 
@@ -402,6 +394,14 @@ class Onion extends Tool {
       }
       this.ctx.restore();
     };
+  }
+  addPoints(e) {
+    if (this.inPlace === true && this.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
+      this.points.push({
+        x: e.offsetX,
+        y: e.offsetY
+      })
+    }
   }
   done() {
     sink.faucet = true;

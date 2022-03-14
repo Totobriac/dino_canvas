@@ -1,7 +1,4 @@
-import {
-  Tool
-} from "./tool.js";
-
+import { Tool } from "./tool.js";
 import { mouse } from "../control.js";
 
 var chefKnifeUpSprite = new Image();
@@ -24,7 +21,6 @@ class ChefKnife extends Tool {
     this.isChopping = false;
   }
   draw() {
-
     if (this.isSelected === true && this.isChopping === false) {
       this.sprite = chefKnifeSpineSprite;
       this.width = 11;

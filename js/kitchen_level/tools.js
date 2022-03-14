@@ -4,7 +4,7 @@ import { generateTools } from "./toolGeneration.js";
 
 var sink;
 var tools = [];
-var stepDone = 11;
+var stepDone = 7;
 
 
 function drawTools(ctx, game) {
