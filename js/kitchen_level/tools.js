@@ -1,6 +1,6 @@
 
 import { Sink } from "./tools/sink.js";
-import { generateTools } from "./toolGeneration.js";
+import { generateTools, notepad } from "./toolGeneration.js";
 
 var sink;
 var tools = [];
@@ -50,6 +50,16 @@ function onTop(tool) {
       var tool = tools[i];
       tools.splice(i, 1);
       tools.push(tool);
+    }
+  }
+}
+
+function onTopTwo(tool) {
+  for (let i = 0; i < tools.length; i++) {
+    if (tools[i].name === tool) {
+      var tool = tools[i];
+      tools.splice(i, 1);
+      tools.splice( tools.length - 1, 0, tool);
     }
   }
 }
@@ -137,7 +147,6 @@ function calculateOffset(e) {
         y: e.offsetY - tools[i].y
       }
       tools[i].isMoving = true;
-      console.log(tools[i]);
     }
   }
 }
@@ -164,6 +173,7 @@ export {
   displayTool,
   displayAllTools,
   onTop,
+  onTopTwo,
   addStep,
   stepDone,
   deselect,

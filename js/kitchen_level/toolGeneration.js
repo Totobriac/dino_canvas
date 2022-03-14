@@ -237,6 +237,8 @@ function generateTools(ctx) {
     r: undefined,
   })
 
+  Pasta.prototype.notepad = notepad;
+
   tools = [pot, salt, butterPlate, butterKnife, pan, chefKnife, onion,
     carrot, grater, garlic, garlicPress, spoon, meat, tin,
     tinOpener, pasta, colander, notepad

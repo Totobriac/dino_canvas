@@ -1,7 +1,5 @@
 import { Tool } from "./tool.js";
-
-import { onTop , addStep } from "../tools.js";
-
+import { onTop, onTopTwo, addStep } from "../tools.js";
 
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/kitchen_level/pasta.png";
@@ -57,7 +55,7 @@ class Pasta extends Tool {
 
     if (this.areCooking === true) {
 
-      onTop(this.top);
+      this.notepad.isSelected || this.spoon.isSelected ? onTopTwo(this.top) : onTop(this.top);
 
       if (!this.colander.hasPastas) {
         var X = this.pot.x + 106;
