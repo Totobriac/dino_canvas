@@ -109,8 +109,22 @@ colanderSprite.src = "./assets/kitchen_level/colander.png";
 var notepadSprite = new Image();
 notepadSprite.src = "./assets/kitchen_level/notepad.png";
 
-function generateTools(ctx) {
+var pics = [potSprite, saltSprite, butterPlateSprite, butterKnifeSprite,
+  panSprite, chefKnifeSprite, onionSprite, carrotSprite, graterSprite,
+  garlicHeadSprite, garlicPressSprite, spoonSprite, meatSprite, tinSprite,
+  tinOpenerSprite, pastaUpSprite, colanderSprite, notepadSprite
+];
 
+var picsLoaded = 0;
+function checkIfLoaded() {
+  pics.forEach((pic, i) => {
+    pic.onload? console.log('coco') : console.log("ko");;
+  });
+
+}
+
+function generateTools(ctx) {
+  checkIfLoaded();
   pot = new Pot("pot", potSprite, 860, 166, 210, 161, ctx, 22, 48, {
     x: 120,
     y: 132,
