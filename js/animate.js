@@ -20,36 +20,36 @@ export function anim(game, dino, ctx) {
   }
 
   switch (game.level) {
-  case 0:
-    startLevel0(ctx, game, dino);
-    break;
-  case 1:
-    startLevel1(ctx, game, dino);
-    break;
-  case 2:
-    startLevel2(ctx, game, dino);
-    break;
-  case 3:
-    startLevel3(game, ctx);
-    break;
-  case 4:
-    startLevel4(ctx, game, dino);
-    break;
-  case 5:
-    startLevel5(ctx, game, dino);
-    break;
-  case 6:
-    startLevel6(game, ctx);
-    break;
-  case 7:
-    startLevel7(ctx, game);
-    break;
-  case 8:
-    startLevel8(game, ctx);
-    break;
-  case 9:
-    startLevel9(game, ctx);
-    break;
+    case 0:
+      startLevel0(ctx, game, dino);
+      break;
+    case 1:
+      startLevel1(ctx, game, dino);
+      break;
+    case 2:
+      startLevel2(ctx, game, dino);
+      break;
+    case 3:
+      startLevel3(game, ctx);
+      break;
+    case 4:
+      startLevel4(ctx, game, dino);
+      break;
+    case 5:
+      startLevel5(ctx, game, dino);
+      break;
+    case 6:
+      startLevel6(game, ctx);
+      break;
+    case 7:
+      startLevel7(ctx, game);
+      break;
+    case 8:
+      startLevel8(game, ctx);
+      break;
+    case 9:
+      startLevel9(game, ctx);
+      break;
   }
 
 }

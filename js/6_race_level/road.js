@@ -65,7 +65,7 @@ class Segment {
 }
 
 export function generateRoad(game) {
-  if (game.level7Started === false) {
+  if (game.level6Started === false) {
     var sum = 0;
     var sections = [];
     while (sum < 2500) {
@@ -91,9 +91,9 @@ export function generateRoad(game) {
         j < sections[i] / 2 ? newS += S : newS -= S;
         var point = new Segment(newZ, newC, newS, sR, sL, xR, xL, bX, bS, rR);
         points.unshift(point)
-        newZ += 120
+        newZ += 60
       }
-      game.level7Started = true;
+      game.level6Started = true;
     }
   }
 }
