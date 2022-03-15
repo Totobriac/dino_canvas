@@ -1,6 +1,6 @@
-import { dinoFlyUp, dinoFlyDown } from "../js/plane_level/plane.js";
-import { jump, isJumping } from "../js/desert_level/desert_dino.js";
-import { walk } from "../js/restaurant_level/waiter.js";
+import { dinoFlyUp, dinoFlyDown } from "../js/1_plane_level/plane.js";
+import { jump, isJumping } from "../js/0_desert_level/desert_dino.js";
+import { walk } from "../js/2_restaurant_level/waiter.js";
 import { steer } from "../js/race_level/road.js";
 
 export class Control {

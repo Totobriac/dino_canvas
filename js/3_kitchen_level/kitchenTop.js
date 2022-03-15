@@ -1,23 +1,11 @@
-import {
-  drawStove
-} from "./tools/stove.js";
-
-import {
-  drawTools, 
-  sink,
-} from "./tools.js";
-import {
-  setControls,
-} from "./control.js";
-import {
-  generateTable
-} from "./tools/table.js";
-
+import { drawStove } from "./tools/stove.js";
+import { drawTools, sink } from "./tools.js";
+import { setControls } from "./control.js";
+import { generateTable } from "./tools/table.js";
 import { drawSlice } from "./tools/slice.js";
-
 import { drawBottomPress } from "./tools/bottom_press.js";
 
-function setTop(game, ctx) {
+export function startLevel3(game, ctx) {
 
   ctx.globalCompositeOperation = 'source-over';
 
@@ -35,6 +23,3 @@ function setTop(game, ctx) {
 
   drawBottomPress(ctx);
 }
-export {
-  setTop
-};
