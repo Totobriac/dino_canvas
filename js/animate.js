@@ -18,26 +18,38 @@ export function anim(game, dino, ctx) {
     game.frame++;
     game.score++;
   }
-  if (game.level === 0) {
+
+  switch (game.level) {
+  case 0:
     startLevel0(ctx, game, dino);
-  } else if (game.level === 1) {
+    break;
+  case 1:
     startLevel1(ctx, game, dino);
-  } else if (game.level === 2) {
+    break;
+  case 2:
     startLevel2(ctx, game, dino);
-  } else if (game.level === 3) {
+    break;
+  case 3:
     startLevel3(game, ctx);
-  } else if (game.level === 4) {
+    break;
+  case 4:
     startLevel4(ctx, game, dino);
-  } else if (game.level === 5) {
+    break;
+  case 5:
     startLevel5(ctx, game, dino);
-  } else if (game.level === 6) {
+    break;
+  case 6:
     startLevel6(game, ctx);
-  } else if (game.level === 7) {
+    break;
+  case 7:
     startLevel7(ctx, game);
-  } else if (game.level === 8) {
+    break;
+  case 8:
     startLevel8(game, ctx);
-  } else if (game.level === 9) {
+    break;
+  case 9:
     startLevel9(game, ctx);
+    break;
   }
 
 }
