@@ -3,7 +3,7 @@ import { map } from "../script.js";
 
 
 var dyingEffect = new Image();
-dyingEffect.src = "../assets/zeldouille/effects.png";
+dyingEffect.src = "../assets/8_zeldouille/effects.png";
 
 
 export class Monster {

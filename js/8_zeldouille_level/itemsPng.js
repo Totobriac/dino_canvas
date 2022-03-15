@@ -6,7 +6,7 @@ import { Gannon } from "./monsters/gannon.js";
 
 
 var sprites = new Image();
-sprites.src = "../assets/zeldouille/sprites.png";
+sprites.src = "../assets/8_zeldouille/sprites.png";
 
 var tickCount = 0;
 var textTickCount = 0;

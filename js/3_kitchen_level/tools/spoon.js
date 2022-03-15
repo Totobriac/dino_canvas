@@ -4,7 +4,7 @@ import { onTop } from "../tools.js";
 import { meat } from "../toolGeneration.js";
 
 var spoonSprite = new Image();
-spoonSprite.src = "./assets/kitchen_level/spoon.png";
+spoonSprite.src = "./assets/3_kitchen/spoon.png";
 
 
 class Spoon extends Tool {

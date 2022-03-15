@@ -13,10 +13,10 @@ import {
 } from "../control.js";
 
 var handleSprite = new Image();
-handleSprite.src = "./assets/kitchen_level/handle_tin_opener.png";
+handleSprite.src = "./assets/3_kitchen/handle_tin_opener.png";
 
 var crankSprite = new Image();
-crankSprite.src = "./assets/kitchen_level/crank_tin_opener.png";
+crankSprite.src = "./assets/3_kitchen/crank_tin_opener.png";
 
 class TinOpener extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {

@@ -1,19 +1,19 @@
 import { getCursorPosition, } from "../function.js";
 
 var sinkSprite = new Image();
-sinkSprite.src = "./assets/kitchen_level/sink.png";
+sinkSprite.src = "./assets/3_kitchen/sink.png";
 
 var faucetOffSprite = new Image();
-faucetOffSprite.src = "./assets/kitchen_level/faucet.png";
+faucetOffSprite.src = "./assets/3_kitchen/faucet.png";
 
 var faucetOnSprite = new Image();
-faucetOnSprite.src = "./assets/kitchen_level/faucet_on.png";
+faucetOnSprite.src = "./assets/3_kitchen/faucet_on.png";
 
 var buttonOpenSprite = new Image();
-buttonOpenSprite.src = "./assets/kitchen_level/sink_button_open.png";
+buttonOpenSprite.src = "./assets/3_kitchen/sink_button_open.png";
 
 var buttonSprite = new Image();
-buttonSprite.src = "./assets/kitchen_level/sink_button.png";
+buttonSprite.src = "./assets/3_kitchen/sink_button.png";
 
 class Sink {
   constructor() {

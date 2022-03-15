@@ -2,13 +2,13 @@ import { Tool } from "./tool.js";
 import { onTop, onTopTwo, addStep } from "../tools.js";
 
 var pastaSprite = new Image();
-pastaSprite.src = "./assets/kitchen_level/pasta.png";
+pastaSprite.src = "./assets/3_kitchen/pasta.png";
 
 var steamSprite = new Image();
-steamSprite.src = "./assets/kitchen_level/steam.png";
+steamSprite.src = "./assets/3_kitchen/steam.png";
 
 var steamCloudSprite = new Image();
-steamCloudSprite.src = "./assets/kitchen_level/steam_cloud.png";
+steamCloudSprite.src = "./assets/3_kitchen/steam_cloud.png";
 
 var add = 0.5;
 

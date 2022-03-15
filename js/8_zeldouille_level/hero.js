@@ -5,12 +5,12 @@ import { checkAction } from "./map.js";
 import { action } from "./actions.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "../assets/zeldouille/dino.png";
+zeldaSprite.src = "../assets/8_zeldouille/dino.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "../assets/zeldouille/dino_attack.png";
+zeldaAttackSprite.src = "../assets/8_zeldouille/dino_attack.png";
 
-const zeldaHit = ["../assets/zeldouille/hit_1.png", "../assets/zeldouille/hit_2.png", "../assets/zeldouille/hit_3.png"];
+const zeldaHit = ["../assets/8_zeldouille/hit_1.png", "../assets/8_zeldouille/hit_2.png", "../assets/8_zeldouille/hit_3.png"];
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -301,7 +301,7 @@ class Hero {
       } else if (this.hitTickCount > 100) {
         this.hitTickCount = 0;
         this.isHit = false;
-        zeldaSprite.src = "../assets/zeldouille/dino.png";
+        zeldaSprite.src = "../assets/8_zeldouille/dino.png";
       }
     }
   }

@@ -48,7 +48,7 @@ function getTile(tile) {
 
 
 var zoraSprite = new Image();
-zoraSprite.src = "../assets/zeldouille/zora.png";
+zoraSprite.src = "../assets/8_zeldouille/zora.png";
 
 var numRows = 2;
 var frameWidth = 32;

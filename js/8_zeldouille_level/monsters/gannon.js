@@ -2,7 +2,7 @@ import { zelda } from "../script.js";
 import { animateFireBall } from "../functions.js";
 
 var gannonSprite = new Image();
-gannonSprite.src = "../assets/zeldouille/gannon_with_explosion.png";
+gannonSprite.src = "../assets/8_zeldouille/gannon_with_explosion.png";
 
 class Gannon {
   constructor(ctx) {

@@ -1,5 +1,5 @@
 var bottomSprite = new Image();
-bottomSprite.src = "./assets/kitchen_level/press_bottom_hole.png";
+bottomSprite.src = "./assets/3_kitchen/press_bottom_hole.png";
 
 import { garlicPress } from "../toolGeneration.js";
 

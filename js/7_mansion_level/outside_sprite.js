@@ -1,136 +1,136 @@
 import { Sprite } from "../character/sprite.js";
 
 export var mansionSprite = new Image();
-mansionSprite.src = "./assets/mansion_level/maniac_no_light.png";
+mansionSprite.src = "./assets/7_mansion/maniac_no_light.png";
 
 export var mansionLightSprite = new Image();
-mansionLightSprite.src = "./assets/mansion_level/yellow_light.png";
+mansionLightSprite.src = "./assets/7_mansion/yellow_light.png";
 
 export var gateSprite = new Image();
-gateSprite.src = "./assets/mansion_level/portail_essai.png";
+gateSprite.src = "./assets/7_mansion/portail_essai.png";
 
 export var skySprite = new Image();
-skySprite.src = "./assets/road_level/sky_race_1200.png";
+skySprite.src = "./assets/6_race/sky_race_1200.png";
 
 export var wallSprite = new Image();
-wallSprite.src = "./assets/mansion_level/wall.png";
+wallSprite.src = "./assets/7_mansion/wall.png";
 
 export var hillSprite = new Image();
-hillSprite.src = "./assets/mansion_level/hill_1200_purple.png";
+hillSprite.src = "./assets/7_mansion/hill_1200_purple.png";
 
 export var peeWeeSprite = new Image();
-peeWeeSprite.src = "./assets/mansion_level/pee_wee.png";
+peeWeeSprite.src = "./assets/7_mansion/pee_wee.png";
 
 export var bigPeeWeeSprite = new Image();
-bigPeeWeeSprite.src = "./assets/mansion_level/pee_big_pix.png";
+bigPeeWeeSprite.src = "./assets/7_mansion/pee_big_pix.png";
 
 export var binSprite = new Image();
-binSprite.src = "./assets/mansion_level/trash.png";
+binSprite.src = "./assets/7_mansion/trash.png";
 
 export var lidSprite = new Image();
-lidSprite.src = "./assets/mansion_level/trash_lid.png";
+lidSprite.src = "./assets/7_mansion/trash_lid.png";
 
 export var lightSprite = new Image();
-lightSprite.src = "./assets/mansion_level/light.png";
+lightSprite.src = "./assets/7_mansion/light.png";
 
 export var ringSprite = new Image();
-ringSprite.src = "./assets/mansion_level/ring.png";
+ringSprite.src = "./assets/7_mansion/ring.png";
 
 export var moonSprite = new Image();
-moonSprite.src = "./assets/mansion_level/pix_yell_moon.png";
+moonSprite.src = "./assets/7_mansion/pix_yell_moon.png";
 
 export var moonLightSprite = new Image();
-moonLightSprite.src = "./assets/mansion_level/pix_yell_moon_light.png";
+moonLightSprite.src = "./assets/7_mansion/pix_yell_moon_light.png";
 
 export var bowie = new Image();
-bowie.src = "./assets/mansion_level/bowie_pi.png";
+bowie.src = "./assets/7_mansion/bowie_pi.png";
 
 export var ivySprite = new Image();
-ivySprite.src = "./assets/mansion_level/pix_ivy.png";
+ivySprite.src = "./assets/7_mansion/pix_ivy.png";
 
 export var catWalkRight = new Image();
-catWalkRight.src = "./assets/mansion_level/cat_walk_right.png";
+catWalkRight.src = "./assets/7_mansion/cat_walk_right.png";
 
 export var catWalkLeft = new Image();
-catWalkLeft.src = "./assets/mansion_level/cat_walk_left.png";
+catWalkLeft.src = "./assets/7_mansion/cat_walk_left.png";
 
 export var catSitLeft = new Image();
-catSitLeft.src = "./assets/mansion_level/cat_sit_left.png";
+catSitLeft.src = "./assets/7_mansion/cat_sit_left.png";
 
 export var catSitRight = new Image();
-catSitRight.src = "./assets/mansion_level/cat_sit_right.png";
+catSitRight.src = "./assets/7_mansion/cat_sit_right.png";
 
 export var hotelSignSprite = new Image();
-hotelSignSprite.src = "./assets/mansion_level/H4E.png";
+hotelSignSprite.src = "./assets/7_mansion/H4E.png";
 
 export var canSprite = new Image();
-canSprite.src = "./assets/mansion_level/small_tin.png";
+canSprite.src = "./assets/7_mansion/small_tin.png";
 
 export var canSpriteWater = new Image();
-canSpriteWater.src = "./assets/mansion_level/tin_water.png";
+canSpriteWater.src = "./assets/7_mansion/tin_water.png";
 
 export var canFull = new Image();
-canFull.src = "./assets/mansion_level/full_tin.png";
+canFull.src = "./assets/7_mansion/full_tin.png";
 
 export var ductSprite = new Image();
-ductSprite.src = "./assets/mansion_level/duct_tape.png";
+ductSprite.src = "./assets/7_mansion/duct_tape.png";
 
 export var ropeSprite = new Image();
-ropeSprite.src = "./assets/mansion_level/ivy_rope.png";
+ropeSprite.src = "./assets/7_mansion/ivy_rope.png";
 
 export var poleSprite = new Image();
-poleSprite.src = "./assets/mansion_level/pole.png";
+poleSprite.src = "./assets/7_mansion/pole.png";
 
 export var lionSprite = new Image;
-lionSprite.src = "./assets/mansion_level/lion_head.png";
+lionSprite.src = "./assets/7_mansion/lion_head.png";
 
 export var lionSpriteSc = new Image;
-lionSpriteSc.src = "./assets/mansion_level/lion_head_sc.png";
+lionSpriteSc.src = "./assets/7_mansion/lion_head_sc.png";
 
 export var runningWaterSprite = new Image;
-runningWaterSprite.src = "./assets/mansion_level/running_water.png";
+runningWaterSprite.src = "./assets/7_mansion/running_water.png";
 
 export var bubbleSprite = new Image;
-bubbleSprite.src = "./assets/mansion_level/bubble.png";
+bubbleSprite.src = "./assets/7_mansion/bubble.png";
 
 export var noBubbleSprite = new Image;
-noBubbleSprite.src = "./assets/mansion_level/no_bubble.png";
+noBubbleSprite.src = "./assets/7_mansion/no_bubble.png";
 
 export var bowlSprite = new Image;
-bowlSprite.src = "./assets/mansion_level/bowl.png";
+bowlSprite.src = "./assets/7_mansion/bowl.png";
 
 export var fishSprite = new Image();
-fishSprite.src = "./assets/mansion_level/jumping_fish.png";
+fishSprite.src = "./assets/7_mansion/jumping_fish.png";
 
 export var dyingFish = new Image();
-dyingFish.src = "./assets/mansion_level/fish.png";
+dyingFish.src = "./assets/7_mansion/fish.png";
 
 export var ropeCamera = new Image();
-ropeCamera.src = "./assets/mansion_level/rope_trap.png";
+ropeCamera.src = "./assets/7_mansion/rope_trap.png";
 
 export var ropeTrapSet = new Image();
-ropeTrapSet.src = "./assets/mansion_level/rope_trap_set.png";
+ropeTrapSet.src = "./assets/7_mansion/rope_trap_set.png";
 
 export var lidObject = new Image();
-lidObject.src = "./assets/mansion_level/couvercle.png";
+lidObject.src = "./assets/7_mansion/couvercle.png";
 
 export var ropeAnimation = new Image();
-ropeAnimation.src = "./assets/mansion_level/rope_anim.png";
+ropeAnimation.src = "./assets/7_mansion/rope_anim.png";
 
 export var ropeAnimationUp = new Image();
-ropeAnimationUp.src = "./assets/mansion_level/rope_up.png";
+ropeAnimationUp.src = "./assets/7_mansion/rope_up.png";
 
 export var fishFloor = new Image();
-fishFloor.src = "./assets/mansion_level/fish_floor.png";
+fishFloor.src = "./assets/7_mansion/fish_floor.png";
 
 export var flyingCat = new Image();
-flyingCat.src = "./assets/mansion_level/flying_cat.png";
+flyingCat.src = "./assets/7_mansion/flying_cat.png";
 
 export var runningCat = new Image();
-runningCat.src = "./assets/mansion_level/running_cat.png";
+runningCat.src = "./assets/7_mansion/running_cat.png";
 
 export var divingCat = new Image();
-divingCat.src = "./assets/mansion_level/diving_cat.png";
+divingCat.src = "./assets/7_mansion/diving_cat.png";
 
 export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);

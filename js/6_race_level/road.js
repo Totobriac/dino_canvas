@@ -1,7 +1,7 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
 
 var carSprite = new Image();
-carSprite.src = "./assets/road_level/red_coupe.png";
+carSprite.src = "./assets/6_race/red_coupe.png";
 
 const camera = {
   FOV: 100,

@@ -1,7 +1,7 @@
 import { Monster } from "./ghouls.js";
 
 var lynel = new Image();
-lynel.src = "../assets/zeldouille/lynel.png";
+lynel.src = "../assets/8_zeldouille/lynel.png";
 
 export class Lynel extends Monster {
   constructor(map, bundaries, ctx, speed) {

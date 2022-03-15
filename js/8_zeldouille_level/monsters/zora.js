@@ -2,7 +2,7 @@ import { map, zelda } from "../script.js";
 import { animateFireBall } from "../functions.js";
 
 var zoraSprite = new Image();
-zoraSprite.src = "../assets/zeldouille/zora.png";
+zoraSprite.src = "../assets/8_zeldouille/zora.png";
 
 class Zora {
   constructor(x, y, waterTiles, ctx) {

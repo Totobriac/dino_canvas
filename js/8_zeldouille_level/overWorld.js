@@ -9,13 +9,13 @@ import { Lynel } from "./monsters/lynel.js";
 
 
 var tiles = new Image();
-tiles.src = "../assets/zeldouille/sprites.png";
+tiles.src = "../assets/8_zeldouille/sprites.png";
 
 var gannonCave = new Image();
-gannonCave.src = "../assets/zeldouille/gannon_cave.png";
+gannonCave.src = "../assets/8_zeldouille/gannon_cave.png";
 
 var mansionSprite = new Image();
-mansionSprite.src = "../assets/zeldouille/mansion.png";
+mansionSprite.src = "../assets/8_zeldouille/mansion.png";
 
 function drawTiles(ctx) {
 

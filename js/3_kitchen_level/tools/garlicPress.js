@@ -11,22 +11,22 @@ import {
 
 
 var choppingBoardSprite = new Image();
-choppingBoardSprite.src = "./assets/kitchen_level/chopping_board.png";
+choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
 
 var topSprite = new Image();
-topSprite.src = "./assets/kitchen_level/press_top.png";
+topSprite.src = "./assets/3_kitchen/press_top.png";
 
 var bottomSprite = new Image();
-bottomSprite.src = "./assets/kitchen_level/press_bottom.png";
+bottomSprite.src = "./assets/3_kitchen/press_bottom.png";
 
 var cursorSprite = new Image();
-cursorSprite.src = "./assets/kitchen_level/cursor.png";
+cursorSprite.src = "./assets/3_kitchen/cursor.png";
 
 var singleCloveSprite = new Image();
-singleCloveSprite.src = "./assets/kitchen_level/single_clove.png";
+singleCloveSprite.src = "./assets/3_kitchen/single_clove.png";
 
 var garlicPressSprite = new Image();
-garlicPressSprite.src = "./assets/kitchen_level/garlic_press.png";
+garlicPressSprite.src = "./assets/3_kitchen/garlic_press.png";
 
 var paste = [];
 
@@ -84,7 +84,7 @@ class GarlicPress extends Tool {
       if (this.toCrush === false) this.garlic.setBundaries();
 
       var backPic = document.getElementById("back");
-      backPic.style.background = "url('./assets/kitchen_level/peeled_onion_back.png')";
+      backPic.style.background = "url('./assets/3_kitchen/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);

@@ -4,16 +4,16 @@ import { mouse } from "../control.js";
 import { addStep } from "../tools.js";
 
 var onionChoppedSprite = new Image();
-onionChoppedSprite.src = "./assets/kitchen_level/onion_chopped.png";
+onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
 var gratedCarrotSprite = new Image();
-gratedCarrotSprite.src = "./assets/kitchen_level/grated_carrot.png";
+gratedCarrotSprite.src = "./assets/3_kitchen/grated_carrot.png";
 
 var crushedCloveSprite = new Image();
-crushedCloveSprite.src = "./assets/kitchen_level/crushed_garlic.png";
+crushedCloveSprite.src = "./assets/3_kitchen/crushed_garlic.png";
 
 var meatSprite = new Image();
-meatSprite.src = "./assets/kitchen_level/meat.png";
+meatSprite.src = "./assets/3_kitchen/meat.png";
 
 var sauceRadius = 0;
 

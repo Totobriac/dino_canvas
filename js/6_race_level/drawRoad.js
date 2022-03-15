@@ -1,41 +1,41 @@
 var skySprite = new Image();
-skySprite.src = "./assets/road_level/sky_race_1200.png";
+skySprite.src = "./assets/6_race/sky_race_1200.png";
 
 var rocksSprite = new Image();
-rocksSprite.src = "./assets/road_level/rocks.png";
+rocksSprite.src = "./assets/6_race/rocks.png";
 
 var groundSprite_1 = new Image();
-groundSprite_1.src = "./assets/road_level/ground_1_600.png";
+groundSprite_1.src = "./assets/6_race/ground_1_600.png";
 
 var groundSprite_2 = new Image();
-groundSprite_2.src = "./assets/road_level/ground_2_600.png";
+groundSprite_2.src = "./assets/6_race/ground_2_600.png";
 
 var groundSprite_3 = new Image();
-groundSprite_3.src = "./assets/road_level/ground_3_600.png";
+groundSprite_3.src = "./assets/6_race/ground_3_600.png";
 
 var cloudSprite_1 = new Image();
-cloudSprite_1.src = "./assets/road_level/clouds_1_sm.png";
+cloudSprite_1.src = "./assets/6_race/clouds_1_sm.png";
 
 var cloudSprite_2 = new Image();
-cloudSprite_2.src = "./assets/road_level/clouds_2.png";
+cloudSprite_2.src = "./assets/6_race/clouds_2.png";
 
 var treesSprite = new Image();
-treesSprite.src = "./assets/road_level/trees_sprite_sheet.png";
+treesSprite.src = "./assets/6_race/trees_sprite_sheet.png";
 
 var boarSprite = new Image();
-boarSprite.src = "./assets/road_level/run_left.png";
+boarSprite.src = "./assets/6_race/run_left.png";
 
 var boarSpriteR = new Image();
-boarSpriteR.src = "./assets/road_level/run_right.png";
+boarSpriteR.src = "./assets/6_race/run_right.png";
 
 var mansionSprite = new Image();
-mansionSprite.src = "./assets/road_level/maniac_no_light_sm.png";
+mansionSprite.src = "./assets/6_race/maniac_no_light_sm.png";
 
 var blackLightSprite = new Image();
-blackLightSprite.src = "./assets/road_level/black_light_sm.png";
+blackLightSprite.src = "./assets/6_race/black_light_sm.png";
 
 var yellowLightSprite = new Image();
-yellowLightSprite.src = "./assets/road_level/yellow_light_sm.png";
+yellowLightSprite.src = "./assets/6_race/yellow_light_sm.png";
 
 
 var ticksPerFrame = 12;
