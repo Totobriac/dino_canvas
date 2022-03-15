@@ -18,9 +18,9 @@ export function pointNClick(ctx, game) {
   if (game.level8Dino == false) {
     dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
     game.level8Dino = true;
+    game.mousePosition = { x: 881, y: 300 };
   }
-
-  if (game.level == 8) {
+  if (game.level === 7) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);

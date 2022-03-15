@@ -23,6 +23,7 @@ class MansionDino extends Dino {
     var dy;
     this.y - mouseY < 0 ? dy = this.y - mouseY + 70 : dy = this.y - mouseY + 100;
     if (mouseX != this.x && (dx > 10 || dx < -10)) {
+
       this.isMoving = true;
       if (collision == false) dx > 0 ? this.x -= game.gamespeed * 0.5 : this.x += game.gamespeed * 0.5;
       if (collision == true && this.x < sprite.x && dx >= 0) {

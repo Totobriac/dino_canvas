@@ -1,7 +1,7 @@
 import { dinoFlyUp, dinoFlyDown } from "../js/1_plane_level/plane.js";
 import { jump, isJumping } from "../js/0_desert_level/desert_dino.js";
 import { walk } from "../js/2_restaurant_level/waiter.js";
-import { steer } from "../js/race_level/road.js";
+import { steer } from "../js/6_race_level/road.js";
 
 export class Control {
   constructor(dino, game) {
@@ -37,14 +37,14 @@ export class Control {
       if (position ) game.mouseMovePosition = { x: position.x, y: position.y };
     });
     window.addEventListener('mousedown', function (e) {
-      if (game.level === 4 || game.level === 8) {
+      if (game.level === 4 || game.level === 7) {
         var position = getCursorPosition(canvas, e);
         if (position)game.mousePosition = { x: position.x, y: position.y }
       }
 
     });
     window.addEventListener('keydown', function (e) {
-      if (game.level === 7) {
+      if (game.level === 6) {
         if (e.repeat) return;
         var name = e.key;
         if (name === 'ArrowLeft') {
@@ -56,7 +56,7 @@ export class Control {
       }
     });
     window.addEventListener('keyup', function (e) {
-      if (game.level === 7) {
+      if (game.level === 6) {
         var name = e.key;
         if (name === 'ArrowLeft') {
           steer(0);

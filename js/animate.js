@@ -4,11 +4,13 @@ import { startLevel2 } from "./2_restaurant_level/startLevel2.js";
 import { startLevel3 } from "./3_kitchen_level/kitchenTop.js";
 import { startLevel4 } from "./4_submarine_level/startLevel4.js";
 import { startLevel5 } from "./5_bridge_level/startLevel5.js";
+import { startLevel6 } from "./6_race_level/startLevel6.js";
+import { startLevel7 } from "./7_mansion_level/startLevel7.js";
 
 import { initMaze, maze } from "./dino_stein/raycasting.js";
 
-import { generateRoad, drawScenery } from "./race_level/road.js";
-import { pointNClick } from "./mansion_level/gameMecanic.js";
+
+
 
 export function anim(game, dino, ctx) {
 
@@ -35,17 +37,20 @@ export function anim(game, dino, ctx) {
     startLevel4(ctx, game, dino);
   }
   else if (game.level === 5) {
-    startLevel5(ctx, game, dino)
+    startLevel5(ctx, game, dino);
   }
   else if (game.level === 6) {
+    startLevel6(game, ctx);
+  }
+  else if(game.level === 7) {
+    startLevel7(ctx, game);
+  }
+  else if (game.level === 9) {
     initMaze(game, ctx);
     maze(ctx);
   }
-  else if(game.level === 7) {
-    generateRoad(game);
-    drawScenery(ctx);
-  }
+
   else if(game.level === 8) {
-    pointNClick(ctx, game);
+
   }
 }
