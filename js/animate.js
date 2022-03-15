@@ -7,11 +7,7 @@ import { startLevel5 } from "./5_bridge_level/startLevel5.js";
 import { startLevel6 } from "./6_race_level/startLevel6.js";
 import { startLevel7 } from "./7_mansion_level/startLevel7.js";
 import { startLevel8 } from "./8_zeldouille_level/startLevel8.js";
-
-import { initMaze, maze } from "./dino_stein/raycasting.js";
-
-
-
+import { startLevel9 } from "./9_dinoStein_level/startLevel9.js";
 
 export function anim(game, dino, ctx) {
 
@@ -24,37 +20,24 @@ export function anim(game, dino, ctx) {
   }
   if (game.level === 0) {
     startLevel0(ctx, game, dino);
-  }
-  else if (game.level === 1) {
+  } else if (game.level === 1) {
     startLevel1(ctx, game, dino);
-  }
-  else if (game.level === 2) {
+  } else if (game.level === 2) {
     startLevel2(ctx, game, dino);
-  }
-  else if (game.level === 3) {
+  } else if (game.level === 3) {
     startLevel3(game, ctx);
-  }
-  else if (game.level === 4) {
+  } else if (game.level === 4) {
     startLevel4(ctx, game, dino);
-  }
-  else if (game.level === 5) {
+  } else if (game.level === 5) {
     startLevel5(ctx, game, dino);
-  }
-  else if (game.level === 6) {
+  } else if (game.level === 6) {
     startLevel6(game, ctx);
-  }
-  else if(game.level === 7) {
+  } else if (game.level === 7) {
     startLevel7(ctx, game);
-  }
-  else if(game.level === 8) {
+  } else if (game.level === 8) {
     startLevel8(game, ctx);
-  }
-  else if (game.level === 9) {
-    initMaze(game, ctx);
-    maze(ctx);
+  } else if (game.level === 9) {
+    startLevel9(game, ctx);
   }
 
-  else if(game.level === 8) {
-
-  }
 }

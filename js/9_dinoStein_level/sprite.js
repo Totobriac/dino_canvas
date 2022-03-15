@@ -1,6 +1,5 @@
 import { convertToRadians, distBetweenTwoPoints } from "./functions.js";
 import { zBuffer } from "./raycasting.js";
-
 import { player, ctx } from "./raycasting.js";
 
 
@@ -34,7 +33,7 @@ class Sprite {
     this.angle = 0;
     this.visible = false;
     this.ctx = ctx;
-    this.halfSprite = 0; 
+    this.halfSprite = 0;
     this.getImageXY(this.frame);
   }
   getImageXY() {

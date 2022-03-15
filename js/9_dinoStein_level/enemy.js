@@ -1,13 +1,5 @@
-import {
-  Sprite
-} from "./sprite.js";
-
-import {
-  player,
-  ctx,
-  level,
-  pistol
-} from "./raycasting.js";
+import { Sprite } from "./sprite.js";
+import { player, ctx, level, pistol } from "./raycasting.js";
 
 var enemies = [];
 
@@ -172,8 +164,9 @@ class Enemy extends Sprite {
 
 function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
-    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][3]);
+    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][2]);
   }
+  console.log(enemies);
 }
 
 function removeEnemies() {
