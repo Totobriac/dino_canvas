@@ -6,6 +6,11 @@ import { steer } from "../js/6_race_level/road.js";
 export class Control {
   constructor(dino, game) {
     window.addEventListener('keydown', function (e) {
+      if (isFinite(e.key)) {        
+        game.level =  parseInt(e.key);
+      }
+    });
+    window.addEventListener('keydown', function (e) {
       if (e.code === "Space" && isJumping === false && game.level === 0) {
         jump();
         game.isPlaying = true;
@@ -41,7 +46,6 @@ export class Control {
         var position = getCursorPosition(canvas, e);
         if (position)game.mousePosition = { x: position.x, y: position.y }
       }
-
     });
     window.addEventListener('keydown', function (e) {
       if (game.level === 6) {

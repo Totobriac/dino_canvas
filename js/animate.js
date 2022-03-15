@@ -18,7 +18,6 @@ export function anim(game, dino, ctx) {
     game.frame++;
     game.score++;
   }
-
   switch (game.level) {
     case 0:
       startLevel0(ctx, game, dino);
