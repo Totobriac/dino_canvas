@@ -1,5 +1,5 @@
 const birdSprite = new Image();
-birdSprite.src = "./assets/plane_level/bird.png";
+birdSprite.src = "./assets/1_plane/bird.png";
 
 import {dino} from "../script.js";
 

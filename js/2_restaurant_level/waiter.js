@@ -5,7 +5,7 @@ const dinoWalkLeft = new Image();
 dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 
 const traySprite = new Image();
-traySprite.src = "./assets/restaurant_level/tray.png";
+traySprite.src = "./assets/2_restaurant/tray.png";
 
 import { dino } from "../script.js";
 import { game } from "../script.js";

@@ -1,7 +1,7 @@
 import {drawProgBar} from "./progress_bar.js";
 
 const cloudSprite = new Image();
-cloudSprite.src = "./assets/plane_level/cloud.png"
+cloudSprite.src = "./assets/1_plane/cloud.png"
 
 const cloud = {
   x1: 0,

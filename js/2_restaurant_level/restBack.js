@@ -1,19 +1,19 @@
 let passerbyArray = [];
 
 const restBackSprite = new Image();
-restBackSprite.src = "./assets/restaurant_level/restaurant_no_window_no_boundaries.png";
+restBackSprite.src = "./assets/2_restaurant/restaurant_no_window_no_boundaries.png";
 
 const seaSprite = new Image();
-seaSprite.src = "./assets/restaurant_level/sea_animation.png";
+seaSprite.src = "./assets/2_restaurant/sea_animation.png";
 
 const customerSprite = new Image();
-customerSprite.src = "./assets/restaurant_level/rest_customers_stupid_air.png";
+customerSprite.src = "./assets/2_restaurant/rest_customers_stupid_air.png";
 
 const guybrushSprite = new Image();
-guybrushSprite.src = "./assets/restaurant_level/guy.png";
+guybrushSprite.src = "./assets/2_restaurant/guy.png";
 
 const outsideSprite = new Image();
-outsideSprite.src = "./assets/restaurant_level/restaurant_outside.png";
+outsideSprite.src = "./assets/2_restaurant/restaurant_outside.png";
 
 export function generateBack(ctx) {
   ctx.drawImage(restBackSprite, 0, 0, 600, 200, 0, 0, canvas.width, canvas.height)

@@ -1,5 +1,5 @@
 const cactusSprite = new Image();
-cactusSprite.src = "./assets/desert_level/cactus.png";
+cactusSprite.src = "./assets/0_desert/cactus.png";
 
 const cactusArray = [];
 
