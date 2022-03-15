@@ -24,37 +24,37 @@ class Enemy extends Sprite {
     this.isSpriteRemoved = false;
 
     this.soldier = new Image();
-    this.soldier.src = "./assets/sewer_level/" + this.type + "/still.png";
+    this.soldier.src = "./assets/9_dinoStein/" + this.type + "/still.png";
 
     this.walk_0 = new Image();
-    this.walk_0.src = "./assets/sewer_level/" + this.type + "/0.png";
+    this.walk_0.src = "./assets/9_dinoStein/" + this.type + "/0.png";
     this.walk_1 = new Image();
-    this.walk_1.src = "./assets/sewer_level/" + this.type + "/1.png";
+    this.walk_1.src = "./assets/9_dinoStein/" + this.type + "/1.png";
     this.walk_2 = new Image();
-    this.walk_2.src = "./assets/sewer_level/" + this.type + "/2.png";
+    this.walk_2.src = "./assets/9_dinoStein/" + this.type + "/2.png";
     this.walk_3 = new Image();
-    this.walk_3.src = "./assets/sewer_level/" + this.type + "/3.png";
+    this.walk_3.src = "./assets/9_dinoStein/" + this.type + "/3.png";
 
     this.shoot_0 = new Image();
-    this.shoot_0.src = "./assets/sewer_level/" + this.type + "/shoot_0.png";
+    this.shoot_0.src = "./assets/9_dinoStein/" + this.type + "/shoot_0.png";
     this.shoot_1 = new Image();
-    this.shoot_1.src = "./assets/sewer_level/" + this.type + "/shoot_1.png";
+    this.shoot_1.src = "./assets/9_dinoStein/" + this.type + "/shoot_1.png";
     this.shoot_2 = new Image();
-    this.shoot_2.src = "./assets/sewer_level/" + this.type + "/shoot_2.png";
+    this.shoot_2.src = "./assets/9_dinoStein/" + this.type + "/shoot_2.png";
 
     this.die_0 = new Image();
-    this.die_0.src = "./assets/sewer_level/" + this.type + "/die_0.png";
+    this.die_0.src = "./assets/9_dinoStein/" + this.type + "/die_0.png";
     this.die_1 = new Image();
-    this.die_1.src = "./assets/sewer_level/" + this.type + "/die_1.png";
+    this.die_1.src = "./assets/9_dinoStein/" + this.type + "/die_1.png";
     this.die_2 = new Image();
-    this.die_2.src = "./assets/sewer_level/" + this.type + "/die_2.png";
+    this.die_2.src = "./assets/9_dinoStein/" + this.type + "/die_2.png";
     this.die_3 = new Image();
-    this.die_3.src = "./assets/sewer_level/" + this.type + "/die_3.png";
+    this.die_3.src = "./assets/9_dinoStein/" + this.type + "/die_3.png";
     this.die_4 = new Image();
-    this.die_4.src = "./assets/sewer_level/" + this.type + "/die_4.png";
+    this.die_4.src = "./assets/9_dinoStein/" + this.type + "/die_4.png";
 
     this.hurt = new Image();
-    this.hurt.src = "./assets/sewer_level/" + this.type + "/die_0.png";
+    this.hurt.src = "./assets/9_dinoStein/" + this.type + "/die_0.png";
   }
 
   alert() {

@@ -9,7 +9,7 @@ const keys = [["Bb4", 0, 2], ["G5", 8, 5], ["F5", 7, 2], ["G5", 8, 2], ["F5", 7,
 
 var partition = [];
 var oldFrame = 0;
-var audio_file = "./assets/bridge_level/piano_mp3/B4.mp3";
+var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
 
 let audio;
 
@@ -46,7 +46,7 @@ class Key {
     }
     else {
       this.color = "red";      
-      audio_file = "./assets/bridge_level/piano_mp3/" + this.file;
+      audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
     }
   }

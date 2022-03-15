@@ -1,5 +1,5 @@
 var painting = new Image();
-painting.src = "./assets/bridge_level/starry_night_no_stars.png";
+painting.src = "./assets/5_bridge/starry_night_no_stars.png";
 
 
 let particlesArray = [];

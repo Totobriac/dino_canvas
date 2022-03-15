@@ -1,5 +1,5 @@
 var bridge = new Image();
-bridge.src = "./assets/bridge_level/pont_big.png";
+bridge.src = "./assets/5_bridge/pont_big.png";
 
 var frame = 0;
 var bridgeHeight = 195;

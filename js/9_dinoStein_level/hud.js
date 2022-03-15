@@ -1,11 +1,11 @@
 var hudSprite = new Image();
-hudSprite.src = "./assets/sewer_level/hud.png";
+hudSprite.src = "./assets/9_dinoStein/hud.png";
 
 var gunSprite = new Image();
-gunSprite.src = "./assets/sewer_level/gun.png";
+gunSprite.src = "./assets/9_dinoStein/gun.png";
 
 var faceSprite = new Image();
-faceSprite.src = "./assets/sewer_level/face.png";
+faceSprite.src = "./assets/9_dinoStein/face.png";
 
 class Hud {
   constructor(ctx, player, pistol) {

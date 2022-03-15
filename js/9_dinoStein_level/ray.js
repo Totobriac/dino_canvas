@@ -6,7 +6,7 @@ const FOV = 60;
 
 var tileSize = 40;
 var tiles = new Image();
-tiles.src = "./assets/sewer_level/walls_2.png";
+tiles.src = "./assets/9_dinoStein/walls_2.png";
 
 class Ray {
 
