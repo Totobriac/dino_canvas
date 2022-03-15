@@ -6,6 +6,7 @@ import { startLevel4 } from "./4_submarine_level/startLevel4.js";
 import { startLevel5 } from "./5_bridge_level/startLevel5.js";
 import { startLevel6 } from "./6_race_level/startLevel6.js";
 import { startLevel7 } from "./7_mansion_level/startLevel7.js";
+import { startLevel8 } from "./8_zeldouille_level/startLevel8.js";
 
 import { initMaze, maze } from "./dino_stein/raycasting.js";
 
@@ -44,6 +45,9 @@ export function anim(game, dino, ctx) {
   }
   else if(game.level === 7) {
     startLevel7(ctx, game);
+  }
+  else if(game.level === 8) {
+    startLevel8(game, ctx);
   }
   else if (game.level === 9) {
     initMaze(game, ctx);
