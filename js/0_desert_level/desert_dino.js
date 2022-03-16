@@ -45,11 +45,13 @@ function update(dino) {
 };
 
 function jump() {
-  jumpSound.play();
-  isJumping = true;
-  dino.vy -= 21;
-  dino.y += dino.vy;
-  setTimeout(() => isJumping = false, 820)
+  if (!isJumping) {
+    jumpSound.play();
+    isJumping = true;
+    dino.vy -= 21;
+    dino.y += dino.vy;
+    setTimeout(() => isJumping = false, 820)
+  }  
 };
 
 function checkFrame() {
