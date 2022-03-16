@@ -41,11 +41,11 @@ class Particle {
 
 export function generateRain(ctx, game) {
 
-  if (game.level6Started === false) {
+  if (game.level5Started === false) {
     for (let i = 0; i < numberOfParticles; i++) {
       particlesArray.push(new Particle(ctx));
     }
-    game.level6Started = true;
+    game.level5Started = true;
   }
   if (frame < 500) {
     ctx.drawImage(painting, 300, 200, 600, 200, 0, 0, canvas.width, canvas.height);

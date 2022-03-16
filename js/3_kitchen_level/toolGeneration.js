@@ -115,13 +115,6 @@ var pics = [potSprite, saltSprite, butterPlateSprite, butterKnifeSprite,
   tinOpenerSprite, pastaUpSprite, colanderSprite, notepadSprite
 ];
 
-var picsLoaded = 0;
-function checkIfLoaded() {
-  pics.forEach((pic, i) => {
-    pic.onload? console.log('coco') : console.log("ko");;
-  });
-
-}
 
 function generateTools(ctx) {
   checkIfLoaded();
