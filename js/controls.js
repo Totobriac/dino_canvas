@@ -2,6 +2,7 @@ import { dinoFlyUp, dinoFlyDown } from "../js/1_plane_level/plane.js";
 import { jump } from "../js/0_desert_level/desert_dino.js";
 import { walk } from "../js/2_restaurant_level/waiter.js";
 import { steer } from "../js/6_race_level/road.js";
+import { map, zelda } from "../js/8_zeldouille_level/script.js";
 
 export class Control {
   constructor(dino, game) {
@@ -34,6 +35,27 @@ export class Control {
             steer(-0.008);
           };
           break;
+        case 8:
+          if (map && !map.zobi) {
+            zelda.isMoving = true;
+            if (e.code === "ArrowDown") {
+              zelda.direction = 0;
+            }
+            if (e.code === "ArrowUp") {
+              zelda.direction = 1;
+            }
+            if (e.code === "ArrowRight") {
+              zelda.direction = 2;
+            }
+            if (e.code === "ArrowLeft") {
+              zelda.direction = 3;
+            }
+            if (e.code === "Space" && zelda.hasSword) {
+              if (e.repeat) return;
+              zelda.isAttacking = true;
+            }
+          };
+          break;
       }
     })
     window.addEventListener('keyup', function (e) {
@@ -44,6 +66,11 @@ export class Control {
         case 6:
           if (e.key === 'ArrowLeft') { steer(0) };
           if (e.key === 'ArrowRight') { steer(0) };
+          break;
+        case 8:
+          zelda.isMoving = false;
+          zelda.direction = undefined;
+          break;
       }
     });  
     window.addEventListener('mousemove', function (e) {
