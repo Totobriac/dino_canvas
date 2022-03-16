@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   height: 400px;
   width: 1200px;
-  border: 2px solid black;
+  background: transparent;
 }
 
 @font-face {
@@ -21,4 +21,29 @@
 @font-face {
   font-family: "Wolf";
   src: url("../assets/fonts/wolfenstein.ttf");
+}
+
+@font-face {
+  font-family: "HandWritten";
+  src: url("../assets/fonts/handWritten.ttf");
+}
+
+@font-face {
+  font-family: "Cooking";
+  src: url("../assets/fonts/Cooking.ttf");
+}
+
+@font-face {
+  font-family: pixel;
+  src: url("../assets/fonts/PixelEmulator-xq08.ttf");
+}
+
+#back {  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 400px;
+  width: 1200px;
+  background-size: cover;
 }

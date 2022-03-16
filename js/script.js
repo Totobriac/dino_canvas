@@ -32,4 +32,4 @@ function animate() {
 
 animate();
 
-export { dino, game }
+export { dino, game, ctx }
