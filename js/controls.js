@@ -3,6 +3,7 @@ import { jump } from "../js/0_desert_level/desert_dino.js";
 import { walk } from "../js/2_restaurant_level/waiter.js";
 import { steer } from "../js/6_race_level/road.js";
 import { map, zelda } from "../js/8_zeldouille_level/script.js";
+import { player, pistol } from "../js/9_dinoStein_level/raycasting.js";
 
 export class Control {
   constructor(dino, game) {
@@ -56,6 +57,25 @@ export class Control {
             }
           };
           break;
+        case 9:
+          switch (e.key) {
+            case "ArrowUp":
+              player.up();
+              break;
+            case "ArrowDown":
+              player.down();
+              break;
+            case "ArrowRight":
+              player.right();
+              break;
+            case "ArrowLeft":
+              player.left();
+              break;
+            case " ":
+              pistol.shoot();
+              break;
+          };
+          break;
       }
     })
     window.addEventListener('keyup', function (e) {
@@ -71,8 +91,24 @@ export class Control {
           zelda.isMoving = false;
           zelda.direction = undefined;
           break;
+        case 9:
+          switch (e.key) {
+            case "ArrowUp":
+              player.stopMoving();
+              break;
+            case "ArrowDown":
+              player.stopMoving();
+              break;
+            case "ArrowRight":
+              player.stopTuning();
+              break;
+            case "ArrowLeft":
+              player.stopTuning();
+              break;
+          };
+          break;
       }
-    });  
+    });
     window.addEventListener('mousemove', function (e) {
       var position = getCursorPosition(canvas, e);
       if (position) game.mouseMovePosition = { x: position.x, y: position.y };
