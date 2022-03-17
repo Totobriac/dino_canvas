@@ -117,7 +117,6 @@ var pics = [potSprite, saltSprite, butterPlateSprite, butterKnifeSprite,
 
 
 function generateTools(ctx) {
-  checkIfLoaded();
   pot = new Pot("pot", potSprite, 860, 166, 210, 161, ctx, 22, 48, {
     x: 120,
     y: 132,

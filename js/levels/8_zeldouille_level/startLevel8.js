@@ -1,5 +1,5 @@
 import { animate } from "./script.js";
 
-export function startLevel8(game, ctx) {
+export function startLevel(game, ctx) {
   animate(game, ctx);
 }

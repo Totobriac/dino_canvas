@@ -4,7 +4,7 @@ import { generateBridge } from "./bridge.js";
 import { generatePiano } from "./piano.js";
 
 
-export function startLevel5(ctx, game, dino) {
+export function startLevel(ctx, game, dino) {
   generateRain(ctx, game);
   drawDinoPiano(ctx, dino);
   generateBridge(ctx);

@@ -34,7 +34,6 @@ function initMaze(game, canvasCtx) {
 }
 
 function maze(ctx) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawFloorCeiling(ctx);
   player.draw();
   level.levelAnimate();

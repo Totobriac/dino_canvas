@@ -8,7 +8,6 @@ import { drawTransition } from "./transition.js";
 var zelda;
 var sideBar;
 var map;
-var control;
 
 export function animate(game, ctx) {
   if(!game.level8Started) {

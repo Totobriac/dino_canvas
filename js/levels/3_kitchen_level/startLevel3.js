@@ -5,7 +5,7 @@ import { generateTable } from "./tools/table.js";
 import { drawSlice } from "./tools/slice.js";
 import { drawBottomPress } from "./tools/bottom_press.js";
 
-export function startLevel3(game, ctx) {
+export function startLevel(game, ctx) {
 
   ctx.globalCompositeOperation = 'source-over';
 

@@ -7,7 +7,6 @@ import { Moblin } from "./monsters/moblin.js";
 import { Zora } from "./monsters/zora.js";
 import { Lynel } from "./monsters/lynel.js";
 
-
 var tiles = new Image();
 tiles.src = "../assets/8_zeldouille/sprites.png";
 

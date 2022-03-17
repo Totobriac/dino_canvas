@@ -1,6 +1,6 @@
 import { generateRoad, drawScenery } from "./road.js";
 
-export function startLevel6(game, ctx) {
+export function startLevel(game, ctx) {
   generateRoad(game);
   drawScenery(ctx);
 }

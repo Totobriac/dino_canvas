@@ -11,7 +11,7 @@ canvas.width = 1200;
 
 const dino = new Dino();
 const game = new Game();
-const control = new Control(dino, game);
+const control = new Control(game);
 
 var fps = 60;
 var now;
@@ -21,7 +21,6 @@ var delta;
 
 function animate() {
   requestAnimationFrame(animate);
-
   now = Date.now();
   delta = now - then;
   if (delta > interval) {
@@ -32,4 +31,4 @@ function animate() {
 
 animate();
 
-export { dino, game, ctx }
+export { dino, game, ctx, control }

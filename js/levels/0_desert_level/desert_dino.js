@@ -1,4 +1,4 @@
-import { dino, game } from "../../script.js";
+import { dino, game, control } from "../../script.js";
 
 var dinoSprite = new Image();
 dinoSprite.src = "./assets/dino/dino_run.png";
@@ -22,17 +22,21 @@ function drawDinoDesert(ctx, dino, game) {
   var line = Math.floor(frame / 2);
   var column = frame - line * 2;
 
+  if (game.keyDown && game.keyDown.code === "Space" && !isJumping) jump();
+
   if (game.isPlaying === false || isJumping === true) {
     frame = 0;
   }
+
   else {
     checkFrame();
   }
-  ctx.drawImage(dinoSprite, column * 88, line * 94, 88, 94, dino.x, dino.y, width, height );
+
+  ctx.drawImage(dinoSprite, column * 88, line * 94, 88, 94, dino.x, dino.y, width, height);
 
   ctx.lineWidth = 2;
   ctx.strokeStyle = "white";
-  if (dino.isHit === true) ctx.strokeRect(dino.x + 40, dino.y + 8,4, 4);
+  if (dino.isHit === true) ctx.strokeRect(dino.x + 40, dino.y + 8, 4, 4);
 };
 
 function update(dino) {
@@ -45,14 +49,12 @@ function update(dino) {
 };
 
 function jump() {
-  if (!isJumping) {
-    jumpSound.play();
-    isJumping = true;
-    dino.vy -= 21;
-    dino.y += dino.vy;
-    setTimeout(() => isJumping = false, 820)
-  }  
-};
+  jumpSound.play();
+  isJumping = true;
+  dino.vy -= 21;
+  dino.y += dino.vy;
+  setTimeout(() => isJumping = false, 820)
+}
 
 function checkFrame() {
   if (tickCount > maxTickount) {
