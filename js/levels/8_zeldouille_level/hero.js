@@ -1,6 +1,7 @@
 import { map } from "./script.js";
 import { collChecker, gannonCollChecker } from "./functions.js";
 import { checkAction } from "./map.js";
+import { game } from "../../script.js";
 
 import { action } from "./actions.js";
 
@@ -66,6 +67,44 @@ class Hero {
   move() {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
+    
+    if (map && !map.zobi) {
+      this.isMoving = true;
+      if (game.keyDown.code === "ArrowDown") {
+        this.direction = 0;
+      }
+      if (game.keyDown.code === "ArrowUp") {
+        this.direction = 1;
+      }
+      if (game.keyDown.code === "ArrowRight") {
+        this.direction = 2;
+      }
+      if (game.keyDown.code === "ArrowLeft") {
+        this.direction = 3;
+      }
+      if (game.keyDown.key === "a" && this.hasSword) {
+        if (game.keyDown.repeat) return;
+        this.isAttacking = true;
+      }
+    }
+
+    if (game.keyUp.code === "ArrowDown") {
+      this.isMoving = false;
+      this.direction = undefined;
+    }
+    if (game.keyUp.code === "ArrowUp") {
+      this.isMoving = false;
+      this.direction = undefined;
+    }
+    if (game.keyUp.code === "ArrowRight") {
+      this.isMoving = false;
+      this.direction = undefined;
+    }
+    if (game.keyUp.code === "ArrowLeft") {
+      this.isMoving = false;
+      this.direction = undefined;
+    }
+        
 
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
     var missileCollison = collChecker(this.x, this.y, map.missiles);

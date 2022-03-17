@@ -59,7 +59,7 @@ class Player {
   stopMoving() {
     this.move = 0;
   }
-  stopTuning() {
+  stopTurning() {
     this.turn = 0;
   }
   colision(x, y) {

@@ -1,4 +1,3 @@
-import { map, zelda } from "../js/levels/8_zeldouille_level/script.js";
 import { player, pistol } from "../js/levels/9_dinoStein_level/raycasting.js";
 
 export class Control {
@@ -14,28 +13,6 @@ export class Control {
       }
 
       switch (game.level) {
-      
-        case 8:
-          if (map && !map.zobi) {
-            zelda.isMoving = true;
-            if (e.code === "ArrowDown") {
-              zelda.direction = 0;
-            }
-            if (e.code === "ArrowUp") {
-              zelda.direction = 1;
-            }
-            if (e.code === "ArrowRight") {
-              zelda.direction = 2;
-            }
-            if (e.code === "ArrowLeft") {
-              zelda.direction = 3;
-            }
-            if (e.code === "Space" && zelda.hasSword) {
-              if (e.repeat) return;
-              zelda.isAttacking = true;
-            }
-          };
-          break;
         case 9:
           switch (e.key) {
             case "ArrowUp":
@@ -61,11 +38,6 @@ export class Control {
       game.keyDown = " ";
       game.keyUp = e;
       switch (game.level) {
-    
-        case 8:
-          zelda.isMoving = false;
-          zelda.direction = undefined;
-          break;
         case 9:
           switch (e.key) {
             case "ArrowUp":
@@ -75,10 +47,10 @@ export class Control {
               player.stopMoving();
               break;
             case "ArrowRight":
-              player.stopTuning();
+              player.stopTurning();
               break;
             case "ArrowLeft":
-              player.stopTuning();
+              player.stopTurning();
               break;
           };
           break;
