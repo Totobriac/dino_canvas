@@ -10,7 +10,7 @@ subJet.src = "./assets/4_submarine/bubble_jet.png";
 const subJetRight = new Image();
 subJetRight.src = "./assets/4_submarine/bubble_jet_right.png";
 
-import { game } from "../script.js";
+import { game } from "../../script.js";
 
 export function drawSubmarine(ctx, dino, mousePosition) {
   update(dino, game);

@@ -1,4 +1,4 @@
-import { dino, game } from "../script.js";
+import { dino, game } from "../../script.js";
 import { createParticles } from "./particles.js";
 
 

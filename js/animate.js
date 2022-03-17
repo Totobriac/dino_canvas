@@ -1,13 +1,13 @@
-import { startLevel0 } from "./0_desert_level/startLevel0.js";
-import { startLevel1 } from "./1_plane_level/startLevel1.js";
-import { startLevel2 } from "./2_restaurant_level/startLevel2.js";
-import { startLevel3 } from "./3_kitchen_level/kitchenTop.js";
-import { startLevel4 } from "./4_submarine_level/startLevel4.js";
-import { startLevel5 } from "./5_bridge_level/startLevel5.js";
-import { startLevel6 } from "./6_race_level/startLevel6.js";
-import { startLevel7 } from "./7_mansion_level/startLevel7.js";
-import { startLevel8 } from "./8_zeldouille_level/startLevel8.js";
-import { startLevel9 } from "./9_dinoStein_level/startLevel9.js";
+import { startLevel0 } from "./levels/0_desert_level/startLevel0.js";
+import { startLevel1 } from "./levels/1_plane_level/startLevel1.js";
+import { startLevel2 } from "./levels/2_restaurant_level/startLevel2.js";
+import { startLevel3 } from "./levels/3_kitchen_level/kitchenTop.js";
+import { startLevel4 } from "./levels/4_submarine_level/startLevel4.js";
+import { startLevel5 } from "./levels/5_bridge_level/startLevel5.js";
+import { startLevel6 } from "./levels/6_race_level/startLevel6.js";
+import { startLevel7 } from "./levels/7_mansion_level/startLevel7.js";
+import { startLevel8 } from "./levels/8_zeldouille_level/startLevel8.js";
+import { startLevel9 } from "./levels/9_dinoStein_level/startLevel9.js";
 
 export function anim(game, dino, ctx) {
 

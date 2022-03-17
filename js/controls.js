@@ -1,9 +1,9 @@
-import { dinoFlyUp, dinoFlyDown } from "../js/1_plane_level/plane.js";
-import { jump } from "../js/0_desert_level/desert_dino.js";
-import { walk } from "../js/2_restaurant_level/waiter.js";
-import { steer } from "../js/6_race_level/road.js";
-import { map, zelda } from "../js/8_zeldouille_level/script.js";
-import { player, pistol } from "../js/9_dinoStein_level/raycasting.js";
+import { dinoFlyUp, dinoFlyDown } from "../js/levels/1_plane_level/plane.js";
+import { jump } from "../js/levels/0_desert_level/desert_dino.js";
+import { walk } from "../js/levels/2_restaurant_level/waiter.js";
+import { steer } from "../js/levels/6_race_level/road.js";
+import { map, zelda } from "../js/levels/8_zeldouille_level/script.js";
+import { player, pistol } from "../js/levels/9_dinoStein_level/raycasting.js";
 
 export class Control {
   constructor(dino, game) {

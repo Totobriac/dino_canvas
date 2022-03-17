@@ -7,8 +7,8 @@ dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
 
-import { dino } from "../script.js";
-import { game } from "../script.js";
+import { dino, game } from "../../script.js";
+
 
 var walkLeft = false;
 var width = 66;

@@ -1,4 +1,4 @@
-import { dino, game } from "../script.js";
+import { dino, game } from "../../script.js";
 
 var dinoSprite = new Image();
 dinoSprite.src = "./assets/dino/dino_run.png";

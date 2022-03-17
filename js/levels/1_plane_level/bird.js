@@ -1,9 +1,7 @@
 const birdSprite = new Image();
 birdSprite.src = "./assets/1_plane/bird.png";
 
-import {dino} from "../script.js";
-
-import { generateClouds } from "./clouds.js";
+import {dino} from "../../script.js";
 
 const birdArray = [];
 
