@@ -1,5 +1,3 @@
-import { dinoFlyUp, dinoFlyDown } from "../js/levels/1_plane_level/plane.js";
-//import { jump } from "../js/levels/0_desert_level/desert_dino.js";
 import { walk } from "../js/levels/2_restaurant_level/waiter.js";
 import { steer } from "../js/levels/6_race_level/road.js";
 import { map, zelda } from "../js/levels/8_zeldouille_level/script.js";
@@ -8,22 +6,16 @@ import { player, pistol } from "../js/levels/9_dinoStein_level/raycasting.js";
 export class Control {
   constructor(game) {
     this.keyDown;
-    //this.game = game;
     
     window.addEventListener('keydown', function (e) {
       game.keyDown = e;
+
       if (isFinite(e.key) && e.key != " ") {
         game.level = parseInt(e.key);        
       }
+      
       switch (game.level) {
-        case 0:
-          // if (e.code === "Space") jump();
-          break;
-        case 1:
-          if (e.code === "ArrowUp") {
-            if (!e.repeat) dinoFlyUp();
-          };
-          break;
+       
         case 2:
           if (e.code === "ArrowRight") {
             walk(1);
@@ -84,10 +76,9 @@ export class Control {
     })
     window.addEventListener('keyup', function (e) {
       game.keyDown = "";
+      game.keyUp = e;
       switch (game.level) {
-        case 1:
-          if (e.code === "ArrowUp") { dinoFlyDown() };
-          break;
+    
         case 6:
           if (e.key === 'ArrowLeft') { steer(0) };
           if (e.key === 'ArrowRight') { steer(0) };

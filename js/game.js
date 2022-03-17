@@ -1,6 +1,7 @@
 export class Game {
   constructor() {
-    this.keyDown;
+    this.keyDown = null;
+    this.keyUp = null;
     this.frame = 0;
     this.score = 0;
     this.gamespeed = 5;   

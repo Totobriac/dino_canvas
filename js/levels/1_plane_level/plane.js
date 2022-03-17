@@ -24,6 +24,8 @@ export function drawPlane(ctx, dino) {
   }
   update(dino);
 
+  fly();
+
   ctx.rotate(-22 * Math.PI / 180);
   ctx.drawImage(planeSprite,frame * 384, 0, 384, 230, dino.x, dino.y, planeWidth, planeHeight);
   ctx.resetTransform();
@@ -50,9 +52,18 @@ function update(dino) {
   dino.y += dino.vy + curve;
 };
 
+function fly() {
+  if (game.keyDown.code === "ArrowUp" ) {
+    dinoFlyUp();    
+  }
+  if (game.keyUp.code === "ArrowUp" ) {
+    dinoFlyDown();    
+  }
+}
+
 function dinoFlyUp() {
   if (dino.y > 50) {
-    dino.vy -= 1;
+    dino.vy -= 0.2;
     dino.y += dino.vy;
   }
 };
