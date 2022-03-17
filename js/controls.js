@@ -1,5 +1,3 @@
-import { walk } from "../js/levels/2_restaurant_level/waiter.js";
-import { steer } from "../js/levels/6_race_level/road.js";
 import { map, zelda } from "../js/levels/8_zeldouille_level/script.js";
 import { player, pistol } from "../js/levels/9_dinoStein_level/raycasting.js";
 
@@ -9,29 +7,14 @@ export class Control {
     
     window.addEventListener('keydown', function (e) {
       game.keyDown = e;
+      game.keyUp = " ";
 
       if (isFinite(e.key) && e.key != " ") {
         game.level = parseInt(e.key);        
       }
-      
+
       switch (game.level) {
-       
-        case 2:
-          if (e.code === "ArrowRight") {
-            walk(1);
-          };
-          if (e.code === "ArrowLeft") {
-            walk(-1);
-          };
-        case 6:
-          if (e.repeat) return;
-          if (e.key === 'ArrowLeft') {
-            steer(0.008);
-          };
-          if (e.key === 'ArrowRight') {
-            steer(-0.008);
-          };
-          break;
+      
         case 8:
           if (map && !map.zobi) {
             zelda.isMoving = true;
@@ -75,14 +58,10 @@ export class Control {
       }
     })
     window.addEventListener('keyup', function (e) {
-      game.keyDown = "";
+      game.keyDown = " ";
       game.keyUp = e;
       switch (game.level) {
     
-        case 6:
-          if (e.key === 'ArrowLeft') { steer(0) };
-          if (e.key === 'ArrowRight') { steer(0) };
-          break;
         case 8:
           zelda.isMoving = false;
           zelda.direction = undefined;

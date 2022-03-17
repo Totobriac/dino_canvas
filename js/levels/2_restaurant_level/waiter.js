@@ -9,19 +9,26 @@ traySprite.src = "./assets/2_restaurant/tray.png";
 
 import { dino, game } from "../../script.js";
 
-
-var walkLeft = false;
+var side = 1;
+var walkLeft;
 var width = 66;
 var height = 70;
 var trayX;
 
-export function walk(side) {
+export function walk() {
+  var key = game.keyDown.code;
+  if (key === "ArrowRight") {
+    side = 1;
+  }
+  else if (key === "ArrowLeft") {
+    side = -1;
+  }
   dino.vx = 4 * side;
   side === 1 ? walkLeft = false : walkLeft = true;
 }
 
 export function drawDinoWaiter(ctx, dino) {
-  update(dino);
+  update(dino);  
   if (walkLeft === true) {
     ctx.drawImage(dinoWalkLeft, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
   }
@@ -32,6 +39,7 @@ export function drawDinoWaiter(ctx, dino) {
 };
 
 function update(dino) {
+  walk();
   dino.y += dino.vy;
   dino.x += dino.vx;
   dino.vx *= 0.99;

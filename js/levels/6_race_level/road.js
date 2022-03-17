@@ -91,7 +91,7 @@ export function generateRoad(game) {
         j < sections[i] / 2 ? newS += S : newS -= S;
         var point = new Segment(newZ, newC, newS, sR, sL, xR, xL, bX, bS, rR);
         points.unshift(point)
-        newZ += 60
+        newZ += 160
       }
       game.level6Started = true;
     }
@@ -102,7 +102,7 @@ function calculateDY(FOV) {
   return dY;
 }
 
-export function drawScenery(ctx) {
+export function drawScenery(ctx, game) {
   for (let i = 0; i < points.length; i++) {
     points[i].update(i);
     if (points[0].z < 220) {
@@ -127,6 +127,7 @@ export function drawScenery(ctx) {
   drawTrees(ctx, points);
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
+  steer(game);
   ctx.drawImage(carSprite, 510, 250, 180, 180);
 }
 
@@ -137,6 +138,18 @@ function checkCollision() {
   }
 }
 
-export function steer(v) {
-  v != 0 ? offset += v : offset = 0;
+export function steer(game) {
+ if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
+    offset = 0;
+  }
+  else {
+    if (game.keyDown.repeat) {
+      return;}
+    if (game.keyDown.code === 'ArrowLeft') {
+      offset += 0.002;
+    };
+    if (game.keyDown.code === 'ArrowRight') {
+      offset += -0.002;
+    };
+  }
 }
