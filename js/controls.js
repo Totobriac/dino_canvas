@@ -1,5 +1,3 @@
-import { player, pistol } from "../js/levels/9_dinoStein_level/raycasting.js";
-
 export class Control {
   constructor(game) {
     this.keyDown;
@@ -11,50 +9,10 @@ export class Control {
       if (isFinite(e.key) && e.key != " ") {
         game.level = parseInt(e.key);        
       }
-
-      switch (game.level) {
-        case 9:
-          switch (e.key) {
-            case "ArrowUp":
-              player.up();
-              break;
-            case "ArrowDown":
-              player.down();
-              break;
-            case "ArrowRight":
-              player.right();
-              break;
-            case "ArrowLeft":
-              player.left();
-              break;
-            case " ":
-              pistol.shoot();
-              break;
-          };
-          break;
-      }
     })
     window.addEventListener('keyup', function (e) {
       game.keyDown = " ";
-      game.keyUp = e;
-      switch (game.level) {
-        case 9:
-          switch (e.key) {
-            case "ArrowUp":
-              player.stopMoving();
-              break;
-            case "ArrowDown":
-              player.stopMoving();
-              break;
-            case "ArrowRight":
-              player.stopTurning();
-              break;
-            case "ArrowLeft":
-              player.stopTurning();
-              break;
-          };
-          break;
-      }
+      game.keyUp = e;    
     });
     window.addEventListener('mousemove', function (e) {
       var position = getCursorPosition(canvas, e);

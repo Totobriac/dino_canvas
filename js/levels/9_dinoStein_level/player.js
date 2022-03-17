@@ -1,14 +1,8 @@
-import {
-  convertToRadians,
-  normalizeAngle
-} from "./functions.js";
-import {
-  Ray
-} from "./ray.js"
-
-import {
-  levels
-} from "./map.js";
+import { convertToRadians, normalizeAngle } from "./functions.js";
+import { Ray } from "./ray.js"
+import { levels } from "./map.js";
+import { game } from "../../script.js";
+import { pistol } from "./raycasting.js";
 
 const FOV = 60;
 
@@ -114,6 +108,39 @@ class Player {
     return hit;
   }
   update() {
+    switch (game.keyDown.key) {
+      case "ArrowUp":
+        this.up();
+        break;
+      case "ArrowDown":
+        this.down();
+        break;
+      case "ArrowRight":
+        this.right();
+        break;
+      case "ArrowLeft":
+        this.left();
+        break;
+      case " ":
+        pistol.shoot();
+        break;
+    };
+
+    switch (game.keyUp.key) {
+      case "ArrowUp":
+        this.stopMoving();
+        break;
+      case "ArrowDown":
+        this.stopMoving();
+        break;
+      case "ArrowRight":
+        this.stopTurning();
+        break;
+      case "ArrowLeft":
+        this.stopTurning();
+        break;
+    };
+
     this.newX = this.x + this.move * Math.cos(this.turnAngle) * this.moveSpeed;
     this.newY = this.y + this.move * Math.sin(this.turnAngle) * this.moveSpeed;
 
