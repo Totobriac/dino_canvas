@@ -22,14 +22,14 @@ canvas.height = canvasHeight;
 
 
 function initMaze(game, canvasCtx) {
-  if (game.level9Started == false) {
+  if (game.loadedLevel[9] == false) {
     ctx = canvasCtx;
     level = new Level(canvas);
     player = new Player(ctx, level, 80, 60);
     createSprites(level.level.sprites);    
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
-    game.level9Started = true;
+    game.loadedLevel[9] = true;
   }
 }
 

@@ -1,4 +1,4 @@
-var loaded = new Array(8).fill(false);
+var loaded = new Array(10).fill(false);
 
 var path = [
   "./levels/0_desert_level/startLevel0.js",
@@ -17,7 +17,6 @@ let start;
 
 export function anim(game, dino, ctx) {
   game.isPlaying = true;
-  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (game.isPlaying === true) {

@@ -10,11 +10,11 @@ var sideBar;
 var map;
 
 export function animate(game, ctx) {
-  if(!game.level8Started) {
+  if(!game.loadedLevel[8]) {
     zelda = new Hero(90, 192, 32, ctx);
     sideBar = new SideBar(ctx);
     map = new Map();
-    game.level8Started = true;
+    game.loadedLevel[8] = true;
   }
   drawTiles(ctx);
   zelda.move();

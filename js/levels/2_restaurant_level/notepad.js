@@ -103,9 +103,9 @@ class Note {
 
 function generateNote(ctx, game) {
 
-  if (game.level3Started === false) {
+  if (game.loadedLevel[3] === false) {
     note = new Note();
-    game.level3Started = true;
+    game.loadedLevel[3] = true;
   }
   ctx.drawImage(notePadSprite, 980, 20);
   ctx.drawImage(smileSprite, 1005, 300, 150, 56);

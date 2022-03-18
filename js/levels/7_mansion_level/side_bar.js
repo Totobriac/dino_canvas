@@ -63,9 +63,9 @@ function createActions(ctx) {
 }
 
 export function drawActions(ctx, game) {
-  if (game.level7Started === false) {
+  if (game.loadedLevel[7] === false) {
     createActions(ctx);
-    game.level7Started = true;
+    game.loadedLevel[7] = true;
   }
   ctx.fillStyle = "purple";
   ctx.fillRect(895, 0, 305, 400)

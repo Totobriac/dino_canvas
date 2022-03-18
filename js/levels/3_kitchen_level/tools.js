@@ -6,13 +6,20 @@ var sink;
 var tools = [];
 var stepDone = 0;
 
-
-function drawTools(ctx, game) {
-  if (game.kitchenLevelStarted === false) {
-    sink = new Sink();
-    tools = generateTools(ctx);
-    game.kitchenLevelStarted = true;
+function load(ctx, game) {
+  if (!game.loadedLevel[3]) {
+    return new Promise ((resolve) => {
+      sink = new Sink();
+      tools = generateTools(ctx);
+      game.loadedLevel[3] = true;
+      resolve();
+    })       
   }
+}
+
+
+async function drawTools(ctx, game) {
+  await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
       tools[i].draw();
@@ -20,7 +27,7 @@ function drawTools(ctx, game) {
     }
   }
   selectable();
-  sink.drawFaucet(ctx);
+  if (sink) sink.drawFaucet(ctx);
 }
 
 function displayTool(toolL) {

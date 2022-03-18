@@ -8,9 +8,9 @@ export function generateEyes(game, ctx)
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (game.level4Started === false) {
+  if (game.loadedLevel[4] === false) {
     init(ctx);
-    game.level4Started = true;
+    game.loadedLevel[4] = true;
   }
   for (let i = 0; i < numberOfEyes; i++) {
     eyes[i].draw(game);
