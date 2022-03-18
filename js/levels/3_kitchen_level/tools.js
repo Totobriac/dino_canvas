@@ -8,18 +8,18 @@ var stepDone = 0;
 
 function load(ctx, game) {
   if (!game.loadedLevel[3]) {
-    sink = new Sink();
-    console.log(sink);
-    tools = generateTools(ctx);
-    game.loadedLevel[3] = true;
-    console.log('is loaded');
+    return new Promise ((resolve) => {
+      sink = new Sink();
+      tools = generateTools(ctx);
+      game.loadedLevel[3] = true;
+      resolve();
+    })       
   }
 }
 
 
 async function drawTools(ctx, game) {
-  await load(ctx, game);
-  console.log("is st");
+  await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
       tools[i].draw();
