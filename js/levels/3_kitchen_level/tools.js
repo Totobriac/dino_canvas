@@ -1,6 +1,6 @@
 
 import { Sink } from "./tools/sink.js";
-import { generateTools, notepad } from "./toolGeneration.js";
+import { generateTools } from "./toolGeneration.js";
 
 var sink;
 var tools = [];
@@ -16,7 +16,6 @@ function load(ctx, game) {
     })       
   }
 }
-
 
 async function drawTools(ctx, game) {
   await  load(ctx, game);
