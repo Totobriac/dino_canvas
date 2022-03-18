@@ -17,10 +17,10 @@ var angle = 0;
 
 export function drawPlane(ctx, dino) {
 
-  if(game.level1Started === false) {
+  if(game.loadedLevel[1] === false) {
     dino.x = 20;
     dino.y = 20;
-    game.level1Started = true;
+    game.loadedLevel[1] = true;
   }
   update(dino);
 

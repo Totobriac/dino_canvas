@@ -13,11 +13,12 @@ var selectedSprite;
 var hoveredSprite;
 var isInReach;
 var level = 0;
+var isDinoCreated = false;
 
 export function pointNClick(ctx, game) {
-  if (game.level8Dino == false) {
+  if (!isDinoCreated) {
     dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
-    game.level8Dino = true;
+    isDinoCreated = true;
     game.mousePosition = { x: 881, y: 300 };
   }
   if (game.level === 7) {
