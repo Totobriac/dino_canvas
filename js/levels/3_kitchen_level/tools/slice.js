@@ -5,7 +5,7 @@ import { onion } from "../toolGeneration.js";
 
 
 function drawSlice(ctx) {
-  if (onion.state === "beheaded" && (onion.canSlice1 === true || onion.canSlice2 === true) && onion.canChop === false) {
+  if (onion.state === "beheaded" && (onion.canSlice1 || onion.canSlice2) && !onion.canChop) {
 
     var coef = 0.65;
 

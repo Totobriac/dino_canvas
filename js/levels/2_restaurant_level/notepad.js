@@ -1,6 +1,4 @@
-import {
-  servedDish,
-} from "./plates.js";
+import { servedDish } from "./plates.js";
 
 var notePadSprite = new Image();
 notePadSprite.src = "./assets/2_restaurant/note.png";
@@ -103,9 +101,9 @@ class Note {
 
 function generateNote(ctx, game) {
 
-  if (game.loadedLevel[3] === false) {
+  if (game.loadedLevel[2] === false) {
     note = new Note();
-    game.loadedLevel[3] = true;
+    game.loadedLevel[2] = true;
   }
   ctx.drawImage(notePadSprite, 980, 20);
   ctx.drawImage(smileSprite, 1005, 300, 150, 56);
@@ -172,7 +170,4 @@ function roundHalf(num) {
 }
 
 
-export {
-  note,
-  generateNote,
-}
+export { note, generateNote };

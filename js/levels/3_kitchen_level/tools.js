@@ -1,6 +1,8 @@
 
 import { Sink } from "./tools/sink.js";
 import { generateTools } from "./toolGeneration.js";
+import { drawSlice } from "./tools/slice.js";
+import { drawBottomPress } from "./tools/bottom_press.js";
 
 var sink;
 var tools = [];
@@ -12,12 +14,14 @@ function load(ctx, game) {
       sink = new Sink();
       tools = generateTools(ctx);
       game.loadedLevel[3] = true;
+      console.log("second");
       resolve();
-    })       
+    })
   }
 }
 
 async function drawTools(ctx, game) {
+  console.log(game.loadedLevel[3]);
   await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
@@ -25,6 +29,8 @@ async function drawTools(ctx, game) {
       tools[i].isClose();
     }
   }
+  drawSlice(ctx);
+  drawBottomPress(ctx);
   selectable();
   if (sink) sink.drawFaucet(ctx);
 }
