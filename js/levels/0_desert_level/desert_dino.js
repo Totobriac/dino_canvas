@@ -18,7 +18,6 @@ var maxTickount = 12;
 function drawDinoDesert(ctx, dino, game) {
 
   update(dino, game);
-
   var line = Math.floor(frame / 2);
   var column = frame - line * 2;
 
