@@ -43,11 +43,16 @@ canvas {
 }
 
 @font-face {
-  font-family: pixel;
+  font-family: "Pixel";
   src: url("../assets/fonts/PixelEmulator-xq08.ttf");
 }
 
-#back {  
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/Roboto.ttf");
+}
+
+#back {
   position: absolute;
   top: 50%;
   left: 50%;
