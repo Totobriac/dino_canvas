@@ -23,9 +23,7 @@ function drawDinoDesert(ctx, dino, game) {
 
   if (game.keyDown && game.keyDown.code === "Space" && !isJumping) jump();
 
-  if (game.isPlaying === false || isJumping === true) {
-    frame = 0;
-  }
+  if (!game.start || isJumping) frame = 0;
 
   else {
     checkFrame();
@@ -39,12 +37,11 @@ function drawDinoDesert(ctx, dino, game) {
 };
 
 function update(dino) {
-  dino.score += 0.02;
+  dino.score += 0.06;
   dino.vy += 1;
   dino.y += dino.vy;
   tickCount += 1;
   dino.checkBundaries();
-
 };
 
 function jump() {

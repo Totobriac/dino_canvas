@@ -16,13 +16,11 @@ var path = [
 let start;
 
 export function anim(game, dino, ctx) {
-  game.isPlaying = true;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (game.isPlaying === true) {
-    game.frame++;
-    game.score++;
-  }
+  game.frame++;
+  game.score++;
+
 
   switch (game.level) {
     case 0:

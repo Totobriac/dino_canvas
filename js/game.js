@@ -9,5 +9,6 @@ export class Game {
     this.gamespeed = 5;
     this.level = 0;
     this.loadedLevel = new Array(10).fill(false);
+    this.start = false;
   }
 }

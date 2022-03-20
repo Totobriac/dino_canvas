@@ -1,7 +1,5 @@
 import { generateDirt } from "./dirt.js";
 import { drawSky } from "./sky.js";
-import { createCactus } from "./cactus.js";
-import { drawDinoDesert } from "./desert_dino.js";
 
 let hasLoaded = 0;
 
@@ -76,28 +74,25 @@ function glow() {
 }
 
 function drawBack(ctx, game, dino) {
-  console.log(hasLoaded);
   if (hasLoaded === 2) {
     generateBack(ctx, game);
-    drawSky(ctx, game, dino);
+    drawSky(ctx, dino);
     if (game.frame % 50 === 0) glow();
     drawStars(ctx);
     layers.forEach(layer => {
       layer.update(game.gamespeed);
       layer.draw();
     })
-    gameFrame--;
+    if (game.start) gameFrame--;
     generateDirt(250, 300, game.gamespeed, ctx, 19);
   }
 }
 
 function generateBack(ctx, game) {
-  if (game.loadedLevel[1] === false) {
-
+  if (!game.loadedLevel[1]) {
     layer1 = new Layer(mountainSprite, 170, 2, 245, 200, 0.1, game.gamespeed, ctx);
     layer2 = new Layer(mountainSprite, 250, 244, 300, 320, 0.7, game.gamespeed, ctx);
     layer3 = new Layer(floorSprite, 350, 0, 14, 20, 2.5, game.gamespeed, ctx);
-
     layers = [layer1, layer2, layer3];
     generateStars();
     game.loadedLevel[1] = true;

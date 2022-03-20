@@ -1,3 +1,4 @@
+import { game } from "../../script.js";
 import { isJumping } from "./desert_dino.js";
 
 const particlesArray = []
@@ -31,7 +32,7 @@ class Particle {
 
 export function generateDirt(x, y, gamespeed, ctx, angle) {
 
-  if (isJumping === false && gamespeed != 0) {
+  if (!isJumping && gamespeed != 0 && game.start) {
     particlesArray.unshift(new Particle(x, y, gamespeed, ctx, angle))
   }
 
