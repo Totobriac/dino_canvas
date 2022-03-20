@@ -1,4 +1,4 @@
-import { dino, game, control } from "../../script.js";
+import { dino } from "../../script.js";
 
 var dinoSprite = new Image();
 dinoSprite.src = "./assets/dino/dino_run.png";
@@ -17,11 +17,11 @@ var maxTickount = 12;
 
 function drawDinoDesert(ctx, dino, game) {
 
-  update(dino, game);
+  if (game.start) update(dino, game);
   var line = Math.floor(frame / 2);
   var column = frame - line * 2;
 
-  if (game.keyDown && game.keyDown.code === "Space" && !isJumping) jump();
+  if (game.keyDown && game.keyDown.code === "Space" && !isJumping && game.start) jump();
 
   if (!game.start || isJumping) frame = 0;
 
