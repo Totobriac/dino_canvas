@@ -11,4 +11,8 @@ export class Game {
     this.loadedLevel = new Array(10).fill(false);
     this.start = false;
   }
+  switchLevel(lvl) {
+    this.start = false;
+    this.level = lvl;
+  }
 }

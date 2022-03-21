@@ -24,7 +24,6 @@ function drawDinoDesert(ctx, dino, game) {
   if (game.keyDown && game.keyDown.code === "Space" && !isJumping && game.start && dino.score < 125 ) jump();
 
   if (!game.start || isJumping) frame = 0;
-
   else {
     checkFrame();
   }
@@ -36,9 +35,10 @@ function drawDinoDesert(ctx, dino, game) {
   if (dino.isHit === true) ctx.strokeRect(dino.x + 40, dino.y + 8, 4, 4);
 };
 
-function update(dino) {
+function update(dino, game) {
   dino.score < 125 ? dino.score += 0.06 : dino.score = 125;
   if (dino.score === 125 && dino.x < 500) dino.x ++;
+  if (dino.x >= 500) game.switchLevel(1);
   dino.vy += 1;
   dino.y += dino.vy;
   tickCount += 1;

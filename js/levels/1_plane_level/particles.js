@@ -1,8 +1,5 @@
 const particlesArray = []
 
-var smokeSprite = new Image();
-smokeSprite.src = "./assets/1_plane/smoke.png";
-
 class Particle {
   constructor(planeX, planeY, gamespeed, ctx, angle) {
     this.x = planeX - 5 ;

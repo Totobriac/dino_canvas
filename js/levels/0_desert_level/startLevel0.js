@@ -16,7 +16,7 @@ export function startLevel(ctx, game, dino) {
   createCactus(game, dino, ctx);
   drawDinoDesert(ctx, dino, game);
   dino.score/130 < 1 ? music.volume(dino.score/130) : music.volume(1);
-  
+
   if (game.keyDown && game.keyDown.code === "Space") startAnim = true;
 
   if (!game.start) {
@@ -59,7 +59,5 @@ function anim(game, dino, volume) {
     music.play();
   }
 }
-
-
 
 //Brush Strokes by texasradiofish (c) copyright 2022 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/texasradiofish/64682 Ft: billraydrums
