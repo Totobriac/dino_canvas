@@ -21,7 +21,7 @@ function drawDinoDesert(ctx, dino, game) {
   var line = Math.floor(frame / 2);
   var column = frame - line * 2;
 
-  if (game.keyDown && game.keyDown.code === "Space" && !isJumping && game.start) jump();
+  if (game.keyDown && game.keyDown.code === "Space" && !isJumping && game.start && dino.score < 125 ) jump();
 
   if (!game.start || isJumping) frame = 0;
 
@@ -37,7 +37,8 @@ function drawDinoDesert(ctx, dino, game) {
 };
 
 function update(dino) {
-  dino.score += 0.06;
+  dino.score < 125 ? dino.score += 0.06 : dino.score = 125;
+  if (dino.score === 125 && dino.x < 500) dino.x ++;
   dino.vy += 1;
   dino.y += dino.vy;
   tickCount += 1;
@@ -58,6 +59,5 @@ function checkFrame() {
     tickCount = 0;
   }
 }
-
 
 export { isJumping, drawDinoDesert, jump };

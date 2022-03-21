@@ -30,9 +30,9 @@ class Particle {
   }
 }
 
-export function generateDirt(x, y, gamespeed, ctx, angle) {
+export function generateDirt(x, y, gamespeed, ctx, angle, dino) {
 
-  if (!isJumping && gamespeed != 0 && game.start) {
+  if (!isJumping && gamespeed != 0 && game.start && dino.score < 125) {
     particlesArray.unshift(new Particle(x, y, gamespeed, ctx, angle))
   }
 

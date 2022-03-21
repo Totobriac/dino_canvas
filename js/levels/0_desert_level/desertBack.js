@@ -83,8 +83,8 @@ function drawBack(ctx, game, dino) {
       layer.update(game.gamespeed);
       layer.draw();
     })
-    if (game.start) gameFrame--;
-    generateDirt(250, 300, game.gamespeed, ctx, 19);
+    if (game.start && dino.score < 125) gameFrame--;
+    generateDirt(250, 300, game.gamespeed, ctx, 19,dino);
   }
 }
 

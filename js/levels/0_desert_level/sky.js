@@ -2,8 +2,8 @@ var sunX = 1942;
 
 export function drawSky(ctx, dino) {
   var gradient = ctx.createRadialGradient(
-    sunX - dino.score * 10, canvas.height * 2 + 600 - dino.score * 10, canvas.height * 3 - dino.score * 3,
-    sunX - dino.score * 10, canvas.height * 2 + 600 - dino.score * 10, 600 - dino.score * 3
+    sunX - dino.score * 10, canvas.height * 2 + 800 - dino.score * 10, canvas.height * 3 - dino.score * 3,
+    sunX - dino.score * 10, canvas.height * 2 + 800 - dino.score * 10, 600 - dino.score * 3
   );
   gradient.addColorStop(0, '#02A');
   gradient.addColorStop(0.2, '#AAF');
