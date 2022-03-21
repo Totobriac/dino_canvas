@@ -8,7 +8,7 @@ mountainSprite.onload = function() { hasLoaded ++ };
 mountainSprite.src = "./assets/0_desert/desert_back.png";
 
 const floorSprite = new Image();
-floorSprite.onload = function() {hasLoaded ++ };
+floorSprite.onload = function() { hasLoaded ++ };
 floorSprite.src = "./assets/0_desert/floor_sm.png";
 
 

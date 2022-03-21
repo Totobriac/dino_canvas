@@ -13,6 +13,7 @@ var dinoAnim = {
 var startAnim = false;
 var alpha = 1;
 
+var music = new sound("../assets/0_desert/texas.mp3");
 
 export function startLevel(ctx, game, dino) {
   drawBack(ctx, game, dino);
@@ -26,7 +27,7 @@ export function startLevel(ctx, game, dino) {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.drawImage(dinoSprite, 0, 0, 88, 94, dinoAnim.x, dinoAnim.y, 66, 70);
+    ctx.drawImage(dinoSprite, 0, 0, 88, 94, dino.x, dino.y, 66, 70);
     ctx.fillStyle = "black";
 
     ctx.save();
@@ -51,14 +52,33 @@ export function startLevel(ctx, game, dino) {
 
     ctx.restore();
 
-    if (startAnim) anim(game)
+    if (startAnim) anim(game, dino)
   }
 }
 
 
-function anim(game) {
-  dinoAnim.y < 300 ? dinoAnim.y += 6 : dinoAnim.y = 300;
+function anim(game, dino) {
+  dino.y < 300 ? dino.y += 6 : dino.y = 300;
   alpha > 0.08 ?  Math.floor(alpha -= 0.08) : alpha = 0;
-  console.log(alpha);
-  if (dinoAnim.y === 300) game.start = true;
+  if (dino.y === 300) {
+    game.start = true;
+    music.play();
+  }
 }
+
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
+
+//Brush Strokes by texasradiofish (c) copyright 2022 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/texasradiofish/64682 Ft: billraydrums

@@ -2,7 +2,7 @@ export class Dino {
   constructor() {
     this.x = 130;
     this.vx = 0;
-    this.y = 300;
+    this.y = 20;
     this.vy = 0;
     this.frameIndex = 0;
     this.ticksPerFrame = 12;
