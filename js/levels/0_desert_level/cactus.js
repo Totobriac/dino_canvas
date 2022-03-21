@@ -1,7 +1,11 @@
-const cactusSprite = new Image();
+var cactusSprite = new Image();
 cactusSprite.src = "./assets/0_desert/cactus.png";
 
-const cactusArray = [];
+var planeSprite = new Image();
+planeSprite.src = "./assets/0_desert/plane.png";
+
+var cactusArray = [];
+var planeOffset = 0;
 
 var dieSound = new Audio();
 dieSound.src = "./assets/sounds/die.wav";
@@ -27,6 +31,9 @@ class Cactus {
 
 export function createCactus(game, dino, ctx) {
 
+  if (dino.score > 120 && planeOffset < 950) planeOffset += game.gamespeed * 2.5;
+  ctx.drawImage(planeSprite, 1400 - planeOffset, 248, 210, 125);
+
   if (game.frame % 300 === 0 || game.frame % 110 === 0) {
     cactusArray.unshift(new Cactus(game.gamespeed, ctx));
   }
@@ -40,7 +47,8 @@ export function createCactus(game, dino, ctx) {
       setTimeout(() => dino.isHit = false, 820)
     }
   }
-  if (cactusArray.length > 10) {
+
+  if (cactusArray.length > 3) {
     cactusArray.pop(cactusArray[0])
   }
 }
