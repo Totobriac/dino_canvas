@@ -58,16 +58,13 @@ export function startLevel(ctx, game, dino) {
   if (game.levelDone) {
     game.start = false;
     circleD >= 6 ? circleD -= 6 : game.switchLevel(1) ;
-    ctx.fillStyle = "white";
     ctx.save();
-    console.log(dino.x, dino.y);
     ctx.globalCompositeOperation='destination-in';
     ctx.beginPath();
     ctx.arc(dino.x + 33, dino.y + 35, circleD, 0, 2 * Math.PI);
     ctx.fill();
     ctx.restore();    
   }
-
 }
 
 
