@@ -10,6 +10,7 @@ export class Game {
     this.level = 0;
     this.loadedLevel = new Array(10).fill(false);
     this.start = false;
+    this.levelDone = false;
   }
   switchLevel(lvl) {
     this.start = false;

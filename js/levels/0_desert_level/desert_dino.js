@@ -38,7 +38,7 @@ function drawDinoDesert(ctx, dino, game) {
 function update(dino, game) {
   dino.score < 125 ? dino.score += 0.06 : dino.score = 125;
   if (dino.score === 125 && dino.x < 500) dino.x ++;
-  if (dino.x >= 500) game.switchLevel(1);
+  if (dino.x >= 500) game.levelDone = true;
   dino.vy += 1;
   dino.y += dino.vy;
   tickCount += 1;

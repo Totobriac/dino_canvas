@@ -10,7 +10,7 @@ export class Dino {
     this.mouseX = 600;
     this.mouseY = 200;
     this.radius = 40;
-    this.score = 110;
+    this.score = 190;
     this.isHit = false;
   };
   checkFrame(frames) {
