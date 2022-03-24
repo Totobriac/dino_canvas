@@ -1,4 +1,4 @@
-import {drawProgBar} from "./progress_bar.js";
+import { drawProgBar } from "./progress_bar.js";
 
 const cloudSprite = new Image();
 cloudSprite.src = "./assets/1_plane/cloud.png"
