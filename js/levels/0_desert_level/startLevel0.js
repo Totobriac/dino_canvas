@@ -8,12 +8,13 @@ dinoSprite.src = "../assets/dino/dino_run.png";
 
 var startAnim = false;
 var alpha = 1;
-var circleD = 900; 
+var circleD = 900;
+var endVolume = 1;
 
 var music = new sound("../assets/0_desert/texas.mp3");
 
 export function startLevel(ctx, game, dino) {
-  
+
 
   drawBack(ctx, game, dino);
   createCactus(game, dino, ctx);
@@ -53,17 +54,19 @@ export function startLevel(ctx, game, dino) {
 
     if (startAnim) anim(game, dino)
   }
-    
+
 
   if (game.levelDone) {
     game.start = false;
-    circleD >= 6 ? circleD -= 6 : game.switchLevel(1) ;
+    endVolume > 0.007 ? endVolume -= 0.007 : music.stop();
+    music.volume(endVolume)
+    circleD >= 6 ? circleD -= 6 : game.switchLevel(1);
     ctx.save();
-    ctx.globalCompositeOperation='destination-in';
+    ctx.globalCompositeOperation = 'destination-in';
     ctx.beginPath();
     ctx.arc(dino.x + 33, dino.y + 35, circleD, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.restore();    
+    ctx.restore();
   }
 }
 
