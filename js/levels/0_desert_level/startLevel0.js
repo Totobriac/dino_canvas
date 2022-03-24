@@ -11,7 +11,7 @@ var alpha = 1;
 var circleD = 900;
 var endVolume = 1;
 
-var music = new sound("../assets/0_desert/texas.mp3");
+var music = new sound("../assets/0_desert/lusty.mp3");
 
 export function startLevel(ctx, game, dino) {
 
@@ -19,7 +19,8 @@ export function startLevel(ctx, game, dino) {
   drawBack(ctx, game, dino);
   createCactus(game, dino, ctx);
   drawDinoDesert(ctx, dino, game);
-  dino.score / 130 < 1 ? music.volume(dino.score / 130) : music.volume(1);
+  music.volume(1);
+  //dino.score / 130 < 1 ? music.volume(dino.score / 130) : music.volume(1);
   ctx.restore();
 
 
