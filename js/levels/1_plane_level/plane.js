@@ -5,9 +5,6 @@ import { createParticles } from "./particles.js";
 const planeSprite = new Image();
 planeSprite.src = "./assets/1_plane/red_plane.png";
 
-var planeWidth = 100;
-var planeHeight = 60;
-
 var maxTickCount = 12;
 var tickCount = 0;
 var frame = 0;
@@ -15,32 +12,36 @@ var maxFrame = 3;
 
 var angle = 0;
 
+var canFly = false;
+
 export function drawPlane(ctx, dino) {
 
-  if(game.loadedLevel[1] === false) {
+  if (game.loadedLevel[1] === false) {
     dino.x = 20;
-    dino.y = 20;
+    dino.y = 50;
     game.loadedLevel[1] = true;
   }
   update(dino);
-
-  fly();
+  if (canFly) fly();
 
   ctx.rotate(-22 * Math.PI / 180);
-  ctx.drawImage(planeSprite,frame * 384, 0, 384, 230, dino.x, dino.y, planeWidth, planeHeight);
+  ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, dino.x, dino.y, 100, 60);
   ctx.resetTransform();
   createParticles(dino.x, dino.y, 4, ctx, -22)
 }
 
-function update(dino) {
+function update() {
   if (tickCount > maxTickCount) {
     tickCount = 0;
-    frame > maxFrame ? frame = 0 : frame ++;
+    frame > maxFrame ? frame = 0 : frame++;
   }
   else {
-    tickCount ++
+    tickCount++
   }
-  angle += 0.2;
+};
+
+function fly() {
+  angle += 0.4;
   let curve = Math.sin(angle) * 0.5;
   if (dino.y > 350) {
     dino.y = 350 + curve;
@@ -50,14 +51,11 @@ function update(dino) {
   }
   dino.vy += 0.02;
   dino.y += dino.vy + curve;
-};
-
-function fly() {
-  if (game.keyDown.code === "ArrowUp" ) {
-    dinoFlyUp();    
+  if (game.keyDown.code === "ArrowUp") {
+    dinoFlyUp();
   }
-  if (game.keyUp.code === "ArrowUp" ) {
-    dinoFlyDown();    
+  if (game.keyUp.code === "ArrowUp") {
+    dinoFlyDown();
   }
 }
 
@@ -72,4 +70,8 @@ function dinoFlyDown() {
   dino.y += dino.vy;
 };
 
-export { dinoFlyUp, dinoFlyDown }
+function startFlying() {
+  canFly = true;
+}
+
+export { dinoFlyUp, dinoFlyDown, startFlying };
