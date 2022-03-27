@@ -1,5 +1,5 @@
 const statue = new Image();
-statue.src = "./assets/1_plane/cn_tower.png";
+statue.src = "./assets/1_plane/scottish.png";
 
 const sWidth = 200;
 const sHeight = 200;
@@ -20,7 +20,7 @@ export function animateMonument(ctx) {
 
   // ctx.translate(origin.x, origin.y);
   // ctx.rotate(-angle);
-  
+
   // ctx.translate(radius, 0);
   // ctx.rotate(Math.PI/2);
 
@@ -36,7 +36,7 @@ export function animateMonument(ctx) {
 
   ctx.translate(origin.x, origin.y);
   ctx.rotate(-angle);
-  
+
   ctx.translate(radius, 0);
   ctx.rotate(Math.PI/2);
 
@@ -50,4 +50,3 @@ function drawCircle(cx, cy, radius, ctx) {
   ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
   ctx.fill();
 }
-
