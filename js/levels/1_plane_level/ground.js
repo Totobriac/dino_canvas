@@ -1,5 +1,5 @@
 const statue = new Image();
-statue.src = "./assets/1_plane/scottish.png";
+statue.src = "./assets/1_plane/russian.png";
 
 const sWidth = 200;
 const sHeight = 200;
