@@ -5,6 +5,7 @@ import { drawDinoWaiter } from "./waiter.js";
 
 
 export function startLevel(ctx, game, dino) {
+  dino.y = 300;
   generateRestBack(ctx, game);
   generatePlates(ctx, game.frame, dino);
   drawDinoWaiter(ctx, dino, game);
