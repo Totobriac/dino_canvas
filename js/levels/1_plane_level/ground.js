@@ -81,8 +81,3 @@ export function animateMonument(ctx, game) {
   ctx.resetTransform();
 }
 
-function drawCircle(cx, cy, radius, ctx) {
-  ctx.beginPath();
-  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
-  ctx.fill();
-}

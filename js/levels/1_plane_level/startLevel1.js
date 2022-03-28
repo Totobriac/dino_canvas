@@ -13,14 +13,18 @@ var circleD = 0;
 var startAnim = false;
 var offset = 0;
 var alpha = 1;
-
+var vol = 1;
 
 export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
-    music.volume(1);
-    !game.levelDone ? music.play(): music.stop();
+    music.volume(vol);
+    if(!game.levelDone) {
+      music.play();
+    } else {
+      if (vol > 0.01) vol -= 0.01;
+    }
     if (game.levelDone && alpha > 0.01) alpha -= 0.01;
     if (alpha === 0) banderazo();
     drawPlane(ctx, dino);
