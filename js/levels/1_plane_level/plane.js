@@ -22,7 +22,14 @@ export function drawPlane(ctx, dino) {
   }
   update(dino);
   if (canFly && !game.levelDone) fly();
-
+  if (game.levelDone) {
+    if (dino.y < 250) {
+      dino.y ++;
+    }
+    else if (dino.y > 250){
+      dino.y --;
+    }
+  }
   ctx.rotate(-22 * Math.PI / 180);
   ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, dino.x, dino.y, 100, 60);
   ctx.resetTransform();

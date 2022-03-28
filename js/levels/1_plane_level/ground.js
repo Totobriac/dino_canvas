@@ -6,6 +6,7 @@ const monuSprites = ["./assets/1_plane/liberty.png","./assets/1_plane/pagoda.png
 var statue = new Image();
 var angle;
 var stop = false;
+var banderaY = 1490;
 
 const sWidth = 200;
 const sHeight = 200;
@@ -34,14 +35,26 @@ export function animateMonument(ctx, game) {
   if (!stop) {
     angle = start + step++ * stepSize;
   } else {
-    if (step < 350) angle = start + step++ * stepSize;
+    if (step < 350) {
+      angle = start + step++ * stepSize;
+      banderaY -= 0.55;
+    }
   }
 
 
   ctx.translate(origin.x, origin.y);
-  drawCircle(0, 50, 900, ctx);
+
   ctx.fillStyle = "#75AADB";
+  ctx.beginPath();
+  ctx.arc(0, 50, 900, 0, 2 * Math.PI);
   ctx.fill();
+
+  ctx.strokeStyle = "#75AADB";
+  ctx.lineWidth = 190;
+  ctx.beginPath();
+  ctx.arc(0, 50, banderaY, 0, 2 * Math.PI);
+  ctx.stroke();
+
   ctx.resetTransform();
 
   ctx.translate(origin.x, origin.y);
