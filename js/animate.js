@@ -21,7 +21,6 @@ export function anim(game, dino, ctx) {
   game.frame++;
   game.score++;
 
-
   switch (game.level) {
     case 0:
       loadLevel(0, ctx, game, dino);

@@ -1,0 +1,5 @@
+function banderazo() {
+
+}
+
+export { banderazo };

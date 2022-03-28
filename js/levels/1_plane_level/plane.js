@@ -1,7 +1,6 @@
 import { dino, game } from "../../script.js";
 import { createParticles } from "./particles.js";
 
-
 const planeSprite = new Image();
 planeSprite.src = "./assets/1_plane/red_plane.png";
 
@@ -22,7 +21,7 @@ export function drawPlane(ctx, dino) {
     game.loadedLevel[1] = true;
   }
   update(dino);
-  if (canFly) fly();
+  if (canFly && !game.levelDone) fly();
 
   ctx.rotate(-22 * Math.PI / 180);
   ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, dino.x, dino.y, 100, 60);
@@ -51,10 +50,10 @@ function fly() {
   }
   dino.vy += 0.02;
   dino.y += dino.vy + curve;
-  if (game.keyDown.code === "ArrowUp") {
+  if (game.keyDown.code === "ArrowUp" && !game.levelDone) {
     dinoFlyUp();
   }
-  if (game.keyUp.code === "ArrowUp") {
+  if (game.keyUp.code === "ArrowUp" && !game.levelDone) {
     dinoFlyDown();
   }
 }

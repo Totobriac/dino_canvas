@@ -5,7 +5,7 @@ export class Game {
     this.mousePosition = { x: 600, y: 200 };
     this.mouseMovePosition = { x: 600, y: 200 };
     this.frame = 0;
-    this.score = 0;
+    this.score = 3660;
     this.gamespeed = 5;
     this.level = 1;
     this.loadedLevel = new Array(10).fill(false);
