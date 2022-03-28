@@ -1,7 +1,6 @@
 import { sound } from "../../sound.js";
 var music = new sound("../assets/1_plane/himno.mp3");
 
-
 import { landing } from "./plane.js";
 
 var monuIndex = 0;

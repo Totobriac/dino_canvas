@@ -3,6 +3,9 @@ import { animateMonument } from "./ground.js";
 import { generateClouds } from "./clouds.js";
 import { createBirds } from "./bird.js";
 
+import { sound } from "../../sound.js";
+var music = new sound("../assets/1_plane/starman.mp3");
+
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
 
@@ -11,10 +14,13 @@ var startAnim = false;
 var offset = 0;
 var alpha = 1;
 
+
 export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
+    music.volume(1);
+    !game.levelDone ? music.play(): music.stop();
     if (game.levelDone && alpha > 0.01) alpha -= 0.01;
     if (alpha === 0) banderazo();
     drawPlane(ctx, dino);
