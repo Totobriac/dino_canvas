@@ -14,6 +14,8 @@ var startAnim = false;
 var offset = 0;
 var alpha = 1;
 var vol = 1;
+var exit = false;
+var exitD = 720;
 
 export function startLevel(ctx, game, dino) {
 
@@ -46,6 +48,17 @@ export function startLevel(ctx, game, dino) {
 
     if (game.score >  4172 ) game.levelDone = true;
 
+    if (exit) {
+      exitD > 2 ? exitD -= 2 : game.switchLevel(2);
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.fillStyle = "#75AADB";
+      ctx.beginPath();
+      ctx.arc(605, 205, exitD, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.restore();
+    }
+
   }
 
   if (game.keyDown && (game.keyDown.code === "ArrowUp" || game.keyDown.code === "ArrowDown")) startAnim = true;
@@ -65,4 +78,8 @@ export function startLevel(ctx, game, dino) {
     ctx.fill();
     ctx.restore();
   }
+}
+
+export function closeLevel() {
+  exit = true;
 }

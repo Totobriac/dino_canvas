@@ -59,11 +59,13 @@ export function animateMonument(ctx, game) {
   ctx.arc(0, 50, 900, 0, 2 * Math.PI);
   ctx.fill();
 
+  ctx.save();
   ctx.strokeStyle = "#75AADB";
   ctx.lineWidth = 190;
   ctx.beginPath();
   ctx.arc(0, 50, banderaY, 0, 2 * Math.PI);
   ctx.stroke();
+  ctx.restore();
 
   ctx.resetTransform();
 
@@ -80,4 +82,3 @@ export function animateMonument(ctx, game) {
   ctx.drawImage(statue, 0, 0, sWidth, sHeight);
   ctx.resetTransform();
 }
-

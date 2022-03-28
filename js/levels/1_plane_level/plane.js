@@ -1,5 +1,6 @@
 import { dino, game } from "../../script.js";
 import { createParticles } from "./particles.js";
+import { closeLevel } from "./startLevel1.js";
 
 const planeSprite = new Image();
 planeSprite.src = "./assets/1_plane/red_plane.png";
@@ -110,6 +111,8 @@ function dinoEscape(ctx) {
   ctx.rotate(93 * Math.PI / 180);
   ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, -2, 0, 100, 60);
   ctx.resetTransform();
+
+  if (step === 1200 ) closeLevel();
 }
 
 export { dinoFlyUp, dinoFlyDown, startFlying, landing };
