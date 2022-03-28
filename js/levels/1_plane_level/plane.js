@@ -12,6 +12,7 @@ var maxFrame = 3;
 var angle = 0;
 
 var canFly = false;
+var lands = false;
 
 export function drawPlane(ctx, dino) {
 
@@ -30,10 +31,15 @@ export function drawPlane(ctx, dino) {
       dino.y --;
     }
   }
-  ctx.rotate(-22 * Math.PI / 180);
-  ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, dino.x, dino.y, 100, 60);
-  ctx.resetTransform();
-  createParticles(dino.x, dino.y, 4, ctx, -22)
+
+  if (!lands) {
+    ctx.rotate(-22 * Math.PI / 180);
+    ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, dino.x, dino.y, 100, 60);
+    ctx.resetTransform();
+    createParticles(dino.x, dino.y, 4, ctx, -22);
+  } else  {
+    dinoEscape(ctx);
+  }
 }
 
 function update() {
@@ -80,4 +86,30 @@ function startFlying() {
   canFly = true;
 }
 
-export { dinoFlyUp, dinoFlyDown, startFlying };
+function landing() {
+  lands = true;
+}
+
+let step = 171;
+let angle2;
+
+function dinoEscape(ctx) {
+  const origin = {x: 600, y: 1200 };
+  const radius = 1090;
+  const end = 0.9272951769;
+  const start = 2.21429922;
+
+  const totalSteps = 1200;
+  const stepSize = (end - start)/totalSteps;
+  angle2 = start + step++ * stepSize;
+
+  ctx.translate(origin.x, origin.y);
+  ctx.rotate(-angle2);
+
+  ctx.translate(radius, 0);
+  ctx.rotate(93 * Math.PI / 180);
+  ctx.drawImage(planeSprite, frame * 384, 0, 384, 230, -2, 0, 100, 60);
+  ctx.resetTransform();
+}
+
+export { dinoFlyUp, dinoFlyDown, startFlying, landing };

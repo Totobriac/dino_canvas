@@ -1,3 +1,9 @@
+import { sound } from "../../sound.js";
+var music = new sound("../assets/1_plane/himno.mp3");
+
+
+import { landing } from "./plane.js";
+
 var monuIndex = 0;
 
 const monuSprites = ["./assets/1_plane/liberty.png","./assets/1_plane/pagoda.png","./assets/1_plane/cn_tower.png",
@@ -27,6 +33,8 @@ export function animateMonument(ctx, game) {
     if (game.levelDone) {
       monuIndex = 6;
       stop = true;
+      music.volume(1);
+      music.play();
     } else {
       monuIndex === monuSprites.length - 2 ? monuIndex = 0 : monuIndex++;
     }
@@ -38,6 +46,9 @@ export function animateMonument(ctx, game) {
     if (step < 350) {
       angle = start + step++ * stepSize;
       banderaY -= 0.55;
+    }
+    else {
+      landing();
     }
   }
 

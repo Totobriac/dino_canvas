@@ -1,5 +1,0 @@
-function banderazo() {
-
-}
-
-export { banderazo };

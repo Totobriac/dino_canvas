@@ -2,7 +2,6 @@ import { drawPlane, startFlying } from "./plane.js";
 import { animateMonument } from "./ground.js";
 import { generateClouds } from "./clouds.js";
 import { createBirds } from "./bird.js";
-import { banderazo } from "./bandera.js";
 
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";

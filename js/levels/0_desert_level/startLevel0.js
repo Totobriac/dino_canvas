@@ -20,7 +20,6 @@ export function startLevel(ctx, game, dino) {
   createCactus(game, dino, ctx);
   drawDinoDesert(ctx, dino, game);
   music.volume(1);
-  //dino.score / 130 < 1 ? music.volume(dino.score / 130) : music.volume(1);
   ctx.restore();
 
 
