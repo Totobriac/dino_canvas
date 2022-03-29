@@ -6,6 +6,7 @@ import { createBirds } from "./bird.js";
 import { sound } from "../../sound.js";
 var music = new sound("../assets/1_plane/starman.mp3");
 var music2 = new sound("../assets/1_plane/himno.mp3");
+
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
 
@@ -68,7 +69,7 @@ export function startLevel(ctx, game, dino) {
 
   if (game.keyDown && (game.keyDown.code === "ArrowUp" || game.keyDown.code === "ArrowDown")) startAnim = true;
 
-  if (!game.start && !game.levelDone) {
+  if (!game.start && !game.levelDone && !exit) {
     if (circleD < 60 && !startAnim) circleD += 0.5;
     if (circleD >= 0.5 && startAnim) circleD -= 0.5;
     if (circleD === 0 && startAnim) game.start = true;
