@@ -2,9 +2,10 @@ let passerbyArray = [];
 
 var xOffset = 320;
 var charOffset = 0;
+var doorOffset = 0;
 
 const restBackSprite = new Image();
-restBackSprite.src = "./assets/2_restaurant/restaurant_no_window_no_boundaries.png";
+restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 
 const seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation.png";
@@ -18,8 +19,16 @@ guybrushSprite.src = "./assets/2_restaurant/guy.png";
 const outsideSprite = new Image();
 outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
 
+var leftDoorSprite = new Image();
+leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
+
+var rightDoorSprite = new Image();
+rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
+
 function generateBack(ctx) {
-  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, canvas.width, canvas.height)
+  ctx.drawImage(leftDoorSprite, 542 - doorOffset, 105, 78, 140);
+  ctx.drawImage(rightDoorSprite, 620 + doorOffset, 105, 78, 140);
+  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, canvas.width, canvas.height);
 }
 
 const seaAnim = {
@@ -63,7 +72,7 @@ class Guybrush {
   }
   updateGuy() {
     this.tickCount += 1;
-    this.x += this.gamespeed * 0.8;
+    this.x += this.gamespeed * 0.2;
     this.drawGuy();
   }
   drawGuy() {
@@ -83,7 +92,7 @@ function generateSea(ctx) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
   ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1280, 241, 0, 90, 1290, 241);
-  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, 0, 157, 982 * 1.8, 49 * 1.8);
+  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, 0, 159, 982 * 1.8, 49 * 1.8);
 }
 
 function generateCustomers(ctx) {
@@ -99,7 +108,7 @@ function generateCustomers(ctx) {
 }
 
 function generateGuyBrush(ctx, game) {
-  if (game.frame % 300 === 0) {
+  if (game.frame % 1300 === 0) {
     passerbyArray.unshift(new Guybrush(ctx, game));
   }
   for (let i = 0; i < passerbyArray.length; i++) {
@@ -128,11 +137,15 @@ function generateRestBack (ctx, game) {
   generateCustomers(ctx);
 }
 
+function dinoEntrance() {
+  if (doorOffset < 78) doorOffset += 0.5;
+}
+
 function moveLeft() {
   if (xOffset > 1) {
     xOffset--;
     charOffset += 2;
   }
-}
+};
 
-export { generateBack, moveLeft, generateRestBack };
+export { generateBack, moveLeft, generateRestBack, dinoEntrance };
