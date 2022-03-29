@@ -39,6 +39,9 @@ dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 const cookSprite = new Image();
 cookSprite.src = "./assets/2_restaurant/cook.png";
 
+const tableEdgeSprite = new Image();
+tableEdgeSprite.src = "./assets/2_restaurant/table_edge.png";
+
 
 function generateBack(ctx) {
   if (!isEntering) {
@@ -123,16 +126,18 @@ function generateSea(ctx) {
 function generateCustomers(ctx) {
   mustache.tickCount += 1;
   checkFrame(mustache);
-  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset, 200, 60, 101);
+  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset, 210, 60, 101);
   lady.tickCount += 1;
   checkFrame(lady);
-  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset, 200, 60, 101);
+  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset, 212, 60, 101);
   bold.tickCount += 1;
   checkFrame(bold);
-  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset, 200, 60, 101);
+  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset, 210, 60, 101);
   cook.tickCount += 1;
   checkFrame(cook);
   ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset, 155, 60, 120);
+ctx.drawImage(tableEdgeSprite, 208 + charOffset, 270, 126, 22);
+ctx.drawImage(tableEdgeSprite, -408 + charOffset, 270, 126, 22);
 }
 
 function generateGuyBrush(ctx, game) {
@@ -191,7 +196,6 @@ function moveLeft() {
   if (xOffset > 1) {
     xOffset--;
     charOffset += 2;
-
   }
 };
 
