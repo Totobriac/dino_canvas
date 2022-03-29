@@ -36,12 +36,16 @@ dinoWalk.src = "./assets/dino/dino_walk_left.png";
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
+const cookSprite = new Image();
+cookSprite.src = "./assets/2_restaurant/cook.png";
+
+
 function generateBack(ctx) {
   if (!isEntering) {
     dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580, 165, 66, 70) ;
   }
-  ctx.drawImage(leftDoorSprite, 542 - doorOffset, 105, 78, 140);
-  ctx.drawImage(rightDoorSprite, 620 + doorOffset, 105, 78, 140);
+  ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset, 105, 78, 140);
+  ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset, 105, 78, 140);
   ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, canvas.width, canvas.height);
 }
 
@@ -70,6 +74,13 @@ const bold = {
   frames: 4,
   frameIndex: 0,
   ticksPerFrame: 24,
+  tickCount: 0,
+}
+
+const cook = {
+  frames: 8,
+  frameIndex: 0,
+  ticksPerFrame: 12,
   tickCount: 0,
 }
 
@@ -119,6 +130,9 @@ function generateCustomers(ctx) {
   bold.tickCount += 1;
   checkFrame(bold);
   ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset, 200, 60, 101);
+  cook.tickCount += 1;
+  checkFrame(cook);
+  ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset, 155, 60, 120);
 }
 
 function generateGuyBrush(ctx, game) {
@@ -167,8 +181,8 @@ function dinoEntrance(ctx) {
   }
   if (isEntering) {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 580, 165 - dinoYOffset, 66, 70);
-    if (dinoYOffset > -135) dinoYOffset--;
-    if (doorOffset > 0 && dinoYOffset < -30) doorOffset -= 0.5;
+    if (dinoYOffset > -135) dinoYOffset --;
+    if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
     if (dinoYOffset === -135) moveLeft();
   }
 }
@@ -177,6 +191,7 @@ function moveLeft() {
   if (xOffset > 1) {
     xOffset--;
     charOffset += 2;
+
   }
 };
 

@@ -25,7 +25,7 @@ export function startLevel(ctx, game, dino) {
   ctx.fill();
   ctx.restore();
 
-  if (game.keyDown && (game.keyDown.code === "ArrowUp" || game.keyDown.code === "ArrowDown")) startAnim = true;
+  if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
   if (game.start) {
     dino.y = 300;
