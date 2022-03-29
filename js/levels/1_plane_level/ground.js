@@ -32,8 +32,8 @@ export function animateMonument(ctx, game) {
     if (game.levelDone) {
       monuIndex = 6;
       stop = true;
-      music.volume(1);
-      music.play();
+      // music.volume(1);
+      // music.play();
     } else {
       monuIndex === monuSprites.length - 2 ? monuIndex = 0 : monuIndex++;
     }

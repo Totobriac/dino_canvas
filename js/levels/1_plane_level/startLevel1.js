@@ -5,7 +5,7 @@ import { createBirds } from "./bird.js";
 
 import { sound } from "../../sound.js";
 var music = new sound("../assets/1_plane/starman.mp3");
-
+var music2 = new sound("../assets/1_plane/himno.mp3");
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
 
@@ -14,6 +14,7 @@ var startAnim = false;
 var offset = 0;
 var alpha = 1;
 var vol = 1;
+var vol2 = 0;
 var exit = false;
 var exitD = 720;
 
@@ -25,10 +26,14 @@ export function startLevel(ctx, game, dino) {
     if(!game.levelDone) {
       music.play();
     } else {
-      if (vol > 0.01) vol -= 0.01;
+      if (vol > 0.01 && alpha > 0) vol -= 0.01;
     }
     if (game.levelDone && alpha > 0.01) alpha -= 0.01;
-    if (alpha === 0) banderazo();
+    if (alpha < 0.01) {
+      if (vol2 < 0.999) vol2 += 0.001;
+      music2.volume(vol2);
+      music2.play();
+    }
     drawPlane(ctx, dino);
     animateMonument(ctx, game);
 
@@ -49,16 +54,16 @@ export function startLevel(ctx, game, dino) {
     if (game.score >  4172 ) game.levelDone = true;
 
     if (exit) {
+      if (vol2 > 0.005) vol2 -= 0.005;
       exitD > 2 ? exitD -= 2 : game.switchLevel(2);
       ctx.save();
       ctx.globalCompositeOperation = 'destination-in';
       ctx.fillStyle = "#75AADB";
       ctx.beginPath();
-      ctx.arc(605, 205, exitD, 0, 2 * Math.PI);
+      ctx.arc(602, 203, exitD, 0, 2 * Math.PI);
       ctx.fill();
       ctx.restore();
     }
-
   }
 
   if (game.keyDown && (game.keyDown.code === "ArrowUp" || game.keyDown.code === "ArrowDown")) startAnim = true;
