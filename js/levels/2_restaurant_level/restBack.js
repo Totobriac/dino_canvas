@@ -1,8 +1,13 @@
+import  { dino } from "../../script.js";
+
 let passerbyArray = [];
 
 var xOffset = 320;
 var charOffset = 0;
 var doorOffset = 0;
+var dinoXOffset = 0;
+var dinoYOffset = 0;
+var isEntering = false;
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -25,7 +30,16 @@ leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
 var rightDoorSprite = new Image();
 rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 
+const dinoWalk = new Image();
+dinoWalk.src = "./assets/dino/dino_walk_left.png";
+
+const dinoStillSprite = new Image();
+dinoStillSprite.src = "./assets/dino/dino_still_left.png";
+
 function generateBack(ctx) {
+  if (!isEntering) {
+    dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580, 165, 66, 70) ;
+  }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset, 105, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset, 105, 78, 140);
   ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, canvas.width, canvas.height);
@@ -131,14 +145,32 @@ function checkFrame(sprite) {
 }
 
 function generateRestBack (ctx, game) {
+  dino.tickCount += 1;
+  dino.checkFrame(2);
   generateSea(ctx);
   generateGuyBrush(ctx, game);
   generateBack(ctx);
   generateCustomers(ctx);
 }
 
-function dinoEntrance() {
-  if (doorOffset < 78) doorOffset += 0.5;
+function dinoEntrance(ctx) {
+  if (!isEntering) {
+    if (dinoXOffset < 520) {
+      dinoXOffset++;
+    } else {
+      if (doorOffset < 78) {
+        doorOffset += 0.5;
+      } else {
+        isEntering = true;
+      }
+    }
+  }
+  if (isEntering) {
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 580, 165 - dinoYOffset, 66, 70);
+    if (dinoYOffset > -135) dinoYOffset--;
+    if (doorOffset > 0 && dinoYOffset < -30) doorOffset -= 0.5;
+    if (dinoYOffset === -135) moveLeft();
+  }
 }
 
 function moveLeft() {

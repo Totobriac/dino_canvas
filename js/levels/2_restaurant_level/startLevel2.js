@@ -30,8 +30,7 @@ export function startLevel(ctx, game, dino) {
   if (game.start) {
     dino.y = 300;
     generateRestBack(ctx, game);
-    dinoEntrance();
-    //moveLeft();
+    dinoEntrance(ctx);
 
     //generatePlates(ctx, game.frame, dino);
     //drawDinoWaiter(ctx, dino, game);
