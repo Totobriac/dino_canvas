@@ -1,4 +1,5 @@
 import { note } from "./notepad.js";
+import { newHeight } from "./startLevel2.js";
 
 var food = new Image();
 food.src = "./assets/2_restaurant/food.png";
@@ -24,8 +25,11 @@ class Plates {
     this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y, this.height, this.width)
   }
   update(dino, ctx) {
-    this.acc += 0.02;
-    this.y += (this.vy + this.acc);
+    if(this.y < newHeight-67) {
+      this.acc += 0.02;
+      this.y += (this.vy + this.acc);
+    }
+    
     if (checkCollision(this.x, this.y, dino, ctx) && canCollide === true) {
       this.hasCollided = true;
       servedDish = this.variety;
@@ -43,12 +47,9 @@ export function generatePlates(ctx, frame, dino) {
     platesArray.unshift(new Plates(ctx));
   }
   for (let i = 0; i < platesArray.length; i++) {
-    platesArray[i].update(dino, ctx);
-    if (platesArray[i].y > 375) {
-      platesArray.splice(i, 1)
-    }
+    platesArray[i].update(dino, ctx);    
   }
-  if (platesArray.length > 15) {
+  if (platesArray.length > 150) {
     platesArray.pop(platesArray[0])
   }
 }

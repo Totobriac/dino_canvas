@@ -6,8 +6,18 @@ import { Control } from "./controls.js";
 
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
+
 canvas.height = 400;
 canvas.width = 1200;
+
+var winHeight = window.innerHeight;
+
+let top = (winHeight - 400) / 2;
+
+var canvasStyle = document.body.style;
+canvasStyle.setProperty('--canvas-height', '400px');
+canvasStyle.setProperty('--canvas-top', top +'px');
+
 
 const dino = new Dino();
 const game = new Game();
@@ -31,4 +41,4 @@ function animate() {
 
 animate();
 
-export { dino, game, ctx, control }
+export { dino, game, ctx, control, top };

@@ -1,6 +1,7 @@
+import { top } from "../../script.js";
 import { generateRestBack, dinoEntrance } from "./restBack.js";
 import { generatePlates } from "./plates.js";
-import {generateNote} from "./notepad.js";
+import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
 
 var upDownKeys = new Image();
@@ -8,6 +9,15 @@ upDownKeys.src = "./assets/1_plane/keys.png";
 
 var circleD = 0;
 var startAnim = false;
+
+var winHeight = window.innerHeight;
+var newHeight = winHeight - top - 3;
+var canvasHeight = document.body.style;
+canvasHeight.setProperty('--canvas-height', newHeight + 'px');
+canvas.height = newHeight;
+
+var startAttending = false;
+var isReady = false;
 
 export function startLevel(ctx, game, dino) {
 
@@ -32,8 +42,22 @@ export function startLevel(ctx, game, dino) {
     generateRestBack(ctx, game);
     dinoEntrance(ctx);
 
-    //generatePlates(ctx, game.frame, dino);
-    //drawDinoWaiter(ctx, dino, game);
-    //generateNote(ctx, game);
+    if (startAttending) {
+      generateNote(ctx, game);
+      if (isReady) {
+        generatePlates(ctx, game.frame, dino);
+        drawDinoWaiter(ctx, dino, game);
+      }
+    }
   }
 }
+
+function attends() {
+  startAttending = true;
+}
+
+function ready() {
+  isReady = true;
+}
+
+export { newHeight, attends, ready };

@@ -1,4 +1,5 @@
-import  { dino } from "../../script.js";
+import { dino } from "../../script.js";
+import { attends, ready } from "./startLevel2.js";
 
 let passerbyArray = [];
 
@@ -8,6 +9,8 @@ var doorOffset = 0;
 var dinoXOffset = 0;
 var dinoYOffset = 0;
 var isEntering = false;
+var isChanging = false;
+var isChanged = false;
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -33,6 +36,9 @@ rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 const dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk_left.png";
 
+const dinoWalkR = new Image();
+dinoWalkR.src = "./assets/dino/dino_walk.png";
+
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
@@ -42,14 +48,17 @@ cookSprite.src = "./assets/2_restaurant/cook.png";
 const tableEdgeSprite = new Image();
 tableEdgeSprite.src = "./assets/2_restaurant/table_edge.png";
 
+const traySprite = new Image();
+traySprite.src = "./assets/2_restaurant/tray.png";
+
 
 function generateBack(ctx) {
   if (!isEntering) {
-    dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580, 165, 66, 70) ;
+    dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580, 165, 66, 70);
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset, 105, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset, 105, 78, 140);
-  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, 1200, 400);
 }
 
 const seaAnim = {
@@ -96,7 +105,7 @@ class Guybrush {
     this.ticksPerFrame = 12;
     this.tickCount = 0;
     this.ctx = ctx;
-    this.gamespeed = game.gamespeed ;
+    this.gamespeed = game.gamespeed;
   }
   updateGuy() {
     this.tickCount += 1;
@@ -136,8 +145,8 @@ function generateCustomers(ctx) {
   cook.tickCount += 1;
   checkFrame(cook);
   ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset, 155, 60, 120);
-ctx.drawImage(tableEdgeSprite, 208 + charOffset, 270, 126, 22);
-ctx.drawImage(tableEdgeSprite, -408 + charOffset, 270, 126, 22);
+  ctx.drawImage(tableEdgeSprite, 208 + charOffset, 270, 126, 22);
+  ctx.drawImage(tableEdgeSprite, -408 + charOffset, 270, 126, 22);
 }
 
 function generateGuyBrush(ctx, game) {
@@ -163,7 +172,7 @@ function checkFrame(sprite) {
   }
 }
 
-function generateRestBack (ctx, game) {
+function generateRestBack(ctx, game) {
   dino.tickCount += 1;
   dino.checkFrame(2);
   generateSea(ctx);
@@ -184,19 +193,42 @@ function dinoEntrance(ctx) {
       }
     }
   }
-  if (isEntering) {
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 580, 165 - dinoYOffset, 66, 70);
-    if (dinoYOffset > -135) dinoYOffset --;
+  if (isEntering && xOffset > 0) {
+    dino.x = 580;
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
+    if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
     if (dinoYOffset === -135) moveLeft();
+  }
+  if (isChanging) {
+    if (!isChanged) {
+      dino.x < 1100 ? dino.x += 2 : isChanged = true;
+      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
+    }
+    else {
+      if (dino.x > 580) {
+        dino.x -= 2
+      } else {
+        ready();
+        isChanging = false;
+      }
+      ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
+      ctx.drawImage(traySprite, dino.x - 32, dino.y + 10);
+    }
   }
 }
 
 function moveLeft() {
-  if (xOffset > 1) {
+  console.log(xOffset);
+  if (xOffset >= 1) {
     xOffset--;
     charOffset += 2;
   }
+  if (xOffset === 0) {
+    attends();
+    isChanging = true;
+  }
 };
+
 
 export { generateBack, moveLeft, generateRestBack, dinoEntrance };
