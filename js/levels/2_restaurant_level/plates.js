@@ -32,7 +32,8 @@ class Plates {
     } else {
       platesArray.splice(i, 1);
       i--;
-      brokenPlates.push({ variety: this.variety, x: this.x });
+      var angle = -20 + Math.floor(Math.random() * 40);
+      brokenPlates.push({ variety: this.variety, x: this.x, angle: angle });
     }
 
     if (checkCollision(this.x, this.y, dino) && canCollide) {
@@ -64,8 +65,8 @@ export function generatePlates(ctx, frame, dino) {
     })
   }
   
-  if (platesArray.length > 150) {
-    platesArray.pop(platesArray[0])
+  if (brokenPlates.length > 80) {
+    brokenPlates.pop(brokenPlates[0])
   }
 }
 
@@ -81,14 +82,31 @@ function checkCollision(x, y, dino) {
   }
 }
 
-function drawBroken(plate, ctx) {  
-  ctx.drawImage(food, plate.variety * 94 + 94, 0, 47, 100, plate.x, newHeight - 67, 33, 70);
-  ctx.drawImage(food, plate.variety * 94 + 94 + 47, 0, 47, 100, plate.x + 40, newHeight - 67, 33, 70);
+function drawBroken(plate, ctx) {
 
-  ctx.drawImage(food, plate.variety * 94 + 94, 0, 94, 70, plate.x, newHeight - 49, 67, 49);
-  ctx.drawImage(food, plate.variety * 94 + 94, 70, 94, 30, plate.x + 40, newHeight - 21, 67, 21);
+  ctx.save();
+  ctx.translate(plate.x - 23, newHeight - 49);
+  ctx.rotate(-plate.angle * Math.PI / 180);
+  ctx.drawImage(food, plate.variety * 94 + 94, 0, 47, 70, 0, 0, 33, 49);
+  ctx.restore();
 
+  ctx.save();
+  ctx.translate(plate.x - 36, newHeight - 21);
+  ctx.rotate(plate.angle * Math.PI / 180);
+  ctx.drawImage(food, plate.variety * 94 + 94, 70, 47, 30, 0, 0, 33, 21);
+  ctx.restore();
 
+  ctx.save();
+  ctx.translate(plate.x + 36, newHeight - 21);
+  ctx.rotate(plate.angle * Math.PI / 180);
+  ctx.drawImage(food, plate.variety * 94 + 94 + 47, 0, 47, 70, 0, 0, 33, 49);
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(plate.x + 44, newHeight - 21);
+  ctx.rotate(-plate.angle * Math.PI / 180);
+  ctx.drawImage(food, plate.variety * 94 + 94 + 47, 70, 47, 30, 0, 0, 33, 21);
+  ctx.restore();
 }
 
 export { servedDish };
