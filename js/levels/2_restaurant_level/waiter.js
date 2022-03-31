@@ -7,7 +7,7 @@ dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
 
-import { dino, game } from "../../script.js";
+import { dino, game, left } from "../../script.js";
 
 var side = -1;
 var walkLeft;
@@ -44,7 +44,7 @@ function update(dino) {
   dino.x += dino.vx;
   dino.vx *= 0.99;
   dino.tickCount += 1;
-  dino.checkBundaries();
+  dino.checkBundaries(left);
   dino.checkFrame(2);
 }
 

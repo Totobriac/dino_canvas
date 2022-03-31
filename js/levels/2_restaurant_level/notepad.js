@@ -1,4 +1,5 @@
 import { servedDish } from "./plates.js";
+import { left } from "../../script.js";
 
 var notePadSprite = new Image();
 notePadSprite.src = "./assets/2_restaurant/note.png";
@@ -99,31 +100,31 @@ function generateNote(ctx, game) {
     note = new Note();
     game.loadedLevel[2] = true;
   }
-  ctx.drawImage(notePadSprite, 980, 20);
-  ctx.drawImage(smileSprite, 1005, 300, 150, 56);
+  ctx.drawImage(notePadSprite, 980 + left, 20);
+  ctx.drawImage(smileSprite, 1005 + left, 300, 150, 56);
 
   ctx.strokeStyle = "red";
   ctx.lineWidth = 2;
 
   for (let i = 0; i < 4; i++) {
-    ctx.strokeRect(20, 40 + 49 * i, 40, 40);
+    ctx.strokeRect(20 + left, 40 + 49 * i, 40, 40);
   }
 
   for (let i = 0; i < mainNote; i++) {
-    ctx.drawImage(checkSprite, 0, 0, 50, 38, 16, 40 + 49 * i, 50, 38);
+    ctx.drawImage(checkSprite, 0, 0, 50, 38, 16 + left, 40 + 49 * i, 50, 38);
   }
 
   drawCursor(ctx);
 
   ctx.fillStyle = "black";
   ctx.font = "20px HandWritten";
-  ctx.fillText(note.table, 1050, 90);
-  ctx.fillText(note.customers, 1060, 105);
+  ctx.fillText(note.table, 1050 + left, 90);
+  ctx.fillText(note.customers, 1060 + left, 105);
 
   note.dishes.forEach((dish) => {
-    ctx.drawImage(foodSprite, dish.variety * 94 + 94, 0, 94, 100, 1000 + dish.column * 100, 105 + dish.line * 60, 70, 67);
+    ctx.drawImage(foodSprite, dish.variety * 94 + 94, 0, 94, 100, 1000 + dish.column * 100 + left, 105 + dish.line * 60, 70, 67);
     if (dish.isServed === true) {
-      ctx.drawImage(checkSprite, 0, 0, 50, 38, 1010 + dish.column * 100, 125 + dish.line * 60, 50, 38);
+      ctx.drawImage(checkSprite, 0, 0, 50, 38, 1010 + dish.column * 100 + left, 125 + dish.line * 60, 50, 38);
     };
   });
 
@@ -134,7 +135,7 @@ function generateNote(ctx, game) {
 }
 
 function drawCursor(ctx) {
-  ctx.drawImage(cursorSprite, 980 + note.note * 30, 347, 25, 25);
+  ctx.drawImage(cursorSprite, 980 + note.note * 30 + left, 347, 25, 25);
 }
 
 export { note, generateNote };

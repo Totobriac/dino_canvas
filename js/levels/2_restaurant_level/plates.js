@@ -1,5 +1,6 @@
 import { note } from "./notepad.js";
 import { newHeight } from "./startLevel2.js";
+import { left } from "../../script.js";
 
 var food = new Image();
 food.src = "./assets/2_restaurant/food.png";
@@ -12,7 +13,7 @@ var canCollide = true;
 
 class Plates {
   constructor(ctx) {
-    this.x = 100 + Math.random() * 700;
+    this.x = 100 + Math.random() * 700 + left;
     this.y = -60;
     this.vy = 0.4;
     this.acc = 0;

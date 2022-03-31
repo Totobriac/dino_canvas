@@ -1,4 +1,4 @@
-import { top } from "../../script.js";
+import { top, left } from "../../script.js";
 import { generateRestBack, dinoEntrance } from "./restBack.js";
 import { generatePlates } from "./plates.js";
 import { generateNote } from "./notepad.js";
@@ -12,9 +12,15 @@ var startAnim = false;
 
 var winHeight = window.innerHeight;
 var newHeight = winHeight - top - 3;
-var canvasHeight = document.body.style;
-canvasHeight.setProperty('--canvas-height', newHeight + 'px');
+
+var winWidth = window.innerWidth;
+
+var canvasStyle = document.body.style;
+canvasStyle.setProperty('--canvas-height', newHeight + 'px');
+canvasStyle.setProperty('--canvas-width', winWidth + 'px');
+
 canvas.height = newHeight;
+canvas.width = winWidth;
 
 var startAttending = false;
 var isReady = false;
@@ -27,11 +33,11 @@ export function startLevel(ctx, game, dino) {
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(upDownKeys, 575, 143, 77 * 0.7, 171 * 0.7);
+  ctx.drawImage(upDownKeys, 575 + left, 143, 77 * 0.7, 171 * 0.7);
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
-  ctx.arc(602, 203, circleD, 0, 2 * Math.PI);
+  ctx.arc(602 + left, 203, circleD, 0, 2 * Math.PI);
   ctx.fill();
   ctx.restore();
 
@@ -39,8 +45,8 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
     dino.y = 300;
-    generateRestBack(ctx, game);
-    dinoEntrance(ctx);
+    generateRestBack(ctx, game, left);
+    dinoEntrance(ctx, left);
 
     if (startAttending) {
       generateNote(ctx, game);
@@ -50,6 +56,11 @@ export function startLevel(ctx, game, dino) {
       }
     }
   }
+  ctx.save();
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, left, 400);
+  ctx.fillRect(1200 + left, 0, left, 400)
+  ctx.restore();
 }
 
 function attends() {

@@ -52,13 +52,13 @@ const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
 
 
-function generateBack(ctx) {
+function generateBack(ctx, left) {
   if (!isEntering) {
-    dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580, 165, 66, 70);
+    dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 + left - dinoXOffset, 165, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580 + left, 165, 66, 70);
   }
-  ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset, 105, 78, 140);
-  ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset, 105, 78, 140);
-  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, 0, 0, 1200, 400);
+  ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105, 78, 140);
+  ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset + left, 105, 78, 140);
+  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, 0, 1200, 400);
 }
 
 const seaAnim = {
@@ -125,28 +125,28 @@ class Guybrush {
   }
 }
 
-function generateSea(ctx) {
+function generateSea(ctx, left) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
-  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1280, 241, 0, 90, 1290, 241);
-  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, 0, 159, 982 * 1.8, 49 * 1.8);
+  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1280, 241, left, 90, 1290, 241);
+  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, left, 159, 982 * 1.8, 49 * 1.8);
 }
 
-function generateCustomers(ctx) {
+function generateCustomers(ctx, left) {
   mustache.tickCount += 1;
   checkFrame(mustache);
-  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset, 210, 60, 101);
+  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset + left, 210, 60, 101);
   lady.tickCount += 1;
   checkFrame(lady);
-  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset, 212, 60, 101);
+  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset + left, 212, 60, 101);
   bold.tickCount += 1;
   checkFrame(bold);
-  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset, 210, 60, 101);
+  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset + left, 210, 60, 101);
   cook.tickCount += 1;
   checkFrame(cook);
-  ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset, 155, 60, 120);
-  ctx.drawImage(tableEdgeSprite, 208 + charOffset, 270, 126, 22);
-  ctx.drawImage(tableEdgeSprite, -408 + charOffset, 270, 126, 22);
+  ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset + left, 155, 60, 120);
+  ctx.drawImage(tableEdgeSprite, 208 + charOffset + left, 270, 126, 22);
+  ctx.drawImage(tableEdgeSprite, -408 + charOffset + left, 270, 126, 22);
 }
 
 function generateGuyBrush(ctx, game) {
@@ -172,17 +172,19 @@ function checkFrame(sprite) {
   }
 }
 
-function generateRestBack(ctx, game) {
+function generateRestBack(ctx, game, left) {
   dino.tickCount += 1;
   dino.checkFrame(2);
-  generateSea(ctx);
+  generateSea(ctx, left);
   generateGuyBrush(ctx, game);
-  generateBack(ctx);
-  generateCustomers(ctx);
+  generateBack(ctx, left);
+  generateCustomers(ctx, left);
 }
 
-function dinoEntrance(ctx) {
+function dinoEntrance(ctx, left) {
+  console.log(dino.x);
   if (!isEntering) {
+    
     if (dinoXOffset < 520) {
       dinoXOffset++;
     } else {
@@ -194,7 +196,7 @@ function dinoEntrance(ctx) {
     }
   }
   if (isEntering && xOffset > 0) {
-    dino.x = 580;
+    dino.x = 580 + left;
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
     if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
@@ -202,7 +204,7 @@ function dinoEntrance(ctx) {
   }
   if (isChanging) {
     if (!isChanged) {
-      dino.x < 1100 ? dino.x += 2 : isChanged = true;
+      dino.x < 1100 + left ? dino.x += 2 : isChanged = true;
       ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
     }
     else {

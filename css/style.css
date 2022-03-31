@@ -1,5 +1,6 @@
 :root {
   --canvas-height : 400px;
+  --canvas-width : 1200px;
   --canvas-top : 50%;
 }
 
@@ -9,7 +10,7 @@
   left: 50%;
   transform: translate(-50%, 0);
   height: var(--canvas-height);
-  width: 1200px;
+  width: var(--canvas-width);
   background: transparent;
   /*border: 1px black solid;*/
 }

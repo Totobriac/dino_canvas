@@ -11,12 +11,15 @@ canvas.height = 400;
 canvas.width = 1200;
 
 var winHeight = window.innerHeight;
+var winWidth = window.innerWidth;
 
 let top = (winHeight - 400) / 2;
+let left = (winWidth - 1200) /2;
 
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', '400px');
 canvasStyle.setProperty('--canvas-top', top +'px');
+canvasStyle.setProperty('--canvas-left', left +'px');
 
 
 const dino = new Dino();
@@ -41,4 +44,4 @@ function animate() {
 
 animate();
 
-export { dino, game, ctx, control, top };
+export { dino, game, ctx, control, top, left };

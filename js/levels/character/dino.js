@@ -23,17 +23,17 @@ export class Dino {
       }
     }
   }
-  checkBundaries() {
+  checkBundaries(limit) {
     if (this.y > 300) {
       this.y = 300;
       this.vy = 0;
     }
-    if (this.x < 20) {
-      this.x = 20;
+    if (this.x < 20 + limit) {
+      this.x = 20 + limit;
       this.vx = 0;
     }
-    if (this.x > 870) {
-      this.x = 870;
+    if (this.x > 870 + limit) {
+      this.x = 870 + limit;
       this.vx = 0;
     }
   }
