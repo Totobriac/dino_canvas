@@ -28,6 +28,7 @@ export function walk() {
 }
 
 export function drawDinoWaiter(ctx, dino) {
+  dino.y = 300;
   update(dino);  
   if (walkLeft === true) {
     ctx.drawImage(dinoWalkLeft, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
@@ -35,7 +36,7 @@ export function drawDinoWaiter(ctx, dino) {
   else {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
   }
-  if (game.level === 2) createtray(ctx, dino);
+  createtray(ctx, dino);
 };
 
 function update(dino) {

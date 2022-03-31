@@ -47,7 +47,7 @@ class Plates {
       canCollide = false;
       setTimeout(() => canCollide = true, 300);
     }
-    if (this.hasCollided == false) this.draw();
+    if (!this.hasCollided) this.draw();
   }
 }
 
@@ -58,14 +58,16 @@ export function generatePlates(ctx, frame, dino) {
 
   for (let i = 0; i < platesArray.length; i++) {
     platesArray[i].update(dino, i);
-  }
+  }  
+}
 
+export function drawTrash(ctx) {
   if (brokenPlates.length > 0) {
     brokenPlates.forEach(plate => {
       drawBroken(plate, ctx);
     })
   }
-  
+
   if (brokenPlates.length > 80) {
     brokenPlates.pop(brokenPlates[0])
   }

@@ -1,5 +1,5 @@
 import { dino } from "../../script.js";
-import { attends, ready } from "./startLevel2.js";
+import { attends, ready, stillPlaying } from "./startLevel2.js";
 
 let passerbyArray = [];
 
@@ -11,6 +11,7 @@ var dinoYOffset = 0;
 var isEntering = false;
 var isChanging = false;
 var isChanged = false;
+var hasBroom = false;
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -51,6 +52,8 @@ tableEdgeSprite.src = "./assets/2_restaurant/table_edge.png";
 const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
 
+const broomSprite = new Image();
+broomSprite.src = "./assets/2_restaurant/broom.png";
 
 function generateBack(ctx, left) {
   if (!isEntering) {
@@ -181,8 +184,7 @@ function generateRestBack(ctx, game, left) {
   generateCustomers(ctx, left);
 }
 
-function dinoEntrance(ctx, left) {
-  console.log(dino.x);
+function dinoEntrance(ctx, left, newHeight) {
   if (!isEntering) {
     
     if (dinoXOffset < 520) {
@@ -203,6 +205,7 @@ function dinoEntrance(ctx, left) {
     if (dinoYOffset === -135) moveLeft();
   }
   if (isChanging) {
+    dino.y = 300;
     if (!isChanged) {
       dino.x < 1100 + left ? dino.x += 2 : isChanged = true;
       ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
@@ -216,6 +219,19 @@ function dinoEntrance(ctx, left) {
       }
       ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
       ctx.drawImage(traySprite, dino.x - 32, dino.y + 10);
+    }
+  }
+  if (!stillPlaying) {
+    dino.x < 1100 + left ? dino.x ++ : hasBroom = true;
+    if (!hasBroom) {
+      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
+    } else {
+      if (dino.y <= newHeight - 68) {
+        dino.y += 2;
+        dino.x -= 0.9;
+      }
+      ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, dino.y, 66, 70);
+      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x, dino.y, 60, 60);
     }
   }
 }

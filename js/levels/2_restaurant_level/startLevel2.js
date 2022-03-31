@@ -1,6 +1,6 @@
 import { top, left } from "../../script.js";
 import { generateRestBack, dinoEntrance } from "./restBack.js";
-import { generatePlates } from "./plates.js";
+import { generatePlates, drawTrash } from "./plates.js";
 import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
 
@@ -24,6 +24,7 @@ canvas.width = winWidth;
 
 var startAttending = false;
 var isReady = false;
+var stillPlaying = true;
 
 export function startLevel(ctx, game, dino) {
 
@@ -44,15 +45,15 @@ export function startLevel(ctx, game, dino) {
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
   if (game.start) {
-    dino.y = 300;
+    //dino.y = 300;
     generateRestBack(ctx, game, left);
-    dinoEntrance(ctx, left);
-
+    dinoEntrance(ctx, left, newHeight);
+    drawTrash(ctx);
     if (startAttending) {
       generateNote(ctx, game);
-      if (isReady) {
-        generatePlates(ctx, game.frame, dino);
+      if (isReady && stillPlaying) {
         drawDinoWaiter(ctx, dino, game);
+        generatePlates(ctx, game.frame, dino);
       }
     }
   }
@@ -71,4 +72,9 @@ function ready() {
   isReady = true;
 }
 
-export { newHeight, attends, ready };
+function stopGame() {
+  stillPlaying = false;
+}
+
+
+export { newHeight, attends, ready, stopGame, stillPlaying };

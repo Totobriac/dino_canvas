@@ -1,5 +1,6 @@
 import { servedDish } from "./plates.js";
 import { left } from "../../script.js";
+import { stopGame } from "./startLevel2.js";
 
 var notePadSprite = new Image();
 notePadSprite.src = "./assets/2_restaurant/note.png";
@@ -106,7 +107,7 @@ function generateNote(ctx, game) {
   ctx.strokeStyle = "red";
   ctx.lineWidth = 2;
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 3; i++) {
     ctx.strokeRect(20 + left, 40 + 49 * i, 40, 40);
   }
 
@@ -131,11 +132,13 @@ function generateNote(ctx, game) {
   if (note.checkIfDone()) {
     if (note.note >= 4) mainNote++;
     note = new Note;
+    if (mainNote === 1) stopGame();
   }
 }
 
 function drawCursor(ctx) {
   ctx.drawImage(cursorSprite, 980 + note.note * 30 + left, 347, 25, 25);
 }
+
 
 export { note, generateNote };
