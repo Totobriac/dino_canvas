@@ -16,8 +16,8 @@ var canvasHeight = document.body.style;
 canvasHeight.setProperty('--canvas-height', newHeight + 'px');
 canvas.height = newHeight;
 
-var startAttending = false;
-var isReady = false;
+var startAttending = true;
+var isReady = true;
 
 export function startLevel(ctx, game, dino) {
 

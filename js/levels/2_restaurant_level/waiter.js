@@ -9,7 +9,7 @@ traySprite.src = "./assets/2_restaurant/tray.png";
 
 import { dino, game } from "../../script.js";
 
-var side = 1;
+var side = -1;
 var walkLeft;
 var width = 66;
 var height = 70;

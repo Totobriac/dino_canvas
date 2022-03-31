@@ -219,7 +219,6 @@ function dinoEntrance(ctx) {
 }
 
 function moveLeft() {
-  console.log(xOffset);
   if (xOffset >= 1) {
     xOffset--;
     charOffset += 2;
