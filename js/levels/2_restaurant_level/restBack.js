@@ -16,7 +16,7 @@ var hasBroom = false;
 var isHigh = false;
 var speed = 0;
 var isSweeping = false;
-var broom = 0;
+
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -229,6 +229,7 @@ function dinoEntrance(ctx, left, newHeight) {
   if (!stillPlaying && !isSweeping) {
     if (!hasBroom) {
       dino.x < 1000 + left ? dino.x++ : hasBroom = true;
+      ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
       ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
     } else {
       speed += dino.gravity;
@@ -246,14 +247,11 @@ function dinoEntrance(ctx, left, newHeight) {
     }
   }
   if (isSweeping) {
-    broom ++;
-    var move;
-    broom % 2 === 0 ? move = -2 : move = 2;
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
-    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + move, dino.y + 10, 60, 60);
+    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
     dino.x -= 2;
     brokenPlates.forEach(plate => {
-      if (dino.x - plate.x < 40) plate.x -= 2 + Math.floor(Math.random() * 2);
+      if (dino.x - plate.x < 40) plate.x -= 2;
     });
   }
 }
