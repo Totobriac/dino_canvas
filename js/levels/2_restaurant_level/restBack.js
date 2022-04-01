@@ -1,5 +1,6 @@
 import { dino } from "../../script.js";
 import { attends, ready, stillPlaying } from "./startLevel2.js";
+import { brokenPlates } from "./plates.js";
 
 let passerbyArray = [];
 
@@ -12,6 +13,10 @@ var isEntering = false;
 var isChanging = false;
 var isChanged = false;
 var hasBroom = false;
+var isHigh = false;
+var speed = 0;
+var isSweeping = false;
+var broom = 0;
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -186,7 +191,7 @@ function generateRestBack(ctx, game, left) {
 
 function dinoEntrance(ctx, left, newHeight) {
   if (!isEntering) {
-    
+
     if (dinoXOffset < 520) {
       dinoXOffset++;
     } else {
@@ -221,18 +226,35 @@ function dinoEntrance(ctx, left, newHeight) {
       ctx.drawImage(traySprite, dino.x - 32, dino.y + 10);
     }
   }
-  if (!stillPlaying) {
-    dino.x < 1100 + left ? dino.x ++ : hasBroom = true;
+  if (!stillPlaying && !isSweeping) {
     if (!hasBroom) {
+      dino.x < 1000 + left ? dino.x++ : hasBroom = true;
       ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
     } else {
-      if (dino.y <= newHeight - 68) {
-        dino.y += 2;
-        dino.x -= 0.9;
+      speed += dino.gravity;
+      dino.y > 200 && !isHigh ? dino.y -= 1 + speed : isHigh = true;
+
+      if (dino.y <= newHeight - 68 && isHigh) {
+        dino.y += 1 + speed;
+      }
+      if (dino.y > newHeight - 68) {
+        isSweeping = true;
       }
       ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, dino.y, 66, 70);
-      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x, dino.y, 60, 60);
+      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12, dino.y + 10, 60, 60);
+      dino.x -= 2;
     }
+  }
+  if (isSweeping) {
+    broom ++;
+    var move;
+    broom % 2 === 0 ? move = -2 : move = 2;
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
+    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + move, dino.y + 10, 60, 60);
+    dino.x -= 2;
+    brokenPlates.forEach(plate => {
+      if (dino.x - plate.x < 40) plate.x -= 2 + Math.floor(Math.random() * 2);
+    });
   }
 }
 

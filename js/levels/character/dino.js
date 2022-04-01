@@ -12,6 +12,7 @@ export class Dino {
     this.radius = 40;
     this.score = 0;
     this.isHit = false;
+    this.gravity = 0.2;
   };
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {

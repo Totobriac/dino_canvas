@@ -112,4 +112,4 @@ function drawBroken(plate, ctx) {
   ctx.restore();
 }
 
-export { servedDish };
+export { servedDish, brokenPlates };
