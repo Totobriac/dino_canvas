@@ -1,7 +1,7 @@
 import { dino } from "../../script.js";
 import { attends, ready, stillPlaying } from "./startLevel2.js";
 import { generateCustomers } from "./customers.js";
-import { generateGuyBrush } from "./backCharacters.js";
+import { generateChar } from "./backCharacters.js";
 import { isEntering, dinoXOffset, doorOffset, xOffset, charOffset } from "./dinoAnimation.js";
 
 const restBackSprite = new Image();
@@ -64,7 +64,7 @@ function generateRestBack(ctx, game, left) {
   dino.tickCount += 1;
   dino.checkFrame(2);
   generateSea(ctx, left);
-  generateGuyBrush(ctx, game);
+  generateChar(ctx, game);
   generateBack(ctx, left);
   generateCustomers(ctx, left);
 }
