@@ -1,8 +1,9 @@
 import { top, left } from "../../script.js";
-import { generateRestBack, dinoAnim } from "./restBack.js";
+import { generateRestBack } from "./restBack.js";
 import { generatePlates, drawTrash } from "./plates.js";
 import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
+import { dinoAnim, stillPlaying, stopGame } from "./dinoAnimation.js";
 
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
@@ -24,7 +25,6 @@ canvas.width = winWidth;
 
 var startAttending = false;
 var isReady = false;
-var stillPlaying = true;
 
 export function startLevel(ctx, game, dino) {
 
@@ -67,12 +67,8 @@ function attends() {
   startAttending = true;
 }
 
-function ready() {
+function ready () {
   isReady = true;
-}
-
-function stopGame() {
-  stillPlaying = false;
 }
 
 

@@ -1,4 +1,4 @@
-import { charOffset } from "./restBack.js";
+import { charOffset } from "./dinoAnimation.js";
 
 const customerSprite = new Image();
 customerSprite.src = "./assets/2_restaurant/rest_customers_stupid_air.png";

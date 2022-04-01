@@ -1,21 +1,8 @@
 import { dino } from "../../script.js";
 import { attends, ready, stillPlaying } from "./startLevel2.js";
-import { brokenPlates } from "./plates.js";
 import { generateCustomers } from "./customers.js";
 import { generateGuyBrush } from "./backCharacters.js";
-
-var xOffset = 320;
-var charOffset = 0;
-var doorOffset = 0;
-var dinoXOffset = 0;
-var dinoYOffset = 0;
-var isEntering = false;
-var isChanging = false;
-var isChanged = false;
-var hasBroom = false;
-var isHigh = false;
-var speed = 0;
-var isSweeping = false;
+import { isEntering, dinoXOffset, doorOffset, xOffset, charOffset } from "./dinoAnimation.js";
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -35,17 +22,9 @@ rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 const dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk_left.png";
 
-const dinoWalkR = new Image();
-dinoWalkR.src = "./assets/dino/dino_walk.png";
-
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
-const traySprite = new Image();
-traySprite.src = "./assets/2_restaurant/tray.png";
-
-const broomSprite = new Image();
-broomSprite.src = "./assets/2_restaurant/broom.png";
 
 function generateBack(ctx, left) {
   if (!isEntering) {
@@ -90,83 +69,4 @@ function generateRestBack(ctx, game, left) {
   generateCustomers(ctx, left);
 }
 
-function dinoAnim(ctx, left, newHeight) {
-  if (!isEntering) {
-
-    if (dinoXOffset < 520) {
-      dinoXOffset++;
-    } else {
-      if (doorOffset < 78) {
-        doorOffset += 0.5;
-      } else {
-        isEntering = true;
-      }
-    }
-  }
-  if (isEntering && xOffset > 0) {
-    dino.x = 580 + left;
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
-    if (dinoYOffset > -135) dinoYOffset--;
-    if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
-    if (dinoYOffset === -135) moveLeft();
-  }
-  if (isChanging) {
-    dino.y = 300;
-    if (!isChanged) {
-      dino.x < 1100 + left ? dino.x += 2 : isChanged = true;
-      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
-    }
-    else {
-      if (dino.x > 580) {
-        dino.x -= 2
-      } else {
-        ready();
-        isChanging = false;
-      }
-      ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
-      ctx.drawImage(traySprite, dino.x - 32, dino.y + 10);
-    }
-  }
-  if (!stillPlaying && !isSweeping) {
-    if (!hasBroom) {
-      dino.x < 1000 + left ? dino.x++ : hasBroom = true;
-      ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
-      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset, 66, 70);
-    } else {
-      speed += dino.gravity;
-      dino.y > 200 && !isHigh ? dino.y -= 1 + speed : isHigh = true;
-
-      if (dino.y <= newHeight - 68 && isHigh) {
-        dino.y += 1 + speed;
-      }
-      if (dino.y > newHeight - 68) {
-        isSweeping = true;
-      }
-      ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, dino.y, 66, 70);
-      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12, dino.y + 10, 60, 60);
-      dino.x -= 2;
-    }
-  }
-  if (isSweeping) {
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
-    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
-    dino.x -= 2;
-    brokenPlates.forEach(plate => {
-      if (dino.x - plate.x < 40) plate.x -= 2;
-    });
-  }
-}
-
-function moveLeft() {
-  if (xOffset >= 1) {
-    xOffset--;
-    charOffset += 2;
-  }
-  if (xOffset === 0) {
-    attends();
-    isChanging = true;
-  }
-};
-
-
-export { generateBack, moveLeft, generateRestBack, dinoAnim, charOffset, doorOffset };
+export { generateBack, generateRestBack };
