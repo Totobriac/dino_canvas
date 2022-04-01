@@ -1,5 +1,5 @@
 import { top, left } from "../../script.js";
-import { generateRestBack, dinoEntrance } from "./restBack.js";
+import { generateRestBack, dinoAnim } from "./restBack.js";
 import { generatePlates, drawTrash } from "./plates.js";
 import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
@@ -45,9 +45,8 @@ export function startLevel(ctx, game, dino) {
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
   if (game.start) {
-    //dino.y = 300;
     generateRestBack(ctx, game, left);
-    dinoEntrance(ctx, left, newHeight);
+    dinoAnim(ctx, left, newHeight);
     drawTrash(ctx);
     if (startAttending) {
       generateNote(ctx, game);

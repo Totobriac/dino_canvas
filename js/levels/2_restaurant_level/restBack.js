@@ -1,6 +1,7 @@
 import { dino } from "../../script.js";
 import { attends, ready, stillPlaying } from "./startLevel2.js";
 import { brokenPlates } from "./plates.js";
+import { generateCustomers } from "./customers.js";
 
 let passerbyArray = [];
 
@@ -24,9 +25,6 @@ restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 const seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation.png";
 
-const customerSprite = new Image();
-customerSprite.src = "./assets/2_restaurant/rest_customers_stupid_air.png";
-
 const guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
 
@@ -47,12 +45,6 @@ dinoWalkR.src = "./assets/dino/dino_walk.png";
 
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
-
-const cookSprite = new Image();
-cookSprite.src = "./assets/2_restaurant/cook.png";
-
-const tableEdgeSprite = new Image();
-tableEdgeSprite.src = "./assets/2_restaurant/table_edge.png";
 
 const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
@@ -76,33 +68,6 @@ const seaAnim = {
   tickCount: 0,
 }
 
-const mustache = {
-  frames: 3,
-  frameIndex: 0,
-  ticksPerFrame: 12,
-  tickCount: 0,
-}
-
-const lady = {
-  frames: 2,
-  frameIndex: 0,
-  ticksPerFrame: 18,
-  tickCount: 0,
-}
-
-const bold = {
-  frames: 4,
-  frameIndex: 0,
-  ticksPerFrame: 24,
-  tickCount: 0,
-}
-
-const cook = {
-  frames: 8,
-  frameIndex: 0,
-  ticksPerFrame: 12,
-  tickCount: 0,
-}
 
 class Guybrush {
   constructor(ctx, game) {
@@ -140,23 +105,6 @@ function generateSea(ctx, left) {
   ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, left, 159, 982 * 1.8, 49 * 1.8);
 }
 
-function generateCustomers(ctx, left) {
-  mustache.tickCount += 1;
-  checkFrame(mustache);
-  ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset + left, 210, 60, 101);
-  lady.tickCount += 1;
-  checkFrame(lady);
-  ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset + left, 212, 60, 101);
-  bold.tickCount += 1;
-  checkFrame(bold);
-  ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset + left, 210, 60, 101);
-  cook.tickCount += 1;
-  checkFrame(cook);
-  ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset + left, 155, 60, 120);
-  ctx.drawImage(tableEdgeSprite, 208 + charOffset + left, 270, 126, 22);
-  ctx.drawImage(tableEdgeSprite, -408 + charOffset + left, 270, 126, 22);
-}
-
 function generateGuyBrush(ctx, game) {
   if (game.frame % 1300 === 0) {
     passerbyArray.unshift(new Guybrush(ctx, game));
@@ -189,7 +137,7 @@ function generateRestBack(ctx, game, left) {
   generateCustomers(ctx, left);
 }
 
-function dinoEntrance(ctx, left, newHeight) {
+function dinoAnim(ctx, left, newHeight) {
   if (!isEntering) {
 
     if (dinoXOffset < 520) {
@@ -268,4 +216,4 @@ function moveLeft() {
 };
 
 
-export { generateBack, moveLeft, generateRestBack, dinoEntrance };
+export { generateBack, moveLeft, generateRestBack, dinoAnim, charOffset, doorOffset };
