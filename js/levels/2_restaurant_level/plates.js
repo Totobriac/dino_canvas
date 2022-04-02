@@ -1,6 +1,6 @@
 import { note } from "./notepad.js";
 import { newHeight } from "./startLevel2.js";
-import { left } from "../../script.js";
+import { left, top } from "../../script.js";
 
 var food = new Image();
 food.src = "./assets/2_restaurant/food.png";
@@ -24,7 +24,7 @@ class Plates {
     this.hasCollided = false;
   }
   draw() {
-    this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y, this.height, this.width)
+    this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y + top, this.height, this.width)
   }
   update(dino, i) {
     if (this.y < newHeight - 67) {
@@ -58,7 +58,7 @@ export function generatePlates(ctx, frame, dino) {
 
   for (let i = 0; i < platesArray.length; i++) {
     platesArray[i].update(dino, i);
-  }  
+  }
 }
 
 export function drawTrash(ctx) {
@@ -88,25 +88,25 @@ function checkCollision(x, y, dino) {
 function drawBroken(plate, ctx) {
 
   ctx.save();
-  ctx.translate(plate.x - 23, newHeight - 49);
+  ctx.translate(plate.x - 23, newHeight - 49 + top);
   ctx.rotate(-plate.angle * Math.PI / 180);
   ctx.drawImage(food, plate.variety * 94 + 94, 0, 47, 70, 0, 0, 33, 49);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(plate.x - 36, newHeight - 21);
+  ctx.translate(plate.x - 36, newHeight - 21 + top);
   ctx.rotate(plate.angle * Math.PI / 180);
   ctx.drawImage(food, plate.variety * 94 + 94, 70, 47, 30, 0, 0, 33, 21);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(plate.x + 36, newHeight - 21);
+  ctx.translate(plate.x + 36, newHeight - 21 + top);
   ctx.rotate(plate.angle * Math.PI / 180);
   ctx.drawImage(food, plate.variety * 94 + 94 + 47, 0, 47, 70, 0, 0, 33, 49);
   ctx.restore();
 
   ctx.save();
-  ctx.translate(plate.x + 44, newHeight - 21);
+  ctx.translate(plate.x + 44, newHeight - 21 + top);
   ctx.rotate(-plate.angle * Math.PI / 180);
   ctx.drawImage(food, plate.variety * 94 + 94 + 47, 70, 47, 30, 0, 0, 33, 21);
   ctx.restore();

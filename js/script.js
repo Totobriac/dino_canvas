@@ -3,7 +3,6 @@ import { Game } from "./game.js";
 import { anim } from "./animate.js"
 import { Control } from "./controls.js";
 
-
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 

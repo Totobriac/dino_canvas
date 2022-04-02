@@ -17,10 +17,11 @@ var newHeight = winHeight - top - 3;
 var winWidth = window.innerWidth;
 
 var canvasStyle = document.body.style;
-canvasStyle.setProperty('--canvas-height', newHeight + 'px');
+canvasStyle.setProperty('--canvas-height', winHeight + 'px');
 canvasStyle.setProperty('--canvas-width', winWidth + 'px');
+canvasStyle.setProperty('--canvas-top', '0px');
 
-canvas.height = newHeight;
+canvas.height = winHeight;
 canvas.width = winWidth;
 
 var startAttending = false;
@@ -34,11 +35,11 @@ export function startLevel(ctx, game, dino) {
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(upDownKeys, 575 + left, 143, 77 * 0.7, 171 * 0.7);
+  ctx.drawImage(upDownKeys, 575 + left, 143 + top, 77 * 0.7, 171 * 0.7);
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
-  ctx.arc(602 + left, 203, circleD, 0, 2 * Math.PI);
+  ctx.arc(602 + left, 203 + top, circleD, 0, 2 * Math.PI);
   ctx.fill();
   ctx.restore();
 
@@ -58,9 +59,10 @@ export function startLevel(ctx, game, dino) {
   }
   ctx.save();
   ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, left, 400);
-  ctx.fillRect(1200 + left, 0, left, 400)
+  ctx.fillRect(0, 0 + top, left, 400);
+  ctx.fillRect(1200 + left, 0 + top, left, 400)
   ctx.restore();
+
 }
 
 function attends() {

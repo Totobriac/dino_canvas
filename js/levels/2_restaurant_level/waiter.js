@@ -1,3 +1,5 @@
+import { top } from "../../script.js";
+
 const dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk.png";
 
@@ -28,9 +30,10 @@ export function walk() {
 }
 
 export function drawDinoWaiter(ctx, dino) {
-  dino.y = 300;
-  update(dino);  
+  update(dino);
+  dino.y = 300 + top;
   if (walkLeft === true) {
+    console.log(dino.y);
     ctx.drawImage(dinoWalkLeft, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
   }
   else {
@@ -41,7 +44,6 @@ export function drawDinoWaiter(ctx, dino) {
 
 function update(dino) {
   walk();
-  dino.y += dino.vy;
   dino.x += dino.vx;
   dino.vx *= 0.99;
   dino.tickCount += 1;
@@ -51,5 +53,5 @@ function update(dino) {
 
 function createtray(ctx, dino) {
   walkLeft === false ? trayX = 48 : trayX = -32;
-  ctx.drawImage(traySprite, dino.x + trayX, dino.y + 10,);
+  ctx.drawImage(traySprite, dino.x + trayX, dino.y + 10);
 }

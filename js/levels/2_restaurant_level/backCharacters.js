@@ -1,3 +1,5 @@
+import { top } from "../../script.js";
+
 const guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
 
@@ -7,7 +9,7 @@ class Character {
   constructor(ctx, game, sprite, y, frames, speed, width, height, coef) {
     this.x = 0;
     this.sprite = sprite;
-    this.y = y;
+    this.y = y + top;
     this.frames = frames;
     this.width = width;
     this.height = height;
