@@ -14,7 +14,7 @@ var canCollide = true;
 class Plates {
   constructor(ctx) {
     this.x = 100 + Math.random() * 700 + left;
-    this.y = -60;
+    this.y = -60 + top;
     this.vy = 0.4;
     this.acc = 0;
     this.ctx = ctx;
@@ -24,10 +24,10 @@ class Plates {
     this.hasCollided = false;
   }
   draw() {
-    this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y + top, this.height, this.width)
+    this.ctx.drawImage(food, this.variety * 94 + 94, 0, 94, 100, this.x, this.y, this.height, this.width)
   }
   update(dino, i) {
-    if (this.y < newHeight - 67) {
+    if (this.y < newHeight - 67 + top) {
       this.acc += 0.02;
       this.y += (this.vy + this.acc);
     } else {
@@ -36,7 +36,6 @@ class Plates {
       var angle = -20 + Math.floor(Math.random() * 40);
       brokenPlates.push({ variety: this.variety, x: this.x, angle: angle });
     }
-
     if (checkCollision(this.x, this.y, dino) && canCollide) {
       platesArray.splice(i, 1);
       i--;
@@ -55,7 +54,6 @@ export function generatePlates(ctx, frame, dino) {
   if (frame % 40 === 0) {
     platesArray.unshift(new Plates(ctx));
   }
-
   for (let i = 0; i < platesArray.length; i++) {
     platesArray[i].update(dino, i);
   }
@@ -67,7 +65,6 @@ export function drawTrash(ctx) {
       drawBroken(plate, ctx);
     })
   }
-
   if (brokenPlates.length > 80) {
     brokenPlates.pop(brokenPlates[0])
   }

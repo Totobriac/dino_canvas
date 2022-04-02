@@ -71,9 +71,10 @@ function dinoAnim(ctx, left, newHeight) {
   }
   if (!stillPlaying && !isSweeping) {
     if (!hasBroom) {
+      dino.y = 165 - dinoYOffset + top;
       dino.x < 1000 + left ? dino.x++ : hasBroom = true;
-      ctx.drawImage(traySprite, dino.x + 48, dino.y + 10 + top);
-      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+      ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
+      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y , 66, 70);
     } else {
       speed += dino.gravity;
       dino.y > 200 + top && !isHigh ? dino.y -= 1 + speed : isHigh = true;
@@ -84,14 +85,14 @@ function dinoAnim(ctx, left, newHeight) {
       if (dino.y > newHeight - 68 + top) {
         isSweeping = true;
       }
-      ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, dino.y + top, 66, 70);
-      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12, dino.y + top + 10, 60, 60);
+      ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, dino.y, 66, 70);
+      ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12, dino.y + 10, 60, 60);
       dino.x -= 2;
     }
   }
   if (isSweeping) {
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y + top, 66, 70);
-    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10 + top, 60, 60);
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
+    ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
     dino.x -= 2;
     brokenPlates.forEach(plate => {
       if (dino.x - plate.x < 40) plate.x -= 2;
