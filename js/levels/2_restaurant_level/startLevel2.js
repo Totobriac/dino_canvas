@@ -59,8 +59,9 @@ export function startLevel(ctx, game, dino) {
   }
   ctx.save();
   ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, winWidth, top);
   ctx.fillRect(0, 0 + top, left, 400);
-  ctx.fillRect(1200 + left, 0 + top, left, 400)
+  ctx.fillRect(1200 + left, 0 + top, left, 400);
   ctx.restore();
 
 }
