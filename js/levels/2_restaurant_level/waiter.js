@@ -33,7 +33,6 @@ export function drawDinoWaiter(ctx, dino) {
   update(dino);
   dino.y = 300 + top;
   if (walkLeft === true) {
-    console.log(dino.y);
     ctx.drawImage(dinoWalkLeft, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, width, height);
   }
   else {

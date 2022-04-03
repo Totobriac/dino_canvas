@@ -9,9 +9,6 @@ import { generateConfettis, celebrate } from "./confetti.js";
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
 
-var circleD = 0;
-var startAnim = false;
-
 var winHeight = window.innerHeight;
 var newHeight = winHeight - top - 3;
 
@@ -25,9 +22,10 @@ canvasStyle.setProperty('--canvas-top', '0px');
 canvas.height = winHeight;
 canvas.width = winWidth;
 
+var circleD = 0;
+var startAnim = false;
 var startAttending = false;
 var isReady = false;
-
 var confettis = false;
 var celebration = false;
 
@@ -82,6 +80,10 @@ function attends() {
   startAttending = true;
 }
 
+function serviceOver() {
+  startAttending = false;
+}
+
 function ready() {
   isReady = true;
 }
@@ -91,4 +93,4 @@ function startCelebration() {
 }
 
 
-export { newHeight, attends, ready, stopGame, stillPlaying, winWidth, winHeight, startCelebration };
+export { newHeight, attends, ready, stopGame, stillPlaying, winWidth, winHeight, startCelebration, serviceOver };

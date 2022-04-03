@@ -101,6 +101,7 @@ function generateNote(ctx, game) {
     note = new Note();
     game.loadedLevel[2] = true;
   }
+  
   ctx.drawImage(notePadSprite, 980 + left, 20 + top);
   ctx.drawImage(smileSprite, 1005 + left, 300 + top, 150, 56);
 

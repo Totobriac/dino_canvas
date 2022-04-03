@@ -1,6 +1,7 @@
 import { dino, top } from "../../script.js";
-import { attends, ready, startCelebration } from "./startLevel2.js";
+import { attends, ready, startCelebration, serviceOver } from "./startLevel2.js";
 import { brokenPlates } from "./plates.js";
+
 var charOffset = 0;
 
 const dinoWalk = new Image();
@@ -32,9 +33,10 @@ var hasBroom = false;
 var isHigh = false;
 var speed = 0;
 var isSweeping = false;
+var isComingBack = false;
 
 function dinoAnim(ctx, left, newHeight) {
-  if (!isEntering) {
+  if (!isEntering && !isComingBack) {
     if (dinoXOffset < 520) {
       dinoXOffset++;
     } else {
@@ -42,17 +44,18 @@ function dinoAnim(ctx, left, newHeight) {
         doorOffset += 0.5;
       } else {
         isEntering = true;
+        dinoXOffset = 0;
       }
     }
   }
-  if (isEntering && xOffset > 0) {
+  if (isEntering && xOffset > 0 && !isComingBack) {
     dino.x = 580 + left;
-    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top , 66, 70);
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
-    if (dinoYOffset === -135) moveLeft();
+    if (dinoYOffset === -135 && !isComingBack) moveLeft();
   }
-  if (isChanging) {
+  if (isChanging && !isComingBack) {
     dino.y = 300;
     if (!isChanged) {
       dino.x < 1100 + left ? dino.x += 2 : isChanged = true;
@@ -69,12 +72,12 @@ function dinoAnim(ctx, left, newHeight) {
       ctx.drawImage(traySprite, dino.x - 32, dino.y + 10 + top);
     }
   }
-  if (!stillPlaying && !isSweeping) {
+  if (!stillPlaying && !isSweeping && !isComingBack) {
     if (!hasBroom) {
       dino.y = 165 - dinoYOffset + top;
-      dino.x < 1000 + left ? dino.x +=2 : hasBroom = true;
+      dino.x < 1000 + left ? dino.x += 2 : hasBroom = true;
       ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
-      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y , 66, 70);
+      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
     } else {
       speed += dino.gravity;
       dino.y > 200 + top && !isHigh ? dino.y -= 1 + speed : isHigh = true;
@@ -90,14 +93,24 @@ function dinoAnim(ctx, left, newHeight) {
       dino.x -= 2;
     }
   }
-  if (isSweeping) {
+  if (isSweeping && dino.x > -80) {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
     ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
     dino.x -= 2;
     brokenPlates.forEach(plate => {
       if (dino.x - plate.x < 40) plate.x -= 2;
     });
-    if (dino.x < -80) startCelebration();
+  } else if (isSweeping && dino.x <= -80) {
+    comeBack();
+    serviceOver();
+    isSweeping = false;
+  }
+  if (isComingBack) {
+    if (dinoXOffset < 530) dinoXOffset++;
+    if (dinoXOffset < 350) {
+      xOffset++;
+      charOffset -= 2;
+    }
   }
 }
 
@@ -112,8 +125,13 @@ function moveLeft() {
   }
 };
 
+
 function stopGame() {
   stillPlaying = false;
 }
 
-export { dinoAnim, isEntering, dinoXOffset, stillPlaying, doorOffset, xOffset, charOffset, stopGame };
+function comeBack() {
+  isComingBack = true;
+}
+
+export { dinoAnim, isEntering, dinoXOffset, stillPlaying, doorOffset, xOffset, charOffset, stopGame, isComingBack };
