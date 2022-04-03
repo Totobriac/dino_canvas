@@ -1,6 +1,6 @@
 import { servedDish } from "./plates.js";
 import { left, top } from "../../script.js";
-import { stopGame } from "./startLevel2.js";
+import { dino } from "../../script.js";
 
 var notePadSprite = new Image();
 notePadSprite.src = "./assets/2_restaurant/note.png";
@@ -101,7 +101,7 @@ function generateNote(ctx, game) {
     note = new Note();
     game.loadedLevel[2] = true;
   }
-  
+
   ctx.drawImage(notePadSprite, 980 + left, 20 + top);
   ctx.drawImage(smileSprite, 1005 + left, 300 + top, 150, 56);
 
@@ -133,7 +133,7 @@ function generateNote(ctx, game) {
   if (note.checkIfDone()) {
     if (note.note >= 4) mainNote++;
     note = new Note;
-    if (mainNote === 1) stopGame();
+    if (mainNote === 1) dino.updateState("done");
   }
 }
 

@@ -1,6 +1,15 @@
-import { dino, top } from "../../script.js";
-import { attends, ready, startCelebration, serviceOver } from "./startLevel2.js";
-import { brokenPlates } from "./plates.js";
+import {
+  dino,
+  top
+} from "../../script.js";
+import {
+  attends,
+  startCelebration,
+  serviceOver
+} from "./startLevel2.js";
+import {
+  brokenPlates
+} from "./plates.js";
 
 var charOffset = 0;
 
@@ -24,11 +33,6 @@ var dinoXOffset = 0;
 var doorOffset = 0;
 var xOffset = 320;
 var dinoYOffset = 0;
-
-var stillPlaying = true;
-var isEntering = false;
-var isChanging = false;
-var isChanged = false;
 var hasBroom = false;
 var isHigh = false;
 var speed = 0;
@@ -36,43 +40,44 @@ var isSweeping = false;
 var isComingBack = false;
 
 function dinoAnim(ctx, left, newHeight) {
-  if (!isEntering && !isComingBack) {
+  console.log(dino.state);
+  if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
     } else {
       if (doorOffset < 78) {
         doorOffset += 0.5;
       } else {
-        isEntering = true;
+        dino.updateState("entering");
         dinoXOffset = 0;
       }
     }
   }
-  if (isEntering && xOffset > 0 && !isComingBack) {
+
+  if (dino.state === "entering" && xOffset > 0 && !isComingBack) {
     dino.x = 580 + left;
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
-    if (dinoYOffset === -135 && !isComingBack) moveLeft();
+    if (dinoYOffset === -135) moveLeft();
   }
-  if (isChanging && !isComingBack) {
+
+  if (dino.state === "isChanging" && !isComingBack) {
     dino.y = 300;
-    if (!isChanged) {
-      dino.x < 1100 + left ? dino.x += 2 : isChanged = true;
-      ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-    }
-    else {
-      if (dino.x > 580) {
-        dino.x -= 2
-      } else {
-        ready();
-        isChanging = false;
-      }
-      ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-      ctx.drawImage(traySprite, dino.x - 32, dino.y + 10 + top);
-    }
+    dino.x < 1100 + left ? dino.x += 2 : dino.updateState("isChanged");
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
   }
-  if (!stillPlaying && !isSweeping && !isComingBack) {
+  if (dino.state === "isChanged") {
+    if (dino.x > 580) {
+      dino.x -= 2
+    } else {
+      dino.updateState("working")
+    }
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    ctx.drawImage(traySprite, dino.x - 32, dino.y + 10 + top);
+  }
+
+  if (dino.state === "done" && !isSweeping && !isComingBack) {
     if (!hasBroom) {
       dino.y = 165 - dinoYOffset + top;
       dino.x < 1000 + left ? dino.x += 2 : hasBroom = true;
@@ -121,17 +126,19 @@ function moveLeft() {
   }
   if (xOffset === 0) {
     attends();
-    isChanging = true;
+    dino.updateState("isChanging");
   }
 };
-
-
-function stopGame() {
-  stillPlaying = false;
-}
 
 function comeBack() {
   isComingBack = true;
 }
 
-export { dinoAnim, isEntering, dinoXOffset, stillPlaying, doorOffset, xOffset, charOffset, stopGame, isComingBack };
+export {
+  dinoAnim,
+  dinoXOffset,
+  doorOffset,
+  xOffset,
+  charOffset,
+  isComingBack
+};

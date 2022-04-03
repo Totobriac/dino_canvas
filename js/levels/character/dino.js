@@ -13,6 +13,7 @@ export class Dino {
     this.score = 0;
     this.isHit = false;
     this.gravity = 0.2;
+    this.state;
   };
   checkFrame(frames) {
     if (this.tickCount > this.ticksPerFrame) {
@@ -43,5 +44,8 @@ export class Dino {
       this.y + dinoHeight < spriteY || this.y > this.spriteY + spriteHeight) {
       return false;
     } else return true;
+  }
+  updateState(state) {
+    this.state = state;
   }
 }

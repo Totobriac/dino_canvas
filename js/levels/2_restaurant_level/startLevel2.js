@@ -3,7 +3,7 @@ import { generateRestBack } from "./restBack.js";
 import { generatePlates, drawTrash } from "./plates.js";
 import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
-import { dinoAnim, stillPlaying, stopGame } from "./dinoAnimation.js";
+import { dinoAnim } from "./dinoAnimation.js";
 import { generateConfettis, celebrate } from "./confetti.js";
 
 var upDownKeys = new Image();
@@ -25,13 +25,13 @@ canvas.width = winWidth;
 var circleD = 0;
 var startAnim = false;
 var startAttending = false;
-var isReady = false;
 var confettis = false;
 var celebration = false;
 
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
+    dino.updateState("walkin");
     generateConfettis(ctx);
     confettis = true;
   }
@@ -59,7 +59,7 @@ export function startLevel(ctx, game, dino) {
     drawTrash(ctx);
     if (startAttending) {
       generateNote(ctx, game);
-      if (isReady && stillPlaying) {
+      if (dino.state === "working") {
         drawDinoWaiter(ctx, dino, game);
         generatePlates(ctx, game.frame, dino);
       }
@@ -73,7 +73,6 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (celebration) celebrate();
-
 }
 
 function attends() {
@@ -84,13 +83,9 @@ function serviceOver() {
   startAttending = false;
 }
 
-function ready() {
-  isReady = true;
-}
-
 function startCelebration() {
   celebration = true;
 }
 
 
-export { newHeight, attends, ready, stopGame, stillPlaying, winWidth, winHeight, startCelebration, serviceOver };
+export { newHeight, attends, winWidth, winHeight, startCelebration, serviceOver };
