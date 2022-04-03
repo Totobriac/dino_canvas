@@ -1,5 +1,5 @@
 import { dino, top } from "../../script.js";
-import { attends, ready } from "./startLevel2.js";
+import { attends, ready, startCelebration } from "./startLevel2.js";
 import { brokenPlates } from "./plates.js";
 var charOffset = 0;
 
@@ -72,7 +72,7 @@ function dinoAnim(ctx, left, newHeight) {
   if (!stillPlaying && !isSweeping) {
     if (!hasBroom) {
       dino.y = 165 - dinoYOffset + top;
-      dino.x < 1000 + left ? dino.x++ : hasBroom = true;
+      dino.x < 1000 + left ? dino.x +=2 : hasBroom = true;
       ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
       ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y , 66, 70);
     } else {
@@ -97,6 +97,7 @@ function dinoAnim(ctx, left, newHeight) {
     brokenPlates.forEach(plate => {
       if (dino.x - plate.x < 40) plate.x -= 2;
     });
+    if (dino.x < -80) startCelebration();
   }
 }
 

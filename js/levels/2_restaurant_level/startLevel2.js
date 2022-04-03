@@ -4,6 +4,7 @@ import { generatePlates, drawTrash } from "./plates.js";
 import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
 import { dinoAnim, stillPlaying, stopGame } from "./dinoAnimation.js";
+import { generateConfettis, celebrate } from "./confetti.js";
 
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
@@ -27,7 +28,15 @@ canvas.width = winWidth;
 var startAttending = false;
 var isReady = false;
 
+var confettis = false;
+var celebration = false;
+
 export function startLevel(ctx, game, dino) {
+
+  if (!confettis) {
+    generateConfettis(ctx);
+    confettis = true;
+  }
 
   if (circleD < 60 && !startAnim) circleD += 0.5;
   if (circleD >= 0.5 && startAnim) circleD -= 0.5;
@@ -46,6 +55,7 @@ export function startLevel(ctx, game, dino) {
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
   if (game.start) {
+
     generateRestBack(ctx, game, left);
     dinoAnim(ctx, left, newHeight);
     drawTrash(ctx);
@@ -64,15 +74,21 @@ export function startLevel(ctx, game, dino) {
   ctx.fillRect(1200 + left, 0 + top, left, 400);
   ctx.restore();
 
+  if (celebration) celebrate();
+
 }
 
 function attends() {
   startAttending = true;
 }
 
-function ready () {
+function ready() {
   isReady = true;
 }
 
+function startCelebration() {
+  celebration = true;
+}
 
-export { newHeight, attends, ready, stopGame, stillPlaying };
+
+export { newHeight, attends, ready, stopGame, stillPlaying, winWidth, winHeight, startCelebration };
