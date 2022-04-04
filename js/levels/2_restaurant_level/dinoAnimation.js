@@ -11,7 +11,9 @@ import {
   brokenPlates
 } from "./plates.js";
 
-import { fireCook } from "./customers.js";
+import {
+  fireCook
+} from "./customers.js";
 
 var charOffset = 0;
 
@@ -23,6 +25,9 @@ dinoWalkR.src = "./assets/dino/dino_walk.png";
 
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
+
+const dinoStillRSprite = new Image();
+dinoStillRSprite.src = "./assets/dino/dino_still.png";
 
 const traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
@@ -142,7 +147,47 @@ function dinoAnim(ctx, left, newHeight) {
         doorOffset += 0.5;
       } else {
         startCelebration();
+        dino.updateState("backLikeChamp")
       }
+    }
+    dinoYOffset = 0;
+  }
+
+  if (dino.state === "backLikeChamp") {
+    dino.x = 530 + left;
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    if (dinoYOffset > -135) dinoYOffset--;
+    if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
+    if (dinoYOffset === -135) dino.updateState("changingToCook");
+  }
+
+  if (dino.state === "changingToCook") {
+    if (dinoXOffset < 550) {
+      xOffset++;
+      charOffset -= 2;
+      dinoXOffset++;
+    } else {
+      dino.x < 1050 + left ? dino.x++ : dino.updateState("goingUp");
+    }
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+  }
+
+  if (dino.state === "goingUp") {
+    dinoYOffset < -50 ? dinoYOffset ++ : dino.updateState("enteringChangingRoom");
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+  }
+
+  if (dino.state === "enteringChangingRoom") {
+    dino.x < left + 1200 ? dino.x ++ : dino.updateState("exitingChangingRoom");
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+  }
+
+  if (dino.state === "exitingChangingRoom") {
+    if (dino.x > 800 + left ) {
+      dino.x --;
+      ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    } else {
+      ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     }
   }
 }
