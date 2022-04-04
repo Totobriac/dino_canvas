@@ -4,7 +4,7 @@ var guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
 
 var batmanSprite = new Image();
-batmanSprite.src = "./assets/2_restaurant/bat_2.png";
+batmanSprite.src = "./assets/2_restaurant/joker.png";
 
 let passerbyArray = [];
 
@@ -45,7 +45,7 @@ class Character {
 function generateChar(ctx, game) {
   if (game.frame % 1300 === 0) {
     //passerbyArray.unshift(new Character(ctx, game, guybrushSprite, 140, 6, 0.2, 110, 150, 0.7));
-    passerbyArray.unshift(new Character(ctx, game, batmanSprite, 140, 6, 0.2, 60, 87, 1.8));
+    passerbyArray.unshift(new Character(ctx, game, batmanSprite, 140, 6, 0.2, 70, 87, 1.6));
 
   }
   for (let i = 0; i < passerbyArray.length; i++) {
