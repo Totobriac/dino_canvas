@@ -31,7 +31,7 @@ var celebration = false;
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
-    dino.updateState("walkin");
+    dino.updateState("backLikeChamp");
     generateConfettis(ctx);
     confettis = true;
   }

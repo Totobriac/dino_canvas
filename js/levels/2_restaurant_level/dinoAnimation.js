@@ -38,6 +38,12 @@ broomSprite.src = "./assets/2_restaurant/broom.png";
 var changingDoorSprite = new Image();
 changingDoorSprite.src = "./assets/2_restaurant/changing_door.png";
 
+var gradHatSprite = new Image();
+gradHatSprite.src = "./assets/2_restaurant/grad_hat.png";
+
+var chefHatSprite = new Image();
+chefHatSprite.src = "./assets/2_restaurant/chef_hat.png";
+
 
 var dinoXOffset = 0;
 var doorOffset = 0;
@@ -48,7 +54,6 @@ var isHigh = false;
 var speed = 0;
 
 function dinoAnim(ctx, left, newHeight) {
-  console.log(xOffset);
   if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
@@ -159,6 +164,7 @@ function dinoAnim(ctx, left, newHeight) {
   if (dino.state === "backLikeChamp") {
     dino.x = 530 + left;
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    ctx.drawImage(gradHatSprite, dino.x + 18, 165 - dinoYOffset + top - 26, 55, 55);
     if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
     if (dinoYOffset === -135) dino.updateState("changingToCook");
@@ -173,16 +179,19 @@ function dinoAnim(ctx, left, newHeight) {
       dino.x < 1000 + left ? dino.x++ : dino.updateState("goingUp");
     }
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    ctx.drawImage(gradHatSprite, dino.x + 18, 165 - dinoYOffset + top - 26, 55, 55);
   }
 
   if (dino.state === "goingUp") {
     dinoYOffset < -50 ? dinoYOffset++ : dino.updateState("enteringChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-  }
+    ctx.drawImage(gradHatSprite, dino.x + 18, 165 - dinoYOffset + top - 26, 55, 55);
+  } 
 
   if (dino.state === "enteringChangingRoom") {
     dino.x < left + 1200 ? dino.x++ : dino.updateState("exitingChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    ctx.drawImage(gradHatSprite, dino.x + 18, 165 - dinoYOffset + top - 26, 55, 55);
     ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 
@@ -193,6 +202,7 @@ function dinoAnim(ctx, left, newHeight) {
     } else {
       ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     }
+    ctx.drawImage(chefHatSprite, dino.x - 5, 165 - dinoYOffset + top - 38, 50, 50);
     ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 }

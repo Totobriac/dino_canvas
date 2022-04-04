@@ -3,13 +3,13 @@ import { generateCustomers } from "./customers.js";
 import { generateChar } from "./backCharacters.js";
 import { dinoXOffset, doorOffset, xOffset, charOffset } from "./dinoAnimation.js";
 
-const restBackSprite = new Image();
+var restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 
-const seaSprite = new Image();
+var seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation.png";
 
-const outsideSprite = new Image();
+var outsideSprite = new Image();
 outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
 
 var leftDoorSprite = new Image();
@@ -18,17 +18,20 @@ leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
 var rightDoorSprite = new Image();
 rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 
-const dinoWalk = new Image();
+var dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk_left.png";
 
-const dinoWalkR = new Image();
+var dinoWalkR = new Image();
 dinoWalkR.src = "./assets/dino/dino_walk.png";
 
-const dinoStillSprite = new Image();
+var dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
-const dinoStillRSprite = new Image();
+var dinoStillRSprite = new Image();
 dinoStillRSprite.src = "./assets/dino/dino_still.png";
+
+var gradHatSprite = new Image();
+gradHatSprite.src = "./assets/2_restaurant/grad_hat.png";
 
 function generateBack(ctx, left) {
 
@@ -36,7 +39,8 @@ function generateBack(ctx, left) {
     dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 + left - dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580 + left, 165 + top, 66, 70);
   }
   if (dino.state === "comingBack") {
-    dinoXOffset < 530 ? ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, left + dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillRSprite, 0, 0, 90, 99, 530 + left, 165 + top, 66, 70)
+    dinoXOffset < 530 ? ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, left + dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillRSprite, 0, 0, 90, 99, 530 + left, 165 + top, 66, 70);
+    ctx.drawImage(gradHatSprite, left + dinoXOffset + 18, 165 + top - 26, 55, 55);
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105 + top, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset + left, 105 + top, 78, 140);
