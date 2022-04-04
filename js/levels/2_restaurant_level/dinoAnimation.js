@@ -36,7 +36,6 @@ var dinoYOffset = 0;
 var hasBroom = false;
 var isHigh = false;
 var speed = 0;
-var isComingBack = false;
 
 function dinoAnim(ctx, left, newHeight) {
   console.log(dino.state);
@@ -53,15 +52,28 @@ function dinoAnim(ctx, left, newHeight) {
     }
   }
 
-  if (dino.state === "entering" && xOffset > 0 && !isComingBack) {
+  if (dino.state === "entering") {
     dino.x = 580 + left;
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     if (dinoYOffset > -135) dinoYOffset--;
     if (doorOffset > 0 && dinoYOffset < -5) doorOffset -= 1;
-    if (dinoYOffset === -135) moveLeft();
+    if (dinoYOffset === -135) dino.updateState("movingLeft");
   }
 
-  if (dino.state === "isChanging" && !isComingBack) {
+  if(dino.state === "movingLeft") {
+    if (xOffset >= 1) {
+      xOffset--;
+      charOffset += 2;
+    }
+    if (xOffset === 0) {
+      attends();
+      dino.updateState("isChanging");
+    }
+    ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+
+  }
+
+  if (dino.state === "isChanging") {
     dino.y = 300;
     dino.x < 1100 + left ? dino.x += 2 : dino.updateState("isChanged");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
@@ -105,7 +117,7 @@ function dinoAnim(ctx, left, newHeight) {
     ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
 
     if (dino.x > -80) {
-      dino.x--;
+      dino.x-=2;
     } else {
       dino.updateState("comingBack")
       serviceOver();
@@ -122,19 +134,8 @@ function dinoAnim(ctx, left, newHeight) {
       charOffset -= 2;
     }
   }
-
 }
 
-function moveLeft() {
-  if (xOffset >= 1) {
-    xOffset--;
-    charOffset += 2;
-  }
-  if (xOffset === 0) {
-    attends();
-    dino.updateState("isChanging");
-  }
-}
 
 export {
   dinoAnim,
