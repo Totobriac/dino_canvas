@@ -17,23 +17,26 @@ import {
 
 var charOffset = 0;
 
-const dinoWalk = new Image();
+var dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk_left.png";
 
-const dinoWalkR = new Image();
+var dinoWalkR = new Image();
 dinoWalkR.src = "./assets/dino/dino_walk.png";
 
-const dinoStillSprite = new Image();
+var dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
-const dinoStillRSprite = new Image();
+var dinoStillRSprite = new Image();
 dinoStillRSprite.src = "./assets/dino/dino_still.png";
 
-const traySprite = new Image();
+var traySprite = new Image();
 traySprite.src = "./assets/2_restaurant/tray.png";
 
-const broomSprite = new Image();
+var broomSprite = new Image();
 broomSprite.src = "./assets/2_restaurant/broom.png";
+
+var changingDoorSprite = new Image();
+changingDoorSprite.src = "./assets/2_restaurant/changing_door.png";
 
 
 var dinoXOffset = 0;
@@ -45,7 +48,7 @@ var isHigh = false;
 var speed = 0;
 
 function dinoAnim(ctx, left, newHeight) {
-  console.log(dino.state);
+console.log(xOffset);
   if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
@@ -162,12 +165,12 @@ function dinoAnim(ctx, left, newHeight) {
   }
 
   if (dino.state === "changingToCook") {
-    if (dinoXOffset < 550) {
+    if (xOffset < 394) {
       xOffset++;
       charOffset -= 2;
       dinoXOffset++;
     } else {
-      dino.x < 1050 + left ? dino.x++ : dino.updateState("goingUp");
+      dino.x < 1000 + left ? dino.x++ : dino.updateState("goingUp");
     }
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
   }
@@ -180,13 +183,14 @@ function dinoAnim(ctx, left, newHeight) {
   if (dino.state === "enteringChangingRoom") {
     dino.x < left + 1200 ? dino.x ++ : dino.updateState("exitingChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
+    ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 
   if (dino.state === "exitingChangingRoom") {
     if (dino.x > 800 + left ) {
       dino.x --;
       ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-    } else {
+      ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);    } else {
       ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     }
   }
