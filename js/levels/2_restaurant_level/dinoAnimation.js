@@ -48,7 +48,7 @@ var isHigh = false;
 var speed = 0;
 
 function dinoAnim(ctx, left, newHeight) {
-console.log(xOffset);
+  console.log(xOffset);
   if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
@@ -176,23 +176,24 @@ console.log(xOffset);
   }
 
   if (dino.state === "goingUp") {
-    dinoYOffset < -50 ? dinoYOffset ++ : dino.updateState("enteringChangingRoom");
+    dinoYOffset < -50 ? dinoYOffset++ : dino.updateState("enteringChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
   }
 
   if (dino.state === "enteringChangingRoom") {
-    dino.x < left + 1200 ? dino.x ++ : dino.updateState("exitingChangingRoom");
+    dino.x < left + 1200 ? dino.x++ : dino.updateState("exitingChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 
   if (dino.state === "exitingChangingRoom") {
-    if (dino.x > 800 + left ) {
-      dino.x --;
+    if (dino.x > 800 + left) {
+      dino.x--;
       ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-      ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);    } else {
+    } else {
       ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     }
+    ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 }
 
