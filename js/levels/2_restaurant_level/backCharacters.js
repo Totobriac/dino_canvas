@@ -1,7 +1,10 @@
 import { top } from "../../script.js";
 
-const guybrushSprite = new Image();
+var guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
+
+var batmanSprite = new Image();
+batmanSprite.src = "./assets/2_restaurant/batman.png";
 
 let passerbyArray = [];
 
@@ -35,13 +38,15 @@ class Character {
         this.frameIndex = 0;
       }
     }
-    this.ctx.drawImage(this.sprite, 110 * this.frameIndex, 0, this.width, this.height, this.x, this.y, this.width * this.coef, this.height * this.coef);
+    this.ctx.drawImage(this.sprite, this.width * this.frameIndex, 0, this.width, this.height, this.x, this.y, this.width * this.coef, this.height * this.coef);
   }
 }
 
 function generateChar(ctx, game) {
   if (game.frame % 1300 === 0) {
-    passerbyArray.unshift(new Character(ctx, game, guybrushSprite, 140, 6, 0.2, 110, 150, 0.7));
+    //passerbyArray.unshift(new Character(ctx, game, guybrushSprite, 140, 6, 0.2, 110, 150, 0.7));
+    passerbyArray.unshift(new Character(ctx, game, batmanSprite, 140, 6, 0.2, 60, 87, 1.8));
+
   }
   for (let i = 0; i < passerbyArray.length; i++) {
     passerbyArray[i].updateChar();

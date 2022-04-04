@@ -6,6 +6,9 @@ import { drawDinoWaiter } from "./waiter.js";
 import { dinoAnim } from "./dinoAnimation.js";
 import { generateConfettis, celebrate } from "./confetti.js";
 
+import { sound } from "../../sound.js";
+var music = new sound("../assets/2_restaurant/jungle.mp3");
+console.log(music);
 var upDownKeys = new Image();
 upDownKeys.src = "./assets/1_plane/keys.png";
 
@@ -31,7 +34,7 @@ var celebration = false;
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
-    dino.updateState("backLikeChamp");
+    dino.updateState("walkin");
     generateConfettis(ctx);
     confettis = true;
   }
@@ -54,6 +57,8 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
+    music.volume(1);
+    //music.play();
     generateRestBack(ctx, game, left);
     dinoAnim(ctx, left, newHeight);
     drawTrash(ctx);
