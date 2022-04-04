@@ -65,6 +65,7 @@ export function startLevel(ctx, game, dino) {
       }
     }
   }
+  
   ctx.save();
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, winWidth, top);

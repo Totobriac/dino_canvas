@@ -11,6 +11,8 @@ import {
   brokenPlates
 } from "./plates.js";
 
+import { fireCook } from "./customers.js";
+
 var charOffset = 0;
 
 const dinoWalk = new Image();
@@ -60,7 +62,7 @@ function dinoAnim(ctx, left, newHeight) {
     if (dinoYOffset === -135) dino.updateState("movingLeft");
   }
 
-  if(dino.state === "movingLeft") {
+  if (dino.state === "movingLeft") {
     if (xOffset >= 1) {
       xOffset--;
       charOffset += 2;
@@ -68,6 +70,7 @@ function dinoAnim(ctx, left, newHeight) {
     if (xOffset === 0) {
       attends();
       dino.updateState("isChanging");
+      fireCook();
     }
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
 
@@ -93,7 +96,7 @@ function dinoAnim(ctx, left, newHeight) {
     dino.y = 165 - dinoYOffset + top;
     dino.x < 1000 + left ? dino.x += 2 : dino.updateState("jumping");
     ctx.drawImage(traySprite, dino.x + 48, dino.y + 10);
-    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, dino.y, 66, 70);
+    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
   }
 
   if (dino.state === "jumping") {
@@ -117,7 +120,7 @@ function dinoAnim(ctx, left, newHeight) {
     ctx.drawImage(broomSprite, 0, 0, 200, 200, dino.x - 12 + dino.frameIndex * 4, dino.y + 10, 60, 60);
 
     if (dino.x > -80) {
-      dino.x-=2;
+      dino.x -= 2;
     } else {
       dino.updateState("comingBack")
       serviceOver();
@@ -128,10 +131,18 @@ function dinoAnim(ctx, left, newHeight) {
   }
 
   if (dino.state === "comingBack") {
-    if (dinoXOffset < 530) dinoXOffset++;
     if (dinoXOffset < 350) {
       xOffset++;
       charOffset -= 2;
+    }
+    if (dinoXOffset < 530) {
+      dinoXOffset++;
+    } else {
+      if (doorOffset < 78) {
+        doorOffset += 0.5;
+      } else {
+        startCelebration();
+      }
     }
   }
 }
