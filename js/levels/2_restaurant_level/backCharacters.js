@@ -4,7 +4,7 @@ var guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
 
 var batmanSprite = new Image();
-batmanSprite.src = "./assets/2_restaurant/batman.png";
+batmanSprite.src = "./assets/2_restaurant/bat_2.png";
 
 let passerbyArray = [];
 
