@@ -1,7 +1,7 @@
 import { dino, top } from "../../script.js";
 import { generateCustomers } from "./customers.js";
 import { generateChar } from "./backCharacters.js";
-import { dinoXOffset, doorOffset, xOffset, charOffset, isComingBack } from "./dinoAnimation.js";
+import { dinoXOffset, doorOffset, xOffset, charOffset } from "./dinoAnimation.js";
 
 const restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
@@ -27,12 +27,11 @@ dinoWalkR.src = "./assets/dino/dino_walk.png";
 const dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
-
 function generateBack(ctx, left) {
   if (dino.state === "walkin") {
     dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 + left - dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580 + left, 165 + top, 66, 70);
   }
-  if (isComingBack) {
+  if (dino.state === "comingBack") {
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, left + dinoXOffset, 165 + top, 66, 70)
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105 + top, 78, 140);
