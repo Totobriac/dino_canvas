@@ -76,7 +76,7 @@ function generateRestBack(ctx, game, left) {
   dino.tickCount += 1;
   dino.checkFrame(2);
   generateSea(ctx, left);
-  generateChar(ctx, game);
+  generateChar(ctx, game, dino);
   generateBack(ctx, left);
   generateCustomers(ctx, left);
 }
