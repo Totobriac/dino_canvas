@@ -1,7 +1,12 @@
-import {
-  top,
-  left
-} from "../../script.js";
+import { top, left, ctx } from "../../script.js";
+
+import * as pics from "./mJPics.js";
+
+var picsList = [];
+
+for (let i in Object.values(pics)) {
+  picsList.push(Object.values(pics)[i])
+};
 
 var guybrushSprite = new Image();
 guybrushSprite.src = "./assets/2_restaurant/guy.png";
@@ -9,13 +14,33 @@ guybrushSprite.src = "./assets/2_restaurant/guy.png";
 var batmanSprite = new Image();
 batmanSprite.src = "./assets/2_restaurant/MJ/moon_walk.png";
 
-var turnSprite = new Image();
-turnSprite.src = "./assets/2_restaurant/MJ/dance_left.png";
+var enter = true;
+var exit = false;
+var entering;
+var startToDance;
+var exiting;
 
-let passerbyArray = [];
+var dance;
+var direction;
+var oldDirection;
+
+var loop = 0;
+var mJx = 680;
+
+var position = [
+  { pose: pics.moonWalk, frames: 7, width: 40 },
+  { pose: pics.moonWalkRight, frames: 7, width: 40 },
+  { pose: pics.bend, frames: 3, width: 40 },
+  { pose: pics.bendingHat, frames: 3, width: 40 },
+  { pose: pics.danceLeft, frames: 15, width: 50 },
+  { pose: pics.dance, frames: 15, width: 50 },
+  { pose: pics.hat, frames: 8, width: 80 },
+  { pose: pics.legUp, frames: 9, width: 50 },
+  { pose: pics.salchi, frames: 10, width: 50 },
+  { pose: pics.turn, frames: 6, width: 50 },
+];
+
 var isMikiKaKo = false;
-
-var mikiKako;
 
 class Character {
   constructor(ctx, game, sprite, x, y, direction, frames, speed, width, height, coef) {
@@ -52,34 +77,57 @@ class Character {
   }
 }
 
-// function generateChar(ctx, game) {
-//   if (game.frame % 1300 === 0) {
-//     //passerbyArray.unshift(new Character(ctx, game, guybrushSprite, 140, 6, 0.2, 110, 150, 0.7));
-//     passerbyArray.unshift(new Character(ctx, game, batmanSprite, 140, 7, 0.1, 40, 87, 1.8));
-//
-//   }
-//   for (let i = 0; i < passerbyArray.length; i++) {
-//     passerbyArray[i].updateChar();
-//   }
-//   if (passerbyArray.length > 2) {
-//     passerbyArray.pop(passerbyArray[0])
-//   }
-// }
-//constructor(ctx, game, sprite, x,y, direction,frames, speed, width, height, coef) {
-function generateChar(ctx, game, dino) {
 
+function generateChar(ctx, game, dino) {
   if (dino.state === "isChanged" && !isMikiKaKo) {
-    mikiKako = new Character(ctx, game, batmanSprite, 1200 + left, 140, -1, 7, 0.1, 40, 67, 2);
+    entering = new Character(ctx, game, pics.moonWalk, 1100, 140, -1, 7, 0.2, 40, 67, 2.2);
+    exiting = new Character(ctx, game, pics.moonWalk, mJx, 140, -1, 7, 0.2, 40, 67, 2.2);
     isMikiKaKo = true;
   }
-  if (isMikiKaKo){
-    mikiKako.updateChar();
-    if (mikiKako.x < 600 + left) {
-      mikiKako = new Character(ctx, game, turnSprite, 600 + left, 140, 0, 15, 0.1, 50, 67, 2);
+
+  if (dino.state === "done") exit = true;
+
+  if (isMikiKaKo) {
+
+    if (enter) entering.updateChar();
+
+    if (entering.x < 680) {
+      enter = false;
+      startToDance = true;
+    }
+    if (startToDance && !exit ) {
+      if (loop > 0) {
+        dance.updateChar();
+        if (dance.frameIndex === dance.frames - 1) loop--;
+      } else {
+        if (dance) mJx = dance.x;
+        poseChange(ctx, game);
+      }
+    }
+    if (exit) {
+      if (exiting.x > 0) exiting.updateChar();
     }
   }
 }
 
-export {
-  generateChar
-};
+
+
+function poseChange(ctx, game) {
+  var pose = Math.floor(Math.random() * 9);
+  loop = 1 + Math.floor(Math.random() * 2);
+
+  if (pose != 0 && pose != 1) {
+    direction = 0;
+  } else {
+    if (direction === 0) {
+      oldDirection === 1 ? oldDirection = -1 : oldDirection = 1;
+      direction = oldDirection;
+    }
+    else {
+      direction === 1 ? direction = -1 : direction = 1;
+    }
+  }
+  dance = new Character(ctx, game, position[pose].pose, mJx, 140, direction, position[pose].frames, 0.2, position[pose].width, 67, 2.2);
+}
+
+export { generateChar };
