@@ -1,5 +1,6 @@
 import { Character } from "./class.js";
 import * as pics from "./mJPics.js";
+import { left, dino } from "../../script.js";
 
 var picsList = [];
 
@@ -104,7 +105,7 @@ function poseChange(ctx, game) {
 }
 
 function generatePasserby(ctx, game) {
-  if (passerTick === 0) {
+  if (passerTick <= 0 && dino.state != "isSweeping" && dino.state != "comingBack") {
     passerTick = Math.floor(Math.random() * 1000) + 600;
     var char = characters[Math.floor(Math.random() * 3)];
     passerby.push(new Character(ctx, game, char.sprite, 0, 140, 1, char.frames, 0.2, char.width, char.height, char.coef))
@@ -112,9 +113,9 @@ function generatePasserby(ctx, game) {
     passerTick--;
   }
   passerby.forEach(passer => {
+    if( passer.x < left + 1200)
     passer.updateChar();
   });
-  console.log(passerby);
 }
 
 export { generateChar };

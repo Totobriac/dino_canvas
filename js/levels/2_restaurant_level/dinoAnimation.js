@@ -186,7 +186,7 @@ function dinoAnim(ctx, left, newHeight) {
     dinoYOffset < -50 ? dinoYOffset++ : dino.updateState("enteringChangingRoom");
     ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     ctx.drawImage(gradHatSprite, dino.x + 18, 165 - dinoYOffset + top - 26, 55, 55);
-  } 
+  }
 
   if (dino.state === "enteringChangingRoom") {
     dino.x < left + 1200 ? dino.x++ : dino.updateState("exitingChangingRoom");
@@ -195,16 +195,18 @@ function dinoAnim(ctx, left, newHeight) {
     ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
 
-  if (dino.state === "exitingChangingRoom") {
+  if (dino.state === "exitingChangingRoom" || dino.state === "levelEnd") {
     if (dino.x > 800 + left) {
       dino.x--;
       ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     } else {
+      dino.updateState("levelEnd");
       ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
     }
     ctx.drawImage(chefHatSprite, dino.x - 5, 165 - dinoYOffset + top - 38, 50, 50);
     ctx.drawImage(changingDoorSprite, left + 664, top, 536, 400);
   }
+
 }
 
 

@@ -133,8 +133,7 @@ function generateNote(ctx, game) {
   if (note.checkIfDone()) {
     if (note.note >= 4) mainNote++;
     note = new Note;
-    console.log(note);
-    if (mainNote === 3) dino.updateState("done");
+    if (mainNote === 1) dino.updateState("done");
   }
 }
 

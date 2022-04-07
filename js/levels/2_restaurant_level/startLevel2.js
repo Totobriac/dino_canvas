@@ -9,8 +9,8 @@ import { generateConfettis, celebrate } from "./confetti.js";
 import { sound } from "../../sound.js";
 var music = new sound("../assets/2_restaurant/jungle.mp3");
 
-var upDownKeys = new Image();
-upDownKeys.src = "./assets/1_plane/keys.png";
+var rightLeftKeys = new Image();
+rightLeftKeys.src = "./assets/2_restaurant/keys_r_l.png";
 
 var winHeight = window.innerHeight;
 var newHeight = winHeight - top - 3;
@@ -31,6 +31,11 @@ var startAttending = false;
 var confettis = false;
 var celebration = false;
 
+var endHeight = 400;
+var endWidth = 1200;
+var endX = left;
+var endY = top;
+
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
@@ -45,7 +50,7 @@ export function startLevel(ctx, game, dino) {
 
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(upDownKeys, 575 + left, 143 + top, 77 * 0.7, 171 * 0.7);
+  ctx.drawImage(rightLeftKeys, 542 + left, 177 + top, 171 * 0.7, 77 * 0.7);
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
@@ -58,7 +63,7 @@ export function startLevel(ctx, game, dino) {
   if (game.start) {
 
     music.volume(1);
-    //music.play();
+    music.play();
     generateRestBack(ctx, game, left);
     dinoAnim(ctx, left, newHeight);
     drawTrash(ctx);
@@ -79,6 +84,17 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (celebration) celebrate();
+
+  if (dino.state === "levelEnd") {
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-in';
+    endWidth-= 1.8;
+    endHeight-= 0.5;
+    endX+= 1.25;
+    endY+= 0.3;
+    ctx.fillRect(endX, endY, endWidth, endHeight);
+    ctx.restore();
+  }
 }
 
 function attends() {
