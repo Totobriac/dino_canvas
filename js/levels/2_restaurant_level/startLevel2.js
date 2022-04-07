@@ -58,7 +58,7 @@ export function startLevel(ctx, game, dino) {
   if (game.start) {
 
     music.volume(1);
-    music.play();
+    //music.play();
     generateRestBack(ctx, game, left);
     dinoAnim(ctx, left, newHeight);
     drawTrash(ctx);

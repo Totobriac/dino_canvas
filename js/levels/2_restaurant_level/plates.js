@@ -21,12 +21,12 @@ class Explosion {
     this.x = x;
     this.ctx = ctx;
     this.sprite = explosionSprite;
-    this.width = 400 / 3;
-    this.height = 400 / 3;
+    this.width = 120;
+    this.height = 120;
     this.coef = 0.8;
     this.y = winHeight - ((this.height * this.coef) / 2);
     this.tickCount = 0;
-    this.maxTickCount = 12;
+    this.maxTickCount = 9;
     this.frame = 0;
     this.maxFrame = 8;
     this.originX = 0;
@@ -41,8 +41,8 @@ class Explosion {
     }
     var line = Math.floor(this.frame / 3);
     var column = this.frame - (Math.floor(this.frame / 3) * 3);
-    this.originX = line * 400 / 3;
-    this.originY = column * 400 / 3;
+    this.originX = line * 120;
+    this.originY = column * 120;
   }
   draw() {
     this.update();
@@ -108,8 +108,13 @@ export function drawTrash(ctx) {
   if (brokenPlates.length > 80) {
     brokenPlates.pop(brokenPlates[0])
   }
-  explosions.forEach(explosion => {
-    explosion.draw();
+  explosions.forEach((explosion, i) => {
+    if(explosion.frame === 8) {
+      explosions.slice(i,1);
+      i --;
+    } else {
+      explosion.draw();
+    }
   });
 }
 
@@ -146,7 +151,7 @@ function drawBroken(plate, ctx) {
   ctx.restore();
 
   ctx.save();
-  ctx.translate(plate.x + 44, newHeight - 21 + top);
+  ctx.translate(plate.x + 23, newHeight - 21 + top);
   ctx.rotate(-plate.angle * Math.PI / 180);
   ctx.drawImage(food, plate.variety * 94 + 94 + 47, 70, 47, 30, 0, 0, 33, 21);
   ctx.restore();
