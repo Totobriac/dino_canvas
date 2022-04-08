@@ -7,7 +7,8 @@ var restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 
 var seaSprite = new Image();
-seaSprite.src = "./assets/2_restaurant/sea_animation.png";
+seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
+
 
 var outsideSprite = new Image();
 outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
@@ -57,7 +58,7 @@ const seaAnim = {
 function generateSea(ctx, left) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
-  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1280, 241, left, 90 + top, 1290, 241);
+  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1200, 241, left, 140 + top, 1200, 241);
   ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, left, 159 + top, 982 * 1.8, 49 * 1.8);
 }
 

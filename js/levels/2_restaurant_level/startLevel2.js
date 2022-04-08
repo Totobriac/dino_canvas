@@ -5,6 +5,7 @@ import { generateNote } from "./notepad.js";
 import { drawDinoWaiter } from "./waiter.js";
 import { dinoAnim } from "./dinoAnimation.js";
 import { generateConfettis, celebrate } from "./confetti.js";
+import { drawOpening } from "./opening.js";
 
 import { sound } from "../../sound.js";
 var music = new sound("../assets/2_restaurant/jungle.mp3");
@@ -60,8 +61,9 @@ export function startLevel(ctx, game, dino) {
 
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
-  if (game.start) {
+  drawOpening(ctx, left, top);
 
+  if (game.start) {
     music.volume(1);
     music.play();
     generateRestBack(ctx, game, left);
@@ -80,7 +82,7 @@ export function startLevel(ctx, game, dino) {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, winWidth, top);
   ctx.fillRect(0, 0 + top, left, 400);
-  ctx.fillRect(1200 + left, 0 + top, left, 400);
+  ctx.fillRect(1200 + left, top, left, 400);
   ctx.restore();
 
   if (celebration) celebrate();
