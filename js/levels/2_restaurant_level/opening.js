@@ -7,6 +7,9 @@ seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
 var restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 
+var outsideSprite = new Image();
+outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
+
 var winHeight = window.innerHeight;
 var winWidth = window.innerWidth;
 
@@ -50,8 +53,13 @@ function drawOpening(ctx, left, top) {
 
     ctx.drawImage(seaSprite, 300 - (xOffset * 1.5), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 3), 110 + (xOffset * 0.55), left, top + 140, 1200, 260);
 
-    ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
 
+    ctx.drawImage(outsideSprite, 300 - (xOffset * 1.5), 0, 600 + (xOffset * 3), 49, left, 159 + top, 982 * 1.8, 49 * 1.8);
+
+
+    // ctx.drawImage(outsideSprite, 0, 0, 982, 49, left, 159 + top, 982 * 1.8, 49 * 1.8);
+
+    ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
 
   }
   drawBottMask(ctx, top);

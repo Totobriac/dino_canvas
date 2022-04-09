@@ -9,7 +9,6 @@ restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 var seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
 
-
 var outsideSprite = new Image();
 outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
 
@@ -45,7 +44,6 @@ function generateBack(ctx, left) {
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105 + top, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset + left, 105 + top, 78, 140);
-  console.log(xOffset);
   ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, top, 1200, 400);
 }
 
