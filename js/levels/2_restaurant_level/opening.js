@@ -4,6 +4,9 @@ skySprite.src = "./assets/2_restaurant/sky.png";
 var seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
 
+var restBackSprite = new Image();
+restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
+
 var winHeight = window.innerHeight;
 var winWidth = window.innerWidth;
 
@@ -39,13 +42,17 @@ function drawOpening(ctx, left, top) {
 
   } else {
 
-    if (xOffset < 100) {
+    if (xOffset < 200) {
       xOffset++;
     }
-    ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 6), top - 1500 + (xOffset * 8.2), 2400 - (xOffset * 12), 1640 - (xOffset * 8.2),);
+    ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 3), top - 1500 + (xOffset * 4.1), 2400 - (xOffset * 6), 1640 - (xOffset * 4.1),);
     animSea();
 
-    ctx.drawImage(seaSprite, 300 - (xOffset * 3), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 6), 110 + (xOffset * 1.1), left, top + 140, 1200, 260);
+    ctx.drawImage(seaSprite, 300 - (xOffset * 1.5), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 3), 110 + (xOffset * 0.55), left, top + 140, 1200, 260);
+
+    ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
+
+
   }
   drawBottMask(ctx, top);
 

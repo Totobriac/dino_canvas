@@ -45,7 +45,8 @@ function generateBack(ctx, left) {
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105 + top, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset + left, 105 + top, 78, 140);
-  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, 0 + top, 1200, 400);
+  console.log(xOffset);
+  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, top, 1200, 400);
 }
 
 const seaAnim = {
