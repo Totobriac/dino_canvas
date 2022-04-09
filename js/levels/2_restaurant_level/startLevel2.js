@@ -61,7 +61,7 @@ export function startLevel(ctx, game, dino) {
 
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
-  //drawOpening(ctx, left, top);
+  drawOpening(ctx, left, top);
 
   if (game.start) {
     music.volume(1);

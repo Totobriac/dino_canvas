@@ -10,7 +10,7 @@ var seaSprite = new Image();
 seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
 
 var outsideSprite = new Image();
-outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
+outsideSprite.src = "./assets/2_restaurant/rampe_lg.png";
 
 var leftDoorSprite = new Image();
 leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
@@ -58,7 +58,7 @@ function generateSea(ctx, left) {
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
   ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1200, 241, left, 140 + top, 1200, 241);
-  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, left, 159 + top, 982 * 1.8, 49 * 1.8);
+  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 600, 49, left, top + 159, 1200, 98);
 }
 
 function checkFrame(sprite) {
