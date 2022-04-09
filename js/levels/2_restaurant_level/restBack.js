@@ -33,6 +33,9 @@ dinoStillRSprite.src = "./assets/dino/dino_still.png";
 var gradHatSprite = new Image();
 gradHatSprite.src = "./assets/2_restaurant/grad_hat.png";
 
+var skySprite = new Image();
+skySprite.src = "./assets/2_restaurant/sky.png";
+
 function generateBack(ctx, left) {
 
   if (dino.state === "walkin") {
@@ -55,6 +58,8 @@ const seaAnim = {
 }
 
 function generateSea(ctx, left) {
+  ctx.drawImage(skySprite, 0, 0, 1200, 820, left , top - 1500 + 820, 1200,820);
+
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
   ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1200, 241, left, 140 + top, 1200, 241);
