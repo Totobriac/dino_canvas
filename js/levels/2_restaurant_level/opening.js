@@ -14,7 +14,7 @@ var rightDoorSprite = new Image();
 rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 
 var rampSprite = new Image();
-rampSprite.src = "./assets/2_restaurant/rampe_original.png";
+rampSprite.src = "./assets/2_restaurant/rampe_lg.png";
 
 const cookSprite = new Image();
 cookSprite.src = "./assets/2_restaurant/cook_intro_anim.png";
@@ -69,12 +69,12 @@ function drawOpening(ctx, left, top) {
     ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 3), top - 1500 + (xOffset * 4.1), 2400 - (xOffset * 6), 1640 - (xOffset * 4.1),);
     animSea();
     ctx.drawImage(seaSprite, 300 - (xOffset * 1.5), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 3), 110 + (xOffset * 0.55), left, top + 140, 1200, 260);
+
     ctx.drawImage(rampSprite, 592 - (xOffset * 1.36), 0, 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top + 199 - (xOffset * 0.2), 1200, 400);
 
     if (closeDoor) drawDoor(ctx, left, top);
     ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
 
-    // ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54), 154 + (xOffset * 5.23), 52 + (xOffset * 1.74), left, top, 1200, 400);
 
     drawChar(ctx, left, top);
   }

@@ -61,7 +61,6 @@ function generateCustomers(ctx, left) {
     ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset + left, 155 + top, 60, 120);
   }
 
-
   ctx.drawImage(tableEdgeSprite, 208 + charOffset + left, 270 + top, 126, 22);
   ctx.drawImage(tableEdgeSprite, -408 + charOffset + left, 270 + top, 126, 22);
 }
