@@ -16,12 +16,8 @@ rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 var rampSprite = new Image();
 rampSprite.src = "./assets/2_restaurant/rampe_original.png";
 
-var cookSprite = new Image();
-cookSprite.src = "./assets/2_restaurant/inside_no_door_big.png";
-
-
-const cookySprite = new Image();
-cookySprite.src = "./assets/2_restaurant/cook.png";
+const cookSprite = new Image();
+cookSprite.src = "./assets/2_restaurant/cook_intro_anim.png";
 
 var winHeight = window.innerHeight;
 var winWidth = window.innerWidth;
@@ -78,7 +74,7 @@ function drawOpening(ctx, left, top) {
     if (closeDoor) drawDoor(ctx, left, top);
     ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
 
-    ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54), 154 + (xOffset * 5.23), 52 + (xOffset * 1.74), left, top, 1200, 400);
+    // ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54), 154 + (xOffset * 5.23), 52 + (xOffset * 1.74), left, top, 1200, 400);
 
     drawChar(ctx, left, top);
   }
@@ -113,10 +109,11 @@ function checkFrame(sprite) {
 }
 
 function drawChar(ctx, left, top) {
-  // cook.tickCount += 1;
-  // checkFrame(cook);
-  ctx.drawImage(cookySprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + left + 60, 155 + top, 60, 120);
-  //ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54), 154 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
+  cook.tickCount += 1;
+  checkFrame(cook);
+  //ctx.drawImage(cookySprite, 0,(400 * cook.frameIndex), 50, 100, 1000 + left + 60, 155 + top, 60, 120);
+
+  ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54) + (400 * cook.frameIndex), 154 + (xOffset * 5.23), 52 + (xOffset * 1.74), left, top, 1200, 400);
 
 }
 
