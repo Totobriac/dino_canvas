@@ -1,35 +1,17 @@
-import {
-  top,
-  left
-} from "../../script.js";
-import {
-  generateRestBack
-} from "./restBack.js";
-import {
-  generatePlates,
-  drawTrash
-} from "./plates.js";
-import {
-  generateNote
-} from "./notepad.js";
-import {
-  drawDinoWaiter
-} from "./waiter.js";
-import {
-  dinoAnim
-} from "./dinoAnimation.js";
-import {
-  generateConfettis,
-  celebrate
-} from "./confetti.js";
-import {
-  drawOpening
-} from "./opening.js";
+import { top, left } from "../../script.js";
+import { generateRestBack } from "./restBack.js";
+import { generatePlates, drawTrash } from "./plates.js";
+import { generateNote } from "./notepad.js";
+import { drawDinoWaiter } from "./waiter.js";
+import { dinoAnim } from "./dinoAnimation.js";
+import { generateConfettis, celebrate } from "./confetti.js";
+import { drawOpening } from "./opening.js";
 
-import {
-  sound
-} from "../../sound.js";
-var music = new sound("../assets/2_restaurant/velvet.mp3");
+import { sound } from "../../sound.js";
+var velvetMusic = new sound("../assets/2_restaurant/velvet.mp3");
+
+var gunsMusic = new sound("../assets/2_restaurant/jungle.mp3");
+gunsMusic.load();
 
 var rightLeftKeys = new Image();
 rightLeftKeys.src = "./assets/2_restaurant/keys_r_l.png";
@@ -54,6 +36,11 @@ var confettis = false;
 var celebration = false;
 var animated = true;
 
+var dinoAnimation = false;
+
+var vVolume = 1;
+var gVolume = 0;
+
 var endHeight = 400;
 var endWidth = 1200;
 var endX = left;
@@ -62,7 +49,7 @@ var endY = top;
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
-    dino.updateState("waiting");
+    dino.updateState("walkin");
     generateConfettis(ctx);
     confettis = true;
   }
@@ -85,13 +72,21 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
+    velvetMusic.volume(vVolume);
+    velvetMusic.play();
+
     if (animated) {
-      music.volume(1);
-      music.play();
       drawOpening(ctx, left, top);
     } else {
       generateRestBack(ctx, game, left);
-      dinoAnim(ctx, left, newHeight);
+      setTimeout(animateDino, 6000);
+      if (dinoAnimation) {
+        dinoAnim(ctx, left, newHeight);
+        if (vVolume > 0.01) vVolume -= 0.01;
+        if (dino.state != "levelEnd") gVolume < 0.99 ? Math.floor(gVolume += 0.01) : gVolume = 1;
+        gunsMusic.volume(gVolume);
+        gunsMusic.play();
+      }
       drawTrash(ctx);
       if (startAttending) {
         generateNote(ctx, game);
@@ -121,6 +116,8 @@ export function startLevel(ctx, game, dino) {
     endY += 0.3;
     ctx.fillRect(endX, endY, endWidth, endHeight);
     ctx.restore();
+    gVolume > 0.001 ? Math.floor(gVolume -= 0.001) : gunsMusic.stop();
+    if (endWidth < 0 || endHeight < 0) game.switchLevel(3);
   }
 }
 
@@ -140,13 +137,9 @@ function endAnimation() {
   animated = false;
 }
 
+function animateDino() {
+  dinoAnimation = true;
+}
 
-export {
-  newHeight,
-  attends,
-  winWidth,
-  winHeight,
-  startCelebration,
-  serviceOver,
-  endAnimation,
-};
+
+export { newHeight, attends, winWidth, winHeight, startCelebration, serviceOver, endAnimation };

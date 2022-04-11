@@ -13,6 +13,9 @@ export function sound(src) {
   this.stop = function () {
     this.sound.pause();
   }
+  this.load = function () {
+    this.sound.load();
+  }
   this.volume = function (vol) {
     this.sound.volume = vol;
   }

@@ -1,19 +1,7 @@
-import {
-  dino,
-  top
-} from "../../script.js";
-import {
-  attends,
-  startCelebration,
-  serviceOver
-} from "./startLevel2.js";
-import {
-  brokenPlates
-} from "./plates.js";
-
-import {
-  fireCook
-} from "./customers.js";
+import { dino, top } from "../../script.js";
+import { attends, startCelebration, serviceOver } from "./startLevel2.js";
+import { brokenPlates } from "./plates.js";
+import { fireCook } from "./customers.js";
 
 var charOffset = 0;
 
@@ -49,12 +37,10 @@ var dinoXOffset = 0;
 var doorOffset = 0;
 var xOffset = 320;
 var dinoYOffset = 0;
-var hasBroom = false;
 var isHigh = false;
 var speed = 0;
 
 function dinoAnim(ctx, left, newHeight) {
-
   if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
@@ -67,7 +53,6 @@ function dinoAnim(ctx, left, newHeight) {
       }
     }
   }
-
   if (dino.state === "entering") {
     dino.x = 580 + left;
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
@@ -210,10 +195,4 @@ function dinoAnim(ctx, left, newHeight) {
 }
 
 
-export {
-  dinoAnim,
-  dinoXOffset,
-  doorOffset,
-  xOffset,
-  charOffset,
-};
+export { dinoAnim, dinoXOffset, doorOffset, xOffset, charOffset };

@@ -27,7 +27,7 @@ export function startLevel(ctx, game, dino) {
     if(!game.levelDone) {
       music.play();
     } else {
-      if (vol > 0.01 && alpha > 0) vol -= 0.01;
+      vol > 0.01 && alpha > 0 ? vol -= 0.01 : music.stop();
     }
     if (game.levelDone && alpha > 0.01) alpha -= 0.01;
     if (alpha < 0.01) {
@@ -55,7 +55,7 @@ export function startLevel(ctx, game, dino) {
     if (game.score >  4172 ) game.levelDone = true;
 
     if (exit) {
-      if (vol2 > 0.005) vol2 -= 0.005;
+      vol2 > 0.005? vol2 -= 0.005 : music2.stop();
       exitD > 2 ? exitD -= 2 : game.switchLevel(2);
       ctx.save();
       ctx.globalCompositeOperation = 'destination-in';
