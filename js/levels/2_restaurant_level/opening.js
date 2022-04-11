@@ -64,7 +64,8 @@ function drawOpening(ctx, left, top) {
     if (yOffset >= 620 && yOffset < 750) {
       seaOffset += 2;
     }
-    ctx.drawImage(seaSprite, 300, 20 + (241 * seaAnim.frameIndex), 600, 110, left, top + 400 - seaOffset, 1200, 260);
+
+    ctx.drawImage(seaSprite, 332, 20 + (241 * seaAnim.frameIndex), 600, 110, left, top + 400 - seaOffset, 1200, 260);
 
   } else {
     if (xOffset < 400) {
@@ -78,7 +79,7 @@ function drawOpening(ctx, left, top) {
 
     ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 1.5), top - 1500 + (xOffset * 2.05), 2400 - (xOffset * 3), 1640 - (xOffset * 2.05),);
     animSea();
-    ctx.drawImage(seaSprite, 300 - (xOffset * 0.75), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 1.5), 110 + (xOffset * 0.275), left, top + 140, 1200, 260);
+    ctx.drawImage(seaSprite, 332 - (xOffset * 0.75), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 1.5), 110 + (xOffset * 0.275), left, top + 140, 1200, 260);
 
     ctx.drawImage(rampSprite, 592 - (xOffset * 0.68), 0, 77 + (xOffset * 1.3075), 26 + (xOffset * 0.435), left, top + 199 - (xOffset * 0.1), 1200, 400);
 
