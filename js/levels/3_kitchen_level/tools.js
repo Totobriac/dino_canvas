@@ -21,7 +21,6 @@ function load(ctx, game) {
 }
 
 async function drawTools(ctx, game) {
-  console.log(game.loadedLevel[3]);
   await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDesplayed === true) {
