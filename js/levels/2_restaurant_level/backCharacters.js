@@ -35,7 +35,7 @@ var oldDirection;
 var isMikiKaKo = false;
 
 var loop = 0;
-var mJx = 680;
+var mJx = 900;
 
 var passerTick = 0;
 var passerby = [];
@@ -59,14 +59,14 @@ function generateChar(ctx, game, dino) {
     exiting = new Character(ctx, game, pics.moonWalk, mJx, 140, -1, 7, 0.2, 40, 67, 2.2);
     isMikiKaKo = true;
   }
-
+  if (entering) console.log(entering.x);
   if (dino.state === "done") exit = true;
 
   if (isMikiKaKo) {
 
     if (enter) entering.updateChar();
 
-    if (entering.x < 680) {
+    if (entering.x < 900) {
       enter = false;
       startToDance = true;
     }
