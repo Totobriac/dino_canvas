@@ -1,3 +1,5 @@
+import { endAnimation } from "./startLevel2.js";
+
 var skySprite = new Image();
 skySprite.src = "./assets/2_restaurant/sky.png";
 
@@ -29,6 +31,8 @@ var zoomOut = false;
 var doorOffset = 78;
 var closeDoor = false;
 
+var alpha = 0;
+
 const seaAnim = {
   frames: 6,
   frameIndex: 0,
@@ -47,8 +51,13 @@ const cook = {
 function drawOpening(ctx, left, top) {
 
   if (!zoomOut) {
-    yOffset < 750 ? yOffset += 1 : zoomOut = true;;
+    yOffset < 750 ? yOffset += 1 : zoomOut = true;
+
+    ctx.save();
+    alpha += 0.003;
+    ctx.globalAlpha = alpha;
     ctx.drawImage(skySprite, 300, yOffset, 600, 200, left, top, 1200, 400);
+    ctx.restore();
 
     animSea();
 
@@ -58,23 +67,23 @@ function drawOpening(ctx, left, top) {
     ctx.drawImage(seaSprite, 300, 20 + (241 * seaAnim.frameIndex), 600, 110, left, top + 400 - seaOffset, 1200, 260);
 
   } else {
-
-    if (xOffset < 200) {
+    if (xOffset < 400) {
       xOffset++;
-    } else if (xOffset === 200 && doorOffset > 0) {
+    } else if (xOffset === 400 && doorOffset > 0) {
       closeDoor = true;
       doorOffset -= 0.5;
+    } else if (doorOffset === 0) {
+      endAnimation();
     }
 
-    ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 3), top - 1500 + (xOffset * 4.1), 2400 - (xOffset * 6), 1640 - (xOffset * 4.1),);
+    ctx.drawImage(skySprite, 0, 0, 1200, 820, left - 600 + (xOffset * 1.5), top - 1500 + (xOffset * 2.05), 2400 - (xOffset * 3), 1640 - (xOffset * 2.05),);
     animSea();
-    ctx.drawImage(seaSprite, 300 - (xOffset * 1.5), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 3), 110 + (xOffset * 0.55), left, top + 140, 1200, 260);
+    ctx.drawImage(seaSprite, 300 - (xOffset * 0.75), 20 + (241 * seaAnim.frameIndex), 600 + (xOffset * 1.5), 110 + (xOffset * 0.275), left, top + 140, 1200, 260);
 
-    ctx.drawImage(rampSprite, 592 - (xOffset * 1.36), 0, 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top + 199 - (xOffset * 0.2), 1200, 400);
+    ctx.drawImage(rampSprite, 592 - (xOffset * 0.68), 0, 77 + (xOffset * 1.3075), 26 + (xOffset * 0.435), left, top + 199 - (xOffset * 0.1), 1200, 400);
 
     if (closeDoor) drawDoor(ctx, left, top);
-    ctx.drawImage(restBackSprite, 592 - (xOffset * 1.36), 54 - (xOffset * 0.27), 77 + (xOffset * 2.615), 26 + (xOffset * 0.87), left, top, 1200, 400);
-
+    ctx.drawImage(restBackSprite, 592 - (xOffset * 0.68), 54 - (xOffset * 0.135), 77 + (xOffset * 1.3075), 26 + (xOffset * 0.435), left, top, 1200, 400);
 
     drawChar(ctx, left, top);
   }
@@ -111,12 +120,7 @@ function checkFrame(sprite) {
 function drawChar(ctx, left, top) {
   cook.tickCount += 1;
   checkFrame(cook);
-  //ctx.drawImage(cookySprite, 0,(400 * cook.frameIndex), 50, 100, 1000 + left + 60, 155 + top, 60, 120);
-
-  ctx.drawImage(cookSprite, 1184 - (xOffset * 2.72), 108 - (xOffset * 0.54) + (400 * cook.frameIndex), 154 + (xOffset * 5.23), 52 + (xOffset * 1.74), left, top, 1200, 400);
-
+  ctx.drawImage(cookSprite, 1184 - (xOffset * 1.36), 108 - (xOffset * 0.27) + (400 * cook.frameIndex), 154 + (xOffset * 2.615), 52 + (xOffset * 0.87), left, top, 1200, 400);
 }
 
-export {
-  drawOpening
-};
+export { drawOpening };

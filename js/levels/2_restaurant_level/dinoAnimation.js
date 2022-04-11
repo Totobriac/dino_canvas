@@ -54,6 +54,7 @@ var isHigh = false;
 var speed = 0;
 
 function dinoAnim(ctx, left, newHeight) {
+
   if (dino.state === "walkin") {
     if (dinoXOffset < 520) {
       dinoXOffset++;
@@ -86,7 +87,6 @@ function dinoAnim(ctx, left, newHeight) {
       fireCook();
     }
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, dino.x, 165 - dinoYOffset + top, 66, 70);
-
   }
 
   if (dino.state === "isChanging") {

@@ -1,14 +1,35 @@
-import { top, left } from "../../script.js";
-import { generateRestBack } from "./restBack.js";
-import { generatePlates, drawTrash } from "./plates.js";
-import { generateNote } from "./notepad.js";
-import { drawDinoWaiter } from "./waiter.js";
-import { dinoAnim } from "./dinoAnimation.js";
-import { generateConfettis, celebrate } from "./confetti.js";
-import { drawOpening } from "./opening.js";
+import {
+  top,
+  left
+} from "../../script.js";
+import {
+  generateRestBack
+} from "./restBack.js";
+import {
+  generatePlates,
+  drawTrash
+} from "./plates.js";
+import {
+  generateNote
+} from "./notepad.js";
+import {
+  drawDinoWaiter
+} from "./waiter.js";
+import {
+  dinoAnim
+} from "./dinoAnimation.js";
+import {
+  generateConfettis,
+  celebrate
+} from "./confetti.js";
+import {
+  drawOpening
+} from "./opening.js";
 
-import { sound } from "../../sound.js";
-var music = new sound("../assets/2_restaurant/jungle.mp3");
+import {
+  sound
+} from "../../sound.js";
+var music = new sound("../assets/2_restaurant/velvet.mp3");
 
 var rightLeftKeys = new Image();
 rightLeftKeys.src = "./assets/2_restaurant/keys_r_l.png";
@@ -31,6 +52,7 @@ var startAnim = false;
 var startAttending = false;
 var confettis = false;
 var celebration = false;
+var animated = true;
 
 var endHeight = 400;
 var endWidth = 1200;
@@ -40,7 +62,7 @@ var endY = top;
 export function startLevel(ctx, game, dino) {
 
   if (!confettis) {
-    dino.updateState("walkin");
+    dino.updateState("waiting");
     generateConfettis(ctx);
     confettis = true;
   }
@@ -61,19 +83,22 @@ export function startLevel(ctx, game, dino) {
 
   if (game.keyDown && (game.keyDown.code === "ArrowLeft" || game.keyDown.code === "ArrowRight")) startAnim = true;
 
-  if (!game.start) drawOpening(ctx, left, top);
-
   if (game.start) {
-    music.volume(1);
-    music.play();
-    generateRestBack(ctx, game, left);
-    dinoAnim(ctx, left, newHeight);
-    drawTrash(ctx);
-    if (startAttending) {
-      generateNote(ctx, game);
-      if (dino.state === "working") {
-        drawDinoWaiter(ctx, dino, game);
-        generatePlates(ctx, game.frame, dino);
+
+    if (animated) {
+      music.volume(1);
+      music.play();
+      drawOpening(ctx, left, top);
+    } else {
+      generateRestBack(ctx, game, left);
+      dinoAnim(ctx, left, newHeight);
+      drawTrash(ctx);
+      if (startAttending) {
+        generateNote(ctx, game);
+        if (dino.state === "working") {
+          drawDinoWaiter(ctx, dino, game);
+          generatePlates(ctx, game.frame, dino);
+        }
       }
     }
   }
@@ -90,10 +115,10 @@ export function startLevel(ctx, game, dino) {
   if (dino.state === "levelEnd") {
     ctx.save();
     ctx.globalCompositeOperation = 'destination-in';
-    endWidth-= 1.8;
-    endHeight-= 0.5;
-    endX+= 1.25;
-    endY+= 0.3;
+    endWidth -= 1.8;
+    endHeight -= 0.5;
+    endX += 1.25;
+    endY += 0.3;
     ctx.fillRect(endX, endY, endWidth, endHeight);
     ctx.restore();
   }
@@ -111,5 +136,17 @@ function startCelebration() {
   celebration = true;
 }
 
+function endAnimation() {
+  animated = false;
+}
 
-export { newHeight, attends, winWidth, winHeight, startCelebration, serviceOver };
+
+export {
+  newHeight,
+  attends,
+  winWidth,
+  winHeight,
+  startCelebration,
+  serviceOver,
+  endAnimation,
+};
