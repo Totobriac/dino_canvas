@@ -19,6 +19,8 @@ canvas.width = 1200;
 var circleD = 0;
 var start = false;
 
+var pic
+
 window.addEventListener('mousedown', function () {
   startGame();
 })
@@ -46,7 +48,13 @@ export function startLevel(game, ctx) {
     if (sink) sink.drawSink(ctx);
     drawStove(ctx);
     drawTools(ctx, game);
+  pic = canvas.toDataURL();
+    setTimeout(print, 3000);
   }
+}
+
+function print() {
+  console.log(pic);
 }
 
 function startGame() {

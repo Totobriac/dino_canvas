@@ -67,9 +67,11 @@ class Onion extends Tool {
       sink.faucet = false;
 
       onTop("onion");
+
       var backPic = document.getElementById("back");
       backPic.style.background = "url('./assets/3_kitchen/peeled_onion_back.png')";
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
+
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
@@ -143,11 +145,7 @@ class Onion extends Tool {
       this.ctx.fill();
     }
 
-    rgb = {
-      r: 0,
-      g: 0,
-      b: 0
-    };
+    rgb = {r: 0, g: 0, b: 0 };
     count = 0;
     i = -4;
     blockSize = 5;

@@ -4,7 +4,7 @@
   --canvas-top : 50%;
 }
 
-#canvas {
+/* #canvas {
   position: absolute;
   top: var(--canvas-top);
   left: 50%;
@@ -12,7 +12,15 @@
   height: var(--canvas-height);
   width: var(--canvas-width);
   background: transparent;
-  /*border: 1px black solid;*/
+} */
+#canvas {
+  position: relative;
+  top: 0;
+  left: 0;
+  
+  height: var(--canvas-height);
+  width: var(--canvas-width);
+  background: transparent;
 }
 
 @font-face {
@@ -50,12 +58,12 @@
   src: url("../assets/fonts/Roboto.ttf");
 }
 
-/* #back {
+#back {
   position: absolute;
-  top: 50%;
+  top: var(--canvas-top);
   left: 50%;
-  transform: translate(-50%, -50%);
-  height: 400px;
-  width: 1200px;
+  transform: translate(-50%, 0);
+  height: var(--canvas-height);
+  width: var(--canvas-width);
   background-size: cover;
-} */
+}
