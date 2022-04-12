@@ -1,9 +1,22 @@
-import { drawStove } from "./tools/stove.js";
-import { drawTools, sink } from "./tools.js";
-import { setControls } from "./control.js";
-import { generateTable } from "./tools/table.js";
-import { top } from "../../script.js";
-import { drawBubbles } from "./bubbleIntro.js";
+import {
+  drawStove
+} from "./tools/stove.js";
+import {
+  drawTools,
+  sink
+} from "./tools.js";
+import {
+  setControls
+} from "./control.js";
+import {
+  generateTable
+} from "./tools/table.js";
+import {
+  top
+} from "../../script.js";
+import {
+  drawBubbles
+} from "./bubbleIntro.js";
 
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', '400px');
@@ -25,7 +38,7 @@ var start = false;
 
 var mask = true;
 
-window.addEventListener('mousedown', function () {
+window.addEventListener('mousedown', function() {
   startGame();
 })
 
@@ -39,7 +52,7 @@ export function startLevel(game, ctx) {
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
-  ctx.arc(602 , 203, circleD, 0, 2 * Math.PI);
+  ctx.arc(602, 203, circleD, 0, 2 * Math.PI);
   ctx.fill();
   ctx.restore();
 
@@ -52,16 +65,18 @@ export function startLevel(game, ctx) {
     if (!mask) drawTools(ctx, game);
 
     if (mask) {
-      ctx.drawImage(backSprite,0,0);
+      ctx.drawImage(backSprite, 0, 0);
       ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalCompositeOperation = 'destination-in';
       drawBubbles(ctx);
       ctx.restore();
     }
   }
 }
 
-function startGame() { start = true };
+function startGame() {
+  start = true
+};
 
 function drawMask() {
   mask = true;

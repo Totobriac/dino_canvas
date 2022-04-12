@@ -27,27 +27,28 @@ class Bubble {
       this.life = false;
   }
   draw() {
-    this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     this.ctx.fillStyle = this.color;
-    this.ctx.fill();
   }
 }
 
 function update(ctx) {
   for (let i = bubbles.length - 1; i >= 0; i--) {
     bubbles[i].update();
-
     if (!bubbles[i].life)
       bubbles.splice(i, 1);
   }
-  if (bubbles.length < 300)
+  if (bubbles.length < 5)
     addBubble(ctx);
 }
 
 export function drawBubbles(ctx) {
   update(ctx);
-  for (let i = bubbles.length - 1; i >= 0; i--) {
+
+  ctx.beginPath();
+  for (let i=bubbles.length - 1; i >= 0; i--) {
     bubbles[i].draw();
   }
+  ctx.fill();
+
 }
