@@ -3,6 +3,7 @@ import { drawTools, sink } from "./tools.js";
 import { setControls } from "./control.js";
 import { generateTable } from "./tools/table.js";
 import { top } from "../../script.js";
+import { drawBubbles } from "./bubbleIntro.js";
 
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', '400px');
@@ -13,13 +14,16 @@ canvasStyle.setProperty('--canvas-top', top + 'px');
 var rightLeftKeys = new Image();
 rightLeftKeys.src = "./assets/3_kitchen/left_mouse.png";
 
+var backSprite = new Image();
+backSprite.src = "./assets/3_kitchen/back.png";
+
 canvas.height = 400;
 canvas.width = 1200;
 
 var circleD = 0;
 var start = false;
 
-var pic
+var mask = true;
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -31,8 +35,6 @@ export function startLevel(game, ctx) {
   if (circleD >= 0.5 && start) circleD -= 0.5;
   if (circleD === 0 && start) game.start = true;
 
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(rightLeftKeys, 545, 130, 160 * 0.7, 164 * 0.7);
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
@@ -42,21 +44,25 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
-    ctx.globalCompositeOperation = 'source-over';
     setControls();
     generateTable(ctx);
     if (sink) sink.drawSink(ctx);
     drawStove(ctx);
-    drawTools(ctx, game);
-  pic = canvas.toDataURL();
-    setTimeout(print, 3000);
+
+    if (!mask) drawTools(ctx, game);
+
+    if (mask) {
+      ctx.drawImage(backSprite,0,0);
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      drawBubbles(ctx);
+      ctx.restore();
+    }
   }
 }
 
-function print() {
-  console.log(pic);
-}
+function startGame() { start = true };
 
-function startGame() {
-  start = true;
+function drawMask() {
+  mask = true;
 }
