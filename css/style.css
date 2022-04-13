@@ -4,15 +4,6 @@
   --canvas-top : 50%;
 }
 
-/* #canvas {
-  position: absolute;
-  top: var(--canvas-top);
-  left: 50%;
-  transform: translate(-50%, 0);
-  height: var(--canvas-height);
-  width: var(--canvas-width);
-  background: transparent;
-} */
 #canvas {
   position: relative;
   top: 0;

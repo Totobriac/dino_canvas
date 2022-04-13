@@ -14,7 +14,6 @@ function load(ctx, game) {
       sink = new Sink();
       tools = generateTools(ctx);
       game.loadedLevel[3] = true;
-      console.log("second");
       resolve();
     })
   }
@@ -23,7 +22,7 @@ function load(ctx, game) {
 async function drawTools(ctx, game) {
   await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
-    if (tools[i].isDesplayed === true) {
+    if (tools[i].isDisplayed === true) {
       tools[i].draw();
       tools[i].isClose();
     }
@@ -37,16 +36,16 @@ async function drawTools(ctx, game) {
 function displayTool(toolL) {
   for (let i = 0; i < tools.length; i++) {
     if (toolL.includes(tools[i].name)) {
-      tools[i].isDesplayed = true;
+      tools[i].isDisplayed = true;
     } else {
-      tools[i].isDesplayed = false;
+      tools[i].isDisplayed = false;
     }
   }
 }
 
 function displayAllTools() {
   for (let i = 0; i < tools.length; i++) {
-    tools[i].isDesplayed = true;
+    tools[i].isDisplayed = true;
   }
 }
 

@@ -46,7 +46,6 @@ class Onion extends Tool {
     this.points = [];
   }
   draw() {
-
     this.spinOnion();
 
     super.draw();
@@ -70,9 +69,10 @@ class Onion extends Tool {
 
       var backPic = document.getElementById("back");
       backPic.style.background = "url('./assets/3_kitchen/peeled_onion_back.png')";
-      this.ctx.fillStyle = "rgb(0,0,0,0.81)";
 
+      this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
 
@@ -137,6 +137,7 @@ class Onion extends Tool {
     }
   }
   peel() {
+    this.ctx.save();
     this.ctx.globalCompositeOperation = 'destination-out';
     this.ctx.fillStyle = "rgba(0,0,0,1)"
     for (let i = 0; i < this.points.length; i++) {
@@ -144,7 +145,8 @@ class Onion extends Tool {
       this.ctx.arc(this.points[i].x, this.points[i].y, 30, 0, 2 * Math.PI);
       this.ctx.fill();
     }
-
+    this.ctx.restore();
+    
     rgb = {r: 0, g: 0, b: 0 };
     count = 0;
     i = -4;

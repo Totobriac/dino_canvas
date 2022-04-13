@@ -1,22 +1,9 @@
-import {
-  drawStove
-} from "./tools/stove.js";
-import {
-  drawTools,
-  sink
-} from "./tools.js";
-import {
-  setControls
-} from "./control.js";
-import {
-  generateTable
-} from "./tools/table.js";
-import {
-  top
-} from "../../script.js";
-import {
-  drawBubbles
-} from "./bubbleIntro.js";
+import { drawStove } from "./tools/stove.js";
+import { drawTools, sink } from "./tools.js";
+import { setControls } from "./control.js";
+import { generateTable } from "./tools/table.js";
+import { top } from "../../script.js";
+import { drawBubbles } from "./bubbleIntro.js";
 
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', '400px');
@@ -44,6 +31,7 @@ window.addEventListener('mousedown', function() {
 
 export function startLevel(game, ctx) {
 
+
   if (circleD < 60 && !start) circleD += 0.5;
   if (circleD >= 0.5 && start) circleD -= 0.5;
   if (circleD === 0 && start) game.start = true;
@@ -61,7 +49,7 @@ export function startLevel(game, ctx) {
     generateTable(ctx);
     if (sink) sink.drawSink(ctx);
     drawStove(ctx);
-
+    
     if (!mask) drawTools(ctx, game);
 
     if (mask) {
@@ -78,6 +66,6 @@ function startGame() {
   start = true
 };
 
-function drawMask() {
-  mask = true;
+export function removeMask() {
+  mask = false;
 }

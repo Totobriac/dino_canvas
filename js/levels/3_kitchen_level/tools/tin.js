@@ -1,13 +1,7 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
+import { sink, deleteTool } from "../tools.js";
+import { pasta } from "../toolGeneration.js";
 
-import {
-  tools,
-  sink,
-  deleteTool,
-  onTop,
-} from "../tools.js";
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -45,8 +39,11 @@ class Tin extends Tool {
     }
 
     if (this.inPlace && this.tinOpener.inPlace || this.tinOpener.isOpening) {
+
       sink.faucet = false;
       this.tinOpener.isOpening = true;
+
+      pasta.isDisplayed = false;
 
       var backPic = document.getElementById("back");
       backPic.style.background = "url('./assets/3_kitchen/peeled_onion_back.png')";
@@ -76,6 +73,7 @@ class Tin extends Tool {
       r: 28
     }
     this.isOpen = true;
+    pasta.isDisplayed = true;
   }
 }
 
@@ -119,7 +117,4 @@ function drawLabel(ang, tilt, perspective, ctx) {
   }
 }
 
-
-export {
-  Tin
-};
+export { Tin };

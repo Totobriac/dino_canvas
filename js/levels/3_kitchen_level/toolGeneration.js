@@ -254,14 +254,6 @@ function generateTools(ctx) {
   return tools;
 }
 
-export {
-  generateTools,
-  pot,
-  butterKnife,
-  butterBig,
-  onion,
-  chefKnife,
-  garlicPress,
-  meat,
-  notepad,
+export { generateTools, pot, butterKnife, butterBig,
+  onion, chefKnife, garlicPress, meat, notepad, pasta, pan
 };

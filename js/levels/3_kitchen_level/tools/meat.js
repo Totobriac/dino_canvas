@@ -33,7 +33,7 @@ class Meat extends Tool {
     } else if (this.x === 934 && this.y === 190 && this.minced) {
       this.inPlace = true;
       this.break = true;
-      this.pieces.forEach((piece, i) => {
+      this.pieces.forEach((piece) => {
         this.ctx.drawImage(meatSprite, piece.picX, piece.picY, 33, 33, piece.x, piece.y, 6, 6);
       });
     } else {
@@ -61,6 +61,7 @@ class Meat extends Tool {
     }
   }
   crushMeat(i) {
+    this.canBeSelected = false;
     this.piecesNum++;
     var pLin = Math.floor(i / 10);
     var pCol = i - pLin * 10;

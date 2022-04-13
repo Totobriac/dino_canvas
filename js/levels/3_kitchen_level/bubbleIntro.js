@@ -1,3 +1,5 @@
+import { removeMask } from "./startLevel3.js";
+
 let bubbles = [];
 
 var startY = 500;
@@ -47,7 +49,7 @@ function update(ctx, startY) {
 
 export function drawBubbles(ctx) {
 
-  startY -= 0.4;
+  startY > 0.4 ? startY -= 0.4 : removeMask();
 
   update(ctx, startY);
 

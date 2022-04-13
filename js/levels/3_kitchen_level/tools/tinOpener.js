@@ -1,16 +1,6 @@
-import {
-  Tool,
-} from "./tool.js";
-
-import {
-  onTop,
-  displayTool,
-  addStep,
-} from "../tools.js";
-
-import {
-  mouse
-} from "../control.js";
+import { Tool } from "./tool.js";
+import { addStep } from "../tools.js";
+import { mouse } from "../control.js";
 
 var handleSprite = new Image();
 handleSprite.src = "./assets/3_kitchen/handle_tin_opener.png";
@@ -92,6 +82,4 @@ function distance(obj1, obj2) {
     (obj1.y - obj2.y) * (obj1.y - obj2.y))
 }
 
-export {
-  TinOpener
-};
+export { TinOpener };

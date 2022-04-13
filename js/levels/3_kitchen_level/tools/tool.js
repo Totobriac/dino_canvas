@@ -17,7 +17,7 @@ class Tool {
     this.inPlace = false;
     this.isMoving = false;
     this.isSelected = false;
-    this.isDesplayed = true;
+    this.isDisplayed = true;
     this.canBeSelected = true;
   }
   draw() {
@@ -61,6 +61,5 @@ class Tool {
     this.ctx.fill();
   }
 }
-
 
 export { Tool };

@@ -1,6 +1,7 @@
 import { Tool } from "./tool.js";
 import { onTop, onTopTwo, addStep } from "../tools.js";
 
+
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/3_kitchen/pasta.png";
 
@@ -53,7 +54,7 @@ class Pasta extends Tool {
       super.draw();
     }
 
-    if (this.areCooking === true) {
+    if (this.areCooking) {
 
       this.notepad.isSelected || this.spoon.isSelected ? onTopTwo(this.top) : onTop(this.top);
 
@@ -111,7 +112,7 @@ class Pasta extends Tool {
             y: 132,
             r: 60
           };
-          if (this.pot.inPlace === false) {
+          if (!this.pot.inPlace) {
             this.doneCooking = true;
           }
         }
@@ -130,7 +131,8 @@ class Pasta extends Tool {
         y: undefined,
         r: undefined,
       };
-      this.top = "pot";
+
+      //if (distance({ x: this.pot.x, y: this.pot.y }, { x: this.colander.x, y: this.colander.y }) < this.colander.width) this.top = "pot";
     }
     if (this.colander.hasPastas) {
 
@@ -147,7 +149,7 @@ class Pasta extends Tool {
       tempCanvas.width = 1400;
       tempCanvas.height = 400;
 
-      tempContext.translate(this.colander.x , this.colander.y);
+      tempContext.translate(this.colander.x, this.colander.y);
       tempContext.rotate(this.angle * 0.5 * Math.PI / 180);
 
       tempContext.globalAlpha = 0.7;
@@ -167,6 +169,9 @@ class Pasta extends Tool {
   }
 }
 
-export {
-  Pasta
-};
+function distance(obj1, obj2) {
+  return Math.sqrt((obj1.x - obj2.x) * (obj1.x - obj2.x) +
+    (obj1.y - obj2.y) * (obj1.y - obj2.y))
+}
+
+export { Pasta };

@@ -10,7 +10,6 @@ var steps = ["Remplir la casserole d'eau", "Allumer le feu en haut à droite",
 
 var oldStep = 0;
 
-
 class Notepad extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);

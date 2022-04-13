@@ -2,6 +2,7 @@ import { Tool } from "./tool.js";
 import { burners } from "./stove.js";
 import { mouse } from "../control.js";
 import { addStep } from "../tools.js";
+import { pan } from "../toolGeneration.js";
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
@@ -18,7 +19,7 @@ meatSprite.src = "./assets/3_kitchen/meat.png";
 var sauceRadius = 0;
 
 class Veggy {
-  constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
+  constructor(pX, pY, pWidth, pHeight, width, height, color, ctx, pan) {
     this.panX = pX + pWidth / 2 + 28;
     this.panY = pY + pHeight / 3 + 5;
     this.x = this.panX - 56 + Math.floor(Math.random() * 112);
@@ -28,6 +29,7 @@ class Veggy {
     this.color = color;
     this.angle = -30 + Math.floor(Math.random() * 60);
     this.ctx = ctx;
+    this.pan = pan;
   }
   draw() {
     this.ctx.save();
@@ -39,9 +41,9 @@ class Veggy {
   }
   update() {
     if (distance({
-        x: this.x,
-        y: this.y
-      }, mouse) < 5) {
+      x: this.x,
+      y: this.y
+    }, mouse) < 5) {
 
       switch (true) {
         case mouse.moveX > 0 && mouse.moveY > 0:
@@ -58,18 +60,22 @@ class Veggy {
           break;
       }
     }
+    if (this.pan.hasSauce) {
+      if (this.width > 1) this.width -= 0.002;
+      if (this.height > 1) this.height -= 0.002;
+    }
   }
   moveVeggy(x, y) {
     for (let i = 0; i < 5; i++) {
       var nextX = this.x + x;
       var nextY = this.y + y;
       if (distance({
-          x: nextX,
-          y: nextY
-        }, {
-          x: this.panX,
-          y: this.panY
-        }) < 56) {
+        x: nextX,
+        y: nextY
+      }, {
+        x: this.panX,
+        y: this.panY
+      }) < 56) {
         this.x += x;
         this.y += y;
       } else {
@@ -81,7 +87,7 @@ class Veggy {
 }
 
 class MeatPiece extends Veggy {
-  constructor(pX, pY, pWidth, pHeight, x, y, picX, picY, ctx) {
+  constructor(pX, pY, pWidth, pHeight, x, y, picX, picY, ctx, pan) {
     super();
     this.panX = pX + pWidth / 2 + 28;
     this.panY = pY + pHeight / 3 + 5;
@@ -92,6 +98,7 @@ class MeatPiece extends Veggy {
     this.picX = picX;
     this.picY = picY;
     this.ctx = ctx;
+    this.pan = pan;
   }
   drawMeat() {
     this.ctx.drawImage(meatSprite, this.picX, this.picY, 33, 33, this.x, this.y, this.width, this.height);
@@ -127,9 +134,10 @@ class Pan extends Tool {
       if (Math.floor(sauceRadius) === 57) addStep(16);
       this.ctx.fillStyle = "red";
       this.ctx.beginPath();
-      this.ctx.arc(this.x + this.width / 2 + 28 , this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
+      this.ctx.arc(this.x + this.width / 2 + 28, this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
       this.ctx.fill();
     }
+
     if (!this.stirVeg) {
       if (this.butter.isCut === true) this.buttMelt();
       if (this.hasOnion === true) this.addOnion();
@@ -146,8 +154,8 @@ class Pan extends Tool {
     var x = this.x + this.width / 2 + 28;
     var y = this.y + this.height / 3 + 5;
 
-    if(this.stirVeg && this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
-      this.stirV ++;
+    if (this.stirVeg && this.spoon.isSelected && distance(mouse, { x: x, y: y }) < 56) {
+      this.stirV++;
       if (this.stirV > 600) addStep(11);
     }
     if (this.justCrushed) {
@@ -155,8 +163,8 @@ class Pan extends Tool {
         this.meatP[i].update();
         this.meatP[i].drawMeat();
       };
-      if(this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
-        this.stirM ++;
+      if (this.spoon.isSelected && distance(mouse, { x: x, y: y }) < 56) {
+        this.stirM++;
         if (this.stirM > 600) addStep(14);
       }
     }
@@ -167,9 +175,9 @@ class Pan extends Tool {
     }
 
     if (this.inPlace && this.spoon.isSelected && distance(mouse, {
-        x: this.x + this.width / 2 + 28,
-        y: this.y + this.height / 3 + 5
-      }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
+      x: this.x + this.width / 2 + 28,
+      y: this.y + this.height / 3 + 5
+    }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
       this.hasCarrot === true && this.hasGarlic === true) {
       this.stirVeg = true;
     }
@@ -181,7 +189,7 @@ class Pan extends Tool {
   generateMeat() {
     if (this.justCrushed === false) {
       this.meat.pieces.forEach((piece, i) => {
-        this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx))
+        this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx, pan))
       });
       this.justCrushed = true;
     }
@@ -236,32 +244,32 @@ class Pan extends Tool {
   }
   generateVeggies() {
     var vegetables = [{
-        number: 350,
-        width: 5,
-        height: 5,
-        color: "white"
-      },
-      {
-        number: 250,
-        width: 3,
-        height: 3,
-        color: "yellow"
-      },
-      {
-        number: 350,
-        width: 4,
-        height: 4,
-        color: "orange"
-      },
+      number: 350,
+      width: 5,
+      height: 5,
+      color: "white"
+    },
+    {
+      number: 250,
+      width: 3,
+      height: 3,
+      color: "yellow"
+    },
+    {
+      number: 350,
+      width: 4,
+      height: 4,
+      color: "orange"
+    },
     ];
     vegetables.forEach((veg, i) => {
       for (let i = 0; i < veg.number; i++) {
-        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx);
+        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx, pan);
 
         if (distance(newVeg, {
-            x: this.x + this.width / 2 + 28,
-            y: this.y + this.height / 3 + 5
-          }) < 56) {
+          x: this.x + this.width / 2 + 28,
+          y: this.y + this.height / 3 + 5
+        }) < 56) {
           this.veggies.push(newVeg);
           this.veggies.sort((a, b) => 0.5 - Math.random());
         }
@@ -272,6 +280,7 @@ class Pan extends Tool {
 
   }
 }
+
 
 function distance(obj1, obj2) {
   return Math.sqrt((obj1.x - obj2.x) * (obj1.x - obj2.x) +
