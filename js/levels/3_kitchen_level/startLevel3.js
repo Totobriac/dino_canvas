@@ -5,6 +5,7 @@ import { generateTable } from "./tools/table.js";
 import { top } from "../../script.js";
 import { drawBubbles } from "./bubbleIntro.js";
 
+
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', '400px');
 canvasStyle.setProperty('--canvas-width', '1200px');
@@ -23,7 +24,7 @@ canvas.width = 1200;
 var circleD = 0;
 var start = false;
 
-var mask = true;
+var mask = false;
 
 window.addEventListener('mousedown', function() {
   startGame();

@@ -1,6 +1,9 @@
-import { getCursorPosition} from "../function.js";
+import { getCursorPosition } from "../function.js";
 import { addStep, stepDone } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+var stoveSound = new sound("../assets/3_kitchen/sounds/stove.mp3", true);
+import { playSound, stopSound } from "../sound.js";
 
 var stoveSprite = new Image();
 stoveSprite.src = "./assets/3_kitchen/stove.png";
@@ -21,6 +24,7 @@ var burner4Sprite = new Image();
 burner4Sprite.src = "./assets/3_kitchen/burner_4.png";
 
 var buttons = [880, 910, 950, 995, 1027];
+
 
 var burners = [{
   sprite: burner0Sprite,
@@ -50,7 +54,7 @@ var burners = [{
   y: 114,
   width: 131,
   height: 109
-},{
+}, {
   sprite: burner4Sprite,
   isOn: false,
   x: 1027,
@@ -58,7 +62,6 @@ var burners = [{
   width: 131,
   height: 109
 }];
-
 
 function getSelectedButton(e) {
   var mouse = getCursorPosition(e);
@@ -80,10 +83,24 @@ function drawStove(ctx) {
   if (stepDone === 1 && burners[3].isOn) addStep(2);
   if (stepDone === 5 && burners[2].isOn) addStep(6);
 
-  burners.forEach((burner, i) => {
-    if (burner.isOn) ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
-  });
+  burners.forEach(burner => {
+    if (burner.isOn) {
+      ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
+    }
+  }); 
+  stoveSnd() ? playSound(stoveSound, 0.1) : stopSound(stoveSound);
 }
 
+function stoveSnd() {
+  var check;
+  for (let i = 0; i < burners.length; i++) {
+    if (burners[i].isOn) {
+      return true;
+    } else {
+      check = false;
+    }
+  }
+  return check;
+}
 
 export { drawStove, getSelectedButton, burners };

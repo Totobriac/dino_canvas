@@ -1,7 +1,8 @@
-export function sound(src) {
+export function sound(src, loop) {
   this.sound = document.createElement("audio");
   this.sound.src = src;
   this.sound.volume = 0;
+  this.loop = loop;
   this.sound.setAttribute("preload", "auto");
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
@@ -18,5 +19,8 @@ export function sound(src) {
   }
   this.volume = function (vol) {
     this.sound.volume = vol;
+  }
+  this.loop = function (loop) {
+    this.loop = loop;
   }
 }
