@@ -1,19 +1,22 @@
 let bubbles = [];
 
-function addBubble(ctx) {
-  bubbles.push(new Bubble(ctx))
+var startY = 500;
+
+function addBubble(ctx, startY) {
+  bubbles.push(new Bubble(ctx, startY))
 };
 
 class Bubble {
-  constructor(ctx) {
-    this.radius = (Math.random() * 150) + 30;
+  constructor(ctx, startY) {
+    this.radius = (Math.random() * 150) + 10;
     this.life = true;
     this.x = (Math.random() * 1200);
-    this.y = (Math.random() * 20 + (400 + this.radius));
+    this.startY = startY;
+    this.y = (Math.random() * 20 + (this.startY + this.radius));
     this.vy = ((Math.random() * 0.0002) + 0.0001) + 2.6;
+
     this.vr = 0;
     this.vx = (Math.random() * 3) - 2;
-    this.color = "blue";
     this.ctx = ctx;
   }
   update() {
@@ -27,28 +30,32 @@ class Bubble {
       this.life = false;
   }
   draw() {
+    this.ctx.moveTo(this.x + this.radius, this.y);
     this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    this.ctx.fillStyle = this.color;
   }
 }
 
-function update(ctx) {
+function update(ctx, startY) {
   for (let i = bubbles.length - 1; i >= 0; i--) {
     bubbles[i].update();
     if (!bubbles[i].life)
       bubbles.splice(i, 1);
   }
-  if (bubbles.length < 5)
-    addBubble(ctx);
+  if (bubbles.length < 300)
+    addBubble(ctx, startY);
 }
 
 export function drawBubbles(ctx) {
-  update(ctx);
+
+  startY -= 0.4;
+
+  update(ctx, startY);
 
   ctx.beginPath();
-  for (let i=bubbles.length - 1; i >= 0; i--) {
+  for (let i = bubbles.length - 1; i >= 0; i--) {
     bubbles[i].draw();
   }
+  ctx.rect(0, startY, 1200, 400);
   ctx.fill();
 
 }
