@@ -13,6 +13,7 @@ export function sound(src, loop) {
   }
   this.stop = function () {
     this.sound.pause();
+    this.sound.currentTime = 0;
   }
   this.load = function () {
     this.sound.load();

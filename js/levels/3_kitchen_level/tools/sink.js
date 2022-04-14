@@ -1,9 +1,10 @@
 import { getCursorPosition, } from "../function.js";
-
 import { sound } from "../../../sound.js";
-var tapSound = new sound("../assets/3_kitchen/sounds/tap.mp3", true);
 import { playSound, stopSound } from "../sound.js";
 
+
+var tapSound = new sound("../assets/3_kitchen/sounds/tap.mp3", true);
+var drainSound = new sound("../assets/3_kitchen/sounds/sink_drain_sm.mp3", true);
 
 var sinkSprite = new Image();
 sinkSprite.src = "./assets/3_kitchen/sink.png";
@@ -26,6 +27,7 @@ class Sink {
     this.drainOpen = true;
     this.faucetSprite;
     this.waterLevel = 0;
+    this.oldWaterLevel = 0;
     this.angle = 0;
     this.level = 0;
     this.faucet = true;
@@ -45,8 +47,11 @@ class Sink {
     }
   }
   drawWater(ctx) {
-    console.log(this.waterLevel);
+
+    this.oldWaterLevel += this.waterLevel
     this.sinkIsOn ? playSound(tapSound, 0.3) : stopSound(tapSound);
+
+    this.drainOpen && this.waterLevel > 0.25 ? playSound(drainSound, 0.3) : stopSound(drainSound);
 
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
     if (this.sinkIsOn && !this.drainOpen) {
