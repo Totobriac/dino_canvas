@@ -1,3 +1,8 @@
+import { sound } from "../../sound.js";
+
+var potSound = new sound("./assets/3_kitchen/sounds/pot.mp3", false);
+
+
 import { Tool } from "./tools/tool.js";
 import { Pot } from "./tools/pot.js";
 import { ButterKnife } from "./tools/butter_knife.js";
@@ -121,7 +126,7 @@ function generateTools(ctx) {
     x: 120,
     y: 132,
     r: 60
-  }, sink);
+  }, sink, potSound);
 
   Sink.prototype.pot = pot;
 

@@ -1,4 +1,3 @@
-
 import { Sink } from "./tools/sink.js";
 import { generateTools } from "./toolGeneration.js";
 import { drawSlice } from "./tools/slice.js";
