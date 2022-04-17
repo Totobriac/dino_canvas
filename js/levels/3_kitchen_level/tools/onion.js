@@ -3,6 +3,11 @@ import { mouse, key } from "../control.js";
 import { onion } from "../toolGeneration.js";
 import { sink, deleteTool, onTop, addStep, tools } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var sliceSound = new sound("../assets/3_kitchen/sounds/slice_onion.mp3", false);
+var peelSound = new sound("../assets/3_kitchen/sounds/peel_onion.mp3", true);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -172,6 +177,7 @@ class Onion extends Tool {
     }
   }
   donePeeling() {
+    stopSound(peelSound);
     this.inPlace = false;
     this.state = "peeled";
     var backPic = document.getElementById("back");
@@ -180,6 +186,7 @@ class Onion extends Tool {
   halfOnion() {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
+      playSound(sliceSound, 0.3);
     }
   }
   spinOnion() {
@@ -201,6 +208,7 @@ class Onion extends Tool {
   beheading() {
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||
       (this.angle === 270 && mouse.upX > 529 && mouse.upX < 534)) {
+        playSound(sliceSound, 0.3);
       this.state = "beheaded";
       this.pieceWidth = 180;
     }
@@ -396,7 +404,8 @@ class Onion extends Tool {
     };
   }
   addPoints(e) {
-    if (this.inPlace === true && this.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
+    if (this.inPlace && this.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
+      playSound(peelSound, 0.3);
       this.points.push({
         x: e.offsetX,
         y: e.offsetY

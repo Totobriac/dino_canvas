@@ -22,14 +22,16 @@ var firstSelection = true;
 
 class ChefKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion);
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.onion = onion;
     this.isChopping = false;
   }
   draw() {
+
     if (this.isSelected && !this.isChopping) {
 
       if (firstSelection) playSound(grabKnifeSound, 0.3);
+      if (this.inPlace) firstSelection = true;
       firstSelection = false;
       this.sprite = chefKnifeSpineSprite;
       this.width = 11;
