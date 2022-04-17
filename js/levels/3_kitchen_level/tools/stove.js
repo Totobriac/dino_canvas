@@ -87,8 +87,8 @@ function drawStove(ctx) {
     if (burner.isOn) {
       ctx.drawImage(burner.sprite, burner.x, burner.y, burner.width, burner.height);
     }
-  }); 
-  stoveSnd() ? playSound(stoveSound, 0.1) : stopSound(stoveSound);
+  });
+  stoveSnd() ? playSound(stoveSound, 0.04) : stopSound(stoveSound);
 }
 
 function stoveSnd() {

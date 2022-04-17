@@ -1,6 +1,4 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
 
 
 var butterCutSprite = new Image();
@@ -23,6 +21,4 @@ class Butter extends Tool {
 
 }
 
-export {
-  Butter
-};
+export { Butter };

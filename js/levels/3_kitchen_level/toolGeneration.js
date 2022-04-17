@@ -1,6 +1,6 @@
 import { sound } from "../../sound.js";
 
-var potSound = new sound("./assets/3_kitchen/sounds/pot.mp3", false);
+var laySound = new sound("./assets/3_kitchen/sounds/lay.wav", false);
 
 
 import { Tool } from "./tools/tool.js";
@@ -126,7 +126,7 @@ function generateTools(ctx) {
     x: 120,
     y: 132,
     r: 60
-  }, sink, potSound);
+  }, sink, laySound);
 
   Sink.prototype.pot = pot;
 
@@ -134,7 +134,7 @@ function generateTools(ctx) {
     x: 1102,
     y: 170,
     r: 20
-  }, pot);
+  }, pot, laySound);
 
   colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
     x: 120,
@@ -152,7 +152,7 @@ function generateTools(ctx) {
     x: 964,
     y: 225,
     r: 60
-  }, butterPlate);
+  }, butterPlate, laySound);
 
   butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 720, 255, 14, 135, ctx, undefined, undefined, {
     x: 0,
@@ -164,7 +164,7 @@ function generateTools(ctx) {
     x: 506,
     y: 304,
     r: 28
-  }, pan);
+  }, pan, laySound);
 
   chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400, 190, 200, 33, ctx, undefined, undefined, {
     x: 0,

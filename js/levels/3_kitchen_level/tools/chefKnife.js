@@ -1,6 +1,11 @@
 import { Tool } from "./tool.js";
 import { mouse } from "../control.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var grabKnifeSound = new sound("../assets/3_kitchen/sounds/grab_knife.wav", false);
+
 var chefKnifeUpSprite = new Image();
 chefKnifeUpSprite.src = "./assets/3_kitchen/chef_knife_up.png";
 
@@ -13,6 +18,7 @@ chefKnifeSpineSprite.src = "./assets/3_kitchen/chef_knife_spine.png";
 var chefKnifeSideSprite = new Image();
 chefKnifeSideSprite.src = "./assets/3_kitchen/chef_knife_up.png";
 
+var firstSelection = true;
 
 class ChefKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, onion) {
@@ -21,14 +27,17 @@ class ChefKnife extends Tool {
     this.isChopping = false;
   }
   draw() {
-    if (this.isSelected === true && this.isChopping === false) {
+    if (this.isSelected && !this.isChopping) {
+
+      if (firstSelection) playSound(grabKnifeSound, 0.3);
+      firstSelection = false;
       this.sprite = chefKnifeSpineSprite;
       this.width = 11;
       this.height = 200;
       this.x = mouse.x - this.width;
       this.y = mouse.y - this.height * 3 / 4;
     }
-    else if (this.isChopping === true && (this.onion.state != "beheaded" || this.onion.canChop === true)) {
+    else if (this.isChopping && (this.onion.state != "beheaded" || this.onion.canChop )) {
       this.sprite = chefKnifeSpineSprite;
       this.width = 22;
       this.height = 440;
@@ -54,6 +63,4 @@ class ChefKnife extends Tool {
   }
 }
 
-export {
-  ChefKnife
-};
+export { ChefKnife };

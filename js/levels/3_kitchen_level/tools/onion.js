@@ -26,8 +26,8 @@ var i = -4;
 var blockSize = 5;
 
 class Onion extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.state = "intact";
     this.angle = 0;
     this.slice = 0;
@@ -146,7 +146,7 @@ class Onion extends Tool {
       this.ctx.fill();
     }
     this.ctx.restore();
-    
+
     rgb = {r: 0, g: 0, b: 0 };
     count = 0;
     i = -4;

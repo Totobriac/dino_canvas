@@ -5,20 +5,16 @@ import { addStep } from "../tools.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-
 var fillSound = new sound("../assets/3_kitchen/sounds/water_pot_delay.mp3", true);
 var boilSound = new sound("../assets/3_kitchen/sounds/boil_water.mp3", true);
 
-
 var points = [];
-
 var frame = 0;
 var maxFrame = 12;
 var maxRadius = 0;
-
 var radiusFrame = 0;
-
 var maxPoints = 50;
+var boilVolume = 0;
 
 
 class Pot extends Tool {
@@ -86,7 +82,9 @@ class Pot extends Tool {
     }
   }
   boil() {
-    playSound(boilSound, 0.1);
+    console.log(boilVolume);
+    if (boilVolume < 0.16)  boilVolume += 0.0002;
+    playSound(boilSound, boilVolume);
     if (radiusFrame > maxFrame * 10 && maxRadius < 5) {
       maxRadius++;
       radiusFrame = 0;

@@ -51,7 +51,7 @@ class Sink {
     this.oldWaterLevel += this.waterLevel
     this.sinkIsOn ? playSound(tapSound, 0.3) : stopSound(tapSound);
 
-    this.drainOpen && this.waterLevel > 0.25 ? playSound(drainSound, 0.3) : stopSound(drainSound);
+    this.drainOpen && this.waterLevel > 0.25 ? playSound(drainSound, 0.22) : stopSound(drainSound);
 
     ctx.fillStyle = "rgba(39, 200, 245, 0.27)";
     if (this.sinkIsOn && !this.drainOpen) {

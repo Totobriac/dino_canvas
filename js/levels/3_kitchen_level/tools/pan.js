@@ -4,6 +4,11 @@ import { mouse } from "../control.js";
 import { addStep } from "../tools.js";
 import { pan } from "../toolGeneration.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
+
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
@@ -106,8 +111,8 @@ class MeatPiece extends Veggy {
 }
 
 class Pan extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate, laySound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, laySound);
     this.pieceWidth = 20;
     this.pieceHeight = 23;
     this.xOffset = 0;
@@ -139,10 +144,10 @@ class Pan extends Tool {
     }
 
     if (!this.stirVeg) {
-      if (this.butter.isCut === true) this.buttMelt();
-      if (this.hasOnion === true) this.addOnion();
-      if (this.hasCarrot === true) this.addCarrot();
-      if (this.hasGarlic === true) this.addGarlic();
+      if (this.butter.isCut ) this.buttMelt();
+      if (this.hasOnion ) this.addOnion();
+      if (this.hasCarrot ) this.addCarrot();
+      if (this.hasGarlic ) this.addGarlic();
     } else if (this.stirVeg) {
       this.isSelected = false;
       for (let i = 0; i < this.veggies.length; i++) {
@@ -195,7 +200,8 @@ class Pan extends Tool {
     }
   }
   buttMelt() {
-    if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
+    if (burners[2].isOn && this.inPlace && this.pieceWidth > 0) {
+      playSound(meltingButterSound, 0.3);
       this.xOffset += 0.1;
       this.yOffset += 0.1;
       this.pieceWidth -= 0.1;

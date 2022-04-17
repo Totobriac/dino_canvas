@@ -2,6 +2,11 @@ import { Tool } from "./tool.js";
 import { addStep, sink } from "../tools.js";
 import { butterBig } from "../toolGeneration.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var cutSound = new sound("../assets/3_kitchen/sounds/butter_cut.mp3", false);
+
 class ButterKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butter) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
@@ -69,6 +74,7 @@ class ButterKnife extends Tool {
   }
   checkCut() {
     if (this.move > 30 && this.move < 50 ) {
+      playSound(cutSound, 0.3);
       this.butter.isCut = true;
       this.x = 720;
       this.y = 255;
@@ -78,6 +84,4 @@ class ButterKnife extends Tool {
   }
 }
 
-export {
-  ButterKnife
-};
+export { ButterKnife };

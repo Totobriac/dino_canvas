@@ -4,6 +4,11 @@ import { setControls } from "./control.js";
 import { generateTable } from "./tools/table.js";
 import { top } from "../../script.js";
 import { drawBubbles } from "./bubbleIntro.js";
+import { playSound, stopSound } from "./sound.js";
+import { sound } from "../../sound.js";
+
+var ambianceSound = new sound("../assets/3_kitchen/sounds/ambiance.mp3", true);
+
 
 
 var canvasStyle = document.body.style;
@@ -46,11 +51,12 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
+    playSound(ambianceSound, 0.15);
     setControls();
     generateTable(ctx);
     if (sink) sink.drawSink(ctx);
     drawStove(ctx);
-    
+
     if (!mask) drawTools(ctx, game);
 
     if (mask) {
