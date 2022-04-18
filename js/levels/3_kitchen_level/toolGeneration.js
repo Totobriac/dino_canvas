@@ -184,7 +184,7 @@ function generateTools(ctx) {
     x: 516,
     y: 314,
     r: 40
-  });
+  }, laySound);
 
   garlic = new Garlic("garlic", garlicHeadSprite, 85, 350, 40, 40, ctx, 495, 290, {
     x: 516,
@@ -202,7 +202,7 @@ function generateTools(ctx) {
     x: 506,
     y: 314,
     r: 40
-  }, grater, pan);
+  }, grater, pan, laySound);
 
   spoon = new Spoon("spoon", spoonSprite, 680, 180, 40, 213, ctx, undefined, undefined, {
     x: undefined,

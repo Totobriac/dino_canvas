@@ -1,14 +1,12 @@
-import {
-  Tool
-} from "./tool.js";
+import { Tool } from "./tool.js";
 
-import {
-  displayAllTools,
-  displayTool,
-  onTop,
-  sink,
-} from "../tools.js";
+import { displayAllTools, displayTool, onTop,
+         sink } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var garlicCrushSound = new sound("../assets/3_kitchen/sounds/garlic_crush.mp3", false);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -174,6 +172,8 @@ class GarlicPress extends Tool {
       }
 
       if (this.oldAngle < this.angle) {
+        stopSound(garlicCrushSound);
+        playSound(garlicCrushSound, 0.3);
         this.total += 3.4;
         for (let i = 0; i < 25; i++) {
           paste.push(new GarlicPaste(this.ctx))

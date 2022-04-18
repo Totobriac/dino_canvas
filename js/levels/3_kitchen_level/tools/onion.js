@@ -9,7 +9,7 @@ import { playSound, stopSound } from "../sound.js";
 var sliceSound = new sound("../assets/3_kitchen/sounds/slice_onion.mp3", false);
 var peelSound = new sound("../assets/3_kitchen/sounds/peel_onion.mp3", true);
 var sideCutSound = new sound("../assets/3_kitchen/sounds/side_cut.mp3", true);
-var fryingOnionSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 
 var choppingBoardSprite = new Image();
@@ -138,7 +138,7 @@ class Onion extends Tool {
         r: 28
       }
       if (this.inPlace === true) {
-        playSound(fryingOnionSound, 0.3);
+        playSound(fryingSound, 0.3);
         this.pan.hasOnion = true;
         addStep(8);
         deleteTool("onion");

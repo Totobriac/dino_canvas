@@ -1,7 +1,12 @@
 import { Tool } from "./tool.js";
 import { tools, deleteTool, onTop, sink, addStep } from "../tools.js";
-
 import { mouse } from "../control.js";
+
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var gratingSound = new sound("../assets/3_kitchen/sounds/grating_carrot.mp3", true);
+var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -27,16 +32,19 @@ class Peel {
 }
 
 class Carrot extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, grater, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, grater, pan, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.grater = grater;
     this.pan = pan;
     this.toBeGrated = false;
     this.oldX = 0;
     this.cut = 0;
     this.isGrated = false;
+    this.isGrating = false;
   }
   draw() {
+
+    this.isGrating ? playSound(gratingSound, 0.3) : stopSound(gratingSound);
 
     if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
       sink.faucet = false;
@@ -88,11 +96,15 @@ class Carrot extends Tool {
           this.oldX = mouse.x;
           this.cut += 0.6;
           this.generatePeel();
+          this.isGrating = true;
+        } else {
+          this.isGrating = false;
         }
         if (this.cut > 490) {
           sink.faucet = true;
           this.toBeGrated = false;
           this.isGrated = true;
+          this.isGrating = false;
           this.sprite = gratedCarrotSprite;
           tools.forEach((tool, i) => {
             tool.isSelected = false;
@@ -114,7 +126,9 @@ class Carrot extends Tool {
     }
     else {
       if (this.inPlace === true && this.isGrated === true) {
+
         this.pan.hasCarrot = true;
+        playSound(fryingSound, 0.3);
         addStep(10);
         deleteTool("carrot");
       }
@@ -144,6 +158,4 @@ function distance(obj1, obj2) {
     (obj1.y - obj2.y) * (obj1.y - obj2.y))
 }
 
-export {
-  Carrot
-};
+export { Carrot };
