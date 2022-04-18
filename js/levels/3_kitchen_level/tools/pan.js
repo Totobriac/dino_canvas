@@ -9,6 +9,8 @@ import { playSound, stopSound } from "../sound.js";
 
 var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
 
+var stirFrySound = new sound("../assets/3_kitchen/sounds/stir_fry.mp3", true);
+
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
@@ -185,6 +187,9 @@ class Pan extends Tool {
     }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
       this.hasCarrot === true && this.hasGarlic === true) {
       this.stirVeg = true;
+      playSound(stirFrySound, 0.3)
+    } else {
+      stopSound(stirFrySound);
     }
 
     if (this.meat.isCrushed) {

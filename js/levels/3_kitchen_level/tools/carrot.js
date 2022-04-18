@@ -44,7 +44,7 @@ class Carrot extends Tool {
   }
   draw() {
 
-    this.isGrating ? playSound(gratingSound, 0.3) : stopSound(gratingSound);
+    this.isGrating ? playSound(gratingSound, 1) : stopSound(gratingSound);
 
     if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
       sink.faucet = false;
@@ -126,7 +126,6 @@ class Carrot extends Tool {
     }
     else {
       if (this.inPlace === true && this.isGrated === true) {
-
         this.pan.hasCarrot = true;
         playSound(fryingSound, 0.3);
         addStep(10);

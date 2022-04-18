@@ -24,6 +24,9 @@ onionPeeledSprite.src = "./assets/3_kitchen/onion_peeled.png";
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
+var arrowkeysSprite = new Image();
+arrowkeysSprite.src = "./assets/3_kitchen/arrow_keys.png";
+
 var rgb = {
   r: 0,
   g: 0,
@@ -89,12 +92,16 @@ class Onion extends Tool {
     if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
 
     if (this.state === "peeled" || this.state === "beheaded") {
+
       sink.faucet = false;
       onTop("chefKnife");
       this.chefKnife.isSelected = true;
       this.chefKnife.isChopping = true;
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      this.ctx.drawImage(arrowkeysSprite, 1000, 250);
+      
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       var x = canvas.width / 2;
       var y = canvas.height / 2;
