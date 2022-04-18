@@ -1,6 +1,10 @@
 import { Tool } from "./tool.js";
 import { onTop, onTopTwo, addStep } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var dropPastaSound = new sound("../assets/3_kitchen/sounds/drop_pastas.mp3", false);
 
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/3_kitchen/pasta.png";
@@ -166,6 +170,7 @@ class Pasta extends Tool {
   }
   inPot() {
     this.areCooking = true;
+    playSound(dropPastaSound, 0.3);
   }
 }
 

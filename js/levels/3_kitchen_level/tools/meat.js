@@ -1,13 +1,18 @@
 import { Tool } from "./tool.js";
-
 import { deleteTool, addStep } from "../tools.js";
+
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+var laySound = new sound("./assets/3_kitchen/sounds/lay.wav", false);
 
 var meatSprite = new Image();
 meatSprite.src = "./assets/3_kitchen/meat.png";
 
 class Meat extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, spoon);
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
     this.minced = false;
     this.pieces = [];
     this.piecesNum = 0;
@@ -18,6 +23,9 @@ class Meat extends Tool {
     this.pan = pan;
   }
   draw() {
+
+    if (this.inPlace) playSound(fryingSound, 0.3);
+
     if (this.inPlace && !this.minced) {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
@@ -55,7 +63,11 @@ class Meat extends Tool {
         ) {
           continue;
         } else {
-          if (this.canCrush) this.crushMeat(i);
+          if (this.canCrush){
+            stopSound(laySound);
+            playSound(laySound, 0.3);
+            this.crushMeat(i);
+          }
         }
       }
     }

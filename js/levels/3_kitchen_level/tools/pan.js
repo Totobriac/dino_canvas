@@ -8,7 +8,6 @@ import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
 var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
-
 var stirFrySound = new sound("../assets/3_kitchen/sounds/stir_fry.mp3", true);
 
 var onionChoppedSprite = new Image();
@@ -172,7 +171,10 @@ class Pan extends Tool {
       };
       if (this.spoon.isSelected && distance(mouse, { x: x, y: y }) < 56) {
         this.stirM++;
+        playSound(stirFrySound, 0.3)
         if (this.stirM > 600) addStep(14);
+      } else {
+        stopSound(stirFrySound);
       }
     }
 
