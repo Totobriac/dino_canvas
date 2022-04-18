@@ -31,8 +31,7 @@ class ChefKnife extends Tool {
     if (this.isSelected && !this.isChopping) {
 
       if (firstSelection) playSound(grabKnifeSound, 0.3);
-      if (this.inPlace) firstSelection = true;
-      firstSelection = false;
+      this.inPlace ? firstSelection = true : firstSelection = false;
       this.sprite = chefKnifeSpineSprite;
       this.width = 11;
       this.height = 200;

@@ -50,8 +50,8 @@ class GarlicPaste {
 }
 
 class GarlicPress extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, garlic) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, garlic, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.garlic = garlic;
     this.pressIt = false;
     this.angle = -54;

@@ -190,13 +190,13 @@ function generateTools(ctx) {
     x: 516,
     y: 314,
     r: 20
-  }, pan);
+  }, pan, laySound);
 
   garlicPress = new GarlicPress("garlicPress", garlicPressSprite, 850, 20, 100, 30, ctx, 475, 290, {
     x: 516,
     y: 314,
     r: 30
-  }, garlic);
+  }, garlic, laySound);
 
   carrot = new Carrot("carrot", carrotSprite, 10, 330, 105, 22, ctx, 450, 305, {
     x: 506,

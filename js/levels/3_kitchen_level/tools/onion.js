@@ -8,6 +8,9 @@ import { playSound, stopSound } from "../sound.js";
 
 var sliceSound = new sound("../assets/3_kitchen/sounds/slice_onion.mp3", false);
 var peelSound = new sound("../assets/3_kitchen/sounds/peel_onion.mp3", true);
+var sideCutSound = new sound("../assets/3_kitchen/sounds/side_cut.mp3", true);
+var fryingOnionSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -135,6 +138,7 @@ class Onion extends Tool {
         r: 28
       }
       if (this.inPlace === true) {
+        playSound(fryingOnionSound, 0.3);
         this.pan.hasOnion = true;
         addStep(8);
         deleteTool("onion");
@@ -226,9 +230,12 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice1 = true;
+      if (this.canSlice1 && mouse.x < 750) playSound(sideCutSound, 1);
+
       if (this.chefKnife.x > 499 && this.chefKnife.x < 502) {
         this.slice = 1;
         this.canSlice1 = false;
+        stopSound(sideCutSound);
       }
     }
 
@@ -247,13 +254,18 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice2 = true;
+      if (this.canSlice2 && mouse.x < 750) playSound(sideCutSound, 1);
+
       if (this.chefKnife.x > 534 && this.chefKnife.x < 540) {
         this.canChop = true;
+        stopSound(sideCutSound);
       }
     }
   }
   sliceIt() {
-    if (this.canSlice === true && this.angle === 180 && this.canMince === false) {
+    if (this.canSlice && this.angle === 180 && !this.canMince) {
+      stopSound(sliceSound);
+      playSound(sliceSound, 0.3);
       this.slices.push({
         x: this.chefKnife.x + this.chefKnife.width / 2,
         y: this.chefKnife.y,
@@ -286,16 +298,11 @@ class Onion extends Tool {
 
     if (this.canMince === false) {
       this.ctx.beginPath();
-
       this.ctx.arc(0, 0, 125, 2 * Math.PI, Math.PI, false);
-
       this.ctx.strokeStyle = "red";
-
       this.ctx.setLineDash([4, 4]);
       this.ctx.lineWidth = 15;
-
       this.ctx.stroke();
-
       this.ctx.closePath();
     }
 
@@ -316,7 +323,6 @@ class Onion extends Tool {
     this.ctx.restore();
 
     if (this.angle === 180) {
-
       var distance = Math.sqrt((x - (this.chefKnife.x + this.chefKnife.width / 2)) * (x - (this.chefKnife.x + this.chefKnife.width / 2)) +
         (y - this.chefKnife.y) * (y - this.chefKnife.y)
       )
@@ -370,6 +376,8 @@ class Onion extends Tool {
         }
 
         if (this.piecesAXY.length === i) {
+          stopSound(sliceSound);
+          playSound(sliceSound, 0.3);
           this.piecesAXY.push(Array.from({
             length: 11
           }, () => setPiece()));
@@ -426,6 +434,4 @@ class Onion extends Tool {
 }
 
 
-export {
-  Onion
-}
+export { Onion };

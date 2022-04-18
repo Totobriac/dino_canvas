@@ -82,7 +82,6 @@ class Pot extends Tool {
     }
   }
   boil() {
-    console.log(boilVolume);
     if (boilVolume < 0.16)  boilVolume += 0.0002;
     playSound(boilSound, boilVolume);
     if (radiusFrame > maxFrame * 10 && maxRadius < 5) {

@@ -13,8 +13,8 @@ crushedCloveSprite.src = "./assets/3_kitchen/crushed_garlic.png";
 
 
 class Garlic extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow,pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow,pan);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan, sound) {
+      super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.pan = pan;
     this.single = false;
     this.minced = false;
