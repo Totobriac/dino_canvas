@@ -1,5 +1,5 @@
 import { Tool } from "./tool.js";
-import { onTop, addStep } from "../tools.js";
+import { onTop, addStep, deleteTool } from "../tools.js";
 
 class Colander extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound) {
@@ -9,7 +9,7 @@ class Colander extends Tool {
   draw() {
     super.draw();
     if (this.hasPastas && this.isSelected) onTop("pasta");
-    if( this.hasPastas) {
+    if (this.hasPastas) {
       addStep(17);
       this.perfX = this.pan.x + this.pan.width / 2;
       this.perfY = this.pan.y + this.pan.height / 10;
@@ -19,7 +19,10 @@ class Colander extends Tool {
         r: 28
       }
     }
-    if (this.hasPastas && this.inPlace) this.pan.hasPastas = true;
+    if (this.hasPastas && this.inPlace && this.x != 120) {
+      this.pan.hasPastas = true;
+      deleteTool("pasta");
+    }
   }
 }
 

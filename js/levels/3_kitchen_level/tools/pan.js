@@ -140,6 +140,8 @@ class Pan extends Tool {
     this.tickcount = 0;
     this.maxTickcount = 200;
     this.frame = 0;
+
+    this.cookingPastas = false;
   }
   draw() {
     super.draw();
@@ -154,7 +156,8 @@ class Pan extends Tool {
       this.ctx.fill();
     }
 
-    if (this.hasPastas && this.frame === 0 && this.tickcount === 0) this.addPastas();
+    if (this.hasPastas && this.frame === 0 && this.tickcount === 0) this.panPastas();
+    if (this.cookingPastas) this.addPastas();
 
     if (!this.stirVeg) {
       if (this.butter.isCut ) this.buttMelt();
@@ -301,6 +304,9 @@ class Pan extends Tool {
       }
     });
   }
+  panPastas() {
+    this.cookingPastas = true;
+  }
   addPastas() {
     if (this.tickcount > this.maxTickcount - 1) {
       this.tickcount = 0;
@@ -311,7 +317,7 @@ class Pan extends Tool {
 
     this.ctx.save();
     this.ctx.globalAlpha = 1 - ((this.tickcount * 0.5) / 100);
-    console.log(this.tickcount * 0.5);
+
     this.ctx.drawImage(cookedPastasSprite, 469 * (this.frame - 1), 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
     this.ctx.restore();
 
