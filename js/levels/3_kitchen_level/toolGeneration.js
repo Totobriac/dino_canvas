@@ -154,6 +154,8 @@ function generateTools(ctx) {
     r: 60
   }, butterPlate, laySound);
 
+  Colander.prototype.pan = pan;
+
   butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 720, 255, 14, 135, ctx, undefined, undefined, {
     x: 0,
     y: 0,

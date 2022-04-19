@@ -26,8 +26,7 @@ class Notepad extends Tool {
       this.makeItBig();
     };
 
-    if (this.big) {
-      onTopTwo("pasta");
+    if (this.big) {    
       this.width = 466;
       this.height = 600;
       this.x = 367;

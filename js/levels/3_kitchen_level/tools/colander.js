@@ -11,14 +11,15 @@ class Colander extends Tool {
     if (this.hasPastas && this.isSelected) onTop("pasta");
     if( this.hasPastas) {
       addStep(17);
-      this.perfX = undefined;
-      this.perfY = undefined;
+      this.perfX = this.pan.x + this.pan.width / 2;
+      this.perfY = this.pan.y + this.pan.height / 10;
       this.shadow = {
-        x: undefined,
-        y: undefined,
-        r: undefined,
-      };
+        x: this.perfX + 28,
+        y: this.perfY + 28,
+        r: 28
+      }
     }
+    if (this.hasPastas && this.inPlace) this.pan.hasPastas = true;
   }
 }
 

@@ -23,6 +23,9 @@ crushedCloveSprite.src = "./assets/3_kitchen/crushed_garlic.png";
 var meatSprite = new Image();
 meatSprite.src = "./assets/3_kitchen/meat.png";
 
+var cookedPastasSprite = new Image();
+cookedPastasSprite.src = "./assets/3_kitchen/cooked_pastas.png";
+
 var sauceRadius = 0;
 
 class Veggy {
@@ -125,6 +128,7 @@ class Pan extends Tool {
     this.hasCarrot = false;
     this.hasGarlic = false;
     this.hasSauce = false;
+    this.hasPastas = false;
     this.canStir = false;
     this.stirVeg = false;
     this.veggies = [];
@@ -132,6 +136,10 @@ class Pan extends Tool {
     this.justCrushed = false;
     this.stirV = 0;
     this.stirM = 0;
+
+    this.tickcount = 0;
+    this.maxTickcount = 200;
+    this.frame = 0;
   }
   draw() {
     super.draw();
@@ -145,6 +153,8 @@ class Pan extends Tool {
       this.ctx.arc(this.x + this.width / 2 + 28, this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
       this.ctx.fill();
     }
+
+    if (this.hasPastas && this.frame === 0 && this.tickcount === 0) this.addPastas();
 
     if (!this.stirVeg) {
       if (this.butter.isCut ) this.buttMelt();
@@ -291,8 +301,21 @@ class Pan extends Tool {
       }
     });
   }
-  stir() {
+  addPastas() {
+    if (this.tickcount > this.maxTickcount - 1) {
+      this.tickcount = 0;
+      this.frame ++;
+    } else {
+      this.tickcount ++;
+    }
 
+    this.ctx.save();
+    this.ctx.globalAlpha = 1 - ((this.tickcount * 0.5) / 100);
+    console.log(this.tickcount * 0.5);
+    this.ctx.drawImage(cookedPastasSprite, 469 * (this.frame - 1), 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
+    this.ctx.restore();
+
+    this.ctx.drawImage(cookedPastasSprite, 469 * this.frame, 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
   }
 }
 
