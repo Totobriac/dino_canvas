@@ -3,7 +3,7 @@ import { tools, deleteTool, onTop, sink, addStep } from "../tools.js";
 import { mouse } from "../control.js";
 
 import { sound } from "../../../sound.js";
-import { playSound, stopSound } from "../sound.js";
+import { playSound, stopSound, pauseSound } from "../sound.js";
 
 var gratingSound = new sound("../assets/3_kitchen/sounds/grating_carrot.mp3", true);
 var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
@@ -40,13 +40,10 @@ class Carrot extends Tool {
     this.oldX = 0;
     this.cut = 0;
     this.isGrated = false;
-    this.isGrating = false;
   }
   draw() {
 
-    this.isGrating ? playSound(gratingSound, 1) : stopSound(gratingSound);
-
-    if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
+    if (this.inPlace && this.grater.inPlace && !this.toBeGrated) {
       sink.faucet = false;
       this.grateMe();
     }
@@ -90,21 +87,22 @@ class Carrot extends Tool {
         this.height
       );
 
-      if (this.isSelected === true) {
+      if (this.isSelected) {
         if (mouse.x != this.oldX && (this.oldX < mouse.x || this.oldX > mouse.x)
           && (this.x > 405 && this.x < 485) && (this.y > 60 && this.y < 230)) {
           this.oldX = mouse.x;
           this.cut += 0.6;
           this.generatePeel();
-          this.isGrating = true;
+          playSound(gratingSound, 0.3);
         } else {
-          this.isGrating = false;
+          pauseSound(gratingSound);
         }
-        if (this.cut > 490) {
+        // if (this.cut > 490) {
+        if (this.cut > 10) {
+          stopSound(gratingSound);
           sink.faucet = true;
           this.toBeGrated = false;
           this.isGrated = true;
-          this.isGrating = false;
           this.sprite = gratedCarrotSprite;
           tools.forEach((tool, i) => {
             tool.isSelected = false;
@@ -125,7 +123,7 @@ class Carrot extends Tool {
       }
     }
     else {
-      if (this.inPlace === true && this.isGrated === true) {
+      if (this.inPlace && this.isGrated) {
         this.pan.hasCarrot = true;
         playSound(fryingSound, 0.3);
         addStep(10);

@@ -1,5 +1,5 @@
 import { Tool } from "./tool.js";
-import { stepDone, onTop } from "../tools.js";
+import { stepDone, onTop, onTopTwo } from "../tools.js";
 
 var steps = ["Remplir la casserole d'eau", "Allumer le feu en haut à droite",
   "Y mettre la casserole", "Ajouter du sel",  "Ajouter du beurre à la poele", "Allumer le feu du milieu", "Y placer la poele",
@@ -27,6 +27,7 @@ class Notepad extends Tool {
     };
 
     if (this.big) {
+      onTopTwo("pasta");
       this.width = 466;
       this.height = 600;
       this.x = 367;

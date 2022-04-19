@@ -5,6 +5,7 @@ import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
 var dropPastaSound = new sound("../assets/3_kitchen/sounds/drop_pastas.mp3", false);
+var drainPastaSound = new sound("../assets/3_kitchen/sounds/pasta_drain.mp3", false);
 
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/3_kitchen/pasta.png";
@@ -44,6 +45,7 @@ class Pasta extends Tool {
     this.colander = colander;
     this.top = "pasta";
     this.angle = 0;
+    this.sound = false;
   }
   populatePastas() {
     for (let i = 0; i < 150; i++) {
@@ -125,6 +127,7 @@ class Pasta extends Tool {
       super.draw();
     }
     if (this.doneCooking && this.pot.inPlace && this.colander.inPlace) {
+      playSound(drainPastaSound, 0.3);
       this.colander.hasPastas = true;
       this.pot.waterLevel = 0;
       this.pot.isFilled = false;
@@ -170,7 +173,10 @@ class Pasta extends Tool {
   }
   inPot() {
     this.areCooking = true;
-    playSound(dropPastaSound, 0.3);
+    if (!this.sound) {
+      playSound(dropPastaSound, 0.3);
+      this.sound = true;
+    }
   }
 }
 

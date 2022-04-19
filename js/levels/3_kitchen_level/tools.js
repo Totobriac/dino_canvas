@@ -115,7 +115,7 @@ function selectable() {
       objects = ["spoon"];
     break;
     case 11:
-      objects = ["spoon", "meat"];
+      objects = ["meat", "spoon"];
     break;
     case 12:
       objects = ["pasta"];

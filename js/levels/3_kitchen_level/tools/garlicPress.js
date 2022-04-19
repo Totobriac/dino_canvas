@@ -60,7 +60,7 @@ class GarlicPress extends Tool {
     this.toCrush = false;
   }
   draw() {
-    if (this.inPlace && this.garlic.inPlace === true) this.pressMe();
+    if (this.inPlace && this.garlic.inPlace) this.pressMe();
 
     if (this.pressIt) {
 

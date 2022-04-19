@@ -9,6 +9,7 @@ import { playSound, stopSound } from "../sound.js";
 
 var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
 var stirFrySound = new sound("../assets/3_kitchen/sounds/stir_fry.mp3", true);
+var sauceSound = new sound("../assets/3_kitchen/sounds/sauce.mp3", true);
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
@@ -136,6 +137,7 @@ class Pan extends Tool {
     super.draw();
 
     if (this.hasSauce) {
+      if (sauceRadius === 0) playSound(sauceSound, 0.3);
       if (sauceRadius < 57) sauceRadius += 0.2;
       if (Math.floor(sauceRadius) === 57) addStep(16);
       this.ctx.fillStyle = "red";
@@ -199,11 +201,11 @@ class Pan extends Tool {
     }
   }
   generateMeat() {
-    if (this.justCrushed === false) {
-      this.meat.pieces.forEach((piece, i) => {
-        this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx, pan))
-      });
-      this.justCrushed = true;
+  if (!this.justCrushed) {
+    this.meat.pieces.forEach((piece, i) => {
+      this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx, pan))
+    });
+    this.justCrushed = true;
     }
   }
   buttMelt() {

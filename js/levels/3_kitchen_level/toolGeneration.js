@@ -140,7 +140,7 @@ function generateTools(ctx) {
     x: 120,
     y: 132,
     r: 60
-  });
+  }, laySound);
 
   butterPlate = new Butter("butterPlate", butterPlateSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
     x: 0,
@@ -224,13 +224,13 @@ function generateTools(ctx) {
     x: 502,
     y: 300,
     r: 28
-  });
+  }, laySound);
 
   tin = new Tin("tin", tinSprite, 135, 350, 50, 50, ctx, 475, 275, {
     x: 502,
     y: 300,
     r: 28
-  }, tinOpener, pan);
+  }, tinOpener, pan, laySound);
 
   TinOpener.prototype.tin = tin;
 

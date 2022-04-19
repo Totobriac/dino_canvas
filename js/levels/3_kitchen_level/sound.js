@@ -6,3 +6,7 @@ export function playSound(sound, volume) {
 export function stopSound(sound) {
   sound.stop();
 }
+
+export function pauseSound(sound) {
+  sound.pause();
+}

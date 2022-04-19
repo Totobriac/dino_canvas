@@ -6,7 +6,7 @@ export function sound(src, loop) {
   this.sound.setAttribute("preload", "auto");
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
-  
+
   document.body.appendChild(this.sound);
   this.play = function () {
     this.sound.play();
@@ -14,6 +14,9 @@ export function sound(src, loop) {
   this.stop = function () {
     this.sound.pause();
     this.sound.currentTime = 0;
+  }
+  this.pause = function () {
+    this.sound.pause();
   }
   this.load = function () {
     this.sound.load();

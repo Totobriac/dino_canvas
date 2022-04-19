@@ -24,8 +24,9 @@ class Meat extends Tool {
   }
   draw() {
 
-    if (this.inPlace) playSound(fryingSound, 0.3);
-
+    if (this.inPlace) {
+      playSound(fryingSound, 0.3);
+    }
     if (this.inPlace && !this.minced) {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {

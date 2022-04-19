@@ -19,8 +19,8 @@ tempCanvas.height = 200;
 
 
 class Tin extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, tinOpener, pan, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.tinOpener = tinOpener;
     this.bibi = 9000;
     this.pan = pan;
