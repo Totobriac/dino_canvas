@@ -1,6 +1,7 @@
 import { drawSubmarine } from "./submarine.js";
 import { generateBubbles, handleExplosion } from "./bubbles.js";
 import { generateEyes } from "./eyes.js";
+import { tick } from "./tunnel.js";
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
@@ -27,10 +28,11 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-    generateEyes(game, ctx);
-    drawSubmarine(ctx, dino, game.mousePosition);
-    generateBubbles(ctx, game.frame, dino);
-    handleExplosion();
+    tick(ctx);
+    // generateEyes(game, ctx);
+    // drawSubmarine(ctx, dino, game.mousePosition);
+    // generateBubbles(ctx, game.frame, dino);
+    // handleExplosion();
   }  
 }
 
