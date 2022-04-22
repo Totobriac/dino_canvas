@@ -143,7 +143,6 @@ class Pasta extends Tool {
         r: undefined,
       };
 
-      //if (distance({ x: this.pot.x, y: this.pot.y }, { x: this.colander.x, y: this.colander.y }) < this.colander.width) this.top = "pot";
     }
     if (this.colander.hasPastas) {
 

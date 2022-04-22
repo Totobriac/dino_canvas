@@ -3,27 +3,29 @@ import { removeMask } from "./startLevel3.js";
 let bubbles = [];
 
 var startY = 500;
+var startYDown = 0;
 
-function addBubble(ctx, startY) {
-  bubbles.push(new Bubble(ctx, startY))
+function addBubble(ctx, direction, startY) {
+  bubbles.push(new Bubble(ctx, direction, startY))
 };
 
 class Bubble {
-  constructor(ctx, startY) {
+  constructor(ctx, direction, startY) {
     this.radius = (Math.random() * 150) + 10;
     this.life = true;
     this.x = (Math.random() * 1200);
+    this.direction = direction;
     this.startY = startY;
-    this.y = (Math.random() * 20 + (this.startY + this.radius));
-    this.vy = ((Math.random() * 0.0002) + 0.0001) + 2.6;
+    this.y = ((Math.random() * 20 + (this.startY + this.radius))) * this.direction;
+    this.vy = ((Math.random() * 0.0002) + 0.0001) + 2.6 * this.direction;
 
     this.vr = 0;
     this.vx = (Math.random() * 3) - 2;
     this.ctx = ctx;
   }
   update() {
-    this.vy += .00001;
-    this.vr += .02;
+    this.vy += .00001 * this.direction;
+    this.vr += .02 * this.direction;
     this.y -= this.vy;
     this.x += this.vx;
     if (this.radius > 1)
@@ -37,27 +39,32 @@ class Bubble {
   }
 }
 
-function update(ctx, startY) {
+function update(ctx, direction, startY) {
   for (let i = bubbles.length - 1; i >= 0; i--) {
     bubbles[i].update();
     if (!bubbles[i].life)
       bubbles.splice(i, 1);
   }
   if (bubbles.length < 300)
-    addBubble(ctx, startY);
+    addBubble(ctx, direction, startY);
 }
 
-export function drawBubbles(ctx) {
+export function drawBubbles(ctx, direction) {
 
-  startY > 0.4 ? startY -= 0.4 : removeMask();
-
-  update(ctx, startY);
+  if (direction === 1) {
+    startY > 0.4 ? startY -= 0.4 : removeMask(ctx);
+    update(ctx, direction, startY);
+  } else {
+    update(ctx, direction, startYDown);
+  }  
 
   ctx.beginPath();
   for (let i = bubbles.length - 1; i >= 0; i--) {
     bubbles[i].draw();
   }
-  ctx.rect(0, startY, 1200, 400);
+
+  if (direction === 1) ctx.rect(0, startY, 1200, 400);
+
   ctx.fill();
 
 }

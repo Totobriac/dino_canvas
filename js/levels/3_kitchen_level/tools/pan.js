@@ -3,6 +3,7 @@ import { burners } from "./stove.js";
 import { mouse } from "../control.js";
 import { addStep } from "../tools.js";
 import { pan } from "../toolGeneration.js";
+import { endLevel } from "../startLevel3.js";
 
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
@@ -322,6 +323,11 @@ class Pan extends Tool {
     this.ctx.restore();
 
     this.ctx.drawImage(cookedPastasSprite, 469 * this.frame, 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
+
+    if (this.frame === 8 && this.tickcount === 0) {
+      var data = canvas.toDataURL();
+      endLevel(data);
+    } 
   }
 }
 
