@@ -325,8 +325,7 @@ class Pan extends Tool {
     this.ctx.drawImage(cookedPastasSprite, 469 * this.frame, 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
 
     if (this.frame === 8 && this.tickcount === 0) {
-      var data = canvas.toDataURL();
-      endLevel(data);
+      endLevel();
     } 
   }
 }

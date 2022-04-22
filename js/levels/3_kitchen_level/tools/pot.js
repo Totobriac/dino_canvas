@@ -4,7 +4,6 @@ import { Point } from "./bubble.js";
 import { addStep } from "../tools.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
-import { endLevel } from "../startLevel3.js";
 
 var fillSound = new sound("../assets/3_kitchen/sounds/water_pot_delay.mp3", true);
 var boilSound = new sound("../assets/3_kitchen/sounds/boil_water.mp3", true);
@@ -127,6 +126,4 @@ function populatePoints() {
 }
 
 
-export {
-  Pot
-};
+export { Pot };
