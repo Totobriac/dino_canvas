@@ -1,13 +1,15 @@
 import { drawSubmarine } from "./submarine.js";
-import { generateBubbles, handleExplosion } from "./bubbles.js";
+import { generateMines, handleExplosion } from "./mines.js";
 import { generateEyes } from "./eyes.js";
 import { tick } from "./tunnel.js";
+import { generateBubbles } from "./bubbles.js";
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
+var isDiving = false;
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -28,14 +30,29 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-    tick(ctx);
+
+
+    if (!isDiving) tick(ctx);
+    if (isDiving) {
+      ctx.fillStyle = "blue";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      generateBubbles(ctx);
+    }
+
+
     // generateEyes(game, ctx);
     // drawSubmarine(ctx, dino, game.mousePosition);
-    // generateBubbles(ctx, game.frame, dino);
+    // generateMines(ctx, game.frame, dino);
     // handleExplosion();
-  }  
+  }
 }
 
 function startGame() {
   start = true;
 };
+
+function dive() {
+  isDiving = true;
+}
+
+export { dive } ;

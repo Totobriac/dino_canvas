@@ -1,10 +1,13 @@
+import { dive } from "./startLevel4.js";
+
+
 var w = 1200;
 var pi = Math.PI;
 var sin = Math.sin;
 var cos = Math.cos;
 
 var tickCount = 0;
-var c = 36;
+var c = 30;
 
 
 function drawCircle(ctx, x, y, r, h, s, l) {
@@ -22,15 +25,17 @@ function tick(ctx) {
   ctx.save();
 
   ctx.translate((2 * canvas.width) / 3, (2 * canvas.height) / 3);
-  if (tickCount < 400) {
+
+  if (tickCount < 450) {
+    if (tickCount > 400 && tickCount % 2 === 0) c--;
     for (var i = c; i >= 0; i--) {
       var cycle = ~~((c * (1 + sin(((tickCount - i) * pi * 2) / c))) / 2);
       var cyclep = ~~((c * (1 + sin(((tickCount * 0.3 - i) * pi * 2) / c))) / 2);
       var coscyclep = ~~((c * (1 + cos(((tickCount * 0.1 - i) * pi * 2) / c))) / 2);
 
-      var h;
-      var s;
-      var l;
+      var h = 0;
+      var s = 0;
+      var l ;
       tickCount < 400 ? (h = 0) : (h = 238);
       tickCount < 400 ? (s = 0) : (s = 75);
       tickCount < 400 ? (l = 0) : (l = 58);
@@ -47,6 +52,8 @@ function tick(ctx) {
         l
       );
     }
+  } else {
+    dive()
   }
   ctx.restore();
   tickCount += 1;
