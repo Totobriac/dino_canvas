@@ -1,13 +1,14 @@
 var bubbles = [];
+var sinTick = 0;
 
 class Bubble {
   constructor(ctx) {
     this.x = Math.floor(Math.random() * 1200);
-    this.y = Math.floor(Math.random() * 800) + 400;
+    this.y = Math.floor(Math.random() * 1800) + 400;
     this.radius = Math.floor(Math.random() * 1) + 5;
     this.ctx = ctx;
-    this.ySpeed = 4;
-    this.acc = 0.2;
+    this.ySpeed = 2;
+    this.acc = 0.05;
   }
   draw() {
     this.ctx.strokeStyle = "rgba(34,147,214,1)";
@@ -22,8 +23,9 @@ class Bubble {
     this.ctx.arc(this.x + 10, this.y + 4, this.radius / 5, 0, Math.PI *2 );
     this.ctx.fill();
   }
-  update() {
-    this.radius += 0.2;
+  update(sinTick) {
+    this.x += Math.floor(Math.sin(sinTick)*2);
+    this.radius += 0.08;
     this.ySpeed += this.acc;
     this.y -= this.ySpeed;
     this.draw();
@@ -32,12 +34,13 @@ class Bubble {
 
 function generateBubbles(ctx) {
   if (bubbles.length === 0) {
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 300; i++) {
       bubbles.push(new Bubble(ctx))
     }
   } else {
     bubbles.forEach((bubble, i) => {
-      bubble.update();
+      sinTick ++;
+      bubble.update(sinTick);
     });
   }
 }

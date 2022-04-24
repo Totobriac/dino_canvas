@@ -9,7 +9,8 @@ mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
-var isDiving = false;
+var isDiving = true;
+
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -32,18 +33,18 @@ export function startLevel(ctx, game, dino) {
   if (game.start) {
 
 
-    if (!isDiving) tick(ctx);
-    if (isDiving) {
-      ctx.fillStyle = "blue";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      generateBubbles(ctx);
-    }
+    // if (!isDiving) tick(ctx);
+    // if (isDiving) {
+    //   ctx.fillStyle = "blue";
+    //   ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //   generateBubbles(ctx);
+    // }
 
 
-    // generateEyes(game, ctx);
-    // drawSubmarine(ctx, dino, game.mousePosition);
-    // generateMines(ctx, game.frame, dino);
-    // handleExplosion();
+    generateEyes(game, ctx);
+    drawSubmarine(ctx, dino, game.mousePosition);
+    generateMines(ctx, game.frame, dino);
+    handleExplosion();
   }
 }
 

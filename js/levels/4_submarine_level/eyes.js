@@ -1,11 +1,29 @@
-let eyes = [];
-let numberOfEyes = 150;
-let theta;
+import {dx, dy} from "./submarine.js";
 
+var eyes = [];
+var numberOfEyes = 150;
+var theta;
+
+var backX = 100;
+var backY = 50;
+
+var frontX = 100;
+var frontY = 50;
+
+var forgroundSprite = new Image();
+forgroundSprite.src = "./assets/4_submarine/forground_2.png";
+
+var backgroundSprite = new Image();
+backgroundSprite.src = "./assets/4_submarine/background_2.png";
 
 export function generateEyes(game, ctx)
-{
-  ctx.fillStyle = "blue";
+{ var Dx = Math.floor(dx);
+  var Dy = Math.floor(dy);
+
+  backX += Dx / 500;
+  backY += Dy / 500;
+
+  ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (game.loadedLevel[4] === false) {
@@ -13,8 +31,20 @@ export function generateEyes(game, ctx)
     game.loadedLevel[4] = true;
   }
   for (let i = 0; i < numberOfEyes; i++) {
-    eyes[i].draw(game);
+    eyes[i].draw(game, Dx, Dy);
   }
+
+  frontX += Dx / 800;
+  frontY += Dy / 800;
+
+  ctx.drawImage(forgroundSprite, frontX, frontY, 1200, 400, 0, 0, 1200, 400);
+
+  ctx.save();
+  ctx.globalAlpha = 0.1;
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0,0,canvas.width, canvas.height);
+  ctx.restore();
+
 }
 
 class Eye {
@@ -24,8 +54,10 @@ class Eye {
     this.radius = radius;
     this.ctx = ctx;
   }
-  draw(game) {
+  draw(game, Dx, Dy) {
     //eye bulb
+    this.x += Dx /1200;
+    this.y += Dy /1200;
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.ctx.fillStyle = "red";
@@ -72,7 +104,7 @@ function init(ctx) {
     let eye = {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      radius: Math.floor(Math.random() * 100) + 5,
+      radius: Math.floor(Math.random() * 70) + 5,
     };
     overlapping = false;
     for (let i = 0; i < eyes.length; i++) {
