@@ -56,8 +56,7 @@ class Eye {
   }
   draw(game, Dx, Dy) {
     //eye bulb
-    this.x += Dx /1200;
-    this.y += Dy /1200;
+    
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.ctx.fillStyle = "red";

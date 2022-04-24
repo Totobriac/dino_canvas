@@ -1,11 +1,16 @@
-const mineSprite = new Image();
+var mineSprite = new Image();
 mineSprite.src = "./assets/4_submarine/mine_large.png";
 
-const mineExplSprite = new Image();
+var mineExplSprite = new Image();
 mineExplSprite.src = "./assets/4_submarine/mine_explosion_hor.png";
 
-const bubblesArray = [];
-const explArray = [];
+var minesArray = [];
+var explArray = [];
+
+var style = canvas.style;
+var amp = 7;
+var t = 1;
+var step = 0.03;
 
 
 class Mine {
@@ -56,17 +61,18 @@ class Explosion {
 
 function generateMines(ctx, frame, dino) {
   if (frame % 50 == 0) {
-    bubblesArray.push(new Mine(ctx));
+    minesArray.push(new Mine(ctx));
   }
-  for (let i = 0; i < bubblesArray.length; i++) {
-    bubblesArray[i].update(dino);
-    if (bubblesArray[i].distance < bubblesArray[i].radius + dino.radius) {
-      addExplosion(bubblesArray[i].x, bubblesArray[i].y, ctx);
-      bubblesArray.splice(i, 1);
+  for (let i = 0; i < minesArray.length; i++) {
+    minesArray[i].update(dino);
+    if (minesArray[i].distance < minesArray[i].radius + dino.radius) {
+      addExplosion(minesArray[i].x, minesArray[i].y, ctx);
+      minesArray.splice(i, 1);
+
       continue
     }
-    if (bubblesArray[i].y < - bubblesArray[i].radius) {
-      bubblesArray.splice(i, 1);
+    if (minesArray[i].y < - minesArray[i].radius) {
+      minesArray.splice(i, 1);
       i--;
     }
   }
@@ -78,10 +84,31 @@ function addExplosion(x, y, ctx) {
 
 export function handleExplosion() {
   if (explArray.length > 0) {
+    shake();
     for (let i = 0; i < explArray.length; i++) {
       explArray[i].frameIndex === 9 ? explArray.splice(i,1) : explArray[i].update();
     }
+  } else {
+    t = 1;
+    style.filter = "blur(0px)";
+    style.transform = "matrix(1,0,0,1,0,0)"
   }
 }
 
-export { generateMines };
+function shake() {
+  if (t > 0) {
+    t -= step;
+    var a = (Math.random() * 2 - 1) * t;
+    var x = (Math.random() * amp * 2 - amp) * t;
+    var y = (Math.random() * amp - amp * 0.5) * t;
+    var s = Math.max(1, 1.05 * t);
+    var b = 2 * t;
+    var tr = "rotate(" + a + "deg) translate(" + x + "px," + y + "px) scale(" + s + ")";
+    style.transform = style.webkitTransform = tr;
+    style.filter = "blur(" + b + "px)";
+  }
+}
+
+export {
+  generateMines
+};
