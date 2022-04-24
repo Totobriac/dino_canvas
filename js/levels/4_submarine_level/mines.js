@@ -1,3 +1,5 @@
+import { endBubbles } from "./bubbles.js";
+
 var mineSprite = new Image();
 mineSprite.src = "./assets/4_submarine/mine_large.png";
 
@@ -60,7 +62,7 @@ class Explosion {
 }
 
 function generateMines(ctx, frame, dino) {
-  if (frame % 50 == 0) {
+  if (frame % 42 == 0 && endBubbles === true) {
     minesArray.push(new Mine(ctx));
   }
   for (let i = 0; i < minesArray.length; i++) {

@@ -23,8 +23,7 @@ export function generateEyes(game, ctx)
   backX += Dx / 500;
   backY += Dy / 500;
 
-  ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);  
 
   if (game.loadedLevel[4] === false) {
     init(ctx);
@@ -56,7 +55,7 @@ class Eye {
   }
   draw(game, Dx, Dy) {
     //eye bulb
-    
+
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.ctx.fillStyle = "red";

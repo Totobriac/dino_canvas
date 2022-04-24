@@ -1,5 +1,10 @@
 var bubbles = [];
 var sinTick = 0;
+var start = true;
+var endBubbles = false;
+
+var style = canvas.style;
+var b = 10;
 
 class Bubble {
   constructor(ctx) {
@@ -23,28 +28,31 @@ class Bubble {
     this.ctx.arc(this.x + 10, this.y + 4, this.radius / 5, 0, Math.PI *2 );
     this.ctx.fill();
   }
-  update(sinTick) {
+  update(sinTick,i) {
     this.x += Math.floor(Math.sin(sinTick)*2);
     this.radius += 0.08;
     this.ySpeed += this.acc;
     this.y -= this.ySpeed;
     this.draw();
+    if (this.y < - 100) bubbles.splice(i,1);
   }
 }
 
 function generateBubbles(ctx) {
-  if (bubbles.length === 0) {
+  if (b > 0.02) b -= 0.06;
+  style.filter = "blur(" + b + "px)";
+  if (start) {
     for (let i = 0; i < 300; i++) {
       bubbles.push(new Bubble(ctx))
     }
+    start = false;
   } else {
     bubbles.forEach((bubble, i) => {
       sinTick ++;
-      bubble.update(sinTick);
+      bubble.update(sinTick, i);
     });
   }
+  if (bubbles.length === 0) endBubbles = true;
 }
 
-export {
-  generateBubbles
-};
+export { generateBubbles, endBubbles };
