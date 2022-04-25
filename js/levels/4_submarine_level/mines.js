@@ -1,4 +1,5 @@
 import { endBubbles } from "./bubbles.js";
+import { shark } from "./shark.js";
 
 var mineSprite = new Image();
 mineSprite.src = "./assets/4_submarine/mine_large.png";
@@ -21,18 +22,22 @@ class Mine {
     this.y = canvas.height + 100;
     this.radius = 40;
     this.speed = Math.random() * 5 + 1;
+    this.xCenter;
+    this.yCenter;
     this.distance;
     this.ctx = ctx;
   }
   update(dino) {
     this.y -= this.speed;
+    this.xCenter = this.x - 44;
+    this.yCenter = this.y - 43;
     const dx = this.x - dino.x;
     const dy = this.y - dino.y;
     this.distance = Math.sqrt(dx * dx + dy * dy);
     this.draw();
   }
   draw() {
-    this.ctx.drawImage(mineSprite, this.x - 44, this.y - 43, 85, 85);
+    this.ctx.drawImage(mineSprite, this.xCenter, this.yCenter, 85, 85);
   }
 }
 
@@ -66,11 +71,13 @@ function generateMines(ctx, frame, dino) {
     minesArray.push(new Mine(ctx));
   }
   for (let i = 0; i < minesArray.length; i++) {
+
+    var sharkExplosion = exploShark(minesArray[i], ctx);
+
     minesArray[i].update(dino);
-    if (minesArray[i].distance < minesArray[i].radius + dino.radius) {
+    if (minesArray[i].distance < minesArray[i].radius + dino.radius || sharkExplosion) {
       addExplosion(minesArray[i].x, minesArray[i].y, ctx);
       minesArray.splice(i, 1);
-
       continue
     }
     if (minesArray[i].y < - minesArray[i].radius) {
@@ -78,6 +85,38 @@ function generateMines(ctx, frame, dino) {
       i--;
     }
   }
+}
+
+function exploShark(mine, ctx) {
+  var m = new DOMPoint(mine.x, mine.y);
+  var relm = shark.matrix.transformPoint(m);
+  var circle = { x: relm.x, y: relm.y, r: 42 };
+
+  var rect = { x:0 , y: 0, w: 188, h: 101 };
+  return rectCircleColl(circle, rect);
+}
+
+function rectCircleColl(circle, rect) {
+  var distX = Math.abs(circle.x - rect.x - rect.w / 2);
+  var distY = Math.abs(circle.y - rect.y - rect.h / 2);
+
+  if (distX > rect.w / 2 + circle.r) {
+    return false;
+  }
+  if (distY > rect.h / 2 + circle.r) {
+    return false;
+  }
+
+  if (distX <= rect.w / 2) {
+    return true;
+  }
+  if (distY <= rect.h / 2) {
+    return true;
+  }
+
+  var dx = distX - rect.w / 2;
+  var dy = distY - rect.h / 2;
+  return dx * dx + dy * dy <= circle.r * circle.r;
 }
 
 function addExplosion(x, y, ctx) {
@@ -111,6 +150,4 @@ function shake() {
   }
 }
 
-export {
-  generateMines
-};
+export { generateMines };

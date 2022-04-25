@@ -47,6 +47,7 @@ class Shark {
     this.maxBiteFrame = 2;
     this.isTurning = false;
     this.isBiting = true;
+    this.matrix;
   }
   update() {
 
@@ -96,6 +97,8 @@ class Shark {
     this.angle = getAngle(this.x, this.y, this.dino)
     this.ctx.rotate(this.angle);
 
+    this.matrix = this.ctx.getTransform().invertSelf();
+    
     if (oldSprite != sprite) {
       this.isTurning = true;
       this.tickCount = 0;
@@ -142,6 +145,4 @@ function getAngle(x, y, dino) {
   return theta
 }
 
-export {
-  generateShark
-};
+export { generateShark, shark};
