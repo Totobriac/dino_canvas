@@ -41,7 +41,7 @@ export function startLevel(ctx, game, dino) {
       generateMines(ctx, game.frame, dino);
       handleExplosion();
       generateBubbles(ctx);
-      generateShark(dino, ctx, game);
+      generateShark(dino, ctx);
     }
   }
 }

@@ -10,15 +10,15 @@ var dy = 0;
 var isShark = false;
 var shark = undefined;
 
-var dinoSpriteX = [0,188,380,578,772,962,1152,1346,1544,1736];
+var dinoSpriteX = [0, 188, 380, 578, 772, 962, 1152, 1346, 1544, 1736];
+var dinoTurnX = [0, 198, 378, 540, 690, 814, 910, 992, 1074, 1172, 1291, 1436, 1616];
 
 class Shark {
-  constructor(dino, ctx, game) {
+  constructor(dino, ctx) {
     this.x = 100;
     this.y = 100;
     this.dino = dino;
     this.ctx = ctx;
-    this.game = game;
     this.angle = 0;
     isShark = true;
     this.tickCount = 0;
@@ -29,10 +29,10 @@ class Shark {
   update() {
     dx = this.x - this.dino.x;
     dy = this.y - this.dino.y;
-    if (this.game.mousePosition.x != this.dino.x) {
+    if (this.x != this.dino.x) {
       this.x -= dx / 70;
     }
-    if (this.game.mousePosition.y != this.dino.y) {
+    if (this.y != this.dino.y) {
       this.y -= dy / 70;
     }
     if (this.tickCount > this.maxTickount) {
@@ -63,8 +63,8 @@ class Shark {
   }
 }
 
-function generateShark(dino, ctx, game) {
-  isShark ? shark.draw() : shark = new Shark(dino, ctx, game);
+function generateShark(dino, ctx) {
+  isShark ? shark.draw() : shark = new Shark(dino, ctx);
 }
 
 function getAngle(x, y, dino) {
