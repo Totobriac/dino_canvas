@@ -42,7 +42,6 @@ class Shark {
     this.tickCount = 0;
     this.maxTickount = 12;
     this.frame = 0;
-    //this.maxFrame = 9;
     this.turnFrame = 0;
     this.maxTurnFrame = 12;
     this.maxBiteFrame = 2;
@@ -57,10 +56,10 @@ class Shark {
       dx = this.x - this.dino.x;
       dy = this.y - this.dino.y;
       if (this.x != this.dino.x) {
-        this.x -= dx / 30;
+        this.x -= dx / 20;
       }
       if (this.y != this.dino.y) {
-        this.y -= dy / 30;
+        this.y -= dy / 20;
       }
       var maxFrame;
       this.isBiting ? maxFrame = 2 : maxFrame = 9;
@@ -85,11 +84,11 @@ class Shark {
     this.ctx.save();
 
     if (this.x >= this.dino.x) {
-      this.ctx.translate(this.x, this.y - 35);
+      this.ctx.translate(this.x, this.y - 30);
       sprite = sharkLeftSprite;
       biteSprite = bittingLeftSprite;
     } else {
-      this.ctx.translate(this.x, this.y + 35);
+      this.ctx.translate(this.x, this.y + 30);
       sprite = sharkRightSprite;
       biteSprite = bittingRightSprite;
     }
