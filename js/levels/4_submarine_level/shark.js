@@ -10,6 +10,11 @@ sharkTurnRightSprite.src = "./assets/4_submarine/shark_turn_right.png";
 var sharkTurnLeftSprite = new Image();
 sharkTurnLeftSprite.src = "./assets/4_submarine/shark_turn_left.png";
 
+var bittingRightSprite = new Image();
+bittingRightSprite.src = "./assets/4_submarine/bitting_right.png";
+
+var bittingLeftSprite = new Image();
+bittingLeftSprite.src = "./assets/4_submarine/bitting_left.png";
 
 var dx = 0;
 var dy = 0;
@@ -20,8 +25,11 @@ var shark = undefined;
 var sprite = sharkRightSprite;
 var oldSprite = sharkRightSprite;
 
+var biteSprite = bittingRightSprite;
+
 var dinoSpriteX = [0, 188, 380, 578, 772, 962, 1152, 1346, 1544, 1736];
 var dinoTurnX = [0, 198, 378, 540, 690, 814, 910, 992, 1074, 1172, 1291, 1436, 1616];
+var dinoBiteX = [0, 198, 394];
 
 class Shark {
   constructor(dino, ctx) {
@@ -34,23 +42,30 @@ class Shark {
     this.tickCount = 0;
     this.maxTickount = 12;
     this.frame = 0;
-    this.maxFrame = 9;
+    //this.maxFrame = 9;
     this.turnFrame = 0;
     this.maxTurnFrame = 12;
+    this.maxBiteFrame = 2;
     this.isTurning = false;
+    this.isBiting = true;
   }
   update() {
+
+    dx < 28 && dx > -28 && dy < 28 && dy > -28 ? this.isBiting = true : this.isBiting = false;
+
     if (!this.isTurning) {
       dx = this.x - this.dino.x;
       dy = this.y - this.dino.y;
       if (this.x != this.dino.x) {
-        this.x -= dx / 70;
+        this.x -= dx / 30;
       }
       if (this.y != this.dino.y) {
-        this.y -= dy / 70;
+        this.y -= dy / 30;
       }
+      var maxFrame;
+      this.isBiting ? maxFrame = 2 : maxFrame = 9;
       if (this.tickCount > this.maxTickount) {
-        this.frame >= this.maxFrame ? this.frame = 0 : this.frame++;
+        this.frame >= maxFrame ? this.frame = 0 : this.frame++;
         this.tickCount = 0;
       } else {
         this.tickCount++;
@@ -65,16 +80,23 @@ class Shark {
     }
   }
   draw() {
+
     this.update();
     this.ctx.save();
-    this.ctx.translate(this.x, this.y);
+
+    if (this.x >= this.dino.x) {
+      this.ctx.translate(this.x, this.y - 35);
+      sprite = sharkLeftSprite;
+      biteSprite = bittingLeftSprite;
+    } else {
+      this.ctx.translate(this.x, this.y + 35);
+      sprite = sharkRightSprite;
+      biteSprite = bittingRightSprite;
+    }
+
     this.angle = getAngle(this.x, this.y, this.dino)
     this.ctx.rotate(this.angle);
-    if (this.x >= this.dino.x) {
-      sprite = sharkLeftSprite;
-    } else {
-      sprite = sharkRightSprite;
-    }
+
     if (oldSprite != sprite) {
       this.isTurning = true;
       this.tickCount = 0;
@@ -91,10 +113,19 @@ class Shark {
         this.turnFrame = 0;
       }
     } else {
-      if (this.frame < 8) {
-        this.ctx.drawImage(sprite, dinoSpriteX[this.frame], 0, dinoSpriteX[this.frame + 1] - dinoSpriteX[this.frame], 101, 0, 0, dinoSpriteX[this.frame + 1] - dinoSpriteX[this.frame], 101);
+      if (!this.isBiting) {
+        if (this.frame < 8) {
+          this.ctx.drawImage(sprite, dinoSpriteX[this.frame], 0, dinoSpriteX[this.frame + 1] - dinoSpriteX[this.frame], 101, 0, 0, dinoSpriteX[this.frame + 1] - dinoSpriteX[this.frame], 101);
+        } else {
+          this.ctx.drawImage(sprite, dinoSpriteX[this.frame], 0, 188, 101, 0, 0, 188, 101);
+        }
       } else {
-        this.ctx.drawImage(sprite, dinoSpriteX[this.frame], 0, 188, 101, 0, 0, 188, 101);
+        if (this.frame > 2) this.frame = 0;
+        if (this.frame < 2) {
+          this.ctx.drawImage(biteSprite, dinoBiteX[this.frame], 0, dinoBiteX[this.frame + 1] - dinoBiteX[this.frame], 101, 0, 0, dinoBiteX[this.frame + 1] - dinoBiteX[this.frame], 101);
+        } else {
+          this.ctx.drawImage(biteSprite, dinoBiteX[this.frame], 0, 188, 101, 0, 0, 188, 101);
+        }
       }
     }
     this.ctx.restore();
