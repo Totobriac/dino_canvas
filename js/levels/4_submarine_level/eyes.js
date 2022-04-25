@@ -16,6 +16,8 @@ forgroundSprite.src = "./assets/4_submarine/forground_2.png";
 var backgroundSprite = new Image();
 backgroundSprite.src = "./assets/4_submarine/background_2.png";
 
+
+
 export function generateEyes(game, ctx)
 { var Dx = Math.floor(dx);
   var Dy = Math.floor(dy);
@@ -23,7 +25,7 @@ export function generateEyes(game, ctx)
   backX += Dx / 500;
   backY += Dy / 500;
 
-  ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);  
+  ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);
 
   if (game.loadedLevel[4] === false) {
     init(ctx);

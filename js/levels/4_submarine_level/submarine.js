@@ -23,10 +23,10 @@ export function drawSubmarine(ctx, dino, mousePosition) {
   ctx.rotate(dino.angle);
   if (dino.x >= mousePosition.x) {
     ctx.drawImage(subLeft, 0 - 40, 0 - 45, 71, 80);
-    ctx.drawImage(subJet, dino.frameIndex * 108, 0, 108, 108, 30, -29, 60, 60);
+    ctx.drawImage(subJet, dino.frameIndex * 108, 0, 108, 108, 30, -29, 40, 40);
   } else {
     ctx.drawImage(subRight, -40, -35, 71, 80);
-    ctx.drawImage(subJetRight, dino.frameIndex * 108, 0, 108, 108, 34, -28, 60, 60);
+    ctx.drawImage(subJetRight, dino.frameIndex * 108, 0, 108, 108, 34, -28, 40, 40);
   }
   ctx.restore();
 }

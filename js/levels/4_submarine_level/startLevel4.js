@@ -3,13 +3,14 @@ import { generateMines, handleExplosion } from "./mines.js";
 import { generateEyes } from "./eyes.js";
 import { tick } from "./tunnel.js";
 import { generateBubbles } from "./bubbles.js";
+import { generateShark } from "./shark.js";
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
-var isDiving = false;
+var isDiving = true;
 
 
 window.addEventListener('mousedown', function () {
@@ -40,6 +41,7 @@ export function startLevel(ctx, game, dino) {
       generateMines(ctx, game.frame, dino);
       handleExplosion();
       generateBubbles(ctx);
+      generateShark(dino, ctx, game);
     }
   }
 }
