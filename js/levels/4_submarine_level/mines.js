@@ -1,4 +1,3 @@
-import { endBubbles } from "./bubbles.js";
 import { shark } from "./shark.js";
 
 var mineSprite = new Image();
@@ -67,7 +66,7 @@ class Explosion {
 }
 
 function generateMines(ctx, frame, dino) {
-  if (frame % 42 == 0 && endBubbles === true) {
+  if (frame % 42 == 0) {
     minesArray.push(new Mine(ctx));
   }
   for (let i = 0; i < minesArray.length; i++) {

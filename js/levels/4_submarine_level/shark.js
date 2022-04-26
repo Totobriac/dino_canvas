@@ -1,3 +1,5 @@
+import { endBubbles } from "./bubbles.js";
+
 var sharkRightSprite = new Image();
 sharkRightSprite.src = "./assets/4_submarine/shark_right.png";
 
@@ -33,7 +35,7 @@ var dinoBiteX = [0, 198, 394];
 
 class Shark {
   constructor(dino, ctx) {
-    this.x = 100;
+    this.x = -100;
     this.y = 100;
     this.dino = dino;
     this.ctx = ctx;
