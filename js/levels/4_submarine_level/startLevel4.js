@@ -4,6 +4,7 @@ import { generateEyes } from "./eyes.js";
 import { tick } from "./tunnel.js";
 import { generateBubbles } from "./bubbles.js";
 import { generateShark } from "./shark.js";
+import { drawCounter } from "./counter.js";
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
@@ -33,15 +34,15 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
-
     if (!isDiving) tick(ctx);
     if (isDiving) {
-      generateEyes(game, ctx);
+      generateEyes(game, ctx, dino);
       drawSubmarine(ctx, dino, game.mousePosition);
       generateMines(ctx, game.frame, dino);
       handleExplosion();
       generateBubbles(ctx);
       generateShark(dino, ctx);
+      drawCounter(dino, ctx);
     }
   }
 }

@@ -40,14 +40,16 @@ class Shark {
     this.angle = 0;
     isShark = true;
     this.tickCount = 0;
-    this.maxTickount = 12;
+    this.maxTickount = 10;
     this.frame = 0;
+    this.oldFrame = 0;
     this.turnFrame = 0;
     this.maxTurnFrame = 12;
     this.maxBiteFrame = 2;
     this.isTurning = false;
     this.isBiting = true;
     this.matrix;
+    this.score = 50;
   }
   update() {
 
@@ -98,7 +100,7 @@ class Shark {
     this.ctx.rotate(this.angle);
 
     this.matrix = this.ctx.getTransform().invertSelf();
-    
+
     if (oldSprite != sprite) {
       this.isTurning = true;
       this.tickCount = 0;
@@ -122,6 +124,11 @@ class Shark {
           this.ctx.drawImage(sprite, dinoSpriteX[this.frame], 0, 188, 101, 0, 0, 188, 101);
         }
       } else {
+        if (this.oldFrame != this.frame) {
+            if (this.dino.score> 1) this.dino.updateScore(-1);
+            this.oldFrame = this.frame;
+        }
+
         if (this.frame > 2) this.frame = 0;
         if (this.frame < 2) {
           this.ctx.drawImage(biteSprite, dinoBiteX[this.frame], 0, dinoBiteX[this.frame + 1] - dinoBiteX[this.frame], 101, 0, 0, dinoBiteX[this.frame + 1] - dinoBiteX[this.frame], 101);

@@ -16,6 +16,7 @@ var dx = 0;
 var dy = 0;
 
 export function drawSubmarine(ctx, dino, mousePosition) {
+
   update(dino, game);
   ctx.save();
   ctx.translate(dino.x, dino.y);

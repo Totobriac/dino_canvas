@@ -48,4 +48,7 @@ export class Dino {
   updateState(state) {
     this.state = state;
   }
+  updateScore(score) {
+    this.score += score;
+  }
 }

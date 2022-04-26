@@ -18,7 +18,7 @@ backgroundSprite.src = "./assets/4_submarine/background_2.png";
 
 
 
-export function generateEyes(game, ctx)
+export function generateEyes(game, ctx, dino)
 { var Dx = Math.floor(dx);
   var Dy = Math.floor(dy);
 
@@ -28,6 +28,7 @@ export function generateEyes(game, ctx)
   ctx.drawImage(backgroundSprite, backX, backY, 1200, 400, 0, 0, 1200, 400);
 
   if (game.loadedLevel[4] === false) {
+    dino.score = 50;
     init(ctx);
     game.loadedLevel[4] = true;
   }
