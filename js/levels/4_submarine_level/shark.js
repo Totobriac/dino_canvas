@@ -34,10 +34,11 @@ var dinoTurnX = [0, 198, 378, 540, 690, 814, 910, 992, 1074, 1172, 1291, 1436, 1
 var dinoBiteX = [0, 198, 394];
 
 class Shark {
-  constructor(dino, ctx) {
+  constructor(dino, game, ctx) {
     this.x = -100;
     this.y = 100;
     this.dino = dino;
+    this.game = game;
     this.ctx = ctx;
     this.angle = 0;
     isShark = true;
@@ -57,7 +58,7 @@ class Shark {
 
     dx < 28 && dx > -28 && dy < 28 && dy > -28 ? this.isBiting = true : this.isBiting = false;
 
-    if (!this.isTurning) {
+    if (!this.isTurning ) {
       dx = this.x - this.dino.x;
       dy = this.y - this.dino.y;
       if (this.x != this.dino.x) {
@@ -143,8 +144,8 @@ class Shark {
   }
 }
 
-function generateShark(dino, ctx) {
-  isShark ? shark.draw() : shark = new Shark(dino, ctx);
+function generateShark(dino, game, ctx) {
+  isShark ? shark.draw() : shark = new Shark(dino, game, ctx);
 }
 
 function getAngle(x, y, dino) {

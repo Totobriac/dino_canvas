@@ -11,7 +11,7 @@ mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
-var isDiving = false;
+var isDiving = true;
 
 
 window.addEventListener('mousedown', function () {
@@ -33,7 +33,7 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-
+    console.log(dino.score);
     if (!isDiving) tick(ctx);
     if (isDiving) {
       generateEyes(game, ctx, dino);
@@ -41,11 +41,12 @@ export function startLevel(ctx, game, dino) {
       if (endBubbles) {
         generateMines(ctx, game.frame, dino);
         handleExplosion();
-        generateShark(dino, ctx);
+        generateShark(dino, game, ctx);
         drawCounter(dino, ctx);
       }
       generateBubbles(ctx);
     }
+    if (dino.score >= 52) game.levelDone = true;
   }
 }
 

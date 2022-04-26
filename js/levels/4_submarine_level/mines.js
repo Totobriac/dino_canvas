@@ -75,7 +75,7 @@ function generateMines(ctx, frame, dino) {
 
     minesArray[i].update(dino);
     if (minesArray[i].distance < minesArray[i].radius + dino.radius || sharkExplosion) {
-      sharkExplosion ? dino.updateScore(2) : (dino.score > 5) ? dino.updateScore(-5) : dino.updateScore(0);
+      sharkExplosion ? dino.updateScore(2) : (dino.score > 4) ? dino.updateScore(-4) : dino.updateScore(0);
       addExplosion(minesArray[i].x, minesArray[i].y, ctx);
       minesArray.splice(i, 1);
       continue
