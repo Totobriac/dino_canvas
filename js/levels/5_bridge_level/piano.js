@@ -15,9 +15,11 @@ var arrows = ["right", "left", "up", "down"];
 
 var arrow = new Image();
 
+var arrowX = 600;
+
 var arrowIcon = {
   side : undefined,
-  x : 1200,
+  x : 600,
 }
 
 let audio;
@@ -85,14 +87,20 @@ export function generatePiano(ctx, frame) {
 
 function drawLine(ctx) {
   arrow.src = "./assets/5_bridge/" + arrows[arrowIcon.side] + ".png";
-  ctx.drawImage(arrow, arrowIcon.x, 284, 30, 30);
+
+  if (arrowX < arrowIcon.x ) {
+    arrowX += (arrowIcon.x - arrowX) / 2;
+  } else if (arrowX > arrowIcon.x) {
+    arrowX -= (arrowX - arrowIcon.x) / 2;
+  }
+  ctx.drawImage(arrow, arrowX , 284, 30, 30);
   ctx.strokeStyle = "yellow";
   ctx.lineWidth = 2;
 
   ctx.beginPath();
   ctx.moveTo(0, 299);
   ctx.lineTo(arrowIcon.x, 299);
-  
+
   ctx.moveTo(arrowIcon.x + 30, 299);
   ctx.lineTo(1200, 299);
   ctx.stroke();
