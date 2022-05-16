@@ -11,7 +11,7 @@ var partition = [];
 var oldFrame = 0;
 var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
 
-var arrows = ["right", "left", "up", "down"];
+var arrows = ["right", "left", "up"];
 
 var arrow = new Image();
 
@@ -33,7 +33,7 @@ class Key {
     this.y;
     this.getTime();
     this.color;
-    this.arrow = Math.floor(Math.random() * 4);
+    this.arrow = Math.floor(Math.random() * 3);
   }
   getTime() {
     var sum = 0;
@@ -86,7 +86,7 @@ export function generatePiano(ctx, frame) {
 }
 
 function drawLine(ctx) {
-  arrow.src = "./assets/5_bridge/" + arrows[arrowIcon.side] + ".png";
+  if (arrowIcon.side) arrow.src = "./assets/5_bridge/" + arrows[arrowIcon.side] + ".png";
 
   if (arrowX < arrowIcon.x ) {
     arrowX += (arrowIcon.x - arrowX) / 2;
