@@ -9,7 +9,6 @@ arrowsKeys.src = "./assets/5_bridge/arrows.png";
 
 var circleD = 0;
 var start = false;
-var populateY = false;
 
 var colSize = 2;
 var columns = canvas.width / colSize;
@@ -36,7 +35,8 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
     generateBackground(ctx, game);
-    if(yIndex.length === 0) drawDinoPiano(ctx, dino);
+    drawDinoPiano(ctx, dino);
+
     generateBridge(ctx);
     generatePiano(ctx, game.frame);
     generateRain(ctx, game);
@@ -46,7 +46,7 @@ export function startLevel(ctx, game, dino) {
 
     for (let i = 0; i < columns; i++) {
       if (y[i] != 0 && y[i] < 400) {
-        y[i] += 8;
+        y[i] += 6;
       }
       ctx.fillRect(i * colSize, y[i], colSize, 400);
     }
@@ -58,7 +58,7 @@ export function startLevel(ctx, game, dino) {
 
     cols.forEach((col, i) => {
       if (y[yIndex[col]] === 0) {
-        y[yIndex[col]] += 8;
+        y[yIndex[col]] += 6;
       }
       yIndex.splice(col, 1);
     });

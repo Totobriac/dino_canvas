@@ -11,8 +11,16 @@ var partition = [];
 var oldFrame = 0;
 var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
 
-let audio;
+var arrows = ["right", "left", "up", "down"];
 
+var arrow = new Image();
+
+var arrowIcon = {
+  side : undefined,
+  x : 1200,
+}
+
+let audio;
 
 class Key {
   constructor(name, index, length) {
@@ -23,6 +31,7 @@ class Key {
     this.y;
     this.getTime();
     this.color;
+    this.arrow = Math.floor(Math.random() * 4);
   }
   getTime() {
     var sum = 0;
@@ -42,12 +51,14 @@ class Key {
   }
   checkCollision() {
     if (this.y + (this.length * 30) < 300 || this.y > 300) {
-      this.color = "blue";
+      this.color = "rgb(148, 224, 247)";
     }
     else {
-      this.color = "red";      
+      this.color = "rgb(0, 170, 222)";
       audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
+      arrowIcon.side = this.arrow;
+      arrowIcon.x = 60 * this.index + 180;
     }
   }
 }
@@ -61,26 +72,37 @@ export function generatePiano(ctx, frame) {
   }
   if (frame > oldFrame + 900) {
     for (let i = 0; i < partition.length; i++) {
-      partition[i].drawTile(ctx);
+      if (partition[i].y > 400) {
+        partition.splice(i,1);
+        i--;
+      } else {
+        partition[i].drawTile(ctx);
+      }
     }
     drawLine(ctx);
   }
 }
 
 function drawLine(ctx) {
-  ctx.strokeStyle = 'yellow';
+  arrow.src = "./assets/5_bridge/" + arrows[arrowIcon.side] + ".png";
+  ctx.drawImage(arrow, arrowIcon.x, 284, 30, 30);
+  ctx.strokeStyle = "yellow";
   ctx.lineWidth = 2;
+
   ctx.beginPath();
   ctx.moveTo(0, 299);
+  ctx.lineTo(arrowIcon.x, 299);
+  
+  ctx.moveTo(arrowIcon.x + 30, 299);
   ctx.lineTo(1200, 299);
   ctx.stroke();
 }
 
 document.addEventListener('keydown', function (event) {
   switch (event.key) {
-    case "e":
+    case "ArrowUp":
       audio.currentTime = 0;
       audio.play();
-      break;   
+      break;
   }
 });

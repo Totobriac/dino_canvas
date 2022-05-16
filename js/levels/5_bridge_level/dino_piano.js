@@ -10,7 +10,7 @@ pianoSprite.src = "./assets/5_bridge/piano.png";
 var frame = 0;
 var width = 66;
 var height = 70;
-var x = -120;
+var x = -20;
 var y = 256;
 var isWalking = true;
 
