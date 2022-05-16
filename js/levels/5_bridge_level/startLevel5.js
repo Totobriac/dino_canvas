@@ -9,20 +9,12 @@ arrowsKeys.src = "./assets/5_bridge/arrows.png";
 
 var circleD = 0;
 var start = false;
-var getData = false;
-var imgData;
-var imageData;
+var populateY = false;
 
-var tempCanvas = document.createElement('canvas');
-tempCanvas.width = 1200;
-tempCanvas.height = 400;
-var tempContext = tempCanvas.getContext('2d');
-
-tempContext.fillStyle = "white";
-tempContext.fillRect(0, 0, 1200, 400);
-
-imageData = tempContext.getImageData(0, 0, canvas.width, canvas.height);
-
+var colSize = 2;
+var columns = canvas.width / colSize;
+var y =  Array(columns).fill(0);
+var yIndex = [...Array(columns).keys()];
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -43,27 +35,33 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-
     generateBackground(ctx, game);
-    drawDinoPiano(ctx, dino);
+    if(yIndex.length === 0) drawDinoPiano(ctx, dino);
     generateBridge(ctx);
     generatePiano(ctx, game.frame);
     generateRain(ctx, game);
-    console.log(imageData.data.length);
 
-    for (let i = 0; i < imageData.data.length; i += 4) {
-      imageData.data[i] = 255;
-      imageData.data[i + 1] = 255;
-      imageData.data[i + 2] = 255;
-      imageData.data[i + 3] = 255;
+
+    ctx.fillStyle = "white";
+
+    for (let i = 0; i < columns; i++) {
+      if (y[i] != 0 && y[i] < 400) {
+        y[i] += 8;
+      }
+      ctx.fillRect(i * colSize, y[i], colSize, 400);
     }
 
-    tempContext.putImageData(imageData, 0, 0);
+    var cols = [];
+    for (let i= 0; i < 4; i++)  {
+      cols.push(Math.floor(Math.random() * yIndex.length));
+    }
 
-    var img = new Image();
-    img.src = tempCanvas.toDataURL();
-    ctx.drawImage(tempCanvas, 0, 0);
-
+    cols.forEach((col, i) => {
+      if (y[yIndex[col]] === 0) {
+        y[yIndex[col]] += 8;
+      }
+      yIndex.splice(col, 1);
+    });
   }
 }
 
