@@ -14,18 +14,20 @@ var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
 var arrows = ["right", "left", "up"];
 
 var arrow = new Image();
+arrow.src = "./assets/5_bridge/circle.png";
 
 var arrowX = 600;
 
 var arrowIcon = {
-  side : undefined,
   x : 600,
 }
 
 let audio;
 
+var hit = false;
+
 class Key {
-  constructor(name, index, length) {
+  constructor(name, index, length, ctx) {
     this.name = name;
     this.index = index;
     this.length = length;
@@ -34,6 +36,8 @@ class Key {
     this.getTime();
     this.color;
     this.arrow = Math.floor(Math.random() * 3);
+    this.ctx = ctx;
+    this.resetHit = false;
   }
   getTime() {
     var sum = 0;
@@ -42,24 +46,30 @@ class Key {
     }
     this.y = -sum * 30 - this.length * 30;
   }
-  drawTile(ctx) {
+  drawTile() {
     this.updateTile();
     this.checkCollision();
-    ctx.fillStyle = this.color;
-    ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 30);
+    this.ctx.fillStyle = this.color;
+    this.ctx.fillRect(60 * this.index + 180, this.y, 30, this.length * 30);
   }
   updateTile() {
     this.y += 1.2;
   }
   checkCollision() {
-    if (this.y + (this.length * 30) < 300 || this.y > 300) {
+    if (this.y + (this.length * 30) < 300 ) {
       this.color = "rgb(148, 224, 247)";
     }
+    else if (this.y > 300) {
+      this.color === "green" ? this.color = "green" : this.color = "red";
+    }
     else {
-      this.color = "rgb(0, 170, 222)";
+      if (!this.resetHit) {
+        hit = false;
+        this.resetHit = true;
+      }
+      hit? this.color = "green" : this.color = "rgb(0, 170, 222)";
       audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
-      arrowIcon.side = this.arrow;
       arrowIcon.x = 60 * this.index + 180;
     }
   }
@@ -68,7 +78,7 @@ class Key {
 export function generatePiano(ctx, frame) {
   if (partition.length === 0) {
     for (let i = 0; i < keys.length; i++) {
-      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2]))
+      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2], ctx))
     }
     oldFrame = frame;
   }
@@ -78,7 +88,7 @@ export function generatePiano(ctx, frame) {
         partition.splice(i,1);
         i--;
       } else {
-        partition[i].drawTile(ctx);
+        partition[i].drawTile();
       }
     }
     drawLine(ctx);
@@ -86,7 +96,6 @@ export function generatePiano(ctx, frame) {
 }
 
 function drawLine(ctx) {
-  if (arrowIcon.side) arrow.src = "./assets/5_bridge/" + arrows[arrowIcon.side] + ".png";
 
   if (arrowX < arrowIcon.x ) {
     arrowX += (arrowIcon.x - arrowX) / 2;
@@ -106,11 +115,13 @@ function drawLine(ctx) {
   ctx.stroke();
 }
 
-document.addEventListener('keydown', function (event) {
+document.addEventListener('keydown', function(event) {
+  if (event.repeat) return
   switch (event.key) {
     case "ArrowUp":
       audio.currentTime = 0;
       audio.play();
+      hit = true;
       break;
   }
 });
