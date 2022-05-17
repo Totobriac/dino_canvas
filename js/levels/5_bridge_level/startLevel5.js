@@ -41,7 +41,6 @@ export function startLevel(ctx, game, dino) {
     generatePiano(ctx, game.frame);
     generateRain(ctx, game);
 
-
     ctx.fillStyle = "white";
 
     for (let i = 0; i < columns; i++) {

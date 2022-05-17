@@ -60,14 +60,14 @@ class Key {
       this.color = "rgb(148, 224, 247)";
     }
     else if (this.y > 300) {
-      this.color === "green" ? this.color = "green" : this.color = "red";
+      this.color === "rgb(127, 220, 144)" ? this.color = "rgb(127, 220, 144)" : this.color = "rgb(228, 49, 50)";
     }
     else {
       if (!this.resetHit) {
         hit = false;
         this.resetHit = true;
       }
-      hit? this.color = "green" : this.color = "rgb(0, 170, 222)";
+      hit? this.color = "rgb(127, 220, 144)" : this.color = "rgb(0, 170, 222)";
       audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
       arrowIcon.x = 60 * this.index + 180;

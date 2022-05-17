@@ -3,6 +3,9 @@ import { stopRain } from "./rain.js";
 var painting = new Image();
 painting.src = "./assets/5_bridge/starry_night_no_stars.png";
 
+var star = new Image();
+star.src = "./assets/5_bridge/star_1.png";
+
 
 var frame = 0;
 var sourceX = 300;
@@ -23,6 +26,7 @@ function generateBackground(ctx, game) {
   }
   else {
     ctx.drawImage(painting, 0, 0);
+    ctx.drawImage(star, 600,20,70,70)
     stopRain();
   }
 }
