@@ -21,9 +21,11 @@ if (!init) {
   }
 }
 
-function drawHug(ctx) {
+function addAlpha() {
+  alpha += 0.8;
+}
 
-  alpha += 0.1;
+function drawHug(ctx) {  
   
   if (alpha > 90 && distortion > 0.1) distortion -= 0.1;
 
@@ -42,4 +44,4 @@ function drawHug(ctx) {
   }
 }
 
-export { drawHug };
+export { drawHug, addAlpha };

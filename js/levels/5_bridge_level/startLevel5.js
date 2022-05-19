@@ -4,6 +4,10 @@ import { generateBridge } from "./bridge.js";
 import { generatePiano } from "./piano.js";
 import { generateRain } from "./rain.js";
 
+import { sound } from "../../sound.js";
+
+var rainSound = new sound("./assets/5_bridge/rain_short.mp3", false);
+
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/5_bridge/arrows.png";
 
@@ -16,6 +20,8 @@ var y =  Array(columns).fill(0);
 var yIndex = [...Array(columns).keys()];
 
 window.addEventListener('mousedown', function () {
+  rainSound.play();
+  rainSound.volume(1);
   startGame();
 })
 
@@ -34,6 +40,7 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
+    
     generateBackground(ctx, game);
     drawDinoPiano(ctx, dino);
 
