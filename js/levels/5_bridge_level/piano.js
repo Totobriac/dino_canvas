@@ -11,7 +11,6 @@ var partition = [];
 var oldFrame = 0;
 var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
 
-var arrows = ["right", "left", "up"];
 
 var arrow = new Image();
 arrow.src = "./assets/5_bridge/circle.png";
