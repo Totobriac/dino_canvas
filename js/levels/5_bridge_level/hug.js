@@ -1,3 +1,5 @@
+import { endGame } from "./startLevel5.js";
+
 var hug = new Image();
 hug.src = "./assets/5_bridge/hug.png";
 
@@ -31,6 +33,7 @@ var countUp = true;
 var hasEnded = false;
 
 var resize = 0;
+var takeSnap = false;
 
 if (!init) {
   hug.onload = () => {
@@ -49,7 +52,7 @@ if (!init2) {
 }
 
 function drawHug(ctx) {
-  if (!hasEnded) alpha += 0.02;
+  if (!hasEnded) alpha += 1.02;
   if (alpha > 90 && distortion > 0.05) distortion -= 0.05;
   var data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
@@ -77,6 +80,11 @@ function drawHug(ctx) {
     ctx.shadowBlur = glowR;
     ctx.drawImage(hug, 375, 0, 350, 350);
     ctx.restore();
+
+    if (takeSnap) {
+      var snap = ctx.getImageData(0, 0, 1200, 400);
+      endGame(ctx, snap);
+    };
   }
 }
 
@@ -87,7 +95,11 @@ function glow() {
 }
 
 function drawStars(ctx) {
-  alpha += 0.2;
+  if (alpha < 225) {
+    alpha += 1.2;
+  } else {
+    takeSnap = true;
+  }
   var data = imageData2.data;
   for (let i = 0; i < data.length; i += 4) {
     if (data[i] != 0 || data[i + 1] != 0 || data[i + 2] != 0) {
