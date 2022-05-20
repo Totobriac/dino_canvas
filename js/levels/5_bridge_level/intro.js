@@ -3,6 +3,9 @@ var columns = canvas.width / colSize;
 var y = Array(columns).fill(0);
 var yIndex = [...Array(columns).keys()];
 
+var y2 = Array(columns).fill(0);
+var yIndex2 = [...Array(columns).keys()];
+
 var out = false;
 
 var tempCanvas = document.createElement('canvas');
@@ -44,22 +47,20 @@ function introOut(ctx, snap) {
 
   var cols = [];
   for (let i = 0; i < 4; i++) {
-    cols.push(Math.floor(Math.random() * yIndex.length));
+    cols.push(Math.floor(Math.random() * yIndex2.length));
   }
   cols.forEach((col, i) => {
-    if (y[yIndex[col]] === 0) {
-      y[yIndex[col]] += 6;
+    if (y2[yIndex2[col]] === 0) {
+      y2[yIndex2[col]] += 2;
     }
-    yIndex.splice(col, 1);
+    yIndex2.splice(col, 1);
   });
   for (let i = 0; i < columns; i++) {
-    if (y[i] != 0 && y[i] < 400) {
-      y[i] += 6;
-    }
-    //ctx.putImageData(snap, 0, 0)
-    //ctx.drawImage(tempCanvas,0,0)
-    // ctx.drawImage(tempCanvas, i * colSize, 0, colSize, 400, i * colSize, y[i], colSize, 400);
-    ctx.drawImage(tempCanvas,0,0,2,400,0,0,2,400)
+    if (y2[i] != 0 && y2[i] < 400) {
+      y2[i] += 2;
+    }  
+    ctx.drawImage(tempCanvas, i * colSize, 0, colSize, 400, i * colSize, y2[i], colSize, 400);
+
   }
 }
 
