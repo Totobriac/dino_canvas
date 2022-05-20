@@ -23,9 +23,7 @@ function generateBackground(ctx, game) {
   }
   else {
     ctx.drawImage(painting, 0, 0);
-  
-    drawHug(ctx);
-    
+    drawHug(ctx);    
     stopRain();
   }
 }

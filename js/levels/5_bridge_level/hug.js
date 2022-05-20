@@ -30,8 +30,9 @@ var countUp = true;
 
 var hasEnded = false;
 
-if (!init) {
+var resize = 0;
 
+if (!init) {
   hug.onload = () => {
     tempContext.drawImage(hug, 0, 0, 350, 350);
     imageData = tempContext.getImageData(0, 0, 350, 350);
@@ -40,7 +41,6 @@ if (!init) {
 }
 
 if (!init2) {
- 
   night.onload = () => {
     tempContext2.drawImage(night, 0, 0, 1200, 400);
     imageData2 = tempContext2.getImageData(0, 0, 1200, 400);
@@ -49,7 +49,7 @@ if (!init2) {
 }
 
 function drawHug(ctx) {
-  if (!hasEnded) alpha += 1.02;
+  if (!hasEnded) alpha += 0.02;
   if (alpha > 90 && distortion > 0.05) distortion -= 0.05;
   var data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
@@ -57,7 +57,6 @@ function drawHug(ctx) {
       data[i + 3] = Math.floor(Math.random() * alpha * 3 + alpha * 2);
     }
   };
-
   if (!hasEnded) {
     tempContext.putImageData(imageData, 0, 0);
     for (let i = 0; i < 350; i++) {
@@ -65,15 +64,19 @@ function drawHug(ctx) {
     }
   }
 
-  if (alpha > 90 && distortion < 0.05) {
+  if (alpha > 90 && distortion < 0.05 && !hasEnded) {
     hasEnded = true;
+    alpha = 0;
+  }
+
+  if (hasEnded) {
     drawStars(ctx);
     glow();
     ctx.save();
     ctx.shadowColor = "yellow";
     ctx.shadowBlur = glowR;
     ctx.drawImage(hug, 375, 0, 350, 350);
-    ctx.restore();    
+    ctx.restore();
   }
 }
 
@@ -84,14 +87,15 @@ function glow() {
 }
 
 function drawStars(ctx) {
-  alpha = 50;
+  alpha += 0.2;
   var data = imageData2.data;
   for (let i = 0; i < data.length; i += 4) {
     if (data[i] != 0 || data[i + 1] != 0 || data[i + 2] != 0) {
-      data[i + 3] = Math.floor(Math.random() * alpha * 3 + alpha * 2);
+      data[i + 3] = Math.floor(Math.random() * alpha + alpha/2);
     }
   }
   tempContext2.putImageData(imageData2, 0, 0);
+  ctx.drawImage(tempCanvas2, 0, 0);
 }
 
 

@@ -28,7 +28,7 @@ var hit = false;
 
 
 class Key {
-  constructor(name, index, length, ctx, i) {
+  constructor(name, index, length, ctx) {
     this.name = name;
     this.index = index;
     this.length = length;
@@ -38,7 +38,7 @@ class Key {
     this.color;
     this.arrow = Math.floor(Math.random() * 3);
     this.ctx = ctx;
-    this.resetHit = false;  
+    this.resetHit = false;
   }
   getTime() {
     var sum = 0;
@@ -63,11 +63,11 @@ class Key {
     else if (this.y > 300) {
       this.color === "rgb(127, 220, 144)" ? this.color = "rgb(127, 220, 144)" : this.color = "rgb(228, 49, 50)";
     }
-    else {      
+    else {
       if (!this.resetHit) {
         hit = false;
-        this.resetHit = true;        
-      }      
+        this.resetHit = true;
+      }
       hit? this.color = "rgb(127, 220, 144)" : this.color = "rgb(0, 170, 222)";
       audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
@@ -77,9 +77,9 @@ class Key {
 }
 
 export function generatePiano(ctx, frame) {
-  if (!part) {    
+  if (!part) {
     for (let i = 0; i < keys.length; i++) {
-      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2], ctx, i))
+      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2], ctx))
     }
     oldFrame = frame;
     part = true;
@@ -90,7 +90,7 @@ export function generatePiano(ctx, frame) {
         partition.splice(i,1);
         i--;
       } else {
-        partition[i].drawTile();        
+        partition[i].drawTile();
       }
     }
     drawLine(ctx);
@@ -98,7 +98,7 @@ export function generatePiano(ctx, frame) {
 }
 
 function drawLine(ctx) {
-  
+
   if (arrowX < arrowIcon.x ) {
     arrowX += (arrowIcon.x - arrowX) / 2;
   } else if (arrowX > arrowIcon.x) {
@@ -124,8 +124,8 @@ document.addEventListener('keydown', function(event) {
       if (audio) {
         audio.currentTime = 0;
         audio.play();
-      };      
-      hit = true;      
+      };
+      hit = true;
       break;
   }
 });
