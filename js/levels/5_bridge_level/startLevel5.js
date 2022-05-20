@@ -19,13 +19,15 @@ var columns = canvas.width / colSize;
 var y =  Array(columns).fill(0);
 var yIndex = [...Array(columns).keys()];
 
-window.addEventListener('mousedown', function () {
-  rainSound.play();
-  rainSound.volume(1);
-  startGame();
+window.addEventListener('keydown', function (event) {
+  if (event.key === "ArrowUp") {
+    rainSound.play();
+    rainSound.volume(1);
+    startGame();
+  }  
 })
 
-export function startLevel(ctx, game, dino) {
+export function startLevel(ctx, game, dino) { 
 
   if (circleD < 60 && !start) circleD += 0.5;
   if (circleD >= 0.5 && start) circleD -= 0.5;
@@ -39,8 +41,8 @@ export function startLevel(ctx, game, dino) {
   ctx.fill();
   ctx.restore();
 
-  if (game.start) {
-    
+  if (game.start) {    
+
     generateBackground(ctx, game);
     drawDinoPiano(ctx, dino);
 

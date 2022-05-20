@@ -1,5 +1,3 @@
-import { addAlpha } from "./hug.js";
-
 const keys = [["Bb4", 0, 2], ["G5", 8, 5], ["F5", 7, 2], ["G5", 8, 2], ["F5", 7, 5.6], ["Eb5", 5, 3.7], ["Bb4", 0, 2], ["G5", 8, 3.7], ["C5", 2, 1.9], ["C6", 11, 4],
 ["G5", 8, 1.9], ["Bb5", 10, 5.6], ["Ab5", 9, 3.8], ["G5", 8, 1.9], ["F5", 7, 5.8], ["G5", 8, 3.8], ["D5", 4, 1.9], ["Eb5", 5, 5.7], ["C5", 2, 5.7], ["Bb4", 0, 2],
 ["D6", 13, 2], ["C6", 11, 2], ["Bb5", 10, 1], ["Ab5", 9, 1], ["G5", 8, 1], ["Ab5", 9, 1], ["C5", 2, 1], ["D5", 4, 1], ["Eb5", 5, 5.7], ["silence", 99, 3.8],
@@ -9,6 +7,7 @@ const keys = [["Bb4", 0, 2], ["G5", 8, 5], ["F5", 7, 2], ["G5", 8, 2], ["F5", 7,
 ["F5", 7, 5.7], ["G5", 8, 1.9], ["G5", 8, 1.9], ["D5", 4, 1.9], ["Eb5", 5, 5.7], ["C5", 2, 5.7], ["Bb4", 0, 2], ["D6", 13, 2], ["C6", 11, 2], ["Bb5", 10, 1],
 ["Ab5", 9, 1], ["G5", 8, 1], ["Ab5", 9, 0.5], ["Ab5", 9, 0.5], ["C5", 2, 1], ["D5", 4, 1], ["Eb5", 5, 7.1]];
 
+var part = false;
 var partition = [];
 var oldFrame = 0;
 var audio_file = "./assets/5_bridge/piano_mp3/B4.mp3";
@@ -27,8 +26,9 @@ let audio;
 
 var hit = false;
 
+
 class Key {
-  constructor(name, index, length, ctx) {
+  constructor(name, index, length, ctx, i) {
     this.name = name;
     this.index = index;
     this.length = length;
@@ -38,7 +38,7 @@ class Key {
     this.color;
     this.arrow = Math.floor(Math.random() * 3);
     this.ctx = ctx;
-    this.resetHit = false;
+    this.resetHit = false;  
   }
   getTime() {
     var sum = 0;
@@ -63,12 +63,11 @@ class Key {
     else if (this.y > 300) {
       this.color === "rgb(127, 220, 144)" ? this.color = "rgb(127, 220, 144)" : this.color = "rgb(228, 49, 50)";
     }
-    else {
+    else {      
       if (!this.resetHit) {
         hit = false;
-        this.resetHit = true;
-        addAlpha();
-      }
+        this.resetHit = true;        
+      }      
       hit? this.color = "rgb(127, 220, 144)" : this.color = "rgb(0, 170, 222)";
       audio_file = "./assets/5_bridge/piano_mp3/" + this.file;
       audio = new Audio(audio_file);
@@ -78,12 +77,12 @@ class Key {
 }
 
 export function generatePiano(ctx, frame) {
-  if (partition.length === 0) {
+  if (!part) {    
     for (let i = 0; i < keys.length; i++) {
-      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2], ctx))
+      partition.push(new Key(keys[i][0], keys[i][1], keys[i][2], ctx, i))
     }
     oldFrame = frame;
-    
+    part = true;
   }
   if (frame > oldFrame + 900) {
     for (let i = 0; i < partition.length; i++) {
@@ -91,7 +90,7 @@ export function generatePiano(ctx, frame) {
         partition.splice(i,1);
         i--;
       } else {
-        partition[i].drawTile();
+        partition[i].drawTile();        
       }
     }
     drawLine(ctx);
@@ -99,7 +98,7 @@ export function generatePiano(ctx, frame) {
 }
 
 function drawLine(ctx) {
-
+  
   if (arrowX < arrowIcon.x ) {
     arrowX += (arrowIcon.x - arrowX) / 2;
   } else if (arrowX > arrowIcon.x) {
@@ -122,9 +121,11 @@ document.addEventListener('keydown', function(event) {
   if (event.repeat) return
   switch (event.key) {
     case "ArrowUp":
-      audio.currentTime = 0;
-      audio.play();
-      hit = true;
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+      };      
+      hit = true;      
       break;
   }
 });
