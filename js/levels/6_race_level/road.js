@@ -1,7 +1,7 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
 
 var motoSprite = new Image();
-motoSprite.src = "./assets/6_race/moto-5.png";
+motoSprite.src = "./assets/6_race/moto-6.png";
 
 const camera = {
   FOV: 100,
@@ -47,6 +47,7 @@ class Segment {
     this.boarS = bS;
     this.runRight = rR;
     this.hasBoar = false;
+    this.side = Math.floor(Math.random() * 2);
   }
   update(i) {
     tickCount++;
@@ -69,7 +70,7 @@ class Segment {
 }
 
 export function generateRoad(game) {
-  if (game.loadedLevel[6] === false) {    
+  if (game.loadedLevel[6] === false) {
     var sum = 0;
     var sections = [];
     while (sum < 600) {
@@ -132,6 +133,7 @@ export function drawScenery(ctx, game) {
   }
   drawGrass(ctx, points);
   drawTrees(ctx, points);
+
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
   steer(game);

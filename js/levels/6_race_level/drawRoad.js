@@ -37,10 +37,14 @@ blackLightSprite.src = "./assets/6_race/black_light_sm.png";
 var yellowLightSprite = new Image();
 yellowLightSprite.src = "./assets/6_race/yellow_light_sm.png";
 
+var signSprite = new Image();
+signSprite.src = "./assets/6_race/twin_sign.png";
+
 
 var ticksPerFrame = 12;
 var frameIndex = 0;
 
+var side;
 
 function drawRoad(ctx, points) {
   for (let i = 1; i < points.length; i++) {
@@ -56,7 +60,7 @@ function drawRoad(ctx, points) {
     }
     if (points[i].z < 4200) {
       i % 2 === 0 ? ctx.fillStyle = "white" : ctx.fillStyle = "red";
-      ctx.beginPath();      
+      ctx.beginPath();
       ctx.moveTo((canvas.width - points[i].length) / 2 - points[i].roadMark - points[i].curve + points[i].offset, points[i].y - points[i].slope);
       ctx.lineTo((canvas.width - points[i].length) / 2 - points[i].curve + points[i].offset, points[i].y - points[i].slope);
       ctx.lineTo((canvas.width - points[i - 1].length) / 2 - points[i - 1].curve + points[i - 1].offset, points[i - 1].y - points[i - 1].slope);
@@ -135,6 +139,11 @@ function drawTrees(ctx, points) {
     if (i % 2 === 0 && points[i].z < 4200 && points[i].z > 100) {
       ctx.drawImage(treesSprite, points[i].treeSpriteL.x, 0, points[i].treeSpriteL.width, 150, canvas.width / 2 - points[i].xR + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 3.5), points[i].treeSpriteL.width * points[i].scale * 4, treesSprite.height * points[i].scale * 4)
       ctx.drawImage(treesSprite, points[i].treeSpriteR.x, 0, points[i].treeSpriteR.width, 150, canvas.width / 2 - points[i].xL + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 3.5), points[i].treeSpriteR.width * points[i].scale * 4, treesSprite.height * points[i].scale * 4)
+    }
+    if (i % 50 === 0 && points[i].z < 4200 && points[i].z > 100) {
+
+      points[i].side === 1 ? side = points[i].xL : side = points[i].xR;
+      ctx.drawImage(signSprite, 0, 0, 124, 106, canvas.width / 2 - side + points[i].offset - points[i].curve, points[i].y - points[i].slope - (159 * points[i].scale * 3.5), 186 * points[i].scale * 4, 159 * points[i].scale * 4)
     }
   }
 }
