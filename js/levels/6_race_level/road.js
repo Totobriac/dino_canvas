@@ -173,3 +173,5 @@ export function steer(game) {
   }
   playerX > 575 || playerX < -575 ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
 }
+
+export { showHotel };
