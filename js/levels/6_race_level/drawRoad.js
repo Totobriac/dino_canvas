@@ -56,7 +56,7 @@ function drawRoad(ctx, points) {
     }
     if (points[i].z < 4200) {
       i % 2 === 0 ? ctx.fillStyle = "white" : ctx.fillStyle = "red";
-      ctx.beginPath();
+      ctx.beginPath();      
       ctx.moveTo((canvas.width - points[i].length) / 2 - points[i].roadMark - points[i].curve + points[i].offset, points[i].y - points[i].slope);
       ctx.lineTo((canvas.width - points[i].length) / 2 - points[i].curve + points[i].offset, points[i].y - points[i].slope);
       ctx.lineTo((canvas.width - points[i - 1].length) / 2 - points[i - 1].curve + points[i - 1].offset, points[i - 1].y - points[i - 1].slope);

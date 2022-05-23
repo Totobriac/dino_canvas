@@ -1,7 +1,7 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
 
-var carSprite = new Image();
-carSprite.src = "./assets/6_race/red_coupe.png";
+var motoSprite = new Image();
+motoSprite.src = "./assets/6_race/moto-5.png";
 
 const camera = {
   FOV: 100,
@@ -22,6 +22,10 @@ var treeSprite = [{ x: 0, width: 50 }, { x: 50, width: 50 }, { x: 100, width: 60
 var dY = calculateDY(camera.FOV);
 var showHotel = 0;
 var light = false;
+
+var motoTickCount = 0;
+var maxTickCount = 12;
+var frame = 0;
 
 class Segment {
   constructor(z, c, s, sR, sL, xR, xL, bX, bS, rR) {
@@ -65,10 +69,10 @@ class Segment {
 }
 
 export function generateRoad(game) {
-  if (game.loadedLevel[6] === false) {
+  if (game.loadedLevel[6] === false) {    
     var sum = 0;
     var sections = [];
-    while (sum < 2500) {
+    while (sum < 600) {
       var sectionLength = 20 + 20 * (Math.floor(Math.random() * 3));
       sum += sectionLength;
       sections.push(sectionLength);
@@ -97,6 +101,7 @@ export function generateRoad(game) {
     }
   }
 }
+
 function calculateDY(FOV) {
   var dY = (canvas.height / 2) / Math.tan((FOV / 2 * Math.PI) / 180);
   return dY;
@@ -105,13 +110,15 @@ function calculateDY(FOV) {
 export function drawScenery(ctx, game) {
   for (let i = 0; i < points.length; i++) {
     points[i].update(i);
-    if (points[0].z < 220) {
+    if (points[0].z < 260) {
       speed = 0;
       showHotel += 0.01;
     }
   }
+
   drawBackground(ctx, playerX, light);
-  if (points[0].z > 220) {
+
+  if (points[0].z > 260) {
     drawForest_1(ctx, playerX);
     drawForest_2(ctx, playerX);
   }
@@ -128,7 +135,7 @@ export function drawScenery(ctx, game) {
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
   steer(game);
-  ctx.drawImage(carSprite, 510, 250, 180, 180);
+  ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
 }
 
 function checkCollision() {
@@ -139,17 +146,24 @@ function checkCollision() {
 }
 
 export function steer(game) {
- if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
+
+  if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
     offset = 0;
-  }
-  else {
-    if (game.keyDown.repeat) {
-      return;}
+    if (motoTickCount < maxTickCount) {
+      motoTickCount ++;
+    } else {
+      motoTickCount = 0;
+      frame === 0 ? frame = 1 : frame = 0;
+    }
+  } else {
     if (game.keyDown.code === 'ArrowLeft') {
-      offset += 0.002;
+      frame = 3;
+      if (playerX < 575) offset += 0.002;
     };
     if (game.keyDown.code === 'ArrowRight') {
-      offset += -0.002;
+      frame = 2;
+      if (playerX > -575) offset += -0.002;
     };
   }
+  playerX > 575 || playerX < -575 ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
 }

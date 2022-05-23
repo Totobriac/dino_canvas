@@ -25,9 +25,6 @@ window.addEventListener('keydown', function (event) {
     rainSound.volume(1);
     startGame();
   }
-  // else if (event.key === "ArrowDown") {
-  //
-  // }
 })
 
 export function startLevel(ctx, game, dino) {
