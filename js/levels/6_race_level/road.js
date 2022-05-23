@@ -98,8 +98,8 @@ export function generateRoad(game) {
         points.unshift(point)
         newZ += 160
       }
-      game.loadedLevel[6] = true;
     }
+      game.loadedLevel[6] = true;
   }
 }
 
@@ -109,11 +109,13 @@ function calculateDY(FOV) {
 }
 
 export function drawScenery(ctx, game) {
+  console.log(points[0].z);
   for (let i = 0; i < points.length; i++) {
     points[i].update(i);
-    if (points[0].z < 260) {
+
+    if (points[0].z < 600) {
       speed = 0;
-      showHotel += 0.01;
+      showHotel += 0.001;
     }
   }
 

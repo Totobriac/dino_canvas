@@ -141,7 +141,6 @@ function drawTrees(ctx, points) {
       ctx.drawImage(treesSprite, points[i].treeSpriteR.x, 0, points[i].treeSpriteR.width, 150, canvas.width / 2 - points[i].xL + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 3.5), points[i].treeSpriteR.width * points[i].scale * 4, treesSprite.height * points[i].scale * 4)
     }
     if (i % 50 === 0 && points[i].z < 4200 && points[i].z > 100) {
-
       points[i].side === 1 ? side = points[i].xL : side = points[i].xR;
       ctx.drawImage(signSprite, 0, 0, 124, 106, canvas.width / 2 - side + points[i].offset - points[i].curve, points[i].y - points[i].slope - (159 * points[i].scale * 3.5), 186 * points[i].scale * 4, 159 * points[i].scale * 4)
     }
