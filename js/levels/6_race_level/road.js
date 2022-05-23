@@ -139,7 +139,7 @@ export function drawScenery(ctx, game) {
   drawBoars(ctx, points, tickCount);
   steer(game);
   var coll = checkCollision();
-  console.log(coll);
+  if (coll) speed = 0 ;
   ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
 }
 
