@@ -152,7 +152,7 @@ function drawBoars(ctx, points, tickCount) {
   for (let i = 5; i < points.length; i++) {
     if (i % 7 === 0 && points[i].z < 2200 && points[i].z > 100) {
       points[i].hasBoar = true;
-      points[i].runRight === true
+      points[i].runRight === true 
         ? ctx.drawImage(boarSpriteR, frameIndex * 71, 0, 69, 50, canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (100 * points[i].scale), 71 * points[i].scale * 2, 50 * points[i].scale * 2)
         : ctx.drawImage(boarSprite, frameIndex * 71, 0, 69, 50, canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (100 * points[i].scale), 71 * points[i].scale * 2, 50 * points[i].scale * 2)
     }

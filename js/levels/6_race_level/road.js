@@ -49,7 +49,7 @@ class Segment {
     this.hasBoar = false;
     this.side = Math.floor(Math.random() * 2);
   }
-  update(i) {
+  update() {
     tickCount++;
     this.y = ((camera.height + this.slope) * dY) / this.z + canvas.height / 2;
     this.scale = dY / this.z;
@@ -96,10 +96,10 @@ export function generateRoad(game) {
         j < sections[i] / 2 ? newS += S : newS -= S;
         var point = new Segment(newZ, newC, newS, sR, sL, xR, xL, bX, bS, rR);
         points.unshift(point)
-        newZ += 160
+        newZ += 160;
       }
     }
-      game.loadedLevel[6] = true;
+    game.loadedLevel[6] = true;
   }
 }
 
@@ -109,13 +109,12 @@ function calculateDY(FOV) {
 }
 
 export function drawScenery(ctx, game) {
-  console.log(points[0].z);
   for (let i = 0; i < points.length; i++) {
-    points[i].update(i);
+    points[i].update();
 
     if (points[0].z < 600) {
       speed = 0;
-      showHotel += 0.001;
+      showHotel += 0.005;
     }
   }
 
@@ -139,14 +138,17 @@ export function drawScenery(ctx, game) {
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
   steer(game);
+  var coll = checkCollision();
+  console.log(coll);
   ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
 }
 
 function checkCollision() {
   for (let i = 0; i < points.length; i++) {
     var checkBoar = canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve;
-    if (points[i].z < 250 && points[i].z > 100 && points[i].hasBoar == true && checkBoar > 300 && checkBoar < 400) return true;
+    if (points[i].z < 300 && points[i].z > 100 && points[i].hasBoar == true && checkBoar > 550 && checkBoar < 650) return true;
   }
+  return false;
 }
 
 export function steer(game) {
@@ -154,7 +156,7 @@ export function steer(game) {
   if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
     offset = 0;
     if (motoTickCount < maxTickCount) {
-      motoTickCount ++;
+      motoTickCount++;
     } else {
       motoTickCount = 0;
       frame === 0 ? frame = 1 : frame = 0;
