@@ -59,8 +59,15 @@ class Segment {
     this.boarX = bX;
     this.boarS = bS;
     this.runRight = rR;
-    this.hasBoar = false;
     this.side = Math.floor(Math.random() * 2);
+    this.hasBoar;
+    this.hasTrunk;
+    this.putObstacles();
+  }
+  putObstacles() {
+    var random = Math.floor(Math.random() * 100);
+    random > 95 ? this.hasTrunk = true : this.hasTrunk = false;
+    random > 80 ? this.hasBoar = true : this.hasBoar = false;
   }
   update() {
     tickCount++;
@@ -122,6 +129,7 @@ function calculateDY(FOV) {
 }
 
 export function drawScenery(ctx, game) {
+
   for (let i = 0; i < points.length; i++) {
     points[i].update();
 

@@ -43,6 +43,9 @@ yellowLightSprite.src = "./assets/6_race/yellow_light_sm.png";
 var signSprite = new Image();
 signSprite.src = "./assets/6_race/twin_sign.png";
 
+var trunkSprite = new Image();
+trunkSprite.src = "./assets/6_race/trunk.png";
+
 var ticksPerFrame = 12;
 var frameIndex = 0;
 
@@ -141,24 +144,30 @@ function drawGrass(ctx, points) {
 function drawTrees(ctx, points) {
   for (let i = 0; i < points.length; i++) {
     if (i % 2 === 0 && points[i].z < 4200 && points[i].z > 100) {
-      ctx.drawImage(treesSprite, points[i].treeSpriteL.x, 0, points[i].treeSpriteL.width, 150, canvas.width / 2 - points[i].xR + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 3.5), points[i].treeSpriteL.width * points[i].scale * 4, treesSprite.height * points[i].scale * 4)
-      ctx.drawImage(treesSprite, points[i].treeSpriteR.x, 0, points[i].treeSpriteR.width, 150, canvas.width / 2 - points[i].xL + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 3.5), points[i].treeSpriteR.width * points[i].scale * 4, treesSprite.height * points[i].scale * 4)
+      ctx.drawImage(treesSprite, points[i].treeSpriteL.x, 0, points[i].treeSpriteL.width, 150, canvas.width / 2 - points[i].xR + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 6.225), points[i].treeSpriteL.width * points[i].scale * 7, treesSprite.height * points[i].scale * 7)
+      ctx.drawImage(treesSprite, points[i].treeSpriteR.x, 0, points[i].treeSpriteR.width, 150, canvas.width / 2 - points[i].xL + points[i].offset - points[i].curve, points[i].y - points[i].slope - (treesSprite.height * points[i].scale * 6.225), points[i].treeSpriteR.width * points[i].scale * 7, treesSprite.height * points[i].scale * 7)
     }
     if (i % 50 === 0 && points[i].z < 4200 && points[i].z > 100) {
       points[i].side === 1 ? side = points[i].xL : side = points[i].xR;
-      ctx.drawImage(signSprite, 0, 0, 124, 106, canvas.width / 2 - side + points[i].offset - points[i].curve, points[i].y - points[i].slope - (159 * points[i].scale * 3.5), 186 * points[i].scale * 4, 159 * points[i].scale * 4)
+      ctx.drawImage(signSprite, 0, 0, 124, 106, canvas.width / 2 - side + points[i].offset - points[i].curve, points[i].y - points[i].slope - (159 * points[i].scale * 3.5), 186 * points[i].scale * 4, 159 * points[i].scale * 4);
     }
+
   }
 }
 
 function drawBoars(ctx, points, tickCount) {
   checkFrame(tickCount, 4)
   for (let i = 5; i < points.length; i++) {
-    if (i % 7 === 0 && points[i].z < 2200 && points[i].z > 100 && engineOn) {
-      points[i].hasBoar = true;
+    if (points[i].hasBoar && points[i].z < 2200 && points[i].z > 100 && engineOn) {
       points[i].runRight === true
         ? ctx.drawImage(boarSpriteR, frameIndex * 71, 0, 69, 50, canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (100 * points[i].scale), 71 * points[i].scale * 2, 50 * points[i].scale * 2)
         : ctx.drawImage(boarSprite, frameIndex * 71, 0, 69, 50, canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (100 * points[i].scale), 71 * points[i].scale * 2, 50 * points[i].scale * 2)
+    }
+    if( points[i].hasTrunk && points[i].z < 4200 && points[i].z > 100) {
+      points[i].side === 0
+      ? ctx.drawImage(trunkSprite, 0, 0, 70, 10, canvas.width / 2 - (350 * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (10 * points[i].scale * 3.5), 70 * points[i].scale * 4, 10 * points[i].scale * 4)
+      : ctx.drawImage(trunkSprite, 0, 0, 70, 10, canvas.width / 2 + (150 * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (10 * points[i].scale * 3.5), 70 * points[i].scale * 4, 10 * points[i].scale * 4)
+
     }
   }
 }
