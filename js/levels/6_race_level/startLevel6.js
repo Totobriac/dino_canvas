@@ -10,6 +10,8 @@ arrowsKeys.src = "./assets/6_race/keys_r_l.png";
 var circleD = 0;
 var start = false;
 
+var engineOn = true;
+
 window.addEventListener('keydown', function (event) {
   if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
     strokesSound.play();
@@ -43,3 +45,5 @@ export function startLevel(game, ctx) {
 function startGame() {
   start = true;
 };
+
+export { engineOn };

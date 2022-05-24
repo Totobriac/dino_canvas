@@ -1,7 +1,11 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
+import { engineOn } from "./startLevel6.js";
 
 var motoSprite = new Image();
 motoSprite.src = "./assets/6_race/moto-6.png";
+
+var fallSprite = new Image();
+fallSprite.src = "./assets/6_race/fall_5.png";
 
 const camera = {
   FOV: 100,
@@ -9,7 +13,7 @@ const camera = {
 }
 
 var roadWidth = 1200;
-var speed = 20;
+var speed = 0;
 var roadMark = 45;
 var middleLine = 20;
 var newZ = 100;
@@ -26,6 +30,11 @@ var light = false;
 var motoTickCount = 0;
 var maxTickCount = 12;
 var frame = 0;
+
+var fallTickCount = 0;
+var fallFrame = 0;
+
+var falling = false;
 
 class Segment {
   constructor(z, c, s, sR, sL, xR, xL, bX, bS, rR) {
@@ -139,8 +148,20 @@ export function drawScenery(ctx, game) {
   drawBoars(ctx, points, tickCount);
   steer(game);
   var coll = checkCollision();
-  if (coll) speed = 0 ;
-  ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
+  if (coll) falling = true;
+  if (falling) speed = 0;
+
+  if (!falling) {
+    ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
+  } else {
+    fallAnimation(ctx);
+  }
+}
+
+function fallAnimation(ctx) {
+  fallTickCount ++;
+  if (fallFrame < 3 && fallTickCount % 18 === 0) fallFrame ++;
+  ctx.drawImage(fallSprite, 90 * fallFrame, 0, 91, 110, 579, 285, 91, 110);
 }
 
 function checkCollision() {
@@ -162,16 +183,16 @@ export function steer(game) {
       frame === 0 ? frame = 1 : frame = 0;
     }
   } else {
-    if (game.keyDown.code === 'ArrowLeft') {
+    if (game.keyDown.code === 'ArrowLeft' && engineOn) {
       frame = 3;
       if (playerX < 575) offset += 0.002;
     };
-    if (game.keyDown.code === 'ArrowRight') {
+    if (game.keyDown.code === 'ArrowRight' && engineOn) {
       frame = 2;
       if (playerX > -575) offset += -0.002;
     };
   }
-  playerX > 575 || playerX < -575 ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
+  playerX > 575 || playerX < -575 || !engineOn  ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
 }
 
 export { showHotel };

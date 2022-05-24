@@ -1,3 +1,6 @@
+import { showHotel } from "./road.js";
+import { engineOn } from "./startLevel6.js";
+
 var skySprite = new Image();
 skySprite.src = "./assets/6_race/sky_race_1200.png";
 
@@ -39,8 +42,6 @@ yellowLightSprite.src = "./assets/6_race/yellow_light_sm.png";
 
 var signSprite = new Image();
 signSprite.src = "./assets/6_race/twin_sign.png";
-
-import { showHotel } from "./road.js";
 
 var ticksPerFrame = 12;
 var frameIndex = 0;
@@ -153,7 +154,7 @@ function drawTrees(ctx, points) {
 function drawBoars(ctx, points, tickCount) {
   checkFrame(tickCount, 4)
   for (let i = 5; i < points.length; i++) {
-    if (i % 7 === 0 && points[i].z < 2200 && points[i].z > 100) {
+    if (i % 7 === 0 && points[i].z < 2200 && points[i].z > 100 && engineOn) {
       points[i].hasBoar = true;
       points[i].runRight === true
         ? ctx.drawImage(boarSpriteR, frameIndex * 71, 0, 69, 50, canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (100 * points[i].scale), 71 * points[i].scale * 2, 50 * points[i].scale * 2)
