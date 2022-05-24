@@ -4,8 +4,11 @@ import { engineOn } from "./startLevel6.js";
 var motoSprite = new Image();
 motoSprite.src = "./assets/6_race/moto-6.png";
 
-var fallSprite = new Image();
-fallSprite.src = "./assets/6_race/fall_5.png";
+var fallMotoSprite = new Image();
+fallMotoSprite.src = "./assets/6_race/fall_moto.png";
+
+var fallDriverSprite = new Image();
+fallDriverSprite.src = "./assets/6_race/fall_driver.png";
 
 const camera = {
   FOV: 100,
@@ -32,7 +35,8 @@ var maxTickCount = 12;
 var frame = 0;
 
 var fallTickCount = 0;
-var fallFrame = 0;
+var fallMotoFrame = 0;
+var fallDriverFrame = 0;
 
 var falling = false;
 
@@ -160,8 +164,18 @@ export function drawScenery(ctx, game) {
 
 function fallAnimation(ctx) {
   fallTickCount ++;
-  if (fallFrame < 3 && fallTickCount % 18 === 0) fallFrame ++;
-  ctx.drawImage(fallSprite, 90 * fallFrame, 0, 91, 110, 579, 285, 91, 110);
+  if (fallMotoFrame < 3 && fallTickCount % 10 === 0) fallMotoFrame ++;
+  ctx.drawImage(fallMotoSprite, 90 * fallMotoFrame, 0, 91, 110, 579, 285, 91, 110);
+  if (fallMotoFrame === 3) {
+    if (fallTickCount % 10 === 0 && fallDriverFrame < 7) fallDriverFrame ++;
+    ctx.drawImage(fallDriverSprite,fallDriverFrame * 84,0,84,110,670,285,84,110);
+    if (fallDriverFrame === 7) {
+      falling = false;
+      fallTickCount = 0;
+      fallMotoFrame = 0;
+      fallDriverFrame = 0;
+    }
+  }
 }
 
 function checkCollision() {
