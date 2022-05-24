@@ -10,7 +10,9 @@ arrowsKeys.src = "./assets/6_race/keys_r_l.png";
 var circleD = 0;
 var start = false;
 
-var engineOn = true;
+var width = 20;
+var widthTickCount = 0;
+var engineOn = false;
 
 window.addEventListener('keydown', function (event) {
   if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
@@ -35,11 +37,29 @@ export function startLevel(game, ctx) {
   ctx.fill();
   ctx.restore();
 
-
   if (game.start) {
+
+    widthTickCount ++;
+    if (widthTickCount % 4 === 0) width --;
     generateRoad(game);
     drawScenery(ctx, game);
+
+    width > 0 ? drawIntro(ctx) : engineOn = true;
+
   }
+}
+
+function drawIntro(ctx) {
+  ctx.save();
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = width;
+  for (let i = 0; i <= canvas.height; i += 20) {
+    ctx.beginPath();
+    ctx.moveTo(0, i);
+    ctx.lineTo(canvas.width, i);
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 function startGame() {
