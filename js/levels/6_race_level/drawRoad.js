@@ -167,7 +167,6 @@ function drawBoars(ctx, points, tickCount) {
       points[i].side === 0
       ? ctx.drawImage(trunkSprite, 0, 0, 70, 10, canvas.width / 2 - (350 * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (10 * points[i].scale * 3.5), 70 * points[i].scale * 4, 10 * points[i].scale * 4)
       : ctx.drawImage(trunkSprite, 0, 0, 70, 10, canvas.width / 2 + (150 * points[i].scale) + points[i].offset - points[i].curve, points[i].y - points[i].slope - (10 * points[i].scale * 3.5), 70 * points[i].scale * 4, 10 * points[i].scale * 4)
-
     }
   }
 }
