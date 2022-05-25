@@ -21,7 +21,7 @@ export function pointNClick(ctx, game) {
     isDinoCreated = true;
     game.mousePosition = { x: 881, y: 300 };
   }
-  if (game.level === 7) {
+  if (game.level === 7) {    
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
@@ -40,7 +40,7 @@ export function pointNClick(ctx, game) {
 
 function checkSelectedSprite(game) {
   for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mousePosition.x, game.mousePosition.y, 1, 1) == true) {
+    if (sprites[i].checkCollision(game.mousePosition.x, game.mousePosition.y, 1, 1)) {
       selectedSprite = sprites[i];
       return
     }
@@ -52,7 +52,7 @@ function checkSelectedSprite(game) {
 
 function checkHoveredSprite(game) {
   for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1) == true) {
+    if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
       hoveredSprite = sprites[i].name;
       return
     }
@@ -63,7 +63,7 @@ function checkHoveredSprite(game) {
 }
 
 function checkIfReach(dino, sprite) {
-  if (isReadingPoster == true) return true;
+  if (isReadingPoster) return true;
   if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale)) {
     return false;
   }
@@ -75,7 +75,7 @@ function checkIfReach(dino, sprite) {
 function checkAction(ctx) {
   if (selectedSprite) {
     isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach == true) {
+    if (isInReach) {
       displayText(ctx);
       executeAction();
       objectInteraction();
@@ -116,11 +116,16 @@ function objectInteraction() {
 }
 
 function drawText(ctx, text) {
+  ctx.textBaseline = "top";
+  ctx.textAlign = "start";
   ctx.font = "50px Pixeboy";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "purple";
-  ctx.fillText(text, 200, 50);
+
+  var width = ctx.measureText(text).width;
+  ctx.fillStyle = "black";
+  ctx.fillRect(20,20,width,36);
+  
+  ctx.fillStyle = "orange";
+  ctx.fillText(text, 20, 0);
 }
 
 export { dino, drawText, hoveredSprite };

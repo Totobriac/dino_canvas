@@ -127,13 +127,13 @@ function calculateDY(FOV) {
   var dY = (canvas.height / 2) / Math.tan((FOV / 2 * Math.PI) / 180);
   return dY;
 }
-
 export function drawScenery(ctx, game) {
 
-  for (let i = 0; i < points.length; i++) {
+
+  for (let i = 0; i < points.length; i++) {    
     points[i].update();
 
-    if (points[0].z < 600) {
+     if (points[0].z < 600) {
       speed = 0;
       showHotel += 0.005;
     }
@@ -155,10 +155,10 @@ export function drawScenery(ctx, game) {
   }
   drawGrass(ctx, points);
   drawTrees(ctx, points);
-
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
   steer(game);
+
   var coll = checkCollision();
   if (coll) falling = true;
   if (falling) speed = 0;

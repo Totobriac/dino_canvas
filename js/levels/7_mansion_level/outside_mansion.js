@@ -25,7 +25,6 @@ var isCatCaught = false;
 
 
 export function drawOutsideScenery(ctx) {
-
   isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
@@ -161,7 +160,7 @@ export function drawOutsideScenery(ctx) {
 
   sprite.sign.draw(ctx);
 
-  sprite.pole.draw(ctx);
+  //sprite.pole.draw(ctx);
 
   isTrapReady === false ? dodgyCat() : catToTrap();
 

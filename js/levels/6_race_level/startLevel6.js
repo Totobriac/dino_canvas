@@ -29,7 +29,7 @@ export function startLevel(game, ctx) {
   if (circleD >= 0.5 && start) circleD -= 0.5;
   if (circleD === 0 && start) game.start = true;
 
-  ctx.drawImage(arrowsKeys, 544, 170, 171 * 0.65, 77 * 0.65);
+  ctx.drawImage(arrowsKeys, 544, 175, 171 * 0.65, 77 * 0.65);
   ctx.save();
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
