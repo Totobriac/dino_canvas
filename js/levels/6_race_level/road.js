@@ -67,7 +67,7 @@ class Segment {
   putObstacles() {
     var random = Math.floor(Math.random() * 100);
     random > 95 ? this.hasTrunk = true : this.hasTrunk = false;
-    //random > 80 ? this.hasBoar = true : this.hasBoar = false;
+    random > 90 ? this.hasBoar = true : this.hasBoar = false;
   }
   update() {
     tickCount++;
@@ -164,7 +164,7 @@ export function drawScenery(ctx, game) {
   if (falling) speed = 0;
 
   if (!falling) {
-    ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 579, 285, 50, 110);
+    ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 575, 285, 50, 110);
   } else {
     fallAnimation(ctx);
   }
@@ -194,7 +194,9 @@ function checkCollision() {
     points[i].side === 0
       ? checkTrunk = canvas.width / 2 - (350 * points[i].scale) + points[i].offset - points[i].curve
       : checkTrunk = canvas.width / 2 + (150 * points[i].scale) + points[i].offset - points[i].curve;
-    if (points[i].z < 250 && points[i].z > 100 && points[i].hasTrunk && checkTrunk > 525 && checkTrunk < 625 ) return true;
+    var trunkColl;
+    checkTrunk > 625 || checkTrunk + 100 < 575 ? trunkColl = false : trunkColl = true;
+    if (points[i].z < 250 && points[i].z > 100 && points[i].hasTrunk && trunkColl ) return true;
   }
   return false;
 }
