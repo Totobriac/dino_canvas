@@ -21,7 +21,7 @@ export function pointNClick(ctx, game) {
     isDinoCreated = true;
     game.mousePosition = { x: 881, y: 300 };
   }
-  if (game.level === 7) {    
+  if (game.level === 7) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 300, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
@@ -34,7 +34,7 @@ export function pointNClick(ctx, game) {
   animateText();
 
   checkSelectedSprite(game);
-  checkHoveredSprite(game);
+  checkHoveredSprite(game, ctx);
   checkAction(ctx);
 }
 
@@ -50,10 +50,11 @@ function checkSelectedSprite(game) {
   }
 }
 
-function checkHoveredSprite(game) {
+function checkHoveredSprite(game, ctx) {
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
       hoveredSprite = sprites[i].name;
+      drawText(ctx, hoveredSprite);
       return
     }
     else {
@@ -123,7 +124,7 @@ function drawText(ctx, text) {
   var width = ctx.measureText(text).width;
   ctx.fillStyle = "black";
   ctx.fillRect(20,20,width,36);
-  
+
   ctx.fillStyle = "orange";
   ctx.fillText(text, 20, 0);
 }
