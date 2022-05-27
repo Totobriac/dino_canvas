@@ -8,10 +8,13 @@
   position: relative;
   top: 0;
   left: 0;
-  
+
   height: var(--canvas-height);
   width: var(--canvas-width);
   background: transparent;
+
+  
+
 }
 
 @font-face {

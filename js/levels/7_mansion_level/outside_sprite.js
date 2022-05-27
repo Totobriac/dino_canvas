@@ -78,9 +78,6 @@ ductSprite.src = "./assets/7_mansion/duct_tape.png";
 export var ropeSprite = new Image();
 ropeSprite.src = "./assets/7_mansion/ivy_rope.png";
 
-export var poleSprite = new Image();
-poleSprite.src = "./assets/7_mansion/pole.png";
-
 export var lionSprite = new Image;
 lionSprite.src = "./assets/7_mansion/lion_head.png";
 
@@ -151,7 +148,6 @@ export var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225,
 export var ring = new Sprite("sonette", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
 export var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
 
-export var pole = new Sprite("poteau", poleSprite, 0, 0, 1, 1, 1200, 400, 1);
 
 export var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2);
 export var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 290, 1, 1, 162, 199, 0.2);

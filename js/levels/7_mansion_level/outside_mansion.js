@@ -160,7 +160,6 @@ export function drawOutsideScenery(ctx) {
 
   sprite.sign.draw(ctx);
 
-  //sprite.pole.draw(ctx);
 
   isTrapReady === false ? dodgyCat() : catToTrap();
 
