@@ -1,12 +1,27 @@
-import { drawOutsideScenery } from "./outside_mansion.js";
-import { drawActions, animateText } from "./side_bar.js";
 import {
-  sprites, outsideText, outsideAction, isReadingPoster,
+  drawOutsideScenery
+} from "./outside_mansion.js";
+import {
+  drawActions,
+  animateText
+} from "./side_bar.js";
+import {
+  sprites,
+  outsideText,
+  outsideAction,
+  isReadingPoster,
   outsideObjectAction
 } from "./outside_mansion.js";
-import { MansionDino } from "../character/mansionDino.js";
-import { selectedAction, selectedObject } from "./side_bar.js";
-import { trash } from "./outside_sprite.js";
+import {
+  MansionDino
+} from "../character/mansionDino.js";
+import {
+  selectedAction,
+  selectedObject
+} from "./side_bar.js";
+import {
+  trash
+} from "./outside_sprite.js";
 
 var dino;
 var selectedSprite;
@@ -16,10 +31,14 @@ var isDinoCreated = false;
 
 
 export function pointNClick(ctx, game) {
+
   if (!isDinoCreated) {
     dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
     isDinoCreated = true;
-    game.mousePosition = { x: 881, y: 300 };
+    game.mousePosition = {
+      x: 881,
+      y: 300
+    };
   }
   if (game.level === 7) {
     drawOutsideScenery(ctx);
@@ -39,11 +58,10 @@ export function pointNClick(ctx, game) {
 
 function checkSelectedSprite(game) {
   for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mousePosition.x, game.mousePosition.y, 1, 1)) {
+    if (sprites[i].checkCollision(game.mousePosition.x + 12, game.mousePosition.y + 12, 1, 1)) {
       selectedSprite = sprites[i];
       return
-    }
-    else {
+    } else {
       selectedSprite = null;
     }
   }
@@ -51,15 +69,17 @@ function checkSelectedSprite(game) {
 
 function checkHoveredSprite(game, ctx) {
   for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
-      hoveredSprite = { name: sprites[i].name, gender: sprites[i].male };
+    if (sprites[i].checkCollision(game.mouseMovePosition.x + 12, game.mouseMovePosition.y + 12, 1, 1)) {
+      hoveredSprite = {
+        name: sprites[i].name,
+        gender: sprites[i].male
+      };
       var gender;
       sprites[i].male ? gender = "un " : gender = "une ";
       var text = gender + hoveredSprite.name;
       drawText(ctx, text);
       return
-    }
-    else {
+    } else {
       hoveredSprite = null;
     }
   }
@@ -69,8 +89,7 @@ function checkIfReach(dino, sprite) {
   if (isReadingPoster) return true;
   if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale)) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -137,12 +156,17 @@ function drawText(ctx, text) {
 }
 
 function rmSprite(sprite) {
- 
-  for (let i = 0; i < sprites.length; i++) {    
+
+  for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].name === sprite) {
       sprites.splice(i, 1);
     }
   }
 }
 
-export { dino, drawText, hoveredSprite, rmSprite };
+export {
+  dino,
+  drawText,
+  hoveredSprite,
+  rmSprite
+};

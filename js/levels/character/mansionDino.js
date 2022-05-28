@@ -16,8 +16,8 @@ dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 class MansionDino extends Dino {
   moveAround(game, sprite) {
     var collision = sprite.checkCollision(this.x, this.y, this.spriteWidth * this.scale, this.spriteHeight/ 2 * this.scale);
-    var mouseX = game.mousePosition.x;
-    var mouseY = game.mousePosition.y;
+    var mouseX = game.mousePosition.x +12;
+    var mouseY = game.mousePosition.y +12;
     var dx;
     this.x - mouseX < 0 ? dx = this.x - mouseX + 80 : dx = this.x - mouseX;
     var dy;

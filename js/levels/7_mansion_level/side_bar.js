@@ -90,7 +90,7 @@ function checkAction(mouse, mouseMove, ctx) {
       if (i === 4 && isReadingPoster == true) leavePoster();
 
       if (i === 4) {
-        selectedAction = "none";
+        selectedAction = undefined;
         actions[i].filter = "none";
         if (oldSelection != undefined) {
           actions[oldSelection].filter = "none";

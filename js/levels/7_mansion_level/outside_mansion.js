@@ -30,7 +30,6 @@ export function drawOutsideScenery(ctx) {
     if (oldSprites.length === 0)oldSprites = sprites;
     sprites = [sprite.bigBowie];
   } else {
-    console.log(oldSprites);
     if (oldSprites.length > 0) sprites = oldSprites;
   }
 
