@@ -1,8 +1,8 @@
-import { dino } from "./gameMecanic.js";
+import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 
 var isReadingPoster = false;
-var sprites;
+var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy];
 var isDinoLeft = false;
 var objects = [];
 var hasCan = false;
@@ -23,9 +23,17 @@ var isCatFree = true;
 var cutTheRope = false;
 var isCatCaught = false;
 
+var oldSprites = [];
 
 export function drawOutsideScenery(ctx) {
-  isReadingPoster === false ? sprites = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy] : sprites = [sprite.bigBowie];
+  if (isReadingPoster) {
+    if (oldSprites.length === 0)oldSprites = sprites;
+    sprites = [sprite.bigBowie];
+  } else {
+    console.log(oldSprites);
+    if (oldSprites.length > 0) sprites = oldSprites;
+  }
+
 
   ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
@@ -221,6 +229,7 @@ function grabRope() {
   if (hasRope === false) {
     objects.push(["corde", sprite.ropeSprite]);
     hasRope = true;
+    rmSprite("plante grimpante")
   }
 }
 
@@ -248,6 +257,7 @@ function getLid() {
   if (hasLid === false) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
+    rmSprite("couvercle");
   }
 }
 
@@ -296,14 +306,15 @@ function catToTrap() {
   sprite.cat.update(2, 0);
 }
 
-var outsideText = [["chat", "Regarder", "Nice cat"], ["bowie", "Lire", "cool"],
+var outsideText = [["chat", "Regarder", "Miaou! Miaou!"], ["bowie", "Lire", "cool"],
 ["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "Ferme!!!!!"],
 ["poubelle", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
 
 var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grabCan],
-["Regarder", "bowie", readPoster], ["Prendre", "bigBowie", grabDuct],
+["Regarder", "poster", readPoster], ["Prendre", "poster", grabDuct],
 ["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish],
-["Prendre", "couvercle", getLid]
+["Prendre", "couvercle", getLid],["Ouvrir", "poubelle", getLid],
+
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],

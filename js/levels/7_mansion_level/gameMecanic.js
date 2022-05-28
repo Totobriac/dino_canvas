@@ -12,8 +12,8 @@ var dino;
 var selectedSprite;
 var hoveredSprite;
 var isInReach;
-var level = 0;
 var isDinoCreated = false;
+
 
 export function pointNClick(ctx, game) {
   if (!isDinoCreated) {
@@ -52,9 +52,9 @@ function checkSelectedSprite(game) {
 function checkHoveredSprite(game, ctx) {
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
-      hoveredSprite = {name: sprites[i].name, gender : sprites[i].male};
-      var gender; 
-      sprites[i].male ? gender = "un ": gender = "une ";
+      hoveredSprite = { name: sprites[i].name, gender: sprites[i].male };
+      var gender;
+      sprites[i].male ? gender = "un " : gender = "une ";
       var text = gender + hoveredSprite.name;
       drawText(ctx, text);
       return
@@ -76,13 +76,13 @@ function checkIfReach(dino, sprite) {
 }
 
 function checkAction(ctx) {
-  if(selectedAction && !hoveredSprite) {
-    drawText(ctx, selectedAction, undefined);
+  if (selectedAction && !hoveredSprite) {
+    drawText(ctx, selectedAction);
   } else if (selectedAction && hoveredSprite) {
     var gender;
     hoveredSprite.gender ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
-    drawText(ctx, text, undefined)
+    drawText(ctx, text)
   }
   if (selectedSprite) {
     isInReach = checkIfReach(dino, selectedSprite);
@@ -95,28 +95,24 @@ function checkAction(ctx) {
 }
 
 function displayText(ctx) {
-  if (level == 0) {
-    for (let i = 0; i < outsideText.length; i++) {
-      if (selectedSprite.name === outsideText[i][0] && selectedAction === outsideText[i][1]) {
-        drawText(ctx, outsideText[i][2]);
-      }
+  for (let i = 0; i < outsideText.length; i++) {
+    if (selectedSprite.name === outsideText[i][0] && selectedAction === outsideText[i][1]) {
+      drawText(ctx, outsideText[i][2]);
     }
   }
 }
 
 function executeAction() {
-  if (level == 0) {
-    for (let i = 0; i < outsideAction.length; i++) {
-      if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
-        const func = outsideAction[i][2];
-        func();
-      }
+  for (let i = 0; i < outsideAction.length; i++) {
+    if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
+      const func = outsideAction[i][2];
+      func();
     }
   }
 }
 
 function objectInteraction() {
-  if (level == 0 && selectedAction === "Utiliser") {
+  if (selectedAction === "Utiliser") {
     for (let i = 0; i < outsideObjectAction.length; i++) {
       if (selectedObject == outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
         const func = outsideObjectAction[i][2];
@@ -126,18 +122,27 @@ function objectInteraction() {
   }
 }
 
-function drawText(ctx, text) {  
-  
+function drawText(ctx, text) {
+
   ctx.textBaseline = "top";
   ctx.textAlign = "start";
   ctx.font = "50px Pixeboy";
 
   var width = ctx.measureText(text).width;
   ctx.fillStyle = "black";
-  ctx.fillRect(20,20,width,36);
+  ctx.fillRect(20, 20, width, 36);
 
   ctx.fillStyle = "orange";
   ctx.fillText(text, 20, 0);
 }
 
-export { dino, drawText, hoveredSprite };
+function rmSprite(sprite) {
+ 
+  for (let i = 0; i < sprites.length; i++) {    
+    if (sprites[i].name === sprite) {
+      sprites.splice(i, 1);
+    }
+  }
+}
+
+export { dino, drawText, hoveredSprite, rmSprite };
