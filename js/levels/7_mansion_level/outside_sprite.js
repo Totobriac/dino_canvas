@@ -1,4 +1,4 @@
-import { Sprite } from "../character/sprite.js";
+import { Sprite } from "./sprite.js";
 
 export var mansionSprite = new Image();
 mansionSprite.src = "./assets/7_mansion/maniac_no_light.png";
@@ -129,48 +129,48 @@ runningCat.src = "./assets/7_mansion/running_cat.png";
 export var divingCat = new Image();
 divingCat.src = "./assets/7_mansion/diving_cat.png";
 
-export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8);
-export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3);
-export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035);
-export var lid = new Sprite("couvercle", lidSprite, 634, 295, 1, 1, 512, 512, 0.125);
+export var cat = new Sprite("chat", catSitLeft, -25, 145, 16, 4, 111.5, 83.5, 0.8, true);
+export var ivy = new Sprite("plante grimpante", ivySprite, -10, 210, 1, 1, 1100, 600, 0.3, false);
+export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035, false);
+export var lid = new Sprite("couvercle", lidSprite, 638, 310, 1, 1, 150, 89, 0.35, true);
 
-export var light1 = new Sprite("lampe", lightSprite, 452, 78, 1, 1, 200, 200, 0.8);
-export var light2 = new Sprite("lampe2", lightSprite, 260, 78, 1, 1, 200, 200, 0.8);
+export var light1 = new Sprite("lampe", lightSprite, 506, 94, 1, 1, 62, 107, 0.9, false);
+export var light2 = new Sprite("lampe2", lightSprite, 314, 94, 1, 1, 62, 107, 0.9, false);
 
-export var gate = new Sprite("porte", gateSprite, 256, 158, 1, 1, 900, 562, 0.40);
+export var gate = new Sprite("porte", gateSprite, 256, 158, 1, 1, 900, 562, 0.40, false);
 
-export var smallBowie = new Sprite("bowie", bowie, 730, 220, 1, 1, 570, 796, 0.15);
-export var bigBowie = new Sprite("bigBowie", bowie, 270, 0, 1, 1, 570, 796, 0.6);
+export var smallBowie = new Sprite("poster", bowie, 730, 220, 1, 1, 570, 796, 0.15, true);
+export var bigBowie = new Sprite("poster", bowie, 270, 0, 1, 1, 570, 796, 0.6, true);
 
-export var poster = new Sprite("poster", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25);
-export var bigPoster = new Sprite("bigPoster", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0.9);
+export var poster = new Sprite("annonce", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25, false);
+export var bigPoster = new Sprite("annonce", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0.9, false);
 
-export var ring = new Sprite("sonette", ringSprite, 315, 250, 1, 1, 100, 100, 0.5);
-export var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15);
-
-
-export var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2);
-export var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 290, 1, 1, 162, 199, 0.2);
+export var ring = new Sprite("sonette", ringSprite, 315, 250, 1, 1, 100, 100, 0.5, false);
+export var sign = new Sprite("sign", hotelSignSprite, 519, 220, 1, 1, 200, 200, 0.15, true);
 
 
-export var runningWater = new Sprite("eau", runningWaterSprite, 102, 318, 4, 2, 22.5, 130, 0.4);
+export var lionHead = new Sprite("tête de lion", lionSprite, 90, 290, 1, 1, 162, 199, 0.2, false);
+export var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 290, 1, 1, 162, 199, 0.2, false);
+
+
+export var runningWater = new Sprite("eau", runningWaterSprite, 102, 318, 4, 2, 22.5, 130, 0.4, true);
 
 export var bubble = new Sprite("bulles", bubbleSprite, 76, 350, 8, 1, 223, 45, 0.3);
 export var noBubble = new Sprite("pas de bulles", noBubbleSprite, 76, 350, 8, 1, 223, 45, 0.3);
 
 
-export var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1, 1, 111, 21, 1);
+export var bowl = new Sprite("bassin", bowlSprite, 53, 350, 1, 1, 111, 21, 1, true);
 
-export var fish = new Sprite("poisson", fishSprite, 65, 320, 58, 58, 100, 75, 0.8);
+export var fish = new Sprite("poisson", fishSprite, 65, 320, 58, 58, 100, 75, 0.8, true);
 
-export var trap = new Sprite("corde", ropeCamera, 512, 162, 1, 1, 70, 530, 0.5);
+export var trap = new Sprite("corde", ropeCamera, 512, 162, 1, 1, 70, 530, 0.5, false);
 
-export var trapSet = new Sprite("corde", ropeTrapSet, 512, 162, 1, 1, 70, 530, 0.5);
+export var trapSet = new Sprite("corde", ropeTrapSet, 512, 162, 1, 1, 70, 530, 0.5, false);
 
-export var ropeAnim = new Sprite("corde", ropeAnimation, 512,162, 8, 8, 70, 530, 0.5 )
+export var ropeAnim = new Sprite("corde", ropeAnimation, 512,162, 8, 8, 70, 530, 0.5, false )
 
-export var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512,162, 8, 8, 70, 530, 0.5 )
+export var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512,162, 8, 8, 70, 530, 0.5, false )
 
-export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.125);
+export var attachedLid = new Sprite("couvercle", lidSprite, 512, 348, 1, 1, 512, 512, 0.125, true);
 
-export var canWater = new Sprite("boite de conserve", canFull, 500, 250, 1, 1, 140, 120, 0.3 );
+export var canWater = new Sprite("boite de conserve", canFull, 500, 250, 1, 1, 140, 120, 0.3, false );

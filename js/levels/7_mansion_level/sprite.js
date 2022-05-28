@@ -1,5 +1,5 @@
 export class Sprite {
-  constructor(name, sprite, x, y, frames, columns, spriteWidth, spriteHeight, scale) {
+  constructor(name, sprite, x, y, frames, columns, spriteWidth, spriteHeight, scale, male) {
     this.name = name;
     this.sprite = sprite;
     this.frameIndex = 0;
@@ -12,6 +12,7 @@ export class Sprite {
     this.scale = scale;
     this.x = x;
     this.y = y;
+    this.male = male;
   };
   checkFrame() {
     this.tickCount++;

@@ -51,10 +51,12 @@ function checkSelectedSprite(game) {
 }
 
 function checkHoveredSprite(game, ctx) {
+  ctx.fillRect(game.mouseMovePosition.x, game.mouseMovePosition.y, 2,2)
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
+      var gender = sprites[i].male;
       hoveredSprite = sprites[i].name;
-      drawText(ctx, hoveredSprite);
+      drawText(ctx, hoveredSprite, gender);
       return
     }
     else {
@@ -116,7 +118,10 @@ function objectInteraction() {
   }
 }
 
-function drawText(ctx, text) {
+function drawText(ctx, text, male) {
+  var gender;
+  male ? gender = "un " : gender = "une ";
+  text = gender + text;
   ctx.textBaseline = "top";
   ctx.textAlign = "start";
   ctx.font = "50px Pixeboy";
