@@ -138,7 +138,7 @@ function checkObject(mouse, ctx) {
 
     if (selectedAction === "Utiliser" && selectedObject != undefined) {
       var text;
-      hoveredSprite == undefined ? text = "Utiliser " + selectedObject + " avec ... " : text = "Utiliser " + selectedObject + " avec " + hoveredSprite;
+      hoveredSprite.name == undefined ? text = "Utiliser " + selectedObject + " avec ... " : text = "Utiliser " + selectedObject + " avec " + hoveredSprite.name;
       drawText(ctx, text);
     }
     else {

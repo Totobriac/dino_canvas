@@ -29,7 +29,6 @@ export function pointNClick(ctx, game) {
       dino.animateDino();
     }
   }
-
   drawActions(ctx, game);
   animateText();
 
@@ -51,12 +50,13 @@ function checkSelectedSprite(game) {
 }
 
 function checkHoveredSprite(game, ctx) {
-  ctx.fillRect(game.mouseMovePosition.x, game.mouseMovePosition.y, 2,2)
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1)) {
-      var gender = sprites[i].male;
-      hoveredSprite = sprites[i].name;
-      drawText(ctx, hoveredSprite, gender);
+      hoveredSprite = {name: sprites[i].name, gender : sprites[i].male};
+      var gender; 
+      sprites[i].male ? gender = "un ": gender = "une ";
+      var text = gender + hoveredSprite.name;
+      drawText(ctx, text);
       return
     }
     else {
@@ -76,6 +76,14 @@ function checkIfReach(dino, sprite) {
 }
 
 function checkAction(ctx) {
+  if(selectedAction && !hoveredSprite) {
+    drawText(ctx, selectedAction, undefined);
+  } else if (selectedAction && hoveredSprite) {
+    var gender;
+    hoveredSprite.gender ? gender = " le " : gender = " la ";
+    var text = selectedAction + gender + hoveredSprite.name;
+    drawText(ctx, text, undefined)
+  }
   if (selectedSprite) {
     isInReach = checkIfReach(dino, selectedSprite);
     if (isInReach) {
@@ -118,10 +126,8 @@ function objectInteraction() {
   }
 }
 
-function drawText(ctx, text, male) {
-  var gender;
-  male ? gender = "un " : gender = "une ";
-  text = gender + text;
+function drawText(ctx, text) {  
+  
   ctx.textBaseline = "top";
   ctx.textAlign = "start";
   ctx.font = "50px Pixeboy";
