@@ -42,7 +42,7 @@ export function pointNClick(ctx, game) {
   }
   if (game.level === 7) {
     drawOutsideScenery(ctx);
-    dino.checkBundaries(820, 0, 300, 320);
+    dino.checkBundaries(820, 0, 290, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
     if (isReadingPoster === false) {
       dino.animateDino();

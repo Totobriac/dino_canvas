@@ -2,7 +2,7 @@ import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 
 var isReadingPoster = false;
-var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.trap, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy];
+var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy];
 var isDinoLeft = false;
 var objects = [];
 var hasCan = false;
@@ -41,13 +41,13 @@ export function drawOutsideScenery(ctx) {
   ctx.drawImage(sprite.moonLightSprite, 85, 55, 80, 80);
   ctx.drawImage(sprite.moonSprite, 100, 70, 50, 50);
   ctx.fillStyle = ("grey");
-  ctx.fillRect(0, 370, canvas.width, 30);
+  ctx.fillRect(0, 360, canvas.width, 40);
 
-  ctx.drawImage(sprite.wallSprite, 0, 210, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 160, 210, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 552, 210, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 712, 210, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 872, 210, 160, 160);
+  ctx.drawImage(sprite.wallSprite, 0, 200, 160, 160);
+  ctx.drawImage(sprite.wallSprite, 160, 200, 160, 160);
+  ctx.drawImage(sprite.wallSprite, 552, 200, 160, 160);
+  ctx.drawImage(sprite.wallSprite, 712, 200, 160, 160);
+  ctx.drawImage(sprite.wallSprite, 872, 200, 160, 160);
 
   sprite.light1.draw(ctx);
   sprite.light2.draw(ctx);
