@@ -27,6 +27,7 @@ var hasSearched = false;
 var oldSprites = [];
 
 export function drawOutsideScenery(ctx) {
+
   if (isReadingPoster) {
     if (oldSprites.length === 0) oldSprites = sprites;
     sprites = [sprite.announce, sprite.bigPoster];
@@ -34,38 +35,10 @@ export function drawOutsideScenery(ctx) {
     if (oldSprites.length > 0) sprites = oldSprites;
   }
 
+  sprite.drawSetting(ctx);
 
-  ctx.drawImage(sprite.skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
-  ctx.drawImage(sprite.hillSprite, 0, -50, 1200, 578);
-  ctx.drawImage(sprite.mansionLightSprite, 650, 0, 130, 144);
-  ctx.drawImage(sprite.mansionSprite, 650, 0, 130, 144);
-  ctx.drawImage(sprite.moonLightSprite, 85, 55, 80, 80);
-  ctx.drawImage(sprite.moonSprite, 100, 70, 50, 50);
-  ctx.fillStyle = ("grey");
-  ctx.fillRect(0, 360, canvas.width, 40);
-
-  ctx.drawImage(sprite.wallSprite, 0, 200, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 160, 200, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 552, 200, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 712, 200, 160, 160);
-  ctx.drawImage(sprite.wallSprite, 872, 200, 160, 160);
-
-  sprite.light1.draw(ctx);
-  sprite.light2.draw(ctx);
-
-
-  sprite.gate.draw(ctx);
-
-  sprite.smallPoster.draw(ctx);
-
-  ctx.save();
-  ctx.translate(740, 230);
-  ctx.rotate(4 * Math.PI / 180);
-  sprite.smallAnnounce.draw(ctx);
-  ctx.restore();
-
-  if (isTrapReady === false) {
-    if (isDinoLeft == true) {
+  if (!isTrapReady) {
+    if (isDinoLeft) {
       if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
       if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkRight;
       if (sprite.cat.x == 230) sprite.cat.sprite = sprite.catSitRight;
@@ -105,31 +78,26 @@ export function drawOutsideScenery(ctx) {
     }
   }
 
-  sprite.ivy.draw(ctx);
+  if (isCatFree) sprite.cat.draw(ctx);
 
-  if (isCatFree === true) sprite.cat.draw(ctx);
+  isRunningWater ? sprite.lionHead.draw(ctx) : sprite.lionHeadSc.draw(ctx);
 
-  isRunningWater === true ? sprite.lionHead.draw(ctx) : sprite.lionHeadSc.draw(ctx);
+  if (isRunningWater) sprite.runningWater.draw(ctx);
 
-  if (isRunningWater === true) sprite.runningWater.draw(ctx);
-
-  if (hasWater === true) {
+  if (hasWater) {
     sprite.fish.draw(ctx);
-    isRunningWater === true ? sprite.bubble.draw(ctx) : sprite.noBubble.draw(ctx);
+    isRunningWater ? sprite.bubble.draw(ctx) : sprite.noBubble.draw(ctx);
   }
 
-  sprite.bowl.draw(ctx);
 
-  sprite.trash.draw(ctx);
+  if (!hasLid) sprite.lid.draw(ctx);
 
-  if (hasLid === false) sprite.lid.draw(ctx);
-
-  if (trapSet === true && isTinAttached === false) {
+  if (trapSet && !isTinAttached) {
     sprite.trap.draw(ctx);
   }
 
 
-  if (isTinAttached  && isAnimated === false && cutTheRope == false) {
+  if (isTinAttached  && !isAnimated && !cutTheRope ) {
     sprite.trapSet.draw(ctx);
   }
 
@@ -143,7 +111,7 @@ export function drawOutsideScenery(ctx) {
 
   if (isTinAttached) sprite.canWater.draw(ctx);
 
-  if (isTinAttached && isAnimated === true) {
+  if (isTinAttached && isAnimated) {
     sprite.ropeAnim.draw(ctx);
     sprite.attachedLid.update(0, -2);
     sprite.canWater.update(0, 2);
@@ -161,16 +129,9 @@ export function drawOutsideScenery(ctx) {
     isTrapReady = true;
   }
 
-
   if (isLidAttached) sprite.attachedLid.draw(ctx);
 
-  sprite.ring.draw(ctx);
-
-  sprite.sign.draw(ctx);
-
-
   !isTrapReady ? dodgyCat() : catToTrap();
-
 
   if (isReadingPoster) {
     ctx.drawImage(sprite.wallSprite, 0, 0, 900, 400);
