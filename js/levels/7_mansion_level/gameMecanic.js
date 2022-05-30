@@ -17,7 +17,9 @@ import {
 } from "../character/mansionDino.js";
 import {
   selectedAction,
-  selectedObject
+  selectedObject,
+  resetAction,
+  resetObject,
 } from "./side_bar.js";
 import {
   trash
@@ -28,8 +30,16 @@ var selectedSprite;
 var hoveredSprite;
 var isDinoCreated = false;
 
+var textDisp;
+
+var oldMouseX = undefined;
 
 export function pointNClick(ctx, game) {
+
+  if (oldMouseX != game.mousePosition.x) {
+    oldMouseX = game.mousePosition.x;
+    textDisp = undefined;
+  }
 
   if (!isDinoCreated) {
     dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
@@ -39,14 +49,13 @@ export function pointNClick(ctx, game) {
       y: 300
     };
   }
-  if (game.level === 7) {
     drawOutsideScenery(ctx);
     dino.checkBundaries(820, 0, 290, 320);
     if (game.mousePosition.x < 910) dino.moveAround(game, trash);
     if (isReadingPoster === false) {
       dino.animateDino();
-    }
   }
+
   drawActions(ctx, game);
   animateText();
 
@@ -76,7 +85,7 @@ function checkHoveredSprite(game, ctx) {
       var gender;
       sprites[i].male ? gender = "un " : gender = "une ";
       var text = gender + hoveredSprite.name;
-      drawText(ctx, text);
+      if (!textDisp && !selectedAction) drawText(ctx, text);
       return
     } else {
       hoveredSprite = null;
@@ -100,13 +109,13 @@ function checkAction(ctx) {
     var gender;
     hoveredSprite.gender ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
-    drawText(ctx, text)
+    if (!selectedObject) drawText(ctx, text)
   }
   if (selectedSprite) {
     var isInReach = checkIfReach(dino, selectedSprite);
     if (isInReach) {
       displayText(ctx);
-      executeAction();
+      executeAction(ctx);
       objectInteraction();
     }
   }
@@ -115,9 +124,11 @@ function checkAction(ctx) {
 function displayText(ctx) {
   for (let i = 0; i < outsideText.length; i++) {
     if (selectedSprite.name === outsideText[i][0] && selectedAction === outsideText[i][1]) {
-      drawText(ctx, outsideText[i][2]);
+      textDisp = outsideText[i][2];
+      resetAction();
     }
   }
+  if (textDisp) drawText(ctx, textDisp);
 }
 
 function executeAction() {
@@ -125,6 +136,7 @@ function executeAction() {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
       func();
+      resetAction();
     }
   }
 }
@@ -132,30 +144,28 @@ function executeAction() {
 function objectInteraction() {
   if (selectedAction === "Utiliser") {
     for (let i = 0; i < outsideObjectAction.length; i++) {
-      if (selectedObject == outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
+      if (selectedObject === outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
         const func = outsideObjectAction[i][2];
         func();
+        resetAction();
+        resetObject();
       }
     }
   }
 }
 
 function drawText(ctx, text) {
-
   ctx.textBaseline = "top";
   ctx.textAlign = "start";
   ctx.font = "50px Pixeboy";
-
   var width = ctx.measureText(text).width;
   ctx.fillStyle = "black";
   ctx.fillRect(20, 20, width, 36);
-
   ctx.fillStyle = "orange";
   ctx.fillText(text, 20, 0);
 }
 
 function rmSprite(sprite) {
-
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].name === sprite) {
       sprites.splice(i, 1);

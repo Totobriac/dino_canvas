@@ -154,5 +154,16 @@ function animateText() {
   }
 }
 
+function resetAction() {
+  selectedAction = undefined;
+  if (oldSelection != undefined) {
+    actions[oldSelection].filter = "none";
+    oldSelection = null;
+  }
+}
 
-export { selectedAction, animateText, selectedObject };
+function resetObject() {
+  selectedObject = null;
+}
+
+export { selectedAction, resetAction, animateText, selectedObject, resetObject };

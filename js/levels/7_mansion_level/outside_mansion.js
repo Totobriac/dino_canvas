@@ -129,7 +129,7 @@ export function drawOutsideScenery(ctx) {
   }
 
 
-  if (isTinAttached === true && isAnimated === false && cutTheRope == false) {
+  if (isTinAttached  && isAnimated === false && cutTheRope == false) {
     sprite.trapSet.draw(ctx);
   }
 
@@ -137,42 +137,42 @@ export function drawOutsideScenery(ctx) {
 
   var isCuttingRope = sprite.cat.checkCollision(sprite.ropeAnim.x, 0, sprite.ropeAnim.spriteWidth, canvas.height);
 
-  if (stopAnimation === true) isAnimated = false;
+  if (stopAnimation) isAnimated = false;
 
-  if (isCuttingRope === true) cutTheRope = true;
+  if (isCuttingRope) cutTheRope = true;
 
-  if (isTinAttached === true) sprite.canWater.draw(ctx);
+  if (isTinAttached) sprite.canWater.draw(ctx);
 
-  if (isTinAttached === true && isAnimated === true) {
+  if (isTinAttached && isAnimated === true) {
     sprite.ropeAnim.draw(ctx);
     sprite.attachedLid.update(0, -2);
     sprite.canWater.update(0, 2);
   }
 
   var isLidOn = sprite.attachedLid.checkCollision(0, sprite.trash.y, canvas.width, 10);
-  if (isLidOn === true && cutTheRope === true) isCatCaught = true;
+  if (isLidOn && cutTheRope ) isCatCaught = true;
 
-  if (cutTheRope === true && isCatCaught === false) {
+  if (cutTheRope && !isCatCaught) {
     sprite.ropeAnimUp.draw(ctx);
     sprite.lid.update(0, 1);
   }
 
-  if (isFishInside === true && dino.x > 750) {
+  if (isFishInside && dino.x > 750) {
     isTrapReady = true;
   }
 
 
-  if (isLidAttached === true) sprite.attachedLid.draw(ctx);
+  if (isLidAttached) sprite.attachedLid.draw(ctx);
 
   sprite.ring.draw(ctx);
 
   sprite.sign.draw(ctx);
 
 
-  isTrapReady === false ? dodgyCat() : catToTrap();
+  !isTrapReady ? dodgyCat() : catToTrap();
 
 
-  if (isReadingPoster == true) {
+  if (isReadingPoster) {
     ctx.drawImage(sprite.wallSprite, 0, 0, 900, 400);
     sprite.bigPoster.draw(ctx);
     ctx.save();
@@ -320,14 +320,16 @@ function catToTrap() {
 
 function searchTrash() {
   if (hasLid) hasSearched = true;
+  console.log(hasSearched);
 }
 
-var outsideText = [["chat", "Regarder", "Miaou! Miaou!"], ["bowie", "Lire", "cool"],
+
+var outsideText = [["chat", "Regarder", "Miaou! Miaou!"],
 ["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "C'est fermé."],
 ["poubelle", "Regarder", "Peut-être quelque chose a grignoter?"],
 ["poubelle sans couvercle", "Regarder", "Miam! Une boite de conserve au fond !"]];
 
-var outsideAction = [ ["Prendre", "poubelle sans couvercle", grabCan],
+var outsideAction = [["Prendre", "poubelle sans couvercle", grabCan],
 ["Regarder", "poster", readPoster], ["Prendre", "annonce", grabDuct],
 ["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish],
 ["Prendre", "couvercle", getLid],["Ouvrir", "poubelle", getLid],
