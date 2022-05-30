@@ -2,7 +2,7 @@ import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 
 var isReadingPoster = false;
-var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate, sprite.smallBowie, sprite.lionHead, sprite.bowl, sprite.ivy];
+var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate, sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy];
 var isDinoLeft = false;
 var objects = [];
 var hasCan = false;
@@ -28,8 +28,8 @@ var oldSprites = [];
 
 export function drawOutsideScenery(ctx) {
   if (isReadingPoster) {
-    if (oldSprites.length === 0)oldSprites = sprites;
-    sprites = [sprite.bigBowie];
+    if (oldSprites.length === 0) oldSprites = sprites;
+    sprites = [sprite.announce, sprite.bigPoster];
   } else {
     if (oldSprites.length > 0) sprites = oldSprites;
   }
@@ -56,12 +56,12 @@ export function drawOutsideScenery(ctx) {
 
   sprite.gate.draw(ctx);
 
-  sprite.smallBowie.draw(ctx);
+  sprite.smallPoster.draw(ctx);
 
   ctx.save();
   ctx.translate(740, 230);
   ctx.rotate(4 * Math.PI / 180);
-  sprite.poster.draw(ctx);
+  sprite.smallAnnounce.draw(ctx);
   ctx.restore();
 
   if (isTrapReady === false) {
@@ -174,11 +174,11 @@ export function drawOutsideScenery(ctx) {
 
   if (isReadingPoster == true) {
     ctx.drawImage(sprite.wallSprite, 0, 0, 900, 400);
-    sprite.bigBowie.draw(ctx);
+    sprite.bigPoster.draw(ctx);
     ctx.save();
     ctx.translate(290, 30);
     ctx.rotate(4 * Math.PI / 180);
-    sprite.bigPoster.draw(ctx);
+    sprite.bigAnnounce.draw(ctx);
     ctx.fillStyle = "rgba(225,225,225,0.6)";
     ctx.fillRect(10, -10, 200, 20);
     if (hasTape === false) {
@@ -328,7 +328,7 @@ var outsideText = [["chat", "Regarder", "Miaou! Miaou!"], ["bowie", "Lire", "coo
 ["poubelle sans couvercle", "Regarder", "Miam! Une boite de conserve au fond !"]];
 
 var outsideAction = [ ["Prendre", "poubelle sans couvercle", grabCan],
-["Regarder", "poster", readPoster], ["Prendre", "poster", grabDuct],
+["Regarder", "poster", readPoster], ["Prendre", "annonce", grabDuct],
 ["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish],
 ["Prendre", "couvercle", getLid],["Ouvrir", "poubelle", getLid],
 ["Regarder", "poubelle sans couvercle", searchTrash],
