@@ -26,7 +26,6 @@ import {
 var dino;
 var selectedSprite;
 var hoveredSprite;
-var isInReach;
 var isDinoCreated = false;
 
 
@@ -87,7 +86,7 @@ function checkHoveredSprite(game, ctx) {
 
 function checkIfReach(dino, sprite) {
   if (isReadingPoster) return true;
-  if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale)) {
+  if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x - 5 || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale) + 5) {
     return false;
   } else {
     return true;
@@ -104,7 +103,7 @@ function checkAction(ctx) {
     drawText(ctx, text)
   }
   if (selectedSprite) {
-    isInReach = checkIfReach(dino, selectedSprite);
+    var isInReach = checkIfReach(dino, selectedSprite);
     if (isInReach) {
       displayText(ctx);
       executeAction();

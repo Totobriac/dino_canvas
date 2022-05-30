@@ -22,6 +22,7 @@ var catOnTheFloor = false;
 var isCatFree = true;
 var cutTheRope = false;
 var isCatCaught = false;
+var hasSearched = false;
 
 var oldSprites = [];
 
@@ -207,11 +208,22 @@ function dodgyCat() {
 }
 
 function push() {
-  sprite.trash.update(-2, 0);
+  if (dino.x > sprite.trash.x) {
+    sprite.trash.update(-2, 0);
+    sprite.lid.update(-2,0);
+  }
+}
+
+function pull() {
+  if (dino.x < sprite.trash.x) {
+    sprite.trash.update(-2, 0);
+    sprite.lid.update(-2,0);
+    dino.x -= 2;
+  }
 }
 
 function grabCan() {
-  if (hasCan === false && hasLid === true) {
+  if (!hasCan && hasLid && hasSearched) {
     objects.push(["boite de conserve", sprite.canSprite]);
     hasCan = true;
   }
@@ -257,18 +269,19 @@ function getLid() {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
     rmSprite("couvercle");
+    sprite.trash.name = "poubelle sans couvercle";
   }
 }
 
 function attachLid() {
-  if (hasLid === true && trapSet === true) {
+  if (hasLid && trapSet) {
     isLidAttached = true;
     removeObject("couvercle");
   }
 }
 
 function attachTin() {
-  if (isLidAttached === true && isTinAttached === false && hasWater === false) {
+  if (isLidAttached && !isTinAttached && !hasWater) {
     isTinAttached = true;
     removeObject("boite de conserve");
   }
@@ -305,15 +318,24 @@ function catToTrap() {
   sprite.cat.update(2, 0);
 }
 
-var outsideText = [["chat", "Regarder", "Miaou! Miaou!"], ["bowie", "Lire", "cool"],
-["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "Ferme!!!!!"],
-["poubelle", "Regarder", "Miam! Il y a une boite de conserve au fond !"]];
+function searchTrash() {
+  if (hasLid) hasSearched = true;
+}
 
-var outsideAction = [["Pousser", "poubelle", push], ["Prendre", "poubelle", grabCan],
+var outsideText = [["chat", "Regarder", "Miaou! Miaou!"], ["bowie", "Lire", "cool"],
+["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "C'est fermé."],
+["poubelle", "Regarder", "Peut-être quelque chose a grignoter?"],
+["poubelle sans couvercle", "Regarder", "Miam! Une boite de conserve au fond !"]];
+
+var outsideAction = [ ["Prendre", "poubelle sans couvercle", grabCan],
 ["Regarder", "poster", readPoster], ["Prendre", "poster", grabDuct],
 ["Prendre", "plante grimpante", grabRope], ["Prendre", "bassin", grabFish],
 ["Prendre", "couvercle", getLid],["Ouvrir", "poubelle", getLid],
-
+["Regarder", "poubelle sans couvercle", searchTrash],
+["Pousser", "poubelle", push],
+["Pousser", "poubelle sans couvercle", push],
+["Tirer", "poubelle", pull],
+["Tirer", "poubelle sans couvercle", pull],
 ];
 
 var outsideObjectAction = [["boulle de scotch", "tête de lion", stopWater], ["boite de conserve", "bassin", emptyWater],

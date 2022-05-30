@@ -131,8 +131,8 @@ divingCat.src = "./assets/7_mansion/diving_cat.png";
 
 export var cat = new Sprite("chat", catSitLeft, -25, 135, 16, 4, 111.5, 83.5, 0.8, true);
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 200, 1, 1, 1100, 600, 0.3, false);
-export var trash = new Sprite("poubelle", binSprite, 640, 300, 1, 1, 1676, 2094, 0.035, false);
-export var lid = new Sprite("couvercle", lidSprite, 638, 300, 1, 1, 150, 89, 0.35, true);
+export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035, false);
+export var lid = new Sprite("couvercle", lidSprite, 644, 298, 1, 1, 150, 89, 0.33, true);
 
 export var light1 = new Sprite("lampe", lightSprite, 506, 89, 1, 1, 62, 107, 0.9, false);
 export var light2 = new Sprite("lampe2", lightSprite, 314, 89, 1, 1, 62, 107, 0.9, false);
