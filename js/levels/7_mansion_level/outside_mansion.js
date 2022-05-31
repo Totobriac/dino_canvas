@@ -1,9 +1,9 @@
 import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
+import { drawCat, cat } from "./cat.js";
 
 var isReadingPoster = false;
-var sprites  = [sprite.cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate, sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy];
-var isDinoLeft = false;
+var sprites  = [cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate, sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy];
 var objects = [];
 var hasCan = false;
 var hasTape = false;
@@ -17,8 +17,7 @@ var isLidAttached = false;
 var isTinAttached = false;
 var isAnimated = true;
 var isFishInside = false;
-var isTrapReady = false;
-var catOnTheFloor = false;
+export var isTrapReady = false;
 var isCatFree = true;
 var cutTheRope = false;
 var isCatCaught = false;
@@ -37,57 +36,22 @@ export function drawOutsideScenery(ctx) {
 
   sprite.drawSetting(ctx);
 
-  if (!isTrapReady) {
-    if (isDinoLeft) {
-      if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
-      if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkRight;
-      if (sprite.cat.x == 230) sprite.cat.sprite = sprite.catSitRight;
-    }
-    else {
-      if (sprite.cat.x == -25) sprite.cat.sprite = sprite.catSitLeft;
-      if (sprite.cat.x > -25 && sprite.cat.x < 230) sprite.cat.sprite = sprite.catWalkLeft;
-    }
+  drawCat(ctx);
+
+  if (isRunningWater) {
+    sprite.lionHead.draw(ctx);
+    sprite.runningWater.draw(ctx);
+    sprite.bubble.draw(ctx);
   } else {
-    if (sprite.cat.y < 315 && catOnTheFloor === false) {
-      sprite.cat.sprite = sprite.flyingCat;
-      sprite.cat.frames = 1;
-      sprite.cat.columns = 1;
-      sprite.cat.update(1, 2.5);
-    }
-    else {
-      catOnTheFloor = true;
-      if (sprite.cat.x < 300) {
-        sprite.cat.sprite = sprite.runningCat;
-        sprite.cat.frames = 16;
-        sprite.cat.columns = 4;
-        sprite.cat.update(1, 0);
-      }
-      else if (sprite.cat.x < 420) {
-        sprite.cat.sprite = sprite.flyingCat;
-        sprite.cat.frames = 1;
-        sprite.cat.columns = 1;
-        sprite.cat.update(1, -1);
-      }
-      else {
-        sprite.cat.sprite = sprite.divingCat;
-        sprite.cat.update(0.5, 1.5);
-        if (sprite.cat.y > 300) {
-          isCatFree = false;
-        }
-      }
-    }
+    sprite.lionHeadSc.draw(ctx);
+    sprite.noBubble.draw(ctx);
   }
 
-  if (isCatFree) sprite.cat.draw(ctx);
-
-  isRunningWater ? sprite.lionHead.draw(ctx) : sprite.lionHeadSc.draw(ctx);
-
-  if (isRunningWater) sprite.runningWater.draw(ctx);
+    sprite.bowl.draw(ctx);
 
   if (hasWater) {
     sprite.fish.draw(ctx);
-    isRunningWater ? sprite.bubble.draw(ctx) : sprite.noBubble.draw(ctx);
-  }
+   }
 
 
   if (!hasLid) sprite.lid.draw(ctx);
@@ -96,14 +60,13 @@ export function drawOutsideScenery(ctx) {
     sprite.trap.draw(ctx);
   }
 
-
   if (isTinAttached  && !isAnimated && !cutTheRope ) {
     sprite.trapSet.draw(ctx);
   }
 
   var stopAnimation = sprite.canWater.checkCollision(0, 330, canvas.width, 50);
 
-  var isCuttingRope = sprite.cat.checkCollision(sprite.ropeAnim.x, 0, sprite.ropeAnim.spriteWidth, canvas.height);
+  var isCuttingRope = cat.checkCollision(sprite.ropeAnim.x, 0, sprite.ropeAnim.spriteWidth, canvas.height);
 
   if (stopAnimation) isAnimated = false;
 
@@ -131,8 +94,6 @@ export function drawOutsideScenery(ctx) {
 
   if (isLidAttached) sprite.attachedLid.draw(ctx);
 
-  !isTrapReady ? dodgyCat() : catToTrap();
-
   if (isReadingPoster) {
     ctx.drawImage(sprite.wallSprite, 0, 0, 900, 400);
     sprite.bigPoster.draw(ctx);
@@ -148,23 +109,6 @@ export function drawOutsideScenery(ctx) {
       ctx.fillRect(195, 20, 20, 250);
     };
     ctx.restore();
-  }
-}
-
-function dodgyCat() {
-  if (dino.x < 150) {
-    isDinoLeft = true;
-    if (sprite.cat.x < 230) {
-      sprite.cat.update(3, 0);
-    }
-  }
-  else {
-    isDinoLeft = false;
-  }
-  if (isDinoLeft == false) {
-    if (sprite.cat.x > -25) {
-      sprite.cat.update(-3, 0);
-    }
   }
 }
 
@@ -272,11 +216,6 @@ function readPoster() {
 
 function leavePoster() {
   isReadingPoster = false;
-}
-
-function catToTrap() {
-  sprite.cat.sprite = sprite.catWalkRight;
-  sprite.cat.update(2, 0);
 }
 
 function searchTrash() {

@@ -12,7 +12,7 @@ gateSprite.src = "./assets/7_mansion/portail_essai.png";
 var skySprite = new Image();
 skySprite.src = "./assets/6_race/sky_race_1200.png";
 
-var wallSprite = new Image();
+export var wallSprite = new Image();
 wallSprite.src = "./assets/7_mansion/wall.png";
 
 var hillSprite = new Image();
@@ -21,13 +21,13 @@ hillSprite.src = "./assets/7_mansion/hill_1200_purple.png";
 var peeWeeSprite = new Image();
 peeWeeSprite.src = "./assets/7_mansion/pee_wee.png";
 
-var bigPeeWeeSprite = new Image();
+export var bigPeeWeeSprite = new Image();
 bigPeeWeeSprite.src = "./assets/7_mansion/pee_big_pix.png";
 
 var binSprite = new Image();
 binSprite.src = "./assets/7_mansion/trash.png";
 
-var lidSprite = new Image();
+export var lidSprite = new Image();
 lidSprite.src = "./assets/7_mansion/trash_lid.png";
 
 var lightSprite = new Image();
@@ -42,7 +42,7 @@ moonSprite.src = "./assets/7_mansion/pix_yell_moon.png";
 var moonLightSprite = new Image();
 moonLightSprite.src = "./assets/7_mansion/pix_yell_moon_light.png";
 
-var bowie = new Image();
+export var bowie = new Image();
 bowie.src = "./assets/7_mansion/bowie_pi.png";
 
 var ivySprite = new Image();
@@ -51,19 +51,19 @@ ivySprite.src = "./assets/7_mansion/pix_ivy.png";
 var hotelSignSprite = new Image();
 hotelSignSprite.src = "./assets/7_mansion/H4E.png";
 
-var canSprite = new Image();
+export var canSprite = new Image();
 canSprite.src = "./assets/7_mansion/small_tin.png";
 
-var canSpriteWater = new Image();
+export var canSpriteWater = new Image();
 canSpriteWater.src = "./assets/7_mansion/tin_water.png";
 
-var canFull = new Image();
+export var canFull = new Image();
 canFull.src = "./assets/7_mansion/full_tin.png";
 
-var ductSprite = new Image();
+export var ductSprite = new Image();
 ductSprite.src = "./assets/7_mansion/duct_tape.png";
 
-var ropeSprite = new Image();
+export var ropeSprite = new Image();
 ropeSprite.src = "./assets/7_mansion/ivy_rope.png";
 
 var lionSprite = new Image;
@@ -81,13 +81,13 @@ bubbleSprite.src = "./assets/7_mansion/bubble.png";
 var noBubbleSprite = new Image;
 noBubbleSprite.src = "./assets/7_mansion/no_bubble.png";
 
-var bowlSprite = new Image;
+export var bowlSprite = new Image;
 bowlSprite.src = "./assets/7_mansion/bowl.png";
 
-var fishSprite = new Image();
+export var fishSprite = new Image();
 fishSprite.src = "./assets/7_mansion/jumping_fish.png";
 
-var dyingFish = new Image();
+export var dyingFish = new Image();
 dyingFish.src = "./assets/7_mansion/fish.png";
 
 var ropeCamera = new Image();
@@ -96,7 +96,7 @@ ropeCamera.src = "./assets/7_mansion/rope_trap.png";
 var ropeTrapSet = new Image();
 ropeTrapSet.src = "./assets/7_mansion/rope_trap_set.png";
 
-var lidObject = new Image();
+export var lidObject = new Image();
 lidObject.src = "./assets/7_mansion/couvercle.png";
 
 var ropeAnimation = new Image();
@@ -105,35 +105,13 @@ ropeAnimation.src = "./assets/7_mansion/rope_anim.png";
 var ropeAnimationUp = new Image();
 ropeAnimationUp.src = "./assets/7_mansion/rope_up.png";
 
-var fishFloor = new Image();
+export var fishFloor = new Image();
 fishFloor.src = "./assets/7_mansion/fish_floor.png";
-
-export var catSitLeft = new Image();
-catSitLeft.src = "./assets/7_mansion/cat_sit_left.png";
-
-export var flyingCat = new Image();
-flyingCat.src = "./assets/7_mansion/flying_cat.png";
-
-export var runningCat = new Image();
-runningCat.src = "./assets/7_mansion/running_cat.png";
-
-export var divingCat = new Image();
-divingCat.src = "./assets/7_mansion/diving_cat.png";
-
-export var catWalkRight = new Image();
-catWalkRight.src = "./assets/7_mansion/cat_walk_right.png";
-
-export var catWalkLeft = new Image();
-catWalkLeft.src = "./assets/7_mansion/cat_walk_left.png";
-
-export var catSitRight = new Image();
-catSitRight.src = "./assets/7_mansion/cat_sit_right.png";
-
 
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 200, 1, 1, 1100, 600, 0.3, false);
 export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035, false);
 export var lid = new Sprite("couvercle", lidSprite, 644, 298, 1, 1, 150, 89, 0.33, true);
-export var cat = new Sprite("chat", catSitLeft, -25, 135, 16, 4, 111.5, 83.5, 0.8, true);
+
 
 export var light1 = new Sprite("lampe", lightSprite, 506, 89, 1, 1, 62, 107, 0.9, false);
 export var light2 = new Sprite("lampe2", lightSprite, 314, 89, 1, 1, 62, 107, 0.9, false);
@@ -207,8 +185,6 @@ export function drawSetting(ctx) {
   ctx.restore();
 
   ivy.draw(ctx);
-
-  bowl.draw(ctx);
 
   trash.draw(ctx);
 
