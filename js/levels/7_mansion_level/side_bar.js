@@ -63,7 +63,7 @@ function createActions(ctx) {
 }
 
 export function drawActions(ctx, game) {
-  if (game.loadedLevel[7] === false) {
+  if (!game.loadedLevel[7]) {
     createActions(ctx);
     game.loadedLevel[7] = true;
   }
