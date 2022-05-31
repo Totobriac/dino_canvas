@@ -7,10 +7,7 @@ import {
 } from "./side_bar.js";
 import {
   sprites,
-  outsideText,
-  outsideAction,
-  isReadingPoster,
-  outsideObjectAction
+
 } from "./outside_mansion.js";
 import {
   MansionDino
@@ -24,6 +21,7 @@ import {
 import {
   trash
 } from "./outside_sprite.js";
+import { outsideAction, isReadingPoster } from "./actions.js";
 
 var dino;
 var selectedSprite;
@@ -113,39 +111,25 @@ function checkAction(ctx) {
   }
   if (selectedSprite) {
     var isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach) {
-      displayText(ctx);
-      executeAction(ctx);
-      objectInteraction();
-    }
-  }
-}
-
-function displayText(ctx) {
-  for (let i = 0; i < outsideText.length; i++) {
-    if (selectedSprite.name === outsideText[i][0] && selectedAction === outsideText[i][1]) {
-      textDisp = outsideText[i][2];
-      resetAction();
-    }
-  }
-  if (textDisp) drawText(ctx, textDisp);
+    if (isInReach) executeAction(ctx)
+  };
 }
 
 function executeAction(ctx) {
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
-      func(ctx);
+      func();
+      if (outsideAction[i][3]) {
+        textDisp = outsideAction[i][3];
+      }
       resetAction();
     }
-  }
-}
+    if (textDisp) drawText(ctx, textDisp);
 
-function objectInteraction() {
-  if (selectedAction === "Utiliser") {
-    for (let i = 0; i < outsideObjectAction.length; i++) {
-      if (selectedObject === outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
-        const func = outsideObjectAction[i][2];
+    if (selectedAction === "Utiliser" && selectedObject) {
+      if (selectedObject === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
+        const func = outsideAction[i][2];
         func();
         resetAction();
         resetObject();
@@ -153,6 +137,7 @@ function objectInteraction() {
     }
   }
 }
+
 
 function drawText(ctx, text) {
   ctx.textBaseline = "top";
@@ -177,5 +162,5 @@ export {
   dino,
   drawText,
   hoveredSprite,
-  rmSprite
+  rmSprite,
 };

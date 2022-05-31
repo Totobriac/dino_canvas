@@ -1,7 +1,7 @@
 import { Sprite } from "./sprite.js";
-import { leavePoster, objects } from "./outside_mansion.js";
 import { isReadingPoster } from "./outside_mansion.js";
 import { drawText, hoveredSprite } from "./gameMecanic.js";
+import { leavePoster, objects } from "./actions.js";
 
 var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
