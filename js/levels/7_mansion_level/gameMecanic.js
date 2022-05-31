@@ -131,11 +131,11 @@ function displayText(ctx) {
   if (textDisp) drawText(ctx, textDisp);
 }
 
-function executeAction() {
+function executeAction(ctx) {
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
-      func();
+      func(ctx);
       resetAction();
     }
   }

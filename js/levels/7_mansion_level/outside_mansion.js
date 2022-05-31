@@ -1,4 +1,4 @@
-import { dino, rmSprite } from "./gameMecanic.js";
+import { dino, rmSprite, drawText } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { drawCat, cat } from "./cat.js";
 
@@ -47,11 +47,11 @@ export function drawOutsideScenery(ctx) {
     sprite.noBubble.draw(ctx);
   }
 
-    sprite.bowl.draw(ctx);
+  sprite.bowl.draw(ctx);
 
   if (hasWater) {
     sprite.fish.draw(ctx);
-   }
+  }
 
 
   if (!hasLid) sprite.lid.draw(ctx);
@@ -60,7 +60,7 @@ export function drawOutsideScenery(ctx) {
     sprite.trap.draw(ctx);
   }
 
-  if (isTinAttached  && !isAnimated && !cutTheRope ) {
+  if (isTinAttached && !isAnimated && !cutTheRope) {
     sprite.trapSet.draw(ctx);
   }
 
@@ -81,7 +81,7 @@ export function drawOutsideScenery(ctx) {
   }
 
   var isLidOn = sprite.attachedLid.checkCollision(0, sprite.trash.y, canvas.width, 10);
-  if (isLidOn && cutTheRope ) isCatCaught = true;
+  if (isLidOn && cutTheRope) isCatCaught = true;
 
   if (cutTheRope && !isCatCaught) {
     sprite.ropeAnimUp.draw(ctx);
@@ -218,16 +218,17 @@ function leavePoster() {
   isReadingPoster = false;
 }
 
-function searchTrash() {
-  if (hasLid) hasSearched = true;
+function searchTrash(ctx) {
   console.log(hasSearched);
+  drawText(ctx, "cococo");
+  if (hasLid) hasSearched = true;
 }
 
 
 var outsideText = [["chat", "Regarder", "Miaou! Miaou!"],
 ["sonette", "Utiliser", "Bonjour!!"], ["porte", "Ouvrir", "C'est fermé."],
-["poubelle", "Regarder", "Peut-être quelque chose a grignoter?"],
-["poubelle sans couvercle", "Regarder", "Miam! Une boite de conserve au fond !"]];
+["poubelle", "Regarder", "Peut-être quelque chose a grignoter?"],]
+// ["poubelle sans couvercle", "Regarder", "Miam! Une boite de conserve au fond !"]];
 
 var outsideAction = [["Prendre", "poubelle sans couvercle", grabCan],
 ["Regarder", "poster", readPoster], ["Prendre", "annonce", grabDuct],
