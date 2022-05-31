@@ -1,5 +1,8 @@
 import { Sprite } from "./sprite.js";
-import { isRunningWater, hasWater, hasLid } from "./actions.js";
+import { isRunningWater, hasWater, hasLid, hasTape } from "./actions.js";
+
+export var lidObject = new Image();
+lidObject.src = "./assets/7_mansion/couvercle.png";
 
 var mansionSprite = new Image();
 mansionSprite.src = "./assets/7_mansion/maniac_no_light.png";
@@ -28,9 +31,6 @@ bigPeeWeeSprite.src = "./assets/7_mansion/pee_big_pix.png";
 var binSprite = new Image();
 binSprite.src = "./assets/7_mansion/trash.png";
 
-export var lidSprite = new Image();
-lidSprite.src = "./assets/7_mansion/trash_lid.png";
-
 var lightSprite = new Image();
 lightSprite.src = "./assets/7_mansion/light.png";
 
@@ -58,9 +58,6 @@ canSprite.src = "./assets/7_mansion/small_tin.png";
 export var canSpriteWater = new Image();
 canSpriteWater.src = "./assets/7_mansion/tin_water.png";
 
-export var canFull = new Image();
-canFull.src = "./assets/7_mansion/full_tin.png";
-
 export var ductSprite = new Image();
 ductSprite.src = "./assets/7_mansion/duct_tape.png";
 
@@ -76,6 +73,9 @@ lionSpriteSc.src = "./assets/7_mansion/lion_head_sc.png";
 var runningWaterSprite = new Image;
 runningWaterSprite.src = "./assets/7_mansion/running_water.png";
 
+var lidSprite = new Image();
+lidSprite.src = "./assets/7_mansion/trash_lid.png";
+
 var bubbleSprite = new Image;
 bubbleSprite.src = "./assets/7_mansion/bubble.png";
 
@@ -90,21 +90,6 @@ fishSprite.src = "./assets/7_mansion/jumping_fish.png";
 
 export var dyingFish = new Image();
 dyingFish.src = "./assets/7_mansion/fish.png";
-
-var ropeCamera = new Image();
-ropeCamera.src = "./assets/7_mansion/rope_trap.png";
-
-var ropeTrapSet = new Image();
-ropeTrapSet.src = "./assets/7_mansion/rope_trap_set.png";
-
-export var lidObject = new Image();
-lidObject.src = "./assets/7_mansion/couvercle.png";
-
-var ropeAnimation = new Image();
-ropeAnimation.src = "./assets/7_mansion/rope_anim.png";
-
-var ropeAnimationUp = new Image();
-ropeAnimationUp.src = "./assets/7_mansion/rope_up.png";
 
 export var fishFloor = new Image();
 fishFloor.src = "./assets/7_mansion/fish_floor.png";
@@ -141,17 +126,6 @@ export var bowl = new Sprite("bassin", bowlSprite, 53, 340, 1, 1, 111, 21, 1, tr
 
 export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.8, true);
 
-export var trap = new Sprite("corde", ropeCamera, 512, 152, 1, 1, 70, 530, 0.5, false);
-
-export var trapSet = new Sprite("corde", ropeTrapSet, 512, 152, 1, 1, 70, 530, 0.5, false);
-
-export var ropeAnim = new Sprite("corde", ropeAnimation, 512,152, 8, 8, 70, 530, 0.5, false )
-
-export var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512,152, 8, 8, 70, 530, 0.5, false )
-
-export var attachedLid = new Sprite("couvercle", lidSprite, 512, 338, 1, 1, 512, 512, 0.125, true);
-
-export var canWater = new Sprite("boite de conserve", canFull, 500, 240, 1, 1, 140, 120, 0.3, false );
 
 export function drawSetting(ctx) {
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
@@ -191,10 +165,9 @@ export function drawSetting(ctx) {
 
   if (!hasLid) lid.draw(ctx);
 
-  if (hasWater) { fish.draw(ctx) };
+  if (hasWater) fish.draw(ctx);
 
   drawWater(ctx);
-
 }
 
 function drawWater(ctx) {
@@ -207,4 +180,21 @@ function drawWater(ctx) {
     noBubble.draw(ctx);
   }
   bowl.draw(ctx);
+}
+
+export function drawBigPosters(ctx) {
+  ctx.drawImage(wallSprite, 0, 0, 900, 400);
+  bigPoster.draw(ctx);
+  ctx.save();
+  ctx.translate(290, 30);
+  ctx.rotate(4 * Math.PI / 180);
+  bigAnnounce.draw(ctx);
+  ctx.fillStyle = "rgba(225,225,225,0.6)";
+  ctx.fillRect(10, -10, 200, 20);
+  if (!hasTape) {
+    ctx.fillRect(10, 265, 200, 20);
+    ctx.fillRect(-5, 25, 20, 250);
+    ctx.fillRect(195, 20, 20, 250);
+  };
+  ctx.restore();
 }

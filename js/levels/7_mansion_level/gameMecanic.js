@@ -158,9 +158,14 @@ function rmSprite(sprite) {
   }
 }
 
+function addSprite(sprite) {
+  sprites.unshift(sprite);
+}
+
 export {
   dino,
   drawText,
   hoveredSprite,
   rmSprite,
+  addSprite,
 };

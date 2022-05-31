@@ -1,11 +1,16 @@
-import { dino, rmSprite, drawText } from "./gameMecanic.js";
+import { dino, rmSprite, addSprite, drawText } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
+import { rope } from "./trap.js";
 
 var isReadingPoster = false;
 var hasLid = false;
 var isRunningWater = true;
 var hasWater = true;
 var hasTape = false;
+
+var ropeSet = false;
+
+var isTinAttached = false;
 
 var objects = [];
 
@@ -49,8 +54,8 @@ function pull() {
 }
 
 function grabRope() {
-    objects.push(["corde", sprite.ropeSprite]);
-    rmSprite("plante grimpante");
+  objects.push(["corde", sprite.ropeSprite]);
+  rmSprite("plante grimpante");
 }
 
 function stopWater() {
@@ -60,9 +65,9 @@ function stopWater() {
 }
 
 function emptyWater() {
-    removeObject("boite de conserve");
-    hasWater = false;
-    objects.push(["boite de conserve", sprite.canSpriteWater]);
+  removeObject("boite de conserve");
+  hasWater = false;
+  objects.push(["boite de conserve", sprite.canSpriteWater]);
 }
 
 function grabFish() {
@@ -72,22 +77,22 @@ function grabFish() {
 }
 
 function attachLid() {
-  if (hasLid && trapSet) {
+  if (hasLid && ropeSet) {
     isLidAttached = true;
     removeObject("couvercle");
   }
 }
 
 function attachTin() {
-  if (isLidAttached && !isTinAttached && !hasWater) {
-    isTinAttached = true;
-    removeObject("boite de conserve");
-  }
+  ropeSet = false;
+  isTinAttached = true;
+  removeObject("boite de conserve");
 }
 
 function setTrap() {
-  trapSet = true;
+  ropeSet = true;
   removeObject("corde");
+  addSprite(rope);
 }
 
 function leaveFish() {
@@ -140,4 +145,4 @@ var outsideAction = [
 ]
 
 
-export { outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater, hasWater, hasTape };
+export { outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater, hasWater, hasTape, ropeSet, isTinAttached };
