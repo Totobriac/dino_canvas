@@ -2,7 +2,7 @@ import { dino, rmSprite, drawText } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { drawCat, cat } from "./cat.js";
 
-import { isReadingPoster, hasLid, isRunningWater, hasWater, hasTape } from "./actions.js";
+import { isReadingPoster,  hasTape } from "./actions.js";
 
 var sprites  =
   [cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate,
@@ -22,34 +22,9 @@ var oldSprites = [];
 
 export function drawOutsideScenery(ctx) {
 
-  if (isReadingPoster) {
-    if (oldSprites.length === 0) oldSprites = sprites;
-    sprites = [sprite.announce, sprite.bigPoster];
-  } else {
-    if (oldSprites.length > 0) sprites = oldSprites;
-  }
-
   sprite.drawSetting(ctx);
 
   drawCat(ctx);
-
-  if (isRunningWater) {
-    sprite.lionHead.draw(ctx);
-    sprite.runningWater.draw(ctx);
-    sprite.bubble.draw(ctx);
-  } else {
-    sprite.lionHeadSc.draw(ctx);
-    sprite.noBubble.draw(ctx);
-  }
-
-  sprite.bowl.draw(ctx);
-
-  if (hasWater) {
-    sprite.fish.draw(ctx);
-  }
-
-
-  if (!hasLid) sprite.lid.draw(ctx);
 
   if (trapSet && !isTinAttached) {
     sprite.trap.draw(ctx);
@@ -104,9 +79,12 @@ export function drawOutsideScenery(ctx) {
       ctx.fillRect(195, 20, 20, 250);
     };
     ctx.restore();
+    if (oldSprites.length === 0) oldSprites = sprites;
+    sprites = [sprite.announce, sprite.bigPoster];
+  } else {
+    if (oldSprites.length > 0) sprites = oldSprites;
   }
+
 }
-
-
 
 export { sprites, isReadingPoster };

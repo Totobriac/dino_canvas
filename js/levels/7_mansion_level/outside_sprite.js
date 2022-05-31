@@ -1,4 +1,5 @@
 import { Sprite } from "./sprite.js";
+import { isRunningWater, hasWater, hasLid } from "./actions.js";
 
 var mansionSprite = new Image();
 mansionSprite.src = "./assets/7_mansion/maniac_no_light.png";
@@ -188,4 +189,22 @@ export function drawSetting(ctx) {
 
   trash.draw(ctx);
 
+  if (!hasLid) lid.draw(ctx);
+
+  if (hasWater) { fish.draw(ctx) };
+
+  drawWater(ctx);
+
+}
+
+function drawWater(ctx) {
+  if (isRunningWater) {
+    lionHead.draw(ctx);
+    runningWater.draw(ctx);
+    bubble.draw(ctx);
+  } else {
+    lionHeadSc.draw(ctx);
+    noBubble.draw(ctx);
+  }
+  bowl.draw(ctx);
 }

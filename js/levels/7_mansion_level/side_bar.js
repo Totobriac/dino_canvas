@@ -43,6 +43,7 @@ class Action {
 }
 
 function createActions(ctx) {
+
   var act;
   var aY1 = 35;
   var aY2 = 35;
