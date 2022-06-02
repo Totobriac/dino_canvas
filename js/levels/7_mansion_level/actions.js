@@ -11,10 +11,12 @@ var hasTape = false;
 var ropeSet = false;
 
 var isTinAttached = false;
+var isLidAttached = false;
 
 var objects = [];
 
 function getLid() {
+  emptyWater();
   if (!hasLid) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
@@ -28,27 +30,27 @@ function searchTrash() {
 }
 
 function grabCan() {
-    objects.push(["boite de conserve", sprite.canSprite]);
-    sprite.trash.name = "poubelle ";
+  objects.push(["boite de conserve", sprite.canSprite]);
+  sprite.trash.name = "poubelle ";
 }
 
 function grabDuct() {
-    objects.push(["boulle de scotch", sprite.ductSprite]);
-    sprite.announce.name = "annonce ";
-    hasTape = true;
+  objects.push(["boulle de scotch", sprite.ductSprite]);
+  sprite.announce.name = "annonce ";
+  hasTape = true;
 }
 
 function push() {
   if (dino.x > sprite.trash.x) {
     sprite.trash.update(-24, 0);
-    sprite.lid.update(-24,0);
+    sprite.lid.update(-24, 0);
   }
 }
 
 function pull() {
   if (dino.x < sprite.trash.x) {
     sprite.trash.update(-24, 0);
-    sprite.lid.update(-24,0);
+    sprite.lid.update(-24, 0);
     dino.x -= 24;
   }
 }
@@ -65,9 +67,9 @@ function stopWater() {
 }
 
 function emptyWater() {
-  removeObject("boite de conserve");
+  //removeObject("boite de conserve");
   hasWater = false;
-  objects.push(["boite de conserve", sprite.canSpriteWater]);
+  objects.push(["boite de conserve pleine", sprite.canSpriteWater]);
 }
 
 function grabFish() {
@@ -77,7 +79,7 @@ function grabFish() {
 }
 
 function attachLid() {
-  if (hasLid && ropeSet) {
+  if (hasLid && ropeSet || hasLid && isTinAttached) {
     isLidAttached = true;
     removeObject("couvercle");
   }
@@ -86,7 +88,7 @@ function attachLid() {
 function attachTin() {
   ropeSet = false;
   isTinAttached = true;
-  removeObject("boite de conserve");
+  removeObject("boite de conserve pleine");
 }
 
 function setTrap() {
@@ -140,9 +142,9 @@ var outsideAction = [
   ["boite de conserve", "bassin ", emptyWater],
   ["corde", "lampe", setTrap],
   ["couvercle", "corde", attachLid],
-  ["boite de conserve", "corde", attachTin],
+  ["boite de conserve pleine", "corde", attachTin],
   ["poisson", "poubelle", leaveFish]
 ]
 
 
-export { outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater, hasWater, hasTape, ropeSet, isTinAttached };
+export { outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater, hasWater, hasTape, ropeSet, isTinAttached, isLidAttached };

@@ -1,6 +1,6 @@
 import { dino } from "./gameMecanic.js";
 import { Sprite } from "./sprite.js";
-import { isTrapReady } from "./outside_mansion.js";
+import { isTrapReady } from "./trap.js";
 
 var catSitLeft = new Image();
 catSitLeft.src = "./assets/7_mansion/cat_sit_left.png";

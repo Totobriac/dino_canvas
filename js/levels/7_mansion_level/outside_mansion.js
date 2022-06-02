@@ -1,4 +1,3 @@
-import { dino, rmSprite, drawText } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { drawCat, cat } from "./cat.js";
 import { drawTrap } from "./trap.js";
@@ -9,18 +8,10 @@ var sprites  =
   sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy];
 
 
-var isLidAttached = false;
-var isTinAttached = false;
-var isAnimated = true;
-var isFishInside = false;
-export var isTrapReady = false;
-var isCatFree = true;
-var cutTheRope = false;
-var isCatCaught = false;
-
 var oldSprites = [];
 
 export function drawOutsideScenery(ctx) {
+
   sprite.drawSetting(ctx);
 
   drawCat(ctx);
@@ -37,4 +28,4 @@ export function drawOutsideScenery(ctx) {
 
 }
 
-export { sprites, isReadingPoster };
+export { sprites };
