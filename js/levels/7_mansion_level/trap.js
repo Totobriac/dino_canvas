@@ -1,5 +1,7 @@
+import { dino } from "./gameMecanic.js";
+import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
-import { ropeSet, isTinAttached, isLidAttached } from "./actions.js";
+import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling } from "./actions.js";
 
 var rope = new Image();
 rope.src = "./assets/7_mansion/rope_trap.png";
@@ -36,6 +38,21 @@ var isCatCaught = false;
 
 export function drawTrap(ctx) {
 
+  if (isPushing && sprite.trash.x > 510) {
+    sprite.trash.update(-1, 0);
+    sprite.lid.update(-1, 0);
+    dino.update(-1, 0);
+    dino.isMoving = true;
+  }
+
+  if (isPulling && sprite.trash.x > 510) {
+    sprite.trash.update(-1, 0);
+    sprite.lid.update(-1, 0);
+    dino.x -= 1;
+  }
+
+  console.log(dino.isMoving);
+
   if (ropeSet) rope.draw(ctx);
 
   if (isTinAttached) {
@@ -44,9 +61,9 @@ export function drawTrap(ctx) {
       attachedLid.update(0, -1.8);
       canWater.update(0, 2);
     } else {
-      trapSet.draw(ctx);      
+      trapSet.draw(ctx);
     }
-    canWater.draw(ctx);    
+    canWater.draw(ctx);
   }
 
   if (isLidAttached) attachedLid.draw(ctx);

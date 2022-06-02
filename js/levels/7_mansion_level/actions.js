@@ -1,4 +1,4 @@
-import { dino, rmSprite, addSprite, drawText } from "./gameMecanic.js";
+import { dino, rmSprite, addSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { rope } from "./trap.js";
 
@@ -12,6 +12,9 @@ var ropeSet = false;
 
 var isTinAttached = false;
 var isLidAttached = false;
+
+var isPushing = false;
+var isPulling = false;
 
 var objects = [];
 
@@ -41,18 +44,11 @@ function grabDuct() {
 }
 
 function push() {
-  if (dino.x > sprite.trash.x && sprite.trash.x >= 516) {
-    sprite.trash.update(-20, 0);
-    sprite.lid.update(-20, 0);
-  }
+  if (dino.x > sprite.trash.x) isPushing = true;
 }
 
 function pull() {
-  if (dino.x < sprite.trash.x && sprite.trash.x >= 516) {
-    sprite.trash.update(-20, 0);
-    sprite.lid.update(-20, 0);
-    dino.x -= 24;
-  }
+  if (dino.x < sprite.trash.x) isPulling = true;
 }
 
 function grabRope() {
@@ -147,4 +143,7 @@ var outsideAction = [
 ]
 
 
-export { outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater, hasWater, hasTape, ropeSet, isTinAttached, isLidAttached };
+export {
+  outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
+  hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling
+};

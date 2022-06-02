@@ -76,6 +76,7 @@ export function drawActions(ctx, game) {
   ctx.filter = "none";
 
   drawObjects(ctx);
+  animateText();
 }
 
 function checkAction(mouse, mouseMove, ctx) {
@@ -166,4 +167,4 @@ function resetObject() {
   selectedObject = null;
 }
 
-export { selectedAction, resetAction, animateText, selectedObject, resetObject };
+export { selectedAction, resetAction, selectedObject, resetObject };

@@ -1,26 +1,9 @@
-import {
-  drawOutsideScenery
-} from "./outside_mansion.js";
-import {
-  drawActions,
-  animateText
-} from "./side_bar.js";
-import {
-  sprites,
-
-} from "./outside_mansion.js";
-import {
-  MansionDino
-} from "../character/mansionDino.js";
-import {
-  selectedAction,
-  selectedObject,
-  resetAction,
-  resetObject,
-} from "./side_bar.js";
-import {
-  trash
-} from "./outside_sprite.js";
+import { drawOutsideScenery } from "./outside_mansion.js";
+import { drawActions } from "./side_bar.js";
+import { sprites } from "./outside_mansion.js";
+import { MansionDino } from "../character/mansionDino.js";
+import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
+import { trash } from "./outside_sprite.js";
 import { outsideAction, isReadingPoster } from "./actions.js";
 
 var dino;
@@ -47,15 +30,12 @@ export function pointNClick(ctx, game) {
       y: 300
     };
   }
-    drawOutsideScenery(ctx);
-    dino.checkBundaries(820, 0, 290, 320);
-    if (game.mousePosition.x < 910) dino.moveAround(game, trash);
-    if (isReadingPoster === false) {
-      dino.animateDino();
-  }
+  drawOutsideScenery(ctx);
+  dino.checkBundaries(820, 0, 290, 320);
+  if (game.mousePosition.x < 910) dino.moveAround(game, trash);
+  if (!isReadingPoster) dino.animateDino();
 
   drawActions(ctx, game);
-  animateText();
 
   checkSelectedSprite(game);
   checkHoveredSprite(game, ctx);
@@ -162,10 +142,4 @@ function addSprite(sprite) {
   sprites.unshift(sprite);
 }
 
-export {
-  dino,
-  drawText,
-  hoveredSprite,
-  rmSprite,
-  addSprite,
-};
+export { dino, drawText, hoveredSprite, rmSprite, addSprite };
