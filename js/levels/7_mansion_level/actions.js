@@ -41,16 +41,16 @@ function grabDuct() {
 }
 
 function push() {
-  if (dino.x > sprite.trash.x) {
-    sprite.trash.update(-24, 0);
-    sprite.lid.update(-24, 0);
+  if (dino.x > sprite.trash.x && sprite.trash.x >= 516) {
+    sprite.trash.update(-20, 0);
+    sprite.lid.update(-20, 0);
   }
 }
 
 function pull() {
-  if (dino.x < sprite.trash.x) {
-    sprite.trash.update(-24, 0);
-    sprite.lid.update(-24, 0);
+  if (dino.x < sprite.trash.x && sprite.trash.x >= 516) {
+    sprite.trash.update(-20, 0);
+    sprite.lid.update(-20, 0);
     dino.x -= 24;
   }
 }

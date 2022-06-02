@@ -44,7 +44,7 @@ export function drawTrap(ctx) {
       attachedLid.update(0, -1.8);
       canWater.update(0, 2);
     } else {
-      trapSet.draw(ctx);
+      trapSet.draw(ctx);      
     }
     canWater.draw(ctx);    
   }

@@ -53,7 +53,7 @@ function drawCat(ctx) {
     }
   } else {
     cat.sprite = catWalkRight;
-    sprite.cat.update(2, 0);
+    cat.update(2, 0);
     if (cat.y < 315 && !catOnTheFloor) {
       cat.sprite = flyingCat;
       cat.frames = 1;
