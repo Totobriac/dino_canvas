@@ -67,17 +67,14 @@ class MansionDino extends Dino {
       if (!this.isMoving) {
         this.frameIndex = 0;
         this.draw(1, 1, dinoSpriteLeft, 0.8);
-      }
-      else {
+      } else {
         this.draw(2, 2, dinoWalkLeft, 0.8);
       }
-    }
-    else {
+    } else {
       if (!this.isMoving) {
         this.frameIndex = 0;
         this.draw(1, 1, dinoSprite, 0.8);
-      }
-      else {
+      } else {
         this.draw(2, 2, dinoWalk, 0.8)
       }
     }

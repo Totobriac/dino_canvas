@@ -18,8 +18,7 @@ var isPulling = false;
 
 var objects = [];
 
-function getLid() {
-  emptyWater();
+function getLid() {  
   if (!hasLid) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
@@ -63,7 +62,7 @@ function stopWater() {
 }
 
 function emptyWater() {
-  //removeObject("boite de conserve");
+  removeObject("boite de conserve");
   hasWater = false;
   objects.push(["boite de conserve pleine", sprite.canSpriteWater]);
 }

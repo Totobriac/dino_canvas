@@ -73,7 +73,8 @@ function checkHoveredSprite(game, ctx) {
 
 function checkIfReach(dino, sprite) {
   if (isReadingPoster) return true;
-  if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x - 5 || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale) + 5) {
+  console.log(dino.x - 5 , sprite.x + (sprite.spriteWidth * sprite.scale) + 6);
+  if (dino.x + (dino.spriteWidth * dino.scale) + 5 < sprite.x - 5 || dino.x - 5 > sprite.x + (sprite.spriteWidth * sprite.scale) + 6) {
     return false;
   } else {
     return true;
