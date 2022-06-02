@@ -38,20 +38,15 @@ var isCatCaught = false;
 
 export function drawTrap(ctx) {
 
-  if (isPushing && sprite.trash.x > 510) {
+  if (isPushing && sprite.trash.x > 510 || isPulling && sprite.trash.x > 510) {
     sprite.trash.update(-1, 0);
     sprite.lid.update(-1, 0);
     dino.update(-1, 0);
-    dino.isMoving = true;
+    isPushing ? dino.isPushing = true : dino.isPulling = true;
+  } else if (sprite.trash.x === 510) {
+    dino.isPushing = false;
+    dino.isPulling = false;
   }
-
-  if (isPulling && sprite.trash.x > 510) {
-    sprite.trash.update(-1, 0);
-    sprite.lid.update(-1, 0);
-    dino.x -= 1;
-  }
-
-  console.log(dino.isMoving);
 
   if (ropeSet) rope.draw(ctx);
 
