@@ -1,4 +1,4 @@
-import { dino } from "./gameMecanic.js";
+import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
 import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling } from "./actions.js";
@@ -23,9 +23,9 @@ canFull.src = "./assets/7_mansion/full_tin.png";
 
 
 export var rope = new Sprite("corde", rope, 512, 152, 1, 1, 70, 530, 0.5, false);
-var trapSet = new Sprite("corde", ropeTrapSet, 512, 152, 1, 1, 70, 530, 0.6, false);
-var ropeAnim = new Sprite("corde", ropeAnimation, 512, 152, 8, 8, 70, 530, 0.6, false);
-var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512, 152, 8, 8, 70, 530, 0.6, false);
+var trapSet = new Sprite("corde", ropeTrapSet, 512, 152, 1, 1, 70, 530, 0.5, false);
+var ropeAnim = new Sprite("corde", ropeAnimation, 512, 152, 8, 8, 70, 530, 0.5, false);
+var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512, 152, 8, 8, 70, 530, 0.5, false);
 var attachedLid = new Sprite("couvercle", lidSprite, 512, 338, 1, 1, 150, 89, 0.33, true);
 var canWater = new Sprite("boite de conserve", canFull, 500, 240, 1, 1, 140, 120, 0.3, false);
 
@@ -65,6 +65,7 @@ export function drawTrap(ctx) {
 
   if (isLidAttached) attachedLid.draw(ctx);
 
+  if (isLidAttached && isTinAttached) rmSprite("corde");
 }
 
 //
