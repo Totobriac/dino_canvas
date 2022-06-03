@@ -12,6 +12,7 @@ var ropeSet = false;
 
 var isTinAttached = false;
 var isLidAttached = false;
+var isFishInside = false;
 
 var isPushing = false;
 var isPulling = false;
@@ -144,5 +145,6 @@ var outsideAction = [
 
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
-  hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling
+  hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
+  isFishInside
 };
