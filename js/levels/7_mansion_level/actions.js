@@ -18,7 +18,7 @@ var isPulling = false;
 
 var objects = [];
 
-function getLid() {  
+function getLid() {
   if (!hasLid) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
@@ -138,7 +138,7 @@ var outsideAction = [
   ["corde", "lampe", setTrap],
   ["couvercle", "corde", attachLid],
   ["boite de conserve pleine", "corde", attachTin],
-  ["poisson", "poubelle", leaveFish]
+  ["poisson", "poubelle ", leaveFish]
 ]
 
 

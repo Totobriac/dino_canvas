@@ -1,7 +1,7 @@
 import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
-import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling } from "./actions.js";
+import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling, isFishInside } from "./actions.js";
 
 var rope = new Image();
 rope.src = "./assets/7_mansion/rope_trap.png";
@@ -31,12 +31,14 @@ var canWater = new Sprite("boite de conserve", canFull, 500, 240, 1, 1, 140, 120
 
 
 var isTrapReady = false;
-var isFishInside = false;
 export var isTrapReady = false;
 var isCatFree = true;
 var cutTheRope = false;
 var isCatCaught = false;
 
+var trashInPlace = false;
+
+var trapReady = false;
 
 export function drawTrap(ctx) {
 
@@ -48,6 +50,7 @@ export function drawTrap(ctx) {
   } else if (sprite.trash.x === 500) {
     dino.isPushing = false;
     dino.isPulling = false;
+    trashInPlace = true;
   }
 
   if (ropeSet) rope.draw(ctx);
@@ -66,6 +69,15 @@ export function drawTrap(ctx) {
   if (isLidAttached) attachedLid.draw(ctx);
 
   if (isLidAttached && isTinAttached) rmSprite("corde");
+
+  if (trashInPlace, isFishInside, isLidAttached, isTinAttached) trapReady = true;
+
+  var isCuttingRope = cat.checkCollision(sprite.ropeAnim.x, 0, sprite.ropeAnim.spriteWidth, canvas.height);
+
+  if (trapReady && isCuttingRope) {
+
+  }
+
 }
 
 //
