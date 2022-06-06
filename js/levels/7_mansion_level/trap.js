@@ -30,7 +30,7 @@ trashMaskSprite.src = "./assets/7_mansion/trash_mask.png";
 var rope = new Sprite("corde", rope, 512, 152, 1, 1, 70, 530, 0.5, false);
 var trapSet = new Sprite("corde", ropeTrapSet, 512, 152, 1, 1, 70, 530, 0.5, false);
 var ropeAnim = new Sprite("corde", ropeAnimation, 512, 152, 8, 8, 70, 530, 0.5, false);
-var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512, 152, 8, 8, 70, 530, 0.5, false, false);
+var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512, 152, 4, 4, 70, 530, 0.5, false, false);
 var attachedLid = new Sprite("couvercle", lidSprite, 512, 338, 1, 1, 150, 89, 0.35, true);
 var canWater = new Sprite("boite de conserve pleine", canFull, 500, 240, 1, 1, 140, 120, 0.3, false);
 
@@ -63,9 +63,9 @@ function drawTrap(ctx) {
       attachedLid.update(0, -1.8);
       canWater.update(0, 2);
     } else {
-      trapSet.draw(ctx);
+      if (!triggerTrap) trapSet.draw(ctx);
     }
-    canWater.draw(ctx);
+    if (!triggerTrap) canWater.draw(ctx);
   }
 
   if (isLidAttached) attachedLid.draw(ctx);
@@ -76,16 +76,7 @@ function drawTrap(ctx) {
 
   if (isTrapReady && triggerTrap) {
     ropeAnimUp.draw(ctx);
-    attachedLid.update(0, 1);
-
-    // if (cat.checkCollision(ropeAnim.x, 0, ropeAnim.spriteWidth, canvas.height)) ropeCut = true;
-    //
-    // if (ropeCut) {
-    //   if (lid.checkCollision(sprite.trash.x, sprite.trash.width)) {
-    //     ropeAnimUp.draw(ctx);
-    //     attachedLid.update(0, 1);
-    //   }
-    // }
+    if (attachedLid.y < 298) attachedLid.update(0, 1);
   }
 }
 
