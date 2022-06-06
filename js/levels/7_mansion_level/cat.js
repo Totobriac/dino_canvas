@@ -1,7 +1,7 @@
 import { dino } from "./gameMecanic.js";
 import { Sprite } from "./sprite.js";
 import { isTrapReady } from "./trap.js";
-import { isCatHit } from "./actions.js";
+import { triggerTrap } from "./actions.js";
 
 var catSitLeft = new Image();
 catSitLeft.src = "./assets/7_mansion/cat_sit_left.png";
@@ -61,7 +61,7 @@ function drawCat(ctx) {
     }
   } else {
 
-    if(!isCatHit) {
+    if(!triggerTrap) {
       cat.sprite = catWalkRight;
       if (cat.y < 315 && !catOnTheFloor) {
         cat.sprite = flyingCat;

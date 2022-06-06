@@ -1,6 +1,6 @@
 import { dino, rmSprite, addSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
-import { rope } from "./trap.js";
+import { rope, canWater } from "./trap.js";
 import { cat } from "./cat.js";
 
 var isReadingPoster = false;
@@ -18,13 +18,11 @@ var isFishInside = false;
 var isPushing = false;
 var isPulling = false;
 
-var isCatHit = false;
+var triggerTrap = false;
 
 var objects = [];
 
 function getLid() {
-  isCatHit = true;
-  cat.frameIndex = 0;
   if (!hasLid) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
@@ -90,6 +88,7 @@ function attachTin() {
   ropeSet = false;
   isTinAttached = true;
   removeObject("boite de conserve pleine");
+  addSprite(canWater);
 }
 
 function setTrap() {
@@ -119,6 +118,10 @@ function leavePoster() {
   isReadingPoster = false;
 }
 
+function catchCat() {
+  triggerTrap = true;
+}
+
 function pass() { };
 
 var outsideAction = [
@@ -138,6 +141,7 @@ var outsideAction = [
   ["Tirer", "poubelle ", pull],
   ["Prendre", "plante grimpante", grabRope],
   ["Prendre", "bassin ", grabFish],
+  ["Prendre", "boite de conserve pleine", catchCat],
 
   ["boulle de scotch", "tête de lion", stopWater],
   ["boite de conserve", "bassin ", emptyWater],
@@ -151,5 +155,5 @@ var outsideAction = [
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
   hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
-  isFishInside, isCatHit,
+  isFishInside, triggerTrap,
 };

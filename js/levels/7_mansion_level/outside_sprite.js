@@ -166,7 +166,7 @@ export function drawSetting(ctx) {
 
   trash.draw(ctx);
 
-  //if (!hasLid) lid.draw(ctx);
+  if (!hasLid) lid.draw(ctx);
 
   drawWater(ctx);
 }
