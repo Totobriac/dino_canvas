@@ -1,6 +1,7 @@
 import { dino, rmSprite, addSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { rope } from "./trap.js";
+import { cat } from "./cat.js";
 
 var isReadingPoster = false;
 var hasLid = false;
@@ -17,9 +18,13 @@ var isFishInside = false;
 var isPushing = false;
 var isPulling = false;
 
+var isCatHit = false;
+
 var objects = [];
 
 function getLid() {
+  isCatHit = true;
+  cat.frameIndex = 0;
   if (!hasLid) {
     objects.push(["couvercle", sprite.lidObject]);
     hasLid = true;
@@ -146,5 +151,5 @@ var outsideAction = [
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
   hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
-  isFishInside
+  isFishInside, isCatHit,
 };

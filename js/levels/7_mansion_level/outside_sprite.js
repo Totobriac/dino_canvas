@@ -95,8 +95,10 @@ export var fishFloor = new Image();
 fishFloor.src = "./assets/7_mansion/fish_floor.png";
 
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 200, 1, 1, 1100, 600, 0.3, false);
-export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 1676, 2094, 0.035, false);
-export var lid = new Sprite("couvercle", lidSprite, 644, 298, 1, 1, 150, 89, 0.33, true);
+
+export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 59, 73, 1, false);
+
+export var lid = new Sprite("couvercle", lidSprite, 644, 298, 1, 1, 150, 89, 0.35, true);
 
 
 export var light1 = new Sprite("lampe", lightSprite, 506, 89, 1, 1, 62, 107, 0.9, false);
@@ -146,7 +148,7 @@ export function drawSetting(ctx) {
 
   light1.draw(ctx);
   light2.draw(ctx);
-  
+
   gate.draw(ctx);
 
   ring.draw(ctx);
@@ -164,7 +166,7 @@ export function drawSetting(ctx) {
 
   trash.draw(ctx);
 
-  if (!hasLid) lid.draw(ctx);  
+  //if (!hasLid) lid.draw(ctx);
 
   drawWater(ctx);
 }

@@ -23,12 +23,15 @@ lidSprite.src = "./assets/7_mansion/trash_lid.png";
 var canFull = new Image();
 canFull.src = "./assets/7_mansion/full_tin.png";
 
+var trashMaskSprite = new Image();
+trashMaskSprite.src = "./assets/7_mansion/trash_mask.png";
+
 
 var rope = new Sprite("corde", rope, 512, 152, 1, 1, 70, 530, 0.5, false);
 var trapSet = new Sprite("corde", ropeTrapSet, 512, 152, 1, 1, 70, 530, 0.5, false);
 var ropeAnim = new Sprite("corde", ropeAnimation, 512, 152, 8, 8, 70, 530, 0.5, false);
 var ropeAnimUp = new Sprite("corde", ropeAnimationUp, 512, 152, 8, 8, 70, 530, 0.5, false);
-var attachedLid = new Sprite("couvercle", lidSprite, 512, 338, 1, 1, 150, 89, 0.33, true);
+var attachedLid = new Sprite("couvercle", lidSprite, 512, 338, 1, 1, 150, 89, 0.35, true);
 var canWater = new Sprite("boite de conserve", canFull, 500, 240, 1, 1, 140, 120, 0.3, false);
 
 
@@ -49,6 +52,7 @@ function drawTrap(ctx) {
     dino.isPushing = false;
     dino.isPulling = false;
     trashInPlace = true;
+    isTrapReady = true;
   }
 
   if (ropeSet) rope.draw(ctx);
@@ -71,14 +75,15 @@ function drawTrap(ctx) {
   if (trashInPlace && isFishInside && isLidAttached && isTinAttached) isTrapReady = true;
 
   if (isTrapReady) {
-    if (cat.checkCollision(ropeAnim.x, 0, ropeAnim.spriteWidth, canvas.height)) ropeCut = true;
-
-    if (ropeCut) {
-      if (lid.checkCollision(sprite.trash.x, sprite.trash.width)) {
-        ropeAnimUp.draw(ctx);
-        attachedLid.update(0, 1);
-      }
-    }
+    ctx.drawImage(trashMaskSprite, 500,310);
+    // if (cat.checkCollision(ropeAnim.x, 0, ropeAnim.spriteWidth, canvas.height)) ropeCut = true;
+    //
+    // if (ropeCut) {
+    //   if (lid.checkCollision(sprite.trash.x, sprite.trash.width)) {
+    //     ropeAnimUp.draw(ctx);
+    //     attachedLid.update(0, 1);
+    //   }
+    // }
   }
 }
 

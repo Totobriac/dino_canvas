@@ -1,12 +1,13 @@
 import { dino } from "./gameMecanic.js";
 import { Sprite } from "./sprite.js";
 import { isTrapReady } from "./trap.js";
+import { isCatHit } from "./actions.js";
 
 var catSitLeft = new Image();
 catSitLeft.src = "./assets/7_mansion/cat_sit_left.png";
 
 var flyingCat = new Image();
-flyingCat.src = "./assets/7_mansion/flying_cat.png";
+flyingCat.src = "./assets/7_mansion/cat_fly.png";
 
 var runningCat = new Image();
 runningCat.src = "./assets/7_mansion/running_cat.png";
@@ -23,7 +24,13 @@ catWalkLeft.src = "./assets/7_mansion/cat_walk_left.png";
 var catSitRight = new Image();
 catSitRight.src = "./assets/7_mansion/cat_sit_right.png";
 
-var cat = new Sprite("chat", catSitLeft, -25, 135, 16, 4, 111.5, 83.5, 0.8, true);
+var catTail = new Image();
+catTail.src = "./assets/7_mansion/cat_tail.png";
+
+var catFalling = new Image();
+catFalling.src = "./assets/7_mansion/cat_falling_2.png";
+
+var cat = new Sprite("chat", catSitLeft, -25, 135, 16, 4, 111.5, 83.5, 0.8, true, true);
 
 var isDinoLeft = false;
 var catOnTheFloor = false;
@@ -53,33 +60,39 @@ function drawCat(ctx) {
       if (cat.x > -25 && cat.x < 230) cat.sprite = catWalkLeft;
     }
   } else {
-    cat.sprite = catWalkRight;
-    cat.update(2, 0);
-    if (cat.y < 315 && !catOnTheFloor) {
-      cat.sprite = flyingCat;
-      cat.frames = 1;
-      cat.columns = 1;
-      cat.update(1, 2.5);
-    } else {
-      catOnTheFloor = true;
-      if (cat.x < 300) {
-        cat.sprite = runningCat;
-        cat.frames = 16;
-        cat.columns = 4;
-        cat.update(1, 0);
-      } else if (cat.x < 420) {
+
+    if(!isCatHit) {
+      cat.sprite = catWalkRight;
+      if (cat.y < 315 && !catOnTheFloor) {
         cat.sprite = flyingCat;
-        cat.frames = 1;
-        cat.columns = 1;
-        cat.update(1, -1);
+        cat.frames = 4;
+        cat.columns = 4;
+        cat.update(3, 2.5);
       } else {
-        cat.sprite = divingCat;
-        cat.update(0.5, 1.5);
-        if (cat.y > 300) {
-          isCatFree = false;
+        catOnTheFloor = true;
+        if (cat.x < 300) {
+          cat.sprite = runningCat;
+          cat.frames = 16;
+          cat.columns = 4;
+          cat.update(3, 0);
+        } else if (cat.x < 460) {
+          cat.sprite = flyingCat;
+          cat.frames = 4;
+          cat.columns = 4;
+          cat.update(3, -1);
+        } else {
+          cat.sprite = catTail;
+          cat.frames = 4;
+          cat.columns = 4;
         }
       }
-    }
+    } else {
+       cat.loop = false;
+       cat.sprite = catFalling;
+       cat.frames = 11;
+       cat.columns = 11;
+       if (cat.frameIndex < 10) cat.update(0.35, 1);
+     }
   }
   cat.draw(ctx);
 }
