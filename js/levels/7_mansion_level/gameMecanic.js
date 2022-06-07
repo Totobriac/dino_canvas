@@ -121,15 +121,42 @@ function executeAction(ctx) {
 
 
 function drawText(ctx, text) {
-  ctx.textBaseline = "top";
-  ctx.textAlign = "start";
-  ctx.font = "50px Pixeboy";
-  var width = ctx.measureText(text).width;
-  ctx.fillStyle = "black";
-  ctx.fillRect(20, 20, width, 36);
-  ctx.fillStyle = "orange";
-  ctx.fillText(text, 20, 0);
+
+  var lines = getLines(ctx, text, 36);
+
+  lines.forEach((line, i) => {
+    console.log(line);
+    ctx.textBaseline = "top";
+    ctx.textAlign = "start";
+    ctx.font = "50px Pixeboy";
+    var width = ctx.measureText(line).width;
+    ctx.fillStyle = "black";
+    ctx.fillRect(20, 20 + i * 40, width, 36);
+    ctx.fillStyle = "orange";
+    ctx.fillText(line, 20, i * 40);
+  });
 }
+
+function getLines(ctx, text, maxWidth) {
+  var words = text.split(" ");
+  var lines = [];
+  var currentLine = words[0];
+
+  for (var i = 1; i < words.length; i++) {
+    var word = words[i];
+    var width = (currentLine + " " + word).length;
+
+    if (width < maxWidth) {
+        currentLine += " " + word;
+    } else {
+        lines.push(currentLine);
+        currentLine = word;
+    }
+  }
+  lines.push(currentLine);
+  return lines;
+}
+
 
 function rmSprite(sprite) {
   for (let i = 0; i < sprites.length; i++) {
