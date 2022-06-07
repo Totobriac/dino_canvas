@@ -24,7 +24,7 @@ var objects = [];
 
 function getLid() {
   if (!hasLid) {
-    objects.push(["couvercle", sprite.lidObject]);
+    objects.push(["couvercle", sprite.lidObject, true]);
     hasLid = true;
     rmSprite("couvercle");
     sprite.trash.name = "poubelle ";
@@ -36,12 +36,12 @@ function searchTrash() {
 }
 
 function grabCan() {
-  objects.push(["boite de conserve", sprite.canSprite]);
+  objects.push(["boite de conserve", sprite.canSprite, false]);
   sprite.trash.name = "poubelle ";
 }
 
 function grabDuct() {
-  objects.push(["boulle de scotch", sprite.ductSprite]);
+  objects.push(["boulle de scotch", sprite.ductSprite, false]);
   sprite.announce.name = "annonce ";
   hasTape = true;
 }
@@ -55,7 +55,7 @@ function pull() {
 }
 
 function grabRope() {
-  objects.push(["corde", sprite.ropeSprite]);
+  objects.push(["corde", sprite.ropeSprite, false]);
   rmSprite("plante grimpante");
 }
 
@@ -68,12 +68,12 @@ function stopWater() {
 function emptyWater() {
   removeObject("boite de conserve");
   hasWater = false;
-  objects.push(["boite de conserve pleine", sprite.canSpriteWater]);
+  objects.push(["boite de conserve pleine", sprite.canSpriteWater, false]);
 }
 
 function grabFish() {
   if (!isRunningWater && !hasWater) {
-    objects.push(["poisson", sprite.dyingFish]);
+    objects.push(["poisson", sprite.dyingFish, true]);
   }
 }
 

@@ -13,6 +13,7 @@ var oldSelection;
 var selectedAction;
 
 var objectsList = [];
+
 var selectedObject;
 
 class Action {
@@ -117,12 +118,13 @@ function checkAction(mouse, mouseMove, ctx) {
 }
 
 function drawObjects(ctx) {
+  objectsList = [];
   ctx.fillStyle = "orange";
   ctx.fillRect(900, 255, 295, 140);
   var oY = 3;
   for (let i = 0; i < objects.length; i++) {
     if (i < 4) {
-      var object = new Sprite(objects[i][0], objects[i][1], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5);
+      var object = new Sprite(objects[i][0], objects[i][1], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5, objects[i][2]);
       objectsList.push(object);
       object.draw(ctx);
       oY += 3;
@@ -134,11 +136,17 @@ function checkObject(mouse, ctx) {
   for (let i = 0; i < objectsList.length; i++) {
     if ((mouse.x > objectsList[i].x && mouse.x < objectsList[i].x + objectsList[i].spriteWidth * objectsList[i].scale) &&
       (mouse.y > objectsList[i].y && mouse.y < objectsList[i].y + objectsList[i].spriteHeight * objectsList[i].scale)) {
-      selectedObject = objectsList[i].name;
+      selectedObject = objectsList[i];
     }
-    if (selectedAction === "Utiliser" && selectedObject != undefined) {
+    if (selectedAction === "Utiliser" && selectedObject) {
       var text;
-      hoveredSprite ? text = "Utiliser " + selectedObject + " avec " + hoveredSprite.name : text = "Utiliser " + selectedObject + " avec ... ";
+      var articleObj;
+      selectedObject.male ? articleObj = "le " : articleObj = "la ";
+      var articleSpr;
+      hoveredSprite && hoveredSprite.gender ? articleSpr = "le " : articleSpr = "la ";
+      hoveredSprite
+        ? text = "Utiliser " + articleObj + selectedObject.name + " avec " + articleSpr + hoveredSprite.name
+        : text = "Utiliser " + articleObj + selectedObject.name + " avec ... ";
       drawText(ctx, text);
     }
     else {

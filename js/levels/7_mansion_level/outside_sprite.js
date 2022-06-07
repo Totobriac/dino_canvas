@@ -120,14 +120,14 @@ export var sign = new Sprite("sign", hotelSignSprite, 519, 210, 1, 1, 200, 200, 
 export var lionHead = new Sprite("tête de lion", lionSprite, 90, 280, 1, 1, 162, 199, 0.2, false);
 export var lionHeadSc = new Sprite("tête de lion scotchée", lionSpriteSc, 90, 280, 1, 1, 162, 199, 0.2, false);
 
-export var runningWater = new Sprite("eau", runningWaterSprite, 102, 308, 4, 2, 22.5, 130, 0.4, true);
+export var runningWater = new Sprite("eau", runningWaterSprite, 102, 308, 4, 2, 22.5, 130, 0.4, true, true);
 
-export var bubble = new Sprite("bulles", bubbleSprite, 76, 340, 8, 1, 223, 45, 0.3);
+export var bubble = new Sprite("bulles", bubbleSprite, 76, 340, 8, 1, 223, 45, 0.3, true, true);
 export var noBubble = new Sprite("pas de bulles", noBubbleSprite, 76, 340, 8, 1, 223, 45, 0.3);
 
 export var bowl = new Sprite("bassin", bowlSprite, 53, 340, 1, 1, 111, 21, 1, true);
 
-export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.8, true);
+export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.8, true, true);
 
 
 export function drawSetting(ctx) {
