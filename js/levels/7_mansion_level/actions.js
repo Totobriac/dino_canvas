@@ -1,26 +1,22 @@
-import { dino, rmSprite, addSprite } from "./gameMecanic.js";
+import { dino, rmSprite, addSprite, setDial } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
-import { cat } from "./cat.js";
+import { cat, isCatFree } from "./cat.js";
 
 var isReadingPoster = false;
 var hasLid = false;
 var isRunningWater = true;
 var hasWater = true;
 var hasTape = false;
-
 var ropeSet = false;
-
 var isTinAttached = false;
 var isLidAttached = false;
 var isFishInside = false;
-
 var isPushing = false;
 var isPulling = false;
-
 var triggerTrap = false;
-
 var objects = [];
+
 
 function getLid() {
   if (!hasLid) {
@@ -120,15 +116,27 @@ function leavePoster() {
 
 function catchCat() {
   triggerTrap = true;
+  sprite.ring.name = "sonette ";
+}
+
+function answer() {
+  var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
+  var answer1 = [" Jetez le par dessus la grille ", " Conné pa d'moi "]
+  addSprite(sprite.answer1);
+  addSprite(sprite.answer2);
+  if (isCatFree) {
+    setDial(choice1);
+  }
 }
 
 function pass() { };
 
 var outsideAction = [
-  ["Regarder", "chat", pass, "Miaou! Miaou!"],
-  ["Utiliser", "sonette", pass, "Bonjour!!"],
-  ["Ouvrir", "porte", pass, "C'est fermé."],
-  ["Regarder", "poubelle", pass, "Peut-être quelque chose a grignoter?"],
+  ["Regarder", "chat", pass, " Miaou! Miaou!"],
+  ["Utiliser", "sonette", answer, " Cé koi?"],
+  ["Utiliser", "sonette ", answer, " koi encore?"],
+  ["Ouvrir", "porte", pass, " C'est fermé."],
+  ["Regarder", "poubelle", pass, " Peut-être quelque chose a grignoter?"],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu..."],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu..."],
   ["Regarder", "poubelle ", searchTrash, "Miam! Une boite de conserve au fond!"],

@@ -91,10 +91,14 @@ function drawCat(ctx) {
        cat.sprite = catFalling;
        cat.frames = 11;
        cat.columns = 11;
-       if (cat.frameIndex < 10) cat.update(0.35, 1);
+       if (cat.frameIndex < 10) {
+         cat.update(0.35, 1)
+       }else {
+         isCatFree = false;
+       };
      }
   }
   cat.draw(ctx);
 }
 
-export { drawCat, cat };
+export { drawCat, cat, isCatFree };

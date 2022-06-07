@@ -12,6 +12,7 @@ var hoveredSprite;
 var isDinoCreated = false;
 
 var textDisp;
+var dial = [];
 
 var oldMouseX = undefined;
 
@@ -40,6 +41,26 @@ export function pointNClick(ctx, game) {
   checkSelectedSprite(game);
   checkHoveredSprite(game, ctx);
   checkAction(ctx);
+
+  dialogue(ctx);
+}
+
+function dialogue(ctx) {
+  dial.forEach((choice, i) => {
+    ctx.textBaseline = "top";
+    ctx.textAlign = "start";
+    ctx.font = "40px Pixeboy";
+    var width = ctx.measureText(choice).width;
+    var num = i + 1;
+    hoveredSprite && hoveredSprite.name === "answer" + num.toString() ? ctx.fillStyle = "orange" : ctx.fillStyle = "transparent";
+    ctx.fillRect(40, 70 + i * 50, width, 40);
+    hoveredSprite && hoveredSprite.name === "answer" + num.toString() ? ctx.fillStyle = "black" : ctx.fillStyle = "orange";
+    ctx.fillText(choice, 40, 60 + i * 50);
+  });
+}
+
+function setDial(dl) {
+  dial = dl;
 }
 
 function checkSelectedSprite(game) {
@@ -99,15 +120,14 @@ function executeAction(ctx) {
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
-      func();
+      func(ctx);
       if (outsideAction[i][3]) {
         textDisp = outsideAction[i][3];
       }
       resetAction();
     }
-    if (textDisp) {
-      drawText(ctx, textDisp);
-    }
+    if (textDisp) drawText(ctx, textDisp);
+
     if (selectedAction === "Utiliser" && selectedObject) {
       if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
@@ -119,13 +139,9 @@ function executeAction(ctx) {
   }
 }
 
-
 function drawText(ctx, text) {
-
   var lines = getLines(ctx, text, 36);
-
   lines.forEach((line, i) => {
-    console.log(line);
     ctx.textBaseline = "top";
     ctx.textAlign = "start";
     ctx.font = "50px Pixeboy";
@@ -147,10 +163,10 @@ function getLines(ctx, text, maxWidth) {
     var width = (currentLine + " " + word).length;
 
     if (width < maxWidth) {
-        currentLine += " " + word;
+      currentLine += " " + word;
     } else {
-        lines.push(currentLine);
-        currentLine = word;
+      lines.push(currentLine);
+      currentLine = word;
     }
   }
   lines.push(currentLine);
@@ -170,4 +186,4 @@ function addSprite(sprite) {
   sprites.unshift(sprite);
 }
 
-export { dino, drawText, hoveredSprite, rmSprite, addSprite };
+export { dino, drawText, hoveredSprite, rmSprite, addSprite, setDial };
