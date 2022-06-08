@@ -17,6 +17,7 @@ var isPulling = false;
 var triggerTrap = false;
 var objects = [];
 
+var canMove = true;
 
 function getLid() {
   if (!hasLid) {
@@ -120,18 +121,43 @@ function catchCat() {
 }
 
 function answer() {
+  dino.isMoving = false;
+  canMove = false;
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
-  var answer1 = [" Jetez le par dessus la grille ", " Conné pa d'moi "]
+  var choice2 = [" J'ai un colis pour vous ", " C'est moi... "];
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
-  if (isCatFree) {
-    setDial(choice1);
-  }
+  isCatFree ? setDial(choice1) : setDial(choice2);
+}
+
+function reply() {
+  var clearAns = setTimeout(rmvAns, 3000);  
+  setDial([]);
+}
+
+function rmvAns() {
+  canMove = true;
+  rmSprite("answer1");
+  rmSprite("answer2");
+}
+
+function phrase1() {
+  var ans;
+  isCatFree ? ans = "Jete leu par dessu la pote" : ans = "coc";
+  return ans;
+}
+
+function phrase2() {
+  var ans;
+  isCatFree ? ans = "Conné pa de moi" : ans = "coc";
+  return ans;
 }
 
 function pass() { };
 
 var outsideAction = [
+  [undefined, "answer1", reply, phrase1()],
+  [undefined, "answer2", reply, phrase2()],
   ["Regarder", "chat", pass, " Miaou! Miaou!"],
   ["Utiliser", "sonette", answer, " Cé koi?"],
   ["Utiliser", "sonette ", answer, " koi encore?"],
@@ -163,5 +189,5 @@ var outsideAction = [
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
   hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
-  isFishInside, triggerTrap,
+  isFishInside, triggerTrap, canMove
 };

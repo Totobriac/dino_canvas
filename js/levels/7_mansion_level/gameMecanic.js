@@ -4,7 +4,7 @@ import { sprites } from "./outside_mansion.js";
 import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
-import { outsideAction, isReadingPoster } from "./actions.js";
+import { outsideAction, isReadingPoster, canMove } from "./actions.js";
 
 var dino;
 var selectedSprite;
@@ -33,7 +33,10 @@ export function pointNClick(ctx, game) {
   }
   drawOutsideScenery(ctx);
   dino.checkBundaries(820, 0, 290, 320);
-  if (game.mousePosition.x < 910) dino.moveAround(game, trash);
+  if (game.mousePosition.x < 910 && !isReadingPoster && canMove) {
+    dino.moveAround(game, trash);
+  }
+
   if (!isReadingPoster) dino.animateDino();
 
   drawActions(ctx, game);
@@ -63,7 +66,7 @@ function setDial(dl) {
   dial = dl;
 }
 
-function checkSelectedSprite(game) {
+function checkSelectedSprite(game) {  
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mousePosition.x + 12, game.mousePosition.y + 12, 1, 1)) {
       selectedSprite = sprites[i];
@@ -104,16 +107,15 @@ function checkIfReach(dino, sprite) {
 function checkAction(ctx) {
   if (selectedAction && !hoveredSprite) {
     drawText(ctx, selectedAction);
-  } else if (selectedAction && hoveredSprite) {
+  } else if (selectedAction && hoveredSprite && !selectedSprite) {
     var gender;
     hoveredSprite.gender ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
     if (!selectedObject) drawText(ctx, text)
   }
-  if (selectedSprite) {
-    var isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach) executeAction(ctx)
-  };
+  else if (selectedSprite) {
+    checkIfReach(dino, selectedSprite) ? executeAction(ctx) : drawText(ctx, "Je suis trop loin");
+  }
 }
 
 function executeAction(ctx) {
@@ -140,7 +142,7 @@ function executeAction(ctx) {
 }
 
 function drawText(ctx, text) {
-  var lines = getLines(ctx, text, 36);
+  var lines = getLines(text, 36);
   lines.forEach((line, i) => {
     ctx.textBaseline = "top";
     ctx.textAlign = "start";
@@ -153,7 +155,7 @@ function drawText(ctx, text) {
   });
 }
 
-function getLines(ctx, text, maxWidth) {
+function getLines(text, maxWidth) {
   var words = text.split(" ");
   var lines = [];
   var currentLine = words[0];
