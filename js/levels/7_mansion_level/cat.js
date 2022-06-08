@@ -34,7 +34,7 @@ var cat = new Sprite("chat", catSitLeft, -25, 135, 16, 4, 111.5, 83.5, 0.8, true
 
 var isDinoLeft = false;
 var catOnTheFloor = false;
-var isCatFree = true;
+
 
 function drawCat(ctx) {
   if (!isTrapReady) {
@@ -92,13 +92,11 @@ function drawCat(ctx) {
        cat.frames = 11;
        cat.columns = 11;
        if (cat.frameIndex < 10) {
-         cat.update(0.35, 1)
-       }else {
-         isCatFree = false;
-       };
+         cat.update(0.35, 1);      
      }
+    }
   }
   cat.draw(ctx);
 }
 
-export { drawCat, cat, isCatFree };
+export { drawCat, cat };

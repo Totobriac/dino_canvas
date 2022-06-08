@@ -114,8 +114,13 @@ function checkAction(ctx) {
     if (!selectedObject) drawText(ctx, text)
   }
   else if (selectedSprite) {
-    checkIfReach(dino, selectedSprite) ? executeAction(ctx) : drawText(ctx, "Je suis trop loin");
+    checkIfReach(dino, selectedSprite) ? executeAction(ctx) : tooFar(ctx) ;
   }
+}
+
+function tooFar(ctx) {
+  drawText(ctx, "Je suis trop loin");
+  resetAction();
 }
 
 function executeAction(ctx) {

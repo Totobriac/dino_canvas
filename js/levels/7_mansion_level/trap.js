@@ -2,7 +2,6 @@ import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
 import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling, isFishInside, triggerTrap } from "./actions.js";
-import { cat } from "./cat.js";
 
 
 var rope = new Image();
@@ -37,9 +36,7 @@ var canWater = new Sprite("boite de conserve pleine", canFull, 500, 240, 1, 1, 1
 
 var isTrapReady = false;
 var isTrapReady = false;
-var isCatFree = true;
 var trashInPlace = false;
-var ropeCut = false
 
 function drawTrap(ctx) {
 

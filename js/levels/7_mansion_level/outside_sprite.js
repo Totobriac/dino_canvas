@@ -58,6 +58,9 @@ canSprite.src = "./assets/7_mansion/small_tin.png";
 export var canSpriteWater = new Image();
 canSpriteWater.src = "./assets/7_mansion/tin_water.png";
 
+export var catHeadSprite = new Image();
+catHeadSprite.src = "./assets/7_mansion/cat_head.png";
+
 export var ductSprite = new Image();
 ductSprite.src = "./assets/7_mansion/duct_tape.png";
 

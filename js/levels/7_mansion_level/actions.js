@@ -1,7 +1,7 @@
 import { dino, rmSprite, addSprite, setDial } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
-import { cat, isCatFree } from "./cat.js";
+
 
 var isReadingPoster = false;
 var hasLid = false;
@@ -18,6 +18,7 @@ var triggerTrap = false;
 var objects = [];
 
 var canMove = true;
+var isCatFree = true;
 
 function getLid() {
   if (!hasLid) {
@@ -118,6 +119,7 @@ function leavePoster() {
 function catchCat() {
   triggerTrap = true;
   sprite.ring.name = "sonette ";
+  sprite.trash.name = "poubelle  ";
 }
 
 function answer() {
@@ -153,6 +155,11 @@ function phrase2() {
   return ans;
 }
 
+function grabCat() {
+  isCatFree = false;
+  objects.push(["chat gourmand mais pas fute-fute", sprite.catHeadSprite, false]);
+}
+
 function pass() { };
 
 var outsideAction = [
@@ -176,6 +183,7 @@ var outsideAction = [
   ["Prendre", "plante grimpante", grabRope],
   ["Prendre", "bassin ", grabFish],
   ["Prendre", "boite de conserve pleine", catchCat],
+  ["Prendre", "poubelle  ", grabCat],
 
   ["boulle de scotch", "tête de lion", stopWater],
   ["boite de conserve", "bassin ", emptyWater],
@@ -189,5 +197,5 @@ var outsideAction = [
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
   hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
-  isFishInside, triggerTrap, canMove
+  isFishInside, triggerTrap, canMove, isCatFree
 };
