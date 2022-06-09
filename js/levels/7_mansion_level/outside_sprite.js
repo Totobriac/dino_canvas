@@ -135,6 +135,7 @@ export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.
 export var answer1 = new Sprite("answer1", undefined, 40, 70, 1, 1, 800, 40, 1);
 export var answer2 = new Sprite("answer2", undefined, 40, 120, 1, 1, 800, 40, 1);
 
+
 export function drawSetting(ctx) {
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);

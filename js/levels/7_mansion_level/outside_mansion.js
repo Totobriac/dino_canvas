@@ -4,8 +4,8 @@ import { drawTrap } from "./trap.js";
 import { isReadingPoster } from "./actions.js";
 
 var sprites  =
-  [cat, sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate,
-  sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy];
+  [ sprite.lid, sprite.light1, sprite.trash, sprite.ring, sprite.gate,
+  sprite.smallPoster, sprite.lionHead, sprite.bowl, sprite.ivy, cat];
 
 
 var oldSprites = [];

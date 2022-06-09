@@ -2,7 +2,7 @@ import { Sprite } from "./sprite.js";
 import { drawText, hoveredSprite } from "./gameMecanic.js";
 import { leavePoster, objects, isReadingPoster } from "./actions.js";
 
-var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
+var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fouiller", "Reset",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
 
 var actions = [];

@@ -18,7 +18,7 @@ var triggerTrap = false;
 var objects = [];
 
 var canMove = true;
-var isCatFree = true;
+var isCatFree = false;
 
 function getLid() {
   if (!hasLid) {
@@ -120,13 +120,15 @@ function catchCat() {
   triggerTrap = true;
   sprite.ring.name = "sonette ";
   sprite.trash.name = "poubelle  ";
+  rmSprite("boite de conserve pleine");
 }
 
 function answer() {
+  console.log(isCatFree);
   dino.isMoving = false;
   canMove = false;
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
-  var choice2 = [" J'ai un colis pour vous ", " C'est moi... "];
+  var choice2 = [" C'est moi... Le chat..."];
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
   isCatFree ? setDial(choice1) : setDial(choice2);
@@ -144,15 +146,14 @@ function rmvAns() {
 }
 
 function phrase1() {
+  console.log(isCatFree)
   var ans;
-  isCatFree ? ans = "Jete leu par dessu la pote" : ans = "coc";
+  isCatFree ? ans = " Jetez-le par dessus la grille " : ans = " Pepeche?  ";
   return ans;
 }
 
 function phrase2() {
-  var ans;
-  isCatFree ? ans = "Conné pa de moi" : ans = "coc";
-  return ans;
+  return " Connais pas de moi ";
 }
 
 function grabCat() {
@@ -172,7 +173,7 @@ var outsideAction = [
   ["Regarder", "poubelle", pass, " Peut-être quelque chose a grignoter?"],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu..."],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu..."],
-  ["Regarder", "poubelle ", searchTrash, "Miam! Une boite de conserve au fond!"],
+  ["Fouiller", "poubelle ", searchTrash, "Miam! Une boite de conserve au fond!"],
   ["Prendre", "boite au fond de la poubelle", grabCan],
   ["Regarder", "poster", readPoster],
   ["Prendre", "annonce", grabDuct],
@@ -197,5 +198,5 @@ var outsideAction = [
 export {
   outsideAction, isReadingPoster, leavePoster, objects, hasLid, isRunningWater,
   hasWater, hasTape, ropeSet, isTinAttached, isLidAttached, isPushing, isPulling,
-  isFishInside, triggerTrap, canMove, isCatFree
+  isFishInside, triggerTrap, canMove,
 };
