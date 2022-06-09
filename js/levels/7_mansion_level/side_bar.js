@@ -2,7 +2,8 @@ import { Sprite } from "./sprite.js";
 import { drawText, hoveredSprite } from "./gameMecanic.js";
 import { leavePoster, objects, isReadingPoster } from "./actions.js";
 
-var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fouiller", "Reset",
+var actionsList = 
+  ["Pousser", "Tirer", "Ouvrir", "Fouiller", "Annuler",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
 
 var actions = [];
@@ -28,10 +29,7 @@ class Action {
     this.color2 = color2;
   }
   draw() {
-    this.ctx.filter = "url(#turb" + this.filter + ")";
-    this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(this.x, this.y - 30, 145, 45);
+    this.ctx.filter = "url(#turb" + this.filter + ")";   
     this.isHovered === true ? this.ctx.fillStyle = this.color1 : this.ctx.fillStyle = this.color2;
     this.ctx.fillRect(this.x, this.y - 30, 145, 45);
     this.isHovered === true ? this.ctx.fillStyle = this.color2 : this.ctx.fillStyle = this.color1;
@@ -68,7 +66,7 @@ export function drawActions(ctx, game) {
     createActions(ctx);
     game.loadedLevel[7] = true;
   }
-  ctx.fillStyle = "purple";
+  ctx.fillStyle = "orange";
   ctx.fillRect(895, 0, 305, 400)
   for (let i = 0; i < actions.length; i++) {
     actions[i].draw();
@@ -119,7 +117,7 @@ function checkAction(mouse, mouseMove, ctx) {
 
 function drawObjects(ctx) {
   objectsList = [];
-  ctx.fillStyle = "orange";
+  ctx.fillStyle = "purple";
   ctx.fillRect(900, 255, 295, 140);
   var oY = 3;
   for (let i = 0; i < objects.length; i++) {

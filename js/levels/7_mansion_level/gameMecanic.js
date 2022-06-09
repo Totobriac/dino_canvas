@@ -16,7 +16,7 @@ var dial = [];
 
 var oldMouseX = undefined;
 
-export function pointNClick(ctx, game) {
+export function pointNClick(ctx, game, gameBegun) {
 
   if (oldMouseX != game.mousePosition.x) {
     oldMouseX = game.mousePosition.x;
@@ -24,19 +24,29 @@ export function pointNClick(ctx, game) {
   }
 
   if (!isDinoCreated) {
-    dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
+    dino = new MansionDino(ctx, 1120, 300, 90, 188, 1);
     isDinoCreated = true;
     game.mousePosition = {
-      x: 881,
+      x: 820,
       y: 300
     };
   }
   drawOutsideScenery(ctx);
-  dino.checkBundaries(820, 0, 290, 320);
-  if (game.mousePosition.x < 910 && !isReadingPoster && canMove) {
-    dino.moveAround(game, trash);
+
+  if (gameBegun) {
+    dino.checkBundaries(820, 0, 290, 320);
+    var introText = " Nous y voilà! On dirait le vieux château. ";    
+    var introTxt = setTimeout(drawIntroText, 5000, ctx);
   }
 
+  function drawIntroText(ctx) { 
+    drawText(ctx, introText)
+  };
+
+
+  if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
+    dino.moveAround(game, trash);
+  }
   if (!isReadingPoster) dino.animateDino();
 
   drawActions(ctx, game);
@@ -66,7 +76,7 @@ function setDial(dl) {
   dial = dl;
 }
 
-function checkSelectedSprite(game) {  
+function checkSelectedSprite(game) {
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mousePosition.x + 12, game.mousePosition.y + 12, 1, 1)) {
       selectedSprite = sprites[i];
@@ -114,7 +124,7 @@ function checkAction(ctx) {
     if (!selectedObject) drawText(ctx, text)
   }
   else if (selectedSprite) {
-    checkIfReach(dino, selectedSprite) ? executeAction(ctx) : tooFar(ctx) ;
+    checkIfReach(dino, selectedSprite) ? executeAction(ctx) : tooFar(ctx);
   }
 }
 
