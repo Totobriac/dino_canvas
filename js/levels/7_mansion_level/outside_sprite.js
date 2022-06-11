@@ -1,14 +1,11 @@
 import { Sprite } from "./sprite.js";
-import { isRunningWater, hasWater, hasLid, hasTape } from "./actions.js";
+import { isRunningWater, hasWater, hasLid, hasTape, isLidAttached } from "./actions.js";
 
 export var lidObject = new Image();
 lidObject.src = "./assets/7_mansion/couvercle.png";
 
 var mansionSprite = new Image();
-mansionSprite.src = "./assets/7_mansion/maniac_no_light.png";
-
-var mansionLightSprite = new Image();
-mansionLightSprite.src = "./assets/7_mansion/yellow_light.png";
+mansionSprite.src = "./assets/7_mansion/maniac_mansion2.png";
 
 var gateSprite = new Image();
 gateSprite.src = "./assets/7_mansion/portail_essai.png";
@@ -97,6 +94,9 @@ dyingFish.src = "./assets/7_mansion/fish.png";
 export var fishFloor = new Image();
 fishFloor.src = "./assets/7_mansion/fish_floor.png";
 
+var lighteningsSprite = new Image();
+lighteningsSprite.src = "./assets/7_mansion/lightenings.png";
+
 export var ivy = new Sprite("plante grimpante", ivySprite, -10, 200, 1, 1, 1100, 600, 0.3, false);
 
 export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 59, 73, 1, false);
@@ -135,13 +135,16 @@ export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.
 export var answer1 = new Sprite("answer1", undefined, 40, 70, 1, 1, 800, 40, 1);
 export var answer2 = new Sprite("answer2", undefined, 40, 120, 1, 1, 800, 40, 1);
 
+var mansion = new Sprite("mansion", mansionSprite, 650, 0, 3, 3, 892, 1000, 0.15, true, true);
+var lightenings = new Sprite("ligntenings", lighteningsSprite, 620, 0, 4,4, 200, 620, 0.2, true, true);
+var lightenings2 = new Sprite("ligntenings", lighteningsSprite, 800, 0, 4,4, 200, 620, 0.16, true, true);
 
 export function drawSetting(ctx) {
 
   ctx.drawImage(skySprite, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(hillSprite, 0, -50, 1200, 578);
-  ctx.drawImage(mansionLightSprite, 650, 0, 130, 144);
-  ctx.drawImage(mansionSprite, 650, 0, 130, 144);
+
+
   ctx.drawImage(moonLightSprite, 85, 55, 80, 80);
   ctx.drawImage(moonSprite, 100, 70, 50, 50);
   ctx.fillStyle = ("grey");
@@ -175,7 +178,11 @@ export function drawSetting(ctx) {
 
   if (!hasLid) lid.draw(ctx);
 
-  drawWater(ctx);  
+  drawWater(ctx);
+
+  mansion.draw(ctx);
+  lightenings.draw(ctx);
+  lightenings2.draw(ctx);
 }
 
 function drawWater(ctx) {
