@@ -5,6 +5,7 @@ import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
 import { outsideAction, isReadingPoster, canMove } from "./actions.js";
+import { drawEnding } from "./intro.js";
 
 var dino;
 var selectedSprite;
@@ -15,6 +16,8 @@ var textDisp;
 var dial = [];
 
 var oldMouseX = undefined;
+
+var ended = false;
 
 export function pointNClick(ctx, game, gameBegun) {
 
@@ -36,7 +39,8 @@ export function pointNClick(ctx, game, gameBegun) {
   if (gameBegun) {
     dino.checkBundaries(820, 0, 290, 320);
     var introText = " Nous y voilà! On dirait le vieux château. ";    
-    var introTxt = setTimeout(drawIntroText, 5000, ctx);
+    //var introTxt = setTimeout(drawIntroText, 5000, ctx);
+    ended = true; 
   }
 
   function drawIntroText(ctx) { 
@@ -203,4 +207,4 @@ function addSprite(sprite) {
   sprites.unshift(sprite);
 }
 
-export { dino, drawText, hoveredSprite, rmSprite, addSprite, setDial };
+export { dino, drawText, hoveredSprite, rmSprite, addSprite, setDial, ended };

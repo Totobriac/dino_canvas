@@ -146,7 +146,6 @@ function rmvAns() {
 }
 
 function phrase1() {
-  console.log(isCatFree)
   var ans;
   isCatFree ? ans = " Jetez-le par dessus la grille " : ans = " Pepeche?  ";
   return ans;

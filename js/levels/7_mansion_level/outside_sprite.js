@@ -1,5 +1,5 @@
 import { Sprite } from "./sprite.js";
-import { isRunningWater, hasWater, hasLid, hasTape, isLidAttached } from "./actions.js";
+import { isRunningWater, hasWater, hasLid, hasTape } from "./actions.js";
 
 export var lidObject = new Image();
 lidObject.src = "./assets/7_mansion/couvercle.png";
@@ -135,9 +135,11 @@ export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.
 export var answer1 = new Sprite("answer1", undefined, 40, 70, 1, 1, 800, 40, 1);
 export var answer2 = new Sprite("answer2", undefined, 40, 120, 1, 1, 800, 40, 1);
 
-var mansion = new Sprite("mansion", mansionSprite, 650, 0, 3, 3, 892, 1000, 0.15, true, true);
-var lightenings = new Sprite("ligntenings", lighteningsSprite, 620, 0, 4,4, 200, 620, 0.2, true, true);
-var lightenings2 = new Sprite("ligntenings", lighteningsSprite, 800, 0, 4,4, 200, 620, 0.16, true, true);
+var thor = false;
+
+var mansion = new Sprite("mansion", mansionSprite, 650, 0, 3, 3, 892, 1000, 0.15, true, false);
+var lightenings = new Sprite("ligntenings", lighteningsSprite, 620, 0, 4, 4, 200, 620, 0.2, true, false);
+var lightenings2 = new Sprite("ligntenings", lighteningsSprite, 800, 0, 4, 4, 200, 620, 0.16, true, false);
 
 export function drawSetting(ctx) {
 
@@ -181,8 +183,12 @@ export function drawSetting(ctx) {
   drawWater(ctx);
 
   mansion.draw(ctx);
-  lightenings.draw(ctx);
-  lightenings2.draw(ctx);
+
+  if (thor) {
+    lightenings.draw(ctx);
+    lightenings2.draw(ctx);
+  }
+
 }
 
 function drawWater(ctx) {
@@ -213,4 +219,11 @@ export function drawBigPosters(ctx) {
     ctx.fillRect(195, 20, 20, 250);
   };
   ctx.restore();
+}
+
+export function rideTheLightening() {
+  thor = true;
+  mansion.loop = true;
+  lightenings.loop = true;
+  lightenings2.loop = true;
 }

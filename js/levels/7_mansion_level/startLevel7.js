@@ -1,5 +1,6 @@
 import { pointNClick } from "./gameMecanic.js";
-import { drawIntro } from "./intro.js";
+import { drawIntro, drawEnding } from "./intro.js";
+import { ended } from "./gameMecanic.js";
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
@@ -32,6 +33,7 @@ export function startLevel(ctx, game) {
   if (game.start) {
     pointNClick(ctx, game, gameBegun);
     gameBegun = drawIntro(ctx, game);
+    if (ended) drawEnding(ctx);
   }
 }
 
