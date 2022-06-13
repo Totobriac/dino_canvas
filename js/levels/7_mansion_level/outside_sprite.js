@@ -110,12 +110,12 @@ export var light2 = new Sprite("lampe2", lightSprite, 314, 89, 1, 1, 62, 107, 0.
 
 export var gate = new Sprite("porte", gateSprite, 256, 148, 1, 1, 900, 562, 0.40, false);
 export var smallPoster = new Sprite("poster", bowie, 730, 220, 1, 1, 570, 796, 0.15, true);
-export var bigPoster = new Sprite("poster", bowie, 270, 0, 1, 1, 570, 796, 0.6, true);
+export var bigPoster = new Sprite("poster ", bowie, 270, 0, 1, 1, 570, 796, 0.6, true);
 
 export var smallAnnounce = new Sprite("annonce", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25, false);
 export var bigAnnounce = new Sprite("annonce", bigPeeWeeSprite, 0, 0, 1, 1, 225, 300, 0.9, false);
 
-export var announce = new Sprite("annonce", bigPeeWeeSprite, 280, 45, 1, 1, 225, 300, 0.9, false);
+export var announce = new Sprite("annonce", bigPeeWeeSprite, 280, 45, 1, 1, 225, 300, 0.9, false, false);
 
 export var ring = new Sprite("sonette", ringSprite, 315, 240, 1, 1, 100, 100, 0.5, false);
 export var sign = new Sprite("sign", hotelSignSprite, 519, 210, 1, 1, 200, 200, 0.15, true);

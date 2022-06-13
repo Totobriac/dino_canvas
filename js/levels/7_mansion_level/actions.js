@@ -69,12 +69,13 @@ function emptyWater() {
   removeObject("boite de conserve");
   hasWater = false;
   objects.push(["boite de conserve pleine", sprite.canSpriteWater, false]);
+  sprite.bowl.name = "bassin  ";
 }
 
 function grabFish() {
   if (!isRunningWater && !hasWater) {
     objects.push(["poisson", sprite.dyingFish, true]);
-    rmSprite("bassin ");
+    rmSprite("bassin  ");
   }
 }
 
@@ -130,12 +131,15 @@ function answer() {
 
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
   var choice2 = [" C'est moi... Le chat..."];
-  
+
   dino.isMoving = false;
-  canMove = false;  
+  canMove = false;
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
   isCatFree ? setDial(choice1) : setDial(choice2);
+  if (!isCatFree) {
+    sprite.answer1.name = "answer1 ";
+  }
 }
 
 function reply() {
@@ -147,16 +151,7 @@ function rmvAns() {
   canMove = true;
   rmSprite("answer1");
   rmSprite("answer2");
-}
-
-function phrase1() {  
-  var ans;
-  isCatFree ? ans = " Jetez-le par dessus la grille " : ans = " Pepeche?  ";
-  return ans;
-}
-
-function phrase2() {  
-  return " Connais pas de moi ";
+  rmSprite("answer1 ");
 }
 
 function grabCat() {
@@ -166,29 +161,52 @@ function grabCat() {
   resetAction();
 }
 
+function scotch() {
+  sprite.announce.name = "scotch";
+  sprite.announce.male = true;
+}
+
+function renameBowl() {
+  sprite.bowl.name = "petit poisson";
+}
+
 function pass() { };
 
 var outsideAction = [
-  ["Utiliser", "answer1", reply, phrase1()],
-  ["Utiliser", "answer2", reply, phrase2()],
-  ["Regarder", "chat", pass, " Miaou! Miaou!"],
-  ["Regarder", "annonce", pass, " Elle est tenue par du scotch. "],
+  ["Regarder", "chat", pass, " Miaou! Miaou! "],
+  ["Regarder", "annonce", scotch, " Pauvre Pee-Wee, on lui a volé son velo. Son annonce est collée par du scotch. "],
+  ["Regarder", "poubelle", pass, " Peut-être quelque chose a grignoter? "],
+  ["Regarder", "poubelle ", pass, " Je vois un truc au fond. "],
+  ["Regarder", "sonette", pass, " Il y a un bouton pour appeler, c'est une sonette quoi... "],
+  ["Regarder", "porte", pass, " Elle est trop haute pour que je grimpe par dessus. "],
+  ["Regarder", "poster ", pass, " 'And it was cold and it rained, so I felt like an actor, And I thought of Ma and I wanted to get back there. '"],
+  ["Regarder", "poster", readPoster,],
+  ["Regarder", "plante grimpante", pass, " Ca ferait une bonne corde. "],
+  ["Regarder", "lampe", pass, " Je pourrais y accrocher quelque-chose "],
+  ["Regarder", "bassin", pass, " Le petit poisson s'amuse sans savoir que au dessus de lui... "],
+  ["Regarder", "bassin  ", renameBowl, " Le petit poisson gît au fond "],
+
+
+
+  ["Utiliser", "answer1 ", reply, " Pepeche? Mon petit chaton? C'est bien toi? "],
+  ["Utiliser", "answer1", reply, " Jetez-le par dessus la grille "],
+  ["Utiliser", "answer2", reply, " Connais pas de moi "],
+
   ["Utiliser", "sonette", answer, " Cé koi?"],
   ["Utiliser", "sonette ", answer, " koi encore?"],
   ["Ouvrir", "porte", pass, " C'est fermé."],
-  ["Regarder", "poubelle", pass, " Peut-être quelque chose a grignoter?"],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu..."],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu..."],
   ["Fouiller", "poubelle ", searchTrash, "Miam! Une boite de conserve au fond!"],
   ["Prendre", "boite au fond de la poubelle", grabCan],
-  ["Regarder", "poster", readPoster],
-  ["Prendre", "annonce", grabDuct],
+
+  ["Prendre", "scotch", grabDuct],
   ["Pousser", "poubelle", push],
   ["Pousser", "poubelle ", push],
   ["Tirer", "poubelle", pull],
   ["Tirer", "poubelle ", pull],
   ["Prendre", "plante grimpante", grabRope],
-  ["Prendre", "bassin ", grabFish],
+  ["Prendre", "petit poisson", grabFish],
   ["Prendre", "boite de conserve pleine", catchCat],
   ["Prendre", "poubelle  ", grabCat],
 
