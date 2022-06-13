@@ -133,8 +133,9 @@ function executeAction(ctx) {
       func(ctx);
       if (outsideAction[i][3]) {
         textDisp = outsideAction[i][3];
+        drawText(ctx, textDisp);
       }
-      resetAction();
+      //resetAction();
     }
     if (textDisp) drawText(ctx, textDisp);
 

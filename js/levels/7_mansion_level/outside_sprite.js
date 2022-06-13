@@ -132,8 +132,8 @@ export var bowl = new Sprite("bassin", bowlSprite, 53, 340, 1, 1, 111, 21, 1, tr
 
 export var fish = new Sprite("poisson", fishSprite, 65, 310, 58, 58, 100, 75, 0.8, true, true);
 
-export var answer1 = new Sprite("answer1", undefined, 40, 70, 1, 1, 800, 40, 1);
-export var answer2 = new Sprite("answer2", undefined, 40, 120, 1, 1, 800, 40, 1);
+export var answer1 = new Sprite("answer1", undefined, 0, 0, 1, 1, 800, 120, 1);
+export var answer2 = new Sprite("answer2", undefined, 0, 120, 1, 1, 800, 80, 1);
 
 var thor = false;
 

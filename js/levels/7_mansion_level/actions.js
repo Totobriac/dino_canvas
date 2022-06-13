@@ -1,4 +1,6 @@
 import { dino, rmSprite, addSprite, setDial } from "./gameMecanic.js";
+import { resetAction } from "./side_bar.js";
+
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
 
@@ -18,7 +20,7 @@ var triggerTrap = false;
 var objects = [];
 
 var canMove = true;
-var isCatFree = false;
+var isCatFree = true;
 
 function getLid() {
   if (!hasLid) {
@@ -72,6 +74,7 @@ function emptyWater() {
 function grabFish() {
   if (!isRunningWater && !hasWater) {
     objects.push(["poisson", sprite.dyingFish, true]);
+    rmSprite("bassin ");
   }
 }
 
@@ -124,11 +127,12 @@ function catchCat() {
 }
 
 function answer() {
-  console.log(isCatFree);
-  dino.isMoving = false;
-  canMove = false;
+
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
   var choice2 = [" C'est moi... Le chat..."];
+  
+  dino.isMoving = false;
+  canMove = false;  
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
   isCatFree ? setDial(choice1) : setDial(choice2);
@@ -145,26 +149,28 @@ function rmvAns() {
   rmSprite("answer2");
 }
 
-function phrase1() {
+function phrase1() {  
   var ans;
   isCatFree ? ans = " Jetez-le par dessus la grille " : ans = " Pepeche?  ";
   return ans;
 }
 
-function phrase2() {
+function phrase2() {  
   return " Connais pas de moi ";
 }
 
 function grabCat() {
   isCatFree = false;
   objects.push(["chat gourmand mais pas fute-fute", sprite.catHeadSprite, false]);
+  sprite.trash.name = "poubelle   ";
+  resetAction();
 }
 
 function pass() { };
 
 var outsideAction = [
-  [undefined, "answer1", reply, phrase1()],
-  [undefined, "answer2", reply, phrase2()],
+  ["Utiliser", "answer1", reply, phrase1()],
+  ["Utiliser", "answer2", reply, phrase2()],
   ["Regarder", "chat", pass, " Miaou! Miaou!"],
   ["Regarder", "annonce", pass, " Elle est tenue par du scotch. "],
   ["Utiliser", "sonette", answer, " Cé koi?"],
