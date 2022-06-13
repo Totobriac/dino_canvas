@@ -14,7 +14,7 @@ var skySprite = new Image();
 skySprite.src = "./assets/6_race/sky_race_1200.png";
 
 export var wallSprite = new Image();
-wallSprite.src = "./assets/7_mansion/wall.png";
+wallSprite.src = "./assets/7_mansion/wall_2.png";
 
 var hillSprite = new Image();
 hillSprite.src = "./assets/7_mansion/hill_1200_purple.png";
@@ -44,7 +44,7 @@ export var bowie = new Image();
 bowie.src = "./assets/7_mansion/bowie_pi.png";
 
 var ivySprite = new Image();
-ivySprite.src = "./assets/7_mansion/pix_ivy.png";
+ivySprite.src = "./assets/7_mansion/pix_ivy_2.png";
 
 var hotelSignSprite = new Image();
 hotelSignSprite.src = "./assets/7_mansion/H4E.png";
@@ -97,7 +97,7 @@ fishFloor.src = "./assets/7_mansion/fish_floor.png";
 var lighteningsSprite = new Image();
 lighteningsSprite.src = "./assets/7_mansion/lightenings.png";
 
-export var ivy = new Sprite("plante grimpante", ivySprite, -10, 200, 1, 1, 1100, 600, 0.3, false);
+export var ivy = new Sprite("plante grimpante", ivySprite, -10, 190, 1, 1, 1100, 600, 0.3, false);
 
 export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 59, 73, 1, false);
 
@@ -152,11 +152,11 @@ export function drawSetting(ctx) {
   ctx.fillStyle = ("grey");
   ctx.fillRect(0, 360, canvas.width, 40);
 
-  ctx.drawImage(wallSprite, 0, 200, 160, 160);
-  ctx.drawImage(wallSprite, 160, 200, 160, 160);
-  ctx.drawImage(wallSprite, 552, 200, 160, 160);
-  ctx.drawImage(wallSprite, 712, 200, 160, 160);
-  ctx.drawImage(wallSprite, 872, 200, 160, 160);
+  ctx.drawImage(wallSprite, 0, 200);
+  ctx.drawImage(wallSprite, 160, 200);
+  ctx.drawImage(wallSprite, 552, 200);
+  ctx.drawImage(wallSprite, 712, 200);
+  ctx.drawImage(wallSprite, 872, 200);
 
   light1.draw(ctx);
   light2.draw(ctx);

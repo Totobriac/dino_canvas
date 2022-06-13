@@ -53,7 +53,6 @@ export function drawIntro(ctx, game) {
     for (let i = 0; i < tiles.length; i++) {
       if (startX != game.mouseMovePosition.y && startY != game.mouseMovePosition.y) {
         if (checkCollsion(game, tiles[i]) && tiles[i].isVisible) {
-          console.log(tiles[i].index);
           tiles[i].erase();
           tilesNb++;
         }
@@ -72,7 +71,7 @@ export function drawEnding(ctx) {
     tickCount++;
   } else {
     tickCount = 0;
-    tile > 1 ? tile-- : rideTheLightening();
+    tile > 1 ? tile -- : rideTheLightening();
   }
   if (!msk.includes(tiles[tile - 1].index)) tiles[tile - 1].isVisible = true;
   for (let i = 0; i < tiles.length; i++) {

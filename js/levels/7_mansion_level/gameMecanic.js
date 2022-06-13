@@ -11,13 +11,12 @@ var dino;
 var selectedSprite;
 var hoveredSprite;
 var isDinoCreated = false;
-
 var textDisp;
 var dial = [];
-
 var oldMouseX = undefined;
-
 var ended = false;
+var introText = " Nous y voilà! On dirait le vieux château. ";
+var introTxt = true;
 
 export function pointNClick(ctx, game, gameBegun) {
 
@@ -34,32 +33,22 @@ export function pointNClick(ctx, game, gameBegun) {
       y: 300
     };
   }
+
   drawOutsideScenery(ctx);
 
   if (gameBegun) {
     dino.checkBundaries(820, 0, 290, 320);
-    var introText = " Nous y voilà! On dirait le vieux château. ";    
-    //var introTxt = setTimeout(drawIntroText, 5000, ctx);
-    ended = true; 
+    if( introTxt )drawText(ctx, introText);
+    if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
+      dino.moveAround(game, trash);
+    }
+    if (!isReadingPoster) dino.animateDino();
+    checkSelectedSprite(game);
+    checkHoveredSprite(game, ctx);
+    checkAction(ctx);
+    dialogue(ctx);
   }
-
-  function drawIntroText(ctx) { 
-    drawText(ctx, introText)
-  };
-
-
-  if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
-    dino.moveAround(game, trash);
-  }
-  if (!isReadingPoster) dino.animateDino();
-
-  drawActions(ctx, game);
-
-  checkSelectedSprite(game);
-  checkHoveredSprite(game, ctx);
-  checkAction(ctx);
-
-  dialogue(ctx);
+  drawActions(ctx, game, gameBegun);
 }
 
 function dialogue(ctx) {
@@ -94,6 +83,7 @@ function checkSelectedSprite(game) {
 function checkHoveredSprite(game, ctx) {
   for (let i = 0; i < sprites.length; i++) {
     if (sprites[i].checkCollision(game.mouseMovePosition.x + 12, game.mouseMovePosition.y + 12, 1, 1)) {
+      introTxt = false;
       hoveredSprite = {
         name: sprites[i].name,
         gender: sprites[i].male
@@ -126,8 +116,7 @@ function checkAction(ctx) {
     hoveredSprite.gender ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
     if (!selectedObject) drawText(ctx, text)
-  }
-  else if (selectedSprite) {
+  } else if (selectedAction && selectedSprite) {
     checkIfReach(dino, selectedSprite) ? executeAction(ctx) : tooFar(ctx);
   }
 }

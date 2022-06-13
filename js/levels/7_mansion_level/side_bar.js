@@ -2,7 +2,7 @@ import { Sprite } from "./sprite.js";
 import { drawText, hoveredSprite } from "./gameMecanic.js";
 import { leavePoster, objects, isReadingPoster } from "./actions.js";
 
-var actionsList = 
+var actionsList =
   ["Pousser", "Tirer", "Ouvrir", "Fouiller", "Annuler",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
 
@@ -29,7 +29,7 @@ class Action {
     this.color2 = color2;
   }
   draw() {
-    this.ctx.filter = "url(#turb" + this.filter + ")";   
+    this.ctx.filter = "url(#turb" + this.filter + ")";
     this.isHovered === true ? this.ctx.fillStyle = this.color1 : this.ctx.fillStyle = this.color2;
     this.ctx.fillRect(this.x, this.y - 30, 145, 45);
     this.isHovered === true ? this.ctx.fillStyle = this.color2 : this.ctx.fillStyle = this.color1;
@@ -61,7 +61,7 @@ function createActions(ctx) {
   }
 }
 
-export function drawActions(ctx, game) {
+export function drawActions(ctx, game, gameBegun) {
   if (!game.loadedLevel[7]) {
     createActions(ctx);
     game.loadedLevel[7] = true;
@@ -71,7 +71,7 @@ export function drawActions(ctx, game) {
   for (let i = 0; i < actions.length; i++) {
     actions[i].draw();
   }
-  checkAction(game.mousePosition, game.mouseMovePosition, ctx);
+  if (gameBegun) checkAction(game.mousePosition, game.mouseMovePosition, ctx);
   ctx.filter = "none";
 
   drawObjects(ctx);

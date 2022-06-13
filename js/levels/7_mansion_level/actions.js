@@ -135,7 +135,7 @@ function answer() {
 }
 
 function reply() {
-  var clearAns = setTimeout(rmvAns, 3000);  
+  var clearAns = setTimeout(rmvAns, 3000);
   setDial([]);
 }
 
@@ -166,6 +166,7 @@ var outsideAction = [
   [undefined, "answer1", reply, phrase1()],
   [undefined, "answer2", reply, phrase2()],
   ["Regarder", "chat", pass, " Miaou! Miaou!"],
+  ["Regarder", "annonce", pass, " Elle est tenue par du scotch. "],
   ["Utiliser", "sonette", answer, " Cé koi?"],
   ["Utiliser", "sonette ", answer, " koi encore?"],
   ["Ouvrir", "porte", pass, " C'est fermé."],
