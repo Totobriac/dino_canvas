@@ -1,5 +1,6 @@
 import { Sprite } from "./sprite.js";
 import { isRunningWater, hasWater, hasLid, hasTape } from "./actions.js";
+import { drawFlies } from "./flies.js";
 
 export var lidObject = new Image();
 lidObject.src = "./assets/7_mansion/couvercle2.png";
@@ -56,7 +57,7 @@ export var canSpriteWater = new Image();
 canSpriteWater.src = "./assets/7_mansion/tin_water2.png";
 
 export var catHeadSprite = new Image();
-catHeadSprite.src = "./assets/7_mansion/cat_head.png";
+catHeadSprite.src = "./assets/7_mansion/cat_head2.png";
 
 export var ductSprite = new Image();
 ductSprite.src = "./assets/7_mansion/duct_tape2.png";
@@ -178,7 +179,10 @@ export function drawSetting(ctx) {
 
   trash.draw(ctx);
 
-  if (!hasLid) lid.draw(ctx);
+  if (!hasLid) {
+    lid.draw(ctx);
+    drawFlies(ctx);
+  }
 
   drawWater(ctx);
 
@@ -188,7 +192,6 @@ export function drawSetting(ctx) {
     lightenings.draw(ctx);
     lightenings2.draw(ctx);
   }
-
 }
 
 function drawWater(ctx) {

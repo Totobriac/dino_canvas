@@ -175,7 +175,7 @@ function pass() { };
 var outsideAction = [
   ["Regarder", "chat", pass, " Miaou! Miaou! "],
   ["Regarder", "annonce", scotch, " Pauvre Pee-Wee, on lui a volé son velo. Son annonce est collée par du scotch. "],
-  ["Regarder", "poubelle", pass, " Peut-être quelque chose a grignoter? "],
+  ["Regarder", "poubelle", pass, " Quelque chose attire les mouches. "],
   ["Regarder", "poubelle ", pass, " Je vois un truc au fond. "],
   ["Regarder", "sonette", pass, " Il y a un bouton pour appeler, c'est une sonette quoi... "],
   ["Regarder", "porte", pass, " Elle est trop haute pour que je grimpe par dessus. "],
