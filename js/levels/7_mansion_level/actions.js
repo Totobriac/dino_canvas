@@ -139,6 +139,7 @@ function answer() {
   isCatFree ? setDial(choice1) : setDial(choice2);
   if (!isCatFree) {
     sprite.answer1.name = "answer1 ";
+    sprite.ring.name = "sonette  ";
   }
 }
 
@@ -222,7 +223,7 @@ var outsideAction = [
   ["couvercle", "corde", attachLid],
   ["boite de conserve pleine", "corde", attachTin],
   ["poisson", "poubelle ", leaveFish],
-  ["chat gourmand mais pas fute-fute", "sonette ", endGame, "cocococ"],
+  ["chat gourmand mais pas fute-fute", "sonette  ", endGame, "cocococ"],
 ]
 
 

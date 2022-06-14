@@ -142,12 +142,12 @@ function executeAction(ctx) {
     if (selectedAction === "Utiliser" && selectedObject) {
       if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
+        func();
         if (outsideAction[i][3]) {
           setTextDisp(outsideAction[i][3]);
-        }
-        func();
-        resetAction();
-        resetObject();
+        }        
+        // resetAction();
+        // resetObject();
       }
     }
     if (textDisp) drawText(ctx, textDisp);
