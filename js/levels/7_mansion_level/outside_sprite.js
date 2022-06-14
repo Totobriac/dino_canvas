@@ -2,7 +2,7 @@ import { Sprite } from "./sprite.js";
 import { isRunningWater, hasWater, hasLid, hasTape } from "./actions.js";
 
 export var lidObject = new Image();
-lidObject.src = "./assets/7_mansion/couvercle.png";
+lidObject.src = "./assets/7_mansion/couvercle2.png";
 
 var mansionSprite = new Image();
 mansionSprite.src = "./assets/7_mansion/maniac_mansion2.png";
@@ -50,19 +50,19 @@ var hotelSignSprite = new Image();
 hotelSignSprite.src = "./assets/7_mansion/H4E.png";
 
 export var canSprite = new Image();
-canSprite.src = "./assets/7_mansion/small_tin.png";
+canSprite.src = "./assets/7_mansion/small_tin2.png";
 
 export var canSpriteWater = new Image();
-canSpriteWater.src = "./assets/7_mansion/tin_water.png";
+canSpriteWater.src = "./assets/7_mansion/tin_water2.png";
 
 export var catHeadSprite = new Image();
 catHeadSprite.src = "./assets/7_mansion/cat_head.png";
 
 export var ductSprite = new Image();
-ductSprite.src = "./assets/7_mansion/duct_tape.png";
+ductSprite.src = "./assets/7_mansion/duct_tape2.png";
 
 export var ropeSprite = new Image();
-ropeSprite.src = "./assets/7_mansion/ivy_rope.png";
+ropeSprite.src = "./assets/7_mansion/ivy_rope2.png";
 
 var lionSprite = new Image;
 lionSprite.src = "./assets/7_mansion/lion_head.png";
@@ -89,7 +89,7 @@ export var fishSprite = new Image();
 fishSprite.src = "./assets/7_mansion/jumping_fish.png";
 
 export var dyingFish = new Image();
-dyingFish.src = "./assets/7_mansion/fish.png";
+dyingFish.src = "./assets/7_mansion/fish2.png";
 
 export var fishFloor = new Image();
 fishFloor.src = "./assets/7_mansion/fish_floor.png";
