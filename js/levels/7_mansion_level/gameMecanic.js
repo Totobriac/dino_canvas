@@ -38,7 +38,7 @@ export function pointNClick(ctx, game, gameBegun) {
 
   if (gameBegun) {
     dino.checkBundaries(820, 0, 290, 320);
-    if( introTxt )drawText(ctx, introText);
+    if (introTxt) drawText(ctx, introText);
     if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
       dino.moveAround(game, trash);
     }
@@ -67,6 +67,10 @@ function dialogue(ctx) {
 
 function setDial(dl) {
   dial = dl;
+}
+
+function setTextDisp(txt) {
+  textDisp = txt;
 }
 
 function checkSelectedSprite(game) {
@@ -132,21 +136,21 @@ function executeAction(ctx) {
       const func = outsideAction[i][2];
       func(ctx);
       if (outsideAction[i][3]) {
-        textDisp = outsideAction[i][3];
-        drawText(ctx, textDisp);
+        setTextDisp(outsideAction[i][3]);
       }
-      //resetAction();
     }
-    if (textDisp) drawText(ctx, textDisp);
-
     if (selectedAction === "Utiliser" && selectedObject) {
       if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
+        if (outsideAction[i][3]) {
+          setTextDisp(outsideAction[i][3]);
+        }
         func();
         resetAction();
         resetObject();
       }
     }
+    if (textDisp) drawText(ctx, textDisp);
   }
 }
 
