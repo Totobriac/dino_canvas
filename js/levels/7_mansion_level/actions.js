@@ -75,7 +75,7 @@ function emptyWater() {
 function grabFish() {
   if (!isRunningWater && !hasWater) {
     objects.push(["poisson", sprite.dyingFish, true]);
-    rmSprite("bassin  ");
+    rmSprite("petit poisson");
   }
 }
 
@@ -170,6 +170,10 @@ function renameBowl() {
   sprite.bowl.name = "petit poisson";
 }
 
+function endGame() {
+  console.log("done");
+}
+
 function pass() { };
 
 var outsideAction = [
@@ -203,19 +207,22 @@ var outsideAction = [
   ["Prendre", "scotch", grabDuct],
   ["Pousser", "poubelle", push],
   ["Pousser", "poubelle ", push],
+  ["Pousser", "poubelle  ", push],
   ["Tirer", "poubelle", pull],
   ["Tirer", "poubelle ", pull],
+  ["Tirer", "poubelle  ", pull],
   ["Prendre", "plante grimpante", grabRope],
   ["Prendre", "petit poisson", grabFish],
   ["Prendre", "boite de conserve pleine", catchCat],
   ["Prendre", "poubelle  ", grabCat],
 
-  ["boulle de scotch", "tête de lion", stopWater],
+  ["boulle de scotch", "tête de lion", stopWater, "cocococ"],
   ["boite de conserve", "bassin ", emptyWater],
   ["corde", "lampe", setTrap],
   ["couvercle", "corde", attachLid],
   ["boite de conserve pleine", "corde", attachTin],
-  ["poisson", "poubelle ", leaveFish]
+  ["poisson", "poubelle ", leaveFish],
+  ["chat gourmand mais pas fute-fute", "sonette ", endGame, "cocococ"],
 ]
 
 
