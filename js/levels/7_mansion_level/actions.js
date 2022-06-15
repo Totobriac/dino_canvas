@@ -179,7 +179,7 @@ function pass() { };
 
 var outsideAction = [
   ["Regarder", "chat", pass, " Miaou! Miaou! "],
-  ["Regarder", "annonce", scotch, " Pauvre Pee-Wee, on lui a volé son velo. Son annonce est collée par du scotch. "],
+  ["Regarder", "annonce", scotch, " L' annonce est collée par du scotch. "],
   ["Regarder", "poubelle", pass, " Quelque chose attire les mouches. "],
   ["Regarder", "poubelle ", pass, " Je vois un truc au fond. "],
   ["Regarder", "sonette", pass, " Il y a un bouton pour appeler, c'est une sonette quoi... "],
@@ -202,7 +202,7 @@ var outsideAction = [
   ["Ouvrir", "porte", pass, " C'est fermé."],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu..."],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu..."],
-  ["Fouiller", "poubelle ", searchTrash, "Miam! Une boite de conserve au fond!"],
+  ["Fouiller", "poubelle ", searchTrash, " Il y a une boite de conserve au fond! "],
   ["Prendre", "boite au fond de la poubelle", grabCan],
 
   ["Prendre", "scotch", grabDuct],
@@ -217,13 +217,13 @@ var outsideAction = [
   ["Prendre", "boite de conserve pleine", catchCat],
   ["Prendre", "poubelle  ", grabCat],
 
-  ["boulle de scotch", "tête de lion", stopWater, "cocococ"],
-  ["boite de conserve", "bassin ", emptyWater],
+  ["boulle de scotch", "tête de lion", stopWater,],
+  ["boite de conserve", "bassin ", emptyWater, " Je n'ai pas reussis à attraper le poisson "],
   ["corde", "lampe", setTrap],
   ["couvercle", "corde", attachLid],
   ["boite de conserve pleine", "corde", attachTin],
   ["poisson", "poubelle ", leaveFish],
-  ["chat gourmand mais pas fute-fute", "sonette  ", endGame, "cocococ"],
+  ["chat gourmand mais pas fute-fute", "sonette  ", endGame, " Entre mon petit minet "],
 ]
 
 

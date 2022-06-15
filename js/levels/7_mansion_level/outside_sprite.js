@@ -6,10 +6,10 @@ export var lidObject = new Image();
 lidObject.src = "./assets/7_mansion/couvercle2.png";
 
 var mansionSprite = new Image();
-mansionSprite.src = "./assets/7_mansion/maniac_mansion2.png";
+mansionSprite.src = "./assets/7_mansion/maniac_mansion.png";
 
 var gateSprite = new Image();
-gateSprite.src = "./assets/7_mansion/portail_essai.png";
+gateSprite.src = "./assets/7_mansion/portail.png";
 
 var skySprite = new Image();
 skySprite.src = "./assets/6_race/sky_race_1200.png";
@@ -45,7 +45,7 @@ export var bowie = new Image();
 bowie.src = "./assets/7_mansion/bowie_pi.png";
 
 var ivySprite = new Image();
-ivySprite.src = "./assets/7_mansion/pix_ivy_2.png";
+ivySprite.src = "./assets/7_mansion/pix_ivy.png";
 
 var hotelSignSprite = new Image();
 hotelSignSprite.src = "./assets/7_mansion/H4E.png";
@@ -98,7 +98,7 @@ fishFloor.src = "./assets/7_mansion/fish_floor.png";
 var lighteningsSprite = new Image();
 lighteningsSprite.src = "./assets/7_mansion/lightenings.png";
 
-export var ivy = new Sprite("plante grimpante", ivySprite, -10, 190, 1, 1, 1100, 600, 0.3, false);
+export var ivy = new Sprite("plante grimpante", ivySprite, -10, 190, 1, 1, 330, 180, 1, false);
 
 export var trash = new Sprite("poubelle", binSprite, 640, 310, 1, 1, 59, 73, 1, false);
 
@@ -109,7 +109,7 @@ export var light1 = new Sprite("lampe", lightSprite, 506, 89, 1, 1, 62, 107, 0.9
 export var light2 = new Sprite("lampe2", lightSprite, 314, 89, 1, 1, 62, 107, 0.9, false);
 
 
-export var gate = new Sprite("porte", gateSprite, 256, 148, 1, 1, 900, 562, 0.40, false);
+export var gate = new Sprite("porte", gateSprite, 306, 148, 1, 1, 653, 538, 0.40, false);
 export var smallPoster = new Sprite("poster", bowie, 730, 220, 1, 1, 570, 796, 0.15, true);
 export var bigPoster = new Sprite("poster ", bowie, 270, 0, 1, 1, 570, 796, 0.6, true);
 
@@ -138,7 +138,7 @@ export var answer2 = new Sprite("answer2", undefined, 0, 120, 1, 1, 800, 80, 1);
 
 var thor = false;
 
-var mansion = new Sprite("mansion", mansionSprite, 650, 0, 3, 3, 892, 1000, 0.15, true, false);
+var mansion = new Sprite("mansion", mansionSprite, 650, 0, 3, 3, 134, 150, 1, true, false);
 var lightenings = new Sprite("ligntenings", lighteningsSprite, 620, 0, 4, 4, 200, 620, 0.2, true, false);
 var lightenings2 = new Sprite("ligntenings", lighteningsSprite, 800, 0, 4, 4, 200, 620, 0.16, true, false);
 

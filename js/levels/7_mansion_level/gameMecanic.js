@@ -147,7 +147,7 @@ function executeAction(ctx) {
           setTextDisp(outsideAction[i][3]);
         }        
         // resetAction();
-        // resetObject();
+        resetObject();
       }
     }
     if (textDisp) drawText(ctx, textDisp);
