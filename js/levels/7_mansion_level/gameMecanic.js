@@ -5,7 +5,6 @@ import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
 import { outsideAction, isReadingPoster, canMove } from "./actions.js";
-import { drawEnding } from "./intro.js";
 
 var dino;
 var selectedSprite;
@@ -14,7 +13,6 @@ var isDinoCreated = false;
 var textDisp;
 var dial = [];
 var oldMouseX = undefined;
-var ended = false;
 var introText = " Nous y voilà! On dirait le vieux château. ";
 var introTxt = true;
 
@@ -68,6 +66,7 @@ function dialogue(ctx) {
 function setDial(dl) {
   dial = dl;
 }
+
 
 function setTextDisp(txt) {
   textDisp = txt;
@@ -201,4 +200,4 @@ function addSprite(sprite) {
   sprites.unshift(sprite);
 }
 
-export { dino, drawText, hoveredSprite, rmSprite, addSprite, setDial, ended };
+export { dino, drawText, hoveredSprite, rmSprite, addSprite, setDial };

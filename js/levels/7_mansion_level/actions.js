@@ -1,8 +1,13 @@
-import { dino, rmSprite, addSprite, setDial } from "./gameMecanic.js";
+import { dino, rmSprite, addSprite } from "./gameMecanic.js";
+import { endLevel } from "./startLevel7.js";
 import { resetAction } from "./side_bar.js";
+import { setDial } from "./gameMecanic.js";
 
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
+
+var openGateSprite = new Image();
+openGateSprite.src = "./assets/7_mansion/portail_open.png";
 
 
 var isReadingPoster = false;
@@ -172,7 +177,10 @@ function renameBowl() {
 }
 
 function endGame() {
-  console.log("done");
+  sprite.gate.columns = 4;
+  sprite.gate.frames = 4;
+  sprite.gate.sprite = openGateSprite;
+  endLevel();
 }
 
 function pass() { };

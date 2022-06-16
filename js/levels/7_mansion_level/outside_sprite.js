@@ -109,8 +109,10 @@ export var light1 = new Sprite("lampe", lightSprite, 506, 89, 1, 1, 62, 107, 0.9
 export var light2 = new Sprite("lampe2", lightSprite, 314, 89, 1, 1, 62, 107, 0.9, false);
 
 
-export var gate = new Sprite("porte", gateSprite, 306, 148, 1, 1, 653, 538, 1, false);
+export var gate = new Sprite("porte", gateSprite, 306, 148, 1, 1, 261, 215, 1, false);
+
 export var smallPoster = new Sprite("poster", bowie, 730, 220, 1, 1, 570, 796, 0.15, true);
+
 export var bigPoster = new Sprite("poster ", bowie, 270, 0, 1, 1, 570, 796, 0.6, true);
 
 export var smallAnnounce = new Sprite("annonce", peeWeeSprite, 0, 0, 1, 1, 188, 250, 0.25, false);

@@ -1,14 +1,14 @@
 import { pointNClick } from "./gameMecanic.js";
 import { drawIntro, drawEnding } from "./intro.js";
-import { ended } from "./gameMecanic.js";
+
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
-//var gameBegun = false;
-var gameBegun = true;
+var gameBegun = false;
+var ended = false;
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -33,7 +33,7 @@ export function startLevel(ctx, game) {
 
   if (game.start) {
     pointNClick(ctx, game, gameBegun);
-    //gameBegun = drawIntro(ctx, game);
+    gameBegun = drawIntro(ctx, game);
     if (ended) drawEnding(ctx);
   }
 }
@@ -41,3 +41,8 @@ export function startLevel(ctx, game) {
 function startGame() {
   start = true;
 };
+
+export function endLevel() {
+  ended = true;
+}
+

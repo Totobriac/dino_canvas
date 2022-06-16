@@ -6,7 +6,7 @@ var startY = 0;
 var tilesNb = 0;
 
 var tickCount = 0;
-var maxTickCount = 2;
+var maxTickCount = 1;
 var tile = 300;
 
 var index = 0;
