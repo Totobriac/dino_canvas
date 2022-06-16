@@ -2,13 +2,13 @@ import { dino, rmSprite, addSprite } from "./gameMecanic.js";
 import { endLevel } from "./startLevel7.js";
 import { resetAction } from "./side_bar.js";
 import { setDial } from "./gameMecanic.js";
+import { playSound } from "./sound.js";
 
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
 
 var openGateSprite = new Image();
 openGateSprite.src = "./assets/7_mansion/portail_open.png";
-
 
 var isReadingPoster = false;
 var hasLid = false;
@@ -26,6 +26,7 @@ var objects = [];
 
 var canMove = true;
 var isCatFree = true;
+
 
 function getLid() {
   if (!hasLid) {
@@ -46,20 +47,22 @@ function grabCan() {
 }
 
 function grabDuct() {
+  playSound("tearTape");
   objects.push(["boulle de scotch", sprite.ductSprite, false]);
   sprite.announce.name = "annonce ";
   hasTape = true;
 }
 
-function push() {
+function push() {  
   if (dino.x > sprite.trash.x) isPushing = true;
 }
 
-function pull() {
+function pull() { 
   if (dino.x < sprite.trash.x) isPulling = true;
 }
 
 function grabRope() {
+  playSound("tearIvy");
   objects.push(["corde", sprite.ropeSprite, false]);
   rmSprite("plante grimpante");
 }
@@ -132,8 +135,8 @@ function catchCat() {
   rmSprite("boite de conserve pleine");
 }
 
-function answer() {
-
+function answer() {  
+  playSound("ring");
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
   var choice2 = [" C'est moi... Le chat..."];
 
@@ -149,6 +152,7 @@ function answer() {
 }
 
 function reply() {
+  playSound(undefined)
   var clearAns = setTimeout(rmvAns, 3000);
   setDial([]);
 }

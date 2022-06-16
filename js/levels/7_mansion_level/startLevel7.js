@@ -7,7 +7,7 @@ mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
 var circleD = 0;
 var start = false;
-var gameBegun = false;
+var gameBegun = true;
 var ended = false;
 
 window.addEventListener('mousedown', function () {
@@ -33,7 +33,7 @@ export function startLevel(ctx, game) {
 
   if (game.start) {
     pointNClick(ctx, game, gameBegun);
-    gameBegun = drawIntro(ctx, game);
+    //gameBegun = drawIntro(ctx, game);
     if (ended) drawEnding(ctx);
   }
 }

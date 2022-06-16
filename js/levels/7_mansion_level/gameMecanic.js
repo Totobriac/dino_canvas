@@ -5,6 +5,7 @@ import { MansionDino } from "../character/mansionDino.js";
 import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
 import { outsideAction, isReadingPoster, canMove } from "./actions.js";
+import { playSound, stopWalking } from "./sound.js";
 
 var dino;
 var selectedSprite;
@@ -35,6 +36,7 @@ export function pointNClick(ctx, game, gameBegun) {
   drawOutsideScenery(ctx);
 
   if (gameBegun) {
+    dino.isMoving ? playSound("walking") : stopWalking();
     dino.checkBundaries(820, 0, 290, 320);
     if (introTxt) drawText(ctx, introText);
     if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
@@ -144,7 +146,7 @@ function executeAction(ctx) {
         func();
         if (outsideAction[i][3]) {
           setTextDisp(outsideAction[i][3]);
-        }        
+        }
         // resetAction();
         resetObject();
       }

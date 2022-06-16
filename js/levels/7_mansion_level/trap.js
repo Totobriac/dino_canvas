@@ -2,7 +2,7 @@ import { dino, rmSprite } from "./gameMecanic.js";
 import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
 import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling, isFishInside, triggerTrap } from "./actions.js";
-
+import { playSound } from "./sound.js";
 
 var rope = new Image();
 rope.src = "./assets/7_mansion/rope_trap.png";
@@ -44,6 +44,7 @@ function drawTrap(ctx) {
     sprite.trash.update(-1, 0);
     sprite.lid.update(-1, 0);
     dino.update(-1, 0);
+    playSound("pushPull");
     isPushing ? dino.isPushing = true : dino.isPulling = true;
   } else if (sprite.trash.x === 500) {
     dino.isPushing = false;
