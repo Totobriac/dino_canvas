@@ -30,6 +30,7 @@ var isCatFree = true;
 
 function getLid() {
   if (!hasLid) {
+    playSound("grabLid");
     objects.push(["couvercle", sprite.lidObject, true]);
     hasLid = true;
     rmSprite("couvercle");
@@ -198,7 +199,7 @@ var outsideAction = [
   ["Regarder", "porte", pass, " Elle est trop haute pour que je grimpe par dessus. "],
   ["Regarder", "poster ", pass, " 'And it was cold and it rained, so I felt like an actor, And I thought of Ma and I wanted to get back there. '"],
   ["Regarder", "poster", readPoster,],
-  ["Regarder", "plante grimpante", pass, " Ca ferait une bonne corde. "],
+  ["Regarder", "plante grimpante", pass, " Cela ferait une bonne corde. "],
   ["Regarder", "lampe", pass, " Je pourrais y accrocher quelque-chose "],
   ["Regarder", "bassin", pass, " Le petit poisson s'amuse sans savoir que au dessus de lui... "],
   ["Regarder", "bassin  ", renameBowl, " Le petit poisson gît au fond "],
