@@ -33,11 +33,7 @@ function playSound(sound) {
       case "tearIvy":
         tearIvySound.volume(1);
         tearIvySound.play();
-        break;
-      case "walking":
-        walkingSound.volume(0.2);
-        walkingSound.play();
-        break;
+        break;      
       case "grabLid":
         grabLidSound.volume(1);
         grabLidSound.play();
@@ -53,9 +49,9 @@ function fountainSound (dino) {
   dino.x < 300 && isRunningWater ? fountSound.play() : fountSound.stop();
 }
 
-function stopWalking() {
-  walkingSound.stop();
-  playSound(undefined);
+function walkSound (dino, isReadingPoster) {
+  walkingSound.volume(0.2);
+  dino.isMoving && !isReadingPoster? walkingSound.play() : walkingSound.stop();
 }
 
-export { playSound, stopWalking, fountainSound };
+export { playSound, walkSound, fountainSound };
