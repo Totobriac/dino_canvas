@@ -17,6 +17,10 @@ var oldMouseX = undefined;
 var introText = " Nous y voilà! On dirait le vieux château. ";
 var introTxt = true;
 
+var oldSelectedSprite;
+var oldSelectedAction;
+var errTxt;
+
 var errorTxt = [
   " Vous êtes sur? ",
   " Cela ne fonctionne pas. ",
@@ -137,12 +141,8 @@ function checkAction(ctx) {
 
 function tooFar(ctx) {
   drawText(ctx, "Je suis trop loin");
-  resetAction();
+  //resetAction();
 }
-
-var oldSelectedSprite;
-var oldSelectedAction;
-var errTxt;
 
 function executeAction(ctx) {
   for (let i = 0; i < outsideAction.length; i++) {
@@ -160,7 +160,7 @@ function executeAction(ctx) {
         if (outsideAction[i][3]) {
           setTextDisp(outsideAction[i][3]);
         }
-        // resetAction();
+        //resetAction();
         resetObject();
       }
     }
