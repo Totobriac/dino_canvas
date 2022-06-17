@@ -14,12 +14,17 @@ dinoWalkLeft.src = "./assets/dino/dino_walk_left.png";
 
 
 class MansionDino extends Dino {
-  constructor(ctx, x, y, width, height) {
+  constructor(ctx, x, y, width, height, right, left, top, bottom) {
     super(ctx, x, y, width, height);
     this.isPushing = false;
     this.isPulling = false;
+    this.right = right;
+    this.left = left;
+    this.top = top;
+    this.bottom = bottom;
   }
   moveAround(game, sprite) {
+    this.checkBundaries();
     var collision = sprite.checkCollision(this.x, this.y, this.spriteWidth * this.scale, this.spriteHeight / 2 * this.scale);
     var mouseX = game.mousePosition.x + 12;
     var mouseY = game.mousePosition.y + 12;
@@ -79,18 +84,18 @@ class MansionDino extends Dino {
       }
     }
   }
-  checkBundaries(right, left, top, bottom) {
-    if (this.x >= right) {
-      this.x = right;
+  checkBundaries() {    
+    if (this.x >= this.right) {
+      this.x = this.right;
     }
-    if (this.x <= left) {
-      this.x = left;
+    if (this.x <= this.left) {
+      this.x = this.left;
     }
-    if (this.y <= top) {
-      this.y = top;
+    if (this.y <= this.top) {
+      this.y = this.top;
     }
-    if (this.y >= bottom) {
-      this.y = bottom;
+    if (this.y >= this.bottom) {
+      this.y = this.bottom;
     }
   }
 }
