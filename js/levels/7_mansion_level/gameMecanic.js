@@ -17,6 +17,14 @@ var oldMouseX = undefined;
 var introText = " Nous y voilà! On dirait le vieux château. ";
 var introTxt = true;
 
+var errorTxt = [
+  " Vous êtes sur? ",
+  " Cela ne fonctionne pas. ",
+  " Il ne se passe rien. ",
+  " Pourquoi faire cela? ",
+  " Ce n'est pas une bonne idée. "
+]
+
 export function pointNClick(ctx, game, gameBegun) {
 
   if (oldMouseX != game.mousePosition.x) {
@@ -132,6 +140,10 @@ function tooFar(ctx) {
   resetAction();
 }
 
+var oldSelectedSprite;
+var oldSelectedAction;
+var errTxt;
+
 function executeAction(ctx) {
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
@@ -152,8 +164,22 @@ function executeAction(ctx) {
         resetObject();
       }
     }
-    if (textDisp) drawText(ctx, textDisp);
   }
+  if (selectedSprite != oldSelectedSprite) {
+    oldSelectedSprite = selectedSprite;
+    errTxt = errorText();
+  }
+  if (selectedAction != oldSelectedAction) {
+    oldSelectedAction = selectedAction;
+    errTxt = errorText();
+  }
+
+  textDisp ? drawText(ctx, textDisp) : drawText(ctx, errTxt);
+}
+
+function errorText () {
+  var rand = Math.floor(Math.random() * errorTxt.length);
+  return errorTxt[rand];
 }
 
 function drawText(ctx, text) {

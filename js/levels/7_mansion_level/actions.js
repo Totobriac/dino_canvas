@@ -39,10 +39,12 @@ function getLid() {
 }
 
 function searchTrash() {
+  playSound("search");
   sprite.trash.name = "boite au fond de la poubelle";
 }
 
 function grabCan() {
+  playSound("grabTin")
   objects.push(["boite de conserve", sprite.canSprite, false]);
   sprite.trash.name = "poubelle ";
 }
@@ -54,11 +56,11 @@ function grabDuct() {
   hasTape = true;
 }
 
-function push() {  
+function push() {
   if (dino.x > sprite.trash.x) isPushing = true;
 }
 
-function pull() { 
+function pull() {
   if (dino.x < sprite.trash.x) isPulling = true;
 }
 
@@ -75,6 +77,7 @@ function stopWater() {
 }
 
 function emptyWater() {
+  playSound("grabWater");
   removeObject("boite de conserve");
   hasWater = false;
   objects.push(["boite de conserve pleine", sprite.canSpriteWater, false]);
@@ -136,7 +139,7 @@ function catchCat() {
   rmSprite("boite de conserve pleine");
 }
 
-function answer() {  
+function answer() {
   playSound("ring");
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
   var choice2 = [" C'est moi... Le chat..."];
@@ -203,8 +206,6 @@ var outsideAction = [
   ["Regarder", "lampe", pass, " Je pourrais y accrocher quelque-chose "],
   ["Regarder", "bassin", pass, " Le petit poisson s'amuse sans savoir que au dessus de lui... "],
   ["Regarder", "bassin  ", renameBowl, " Le petit poisson gît au fond "],
-
-
 
   ["Utiliser", "answer1 ", reply, " Pepeche? Mon petit chaton? C'est bien toi? "],
   ["Utiliser", "answer1", reply, " Jetez-le par dessus la grille "],
