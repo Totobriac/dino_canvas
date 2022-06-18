@@ -8,7 +8,6 @@ import { fountainSound, walkSound } from "./sound.js";
 import { checkSelectedSprite, checkHoveredSprite } from "./mouse.js";
 import { drawText, introText, errorText, dialogue } from "./text.js";
 
-
 var dino;
 var textDisp;
 var oldMouseX = undefined;
@@ -41,7 +40,6 @@ export function pointNClick(ctx, game, gameBegun) {
     selectedSprite = checkSelectedSprite(game);
     hoveredSprite = checkHoveredSprite(game);
 
-    //checkAction(ctx);
     mouseMechanic(ctx);
 
     dialogue(ctx, hoveredSprite);
@@ -63,16 +61,19 @@ function mouseMechanic(ctx) {
     var text = selectedAction + gender + hoveredSprite.name;
     drawText(ctx, text);
   } else if (selectedAction && !selectedObject && selectedSprite && hoveredSprite) {
-    dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
+    dino.checkIfReach(selectedSprite) || isReadingPoster
+      ? executeAction(ctx)
+      : drawText(ctx, "Je suis trop loin");
   } else if (selectedAction && selectedObject && selectedSprite && hoveredSprite) {
-    dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
+    dino.checkIfReach(selectedSprite) || isReadingPoster
+      ? executeAction(ctx)
+      : drawText(ctx, "Je suis trop loin");
   }
 }
 
 function setTextDisp(txt) {
   textDisp = txt;
 }
-
 
 function executeAction(ctx) {
   var coco = false;
@@ -102,48 +103,8 @@ function executeAction(ctx) {
     oldSelectedAction = selectedAction;
     errTxt = errorText();
   }
- 
   if (!textDisp) textDisp = "";
   coco ? drawText(ctx, textDisp) : drawText(ctx, errTxt);
 }
 
-function tooFar(ctx) {
-  drawText(ctx, "Je suis trop loin");
-  //resetAction();
-}
-
 export { dino, drawText, hoveredSprite };
-
-
-// function checkHoveredSprite(game, ctx) {
-//   for (let i = 0; i < sprites.length; i++) {
-//     if (sprites[i].checkCollision(game.mouseMovePosition.x + 12, game.mouseMovePosition.y + 12, 1, 1)) {
-//       introTxt = false;
-//       hoveredSprite = {
-//         name: sprites[i].name,
-//         gender: sprites[i].male
-//       };
-//       var gender;
-//       sprites[i].male ? gender = "un " : gender = "une ";
-//       var text = gender + hoveredSprite.name;
-//       if (!textDisp && !selectedAction) drawText(ctx, text);
-//       return
-//     } else {
-//       hoveredSprite = null;
-//     }
-//   }
-
-
-
-// function checkAction(ctx) {
-//   if (selectedAction && !hoveredSprite) {
-//     drawText(ctx, selectedAction + "... ");
-//   } if (selectedAction && hoveredSprite && !selectedSprite) {
-//     var gender;
-//     hoveredSprite.gender ? gender = " le " : gender = " la ";
-//     var text = selectedAction + gender + hoveredSprite.name;
-//     if (!selectedObject) drawText(ctx, text)
-//   } if (selectedAction && selectedSprite) {
-//     dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
-//   }
-// }
