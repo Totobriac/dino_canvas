@@ -76,12 +76,10 @@ function setTextDisp(txt) {
 }
 
 function executeAction(ctx) {
-  var coco = false;
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
       func(ctx);
-      coco = true
       if (outsideAction[i][3]) {
         setTextDisp(outsideAction[i][3]);
       }
@@ -90,7 +88,6 @@ function executeAction(ctx) {
       if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
         func();
-        coco = true
         if (outsideAction[i][3]) {
           setTextDisp(outsideAction[i][3]);
         }
@@ -101,10 +98,10 @@ function executeAction(ctx) {
   if (selectedSprite != oldSelectedSprite || selectedAction != oldSelectedAction) {
     oldSelectedSprite = selectedSprite;
     oldSelectedAction = selectedAction;
-    errTxt = errorText();
+    setTextDisp(errorText())
   }
   if (!textDisp) textDisp = "";
-  coco ? drawText(ctx, textDisp) : drawText(ctx, errTxt);
+  drawText(ctx, textDisp)
 }
 
 export { dino, drawText, hoveredSprite };
