@@ -1,6 +1,5 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
 import { drawActions } from "./side_bar.js";
-import { sprites } from "./outside_mansion.js";
 import { MansionDino } from "./mansionDino.js";
 import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
@@ -11,7 +10,6 @@ import { drawText, introText, errorText, dialogue } from "./text.js";
 
 
 var dino;
-var isDinoCreated = false;
 var textDisp;
 var oldMouseX = undefined;
 var oldSelectedSprite;
@@ -23,18 +21,13 @@ var hoveredSprite;
 
 export function pointNClick(ctx, game, gameBegun) {
 
-  // if (oldMouseX != game.mousePosition.x) {
-  //   oldMouseX = game.mousePosition.x;
-  //   textDisp = undefined;
-  // }
-
-  if (!isDinoCreated) {
-    dino = new MansionDino(ctx, 1120, 300, 90, 188, 820, 0, 290, 320);
-    console.log(dino.right, dino.left, dino.top, dino.bottom);
-    isDinoCreated = true;   
-  }
- 
+  if (!dino) dino = new MansionDino(ctx, 1120, 300, 90, 188, 820, 0, 290, 320);
   drawOutsideScenery(ctx);
+
+  if (oldMouseX != game.mousePosition.x) {
+    oldMouseX = game.mousePosition.x;
+    textDisp = undefined;
+  }
 
   if (gameBegun) {
     walkSound(dino, isReadingPoster);
@@ -48,27 +41,36 @@ export function pointNClick(ctx, game, gameBegun) {
     selectedSprite = checkSelectedSprite(game);
     hoveredSprite = checkHoveredSprite(game);
 
-    checkAction(ctx);
+    //checkAction(ctx);
+    mouseMechanic(ctx);
+
     dialogue(ctx, hoveredSprite);
   }
   drawActions(ctx, game, gameBegun);
 }
 
-function setTextDisp(txt) {
-  textDisp = txt;
-}
-
-function checkAction(ctx) {
-  if (selectedAction && !hoveredSprite) {
-    drawText(ctx, selectedAction);
-  } if (selectedAction && hoveredSprite && !selectedSprite) {
+function mouseMechanic(ctx) {
+  if (hoveredSprite && !selectedAction) {
     var gender;
-    hoveredSprite.gender ? gender = " le " : gender = " la ";
+    hoveredSprite.male ? gender = "un " : gender = "une ";
+    var text = gender + hoveredSprite.name;
+    drawText(ctx, text);
+  } else if (selectedAction && !selectedObject && !selectedSprite && !hoveredSprite) {
+    drawText(ctx, selectedAction + "... ");
+  } else if (selectedAction && !selectedObject && !selectedSprite && hoveredSprite) {
+    var gender;
+    hoveredSprite.male ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
-    if (!selectedObject) drawText(ctx, text)
-  } if (selectedAction && selectedSprite) {
+    drawText(ctx, text);
+  } else if (selectedAction && !selectedObject && selectedSprite && hoveredSprite) {
+    dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
+  } else if (selectedAction && selectedObject && selectedSprite && hoveredSprite) {
     dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
   }
+}
+
+function setTextDisp(txt) {
+  textDisp = txt;
 }
 
 
@@ -95,14 +97,12 @@ function executeAction(ctx) {
       }
     }
   }
-  if (selectedSprite != oldSelectedSprite) {
+  if (selectedSprite != oldSelectedSprite || selectedAction != oldSelectedAction) {
     oldSelectedSprite = selectedSprite;
-    errTxt = errorText();
-  }
-  if (selectedAction != oldSelectedAction) {
     oldSelectedAction = selectedAction;
     errTxt = errorText();
   }
+ 
   if (!textDisp) textDisp = "";
   coco ? drawText(ctx, textDisp) : drawText(ctx, errTxt);
 }
@@ -132,3 +132,18 @@ export { dino, drawText, hoveredSprite };
 //       hoveredSprite = null;
 //     }
 //   }
+
+
+
+// function checkAction(ctx) {
+//   if (selectedAction && !hoveredSprite) {
+//     drawText(ctx, selectedAction + "... ");
+//   } if (selectedAction && hoveredSprite && !selectedSprite) {
+//     var gender;
+//     hoveredSprite.gender ? gender = " le " : gender = " la ";
+//     var text = selectedAction + gender + hoveredSprite.name;
+//     if (!selectedObject) drawText(ctx, text)
+//   } if (selectedAction && selectedSprite) {
+//     dino.checkIfReach(selectedSprite) || isReadingPoster ? executeAction(ctx) : tooFar(ctx);
+//   }
+// }
