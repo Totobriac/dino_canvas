@@ -63,4 +63,9 @@ function setDial(dl) {
   dial = dl;
 }
 
-export { drawText, introText, errorTxt, dialogue, setDial };
+function errorText () {
+  var rand = Math.floor(Math.random() * errorTxt.length);
+  return errorTxt[rand];
+}
+
+export { drawText, introText, dialogue, setDial, errorText };

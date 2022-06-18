@@ -1,4 +1,5 @@
-import { dino, rmSprite } from "./gameMecanic.js";
+import { dino } from "./gameMecanic.js";
+import { rmSprite } from "./outside_mansion.js";
 import * as sprite from "./outside_sprite.js";
 import { Sprite } from "./sprite.js";
 import { ropeSet, isTinAttached, isLidAttached, isPushing, isPulling, isFishInside, triggerTrap } from "./actions.js";

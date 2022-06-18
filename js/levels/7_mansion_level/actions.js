@@ -1,9 +1,9 @@
-import { dino, rmSprite, addSprite } from "./gameMecanic.js";
+import { dino } from "./gameMecanic.js";
 import { endLevel } from "./startLevel7.js";
 import { resetAction } from "./side_bar.js";
 import { setDial } from "./text.js";
 import { playSound } from "./sound.js";
-
+import { rmSprite, addSprite} from "./outside_mansion.js";
 import * as sprite from "./outside_sprite.js";
 import { rope, canWater } from "./trap.js";
 

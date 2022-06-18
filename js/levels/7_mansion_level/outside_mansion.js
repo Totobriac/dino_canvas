@@ -10,7 +10,7 @@ var sprites  =
 
 var oldSprites = [];
 
-export function drawOutsideScenery(ctx) {
+function drawOutsideScenery(ctx) {
 
   sprite.drawSetting(ctx);
 
@@ -28,4 +28,16 @@ export function drawOutsideScenery(ctx) {
 
 }
 
-export { sprites };
+function rmSprite(sprite) {
+  for (let i = 0; i < sprites.length; i++) {
+    if (sprites[i].name === sprite) {
+      sprites.splice(i, 1);
+    }
+  }
+}
+
+function addSprite(sprite) {
+  sprites.unshift(sprite);
+}
+
+export { drawOutsideScenery, sprites, rmSprite, addSprite };

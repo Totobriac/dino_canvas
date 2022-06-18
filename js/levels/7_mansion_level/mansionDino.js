@@ -1,4 +1,4 @@
-import { Dino } from "./mainDino.js";
+import { Dino } from "../character/mainDino.js";
 
 var dinoSprite = new Image();
 dinoSprite.src = "./assets/dino/dino_still.png";
@@ -84,7 +84,7 @@ class MansionDino extends Dino {
       }
     }
   }
-  checkBundaries() {    
+  checkBundaries() {
     if (this.x >= this.right) {
       this.x = this.right;
     }
@@ -96,6 +96,13 @@ class MansionDino extends Dino {
     }
     if (this.y >= this.bottom) {
       this.y = this.bottom;
+    }
+  }
+  checkIfReach(sprite) {
+    if (this.x + (this.spriteWidth * this.scale) + 5 < sprite.x - 5 || this.x - 5 > sprite.x + (sprite.spriteWidth * sprite.scale) + 6) {
+      return false;
+    } else {
+      return true;
     }
   }
 }
