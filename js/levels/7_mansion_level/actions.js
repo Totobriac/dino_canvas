@@ -30,7 +30,7 @@ var isCatFree = true;
 
 function getLid() {
   if (!hasLid) {
-    endLevel()
+    endGame()
     playSound("grabLid");
     objects.push(["couvercle", sprite.lidObject, true]);
     hasLid = true;
@@ -192,6 +192,7 @@ function renameBowl() {
 }
 
 function endGame() {
+  playSound("cat");
   sprite.gate.columns = 4;
   sprite.gate.frames = 4;
   sprite.gate.sprite = openGateSprite;

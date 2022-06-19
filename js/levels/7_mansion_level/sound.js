@@ -12,6 +12,7 @@ var grabTinSound = new sound("../assets/7_mansion/sounds/pickup_tin.mp3", false)
 var emptyWaterSound = new sound("../assets/7_mansion/sounds/pickup_water.mp3", false);
 var searchSound = new sound("../assets/7_mansion/sounds/search.mp3", false);
 var lighteningSound = new sound("../assets/7_mansion/sounds/light.mp3", false);
+var catSound = new sound("../assets/7_mansion/sounds/cat.mp3", false);
 
 
 var soundPlaying = false;
@@ -57,6 +58,11 @@ function playSound(sound) {
       case "light":
         lighteningSound.volume(1);
         lighteningSound.play();
+      break;
+      case "cat":
+        catSound.volume(1);
+        catSound.play();
+        break;
     }
     soundPlaying = true;
     oldSound = sound;
