@@ -68,11 +68,11 @@ function grabRope() {
   playSound("tearIvy");  
   objects.push(["corde", sprite.ropeSprite, false]);
   sprite.ivy.name = "plante grimpante ";
-  var deleteIvy = setTimeout(rmIvy, 2000);  
+  var deleteIvy = setTimeout(rmIvy, 2000, "plante grimpante ");  
 }
 
-function rmIvy() {
-  rmSprite("plante grimpante");
+function rmIvy(item) {
+  rmSprite(item);
 }
 
 function stopWater() {
@@ -147,17 +147,11 @@ function catchCat() {
 function answer() {
   playSound("ring");
   var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
-  var choice2 = [" C'est moi... Le chat..."];
-
   dino.isMoving = false;
   canMove = false;
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
-  isCatFree ? setDial(choice1) : setDial(choice2);
-  if (!isCatFree) {
-    sprite.answer1.name = "answer1 ";
-    sprite.ring.name = "sonette  ";
-  }
+  if (isCatFree) setDial(choice1); 
 }
 
 function reply() {
@@ -177,6 +171,7 @@ function grabCat() {
   isCatFree = false;
   objects.push(["chat gourmand mais pas fute-fute", sprite.catHeadSprite, false]);
   sprite.trash.name = "poubelle   ";
+  sprite.ring.name = "sonette   ";
   resetAction();
 }
 
@@ -200,7 +195,7 @@ function pass() { };
 
 var outsideAction = [
   ["Regarder", "chat", pass, " Miaou! Miaou! "],
-  ["Regarder", "annonce", scotch, " L' annonce est collée par du scotch. "],
+  ["Regarder", "annonce", scotch, " L'annonce est collée par du scotch. "],
   ["Regarder", "poubelle", pass, " Quelque chose attire les mouches. "],
   ["Regarder", "poubelle ", pass, " Je vois un truc au fond. "],
   ["Regarder", "sonette", pass, " Il y a un bouton pour appeler, c'est une sonette quoi... "],
@@ -217,7 +212,6 @@ var outsideAction = [
   ["Utiliser", "answer2", reply, " Connais pas de moi "],
 
   ["Utiliser", "sonette", answer, " Cé koi? "],
-  ["Utiliser", "sonette ", answer, " koi encore? "],
   ["Ouvrir", "porte", pass, " C'est fermé. "],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu... "],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu... "],
@@ -226,24 +220,24 @@ var outsideAction = [
   ["Prendre", "boite au fond de la poubelle", grabCan, " Je l'ai. "],
 
   ["Prendre", "scotch", grabDuct, " A quoi cela va me servir ? "],
-  ["Pousser", "poubelle", push],
-  ["Pousser", "poubelle ", push],
-  ["Pousser", "poubelle  ", push],
-  ["Tirer", "poubelle", pull],
-  ["Tirer", "poubelle ", pull],
-  ["Tirer", "poubelle  ", pull],
+  ["Pousser", "poubelle", push, " Oh hisse! "],
+  ["Pousser", "poubelle ", push, " Oh hisse! "],
+  ["Pousser", "poubelle  ", push, " Oh hisse! "],
+  ["Tirer", "poubelle", pull, " Oh hisse! "],
+  ["Tirer", "poubelle ", pull, " Oh hisse! "],
+  ["Tirer", "poubelle  ", pull, " Oh hisse! "],
   ["Prendre", "plante grimpante", grabRope, " J'ai un corde bien solide "],
-  ["Prendre", "petit poisson", grabFish],
-  ["Prendre", "boite de conserve pleine", catchCat],
-  ["Prendre", "poubelle  ", grabCat],
+  ["Prendre", "petit poisson", grabFish, " Je suis sur que le chat en est friand "],
+  ["Prendre", "boite de conserve pleine", catchCat, " Je vais pieger ce chat, il va m'aider à rentrer. "],
+  ["Prendre", "poubelle  ", grabCat, "  "],
 
-  ["boulle de scotch", "tête de lion", stopWater,],
-  ["boite de conserve", "bassin ", emptyWater, " Je n'ai pas reussis à attraper le poisson "],
-  ["corde", "lampe", setTrap],
-  ["couvercle", "corde", attachLid],
-  ["boite de conserve pleine", "corde", attachTin],
-  ["poisson", "poubelle ", leaveFish],
-  ["chat gourmand mais pas fute-fute", "sonette  ", endGame, " Entre mon petit minet "],
+  ["boulle de scotch", "tête de lion", stopWater, " L'eau de coule plus. "],
+  ["boite de conserve", "bassin ", emptyWater, " Je pourrai fabriquer un piége pour attraper le chat mais il me manque un appât. "],
+  ["corde", "lampe", setTrap, " J'ai peut-être une idée. "],
+  ["couvercle", "corde", attachLid, " Je suis diabolique. "],
+  ["boite de conserve pleine", "corde", attachTin, " Parfait. "],
+  ["poisson", "poubelle ", leaveFish, " Cela va attirer minou "],
+  ["chat gourmand mais pas fute-fute", "sonette   ", endGame, " Pepeche mon petit minou ? Entre mon petit minet "],
 ]
 
 
