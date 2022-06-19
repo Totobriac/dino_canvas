@@ -11,9 +11,6 @@ import { drawText, introText, errorText, dialogue } from "./text.js";
 var dino;
 var textDisp;
 var oldMouseX = undefined;
-var oldSelectedSprite;
-var oldSelectedAction;
-var errTxt;
 var selectedSprite;
 var hoveredSprite;
 
@@ -36,12 +33,9 @@ export function pointNClick(ctx, game, gameBegun) {
       dino.moveAround(game, trash);
     }
     if (!isReadingPoster) dino.animateDino();
-
     selectedSprite = checkSelectedSprite(game);
     hoveredSprite = checkHoveredSprite(game);
-
     mouseMechanic(ctx);
-
     dialogue(ctx, hoveredSprite);
   }
   drawActions(ctx, game, gameBegun);
@@ -60,28 +54,25 @@ function mouseMechanic(ctx) {
     hoveredSprite.male ? gender = " le " : gender = " la ";
     var text = selectedAction + gender + hoveredSprite.name;
     drawText(ctx, text);
-  } else if (selectedAction && !selectedObject && selectedSprite && hoveredSprite) {
+  } else if (selectedAction && !selectedObject && selectedSprite ) {
     dino.checkIfReach(selectedSprite) || isReadingPoster
       ? executeAction(ctx)
       : drawText(ctx, "Je suis trop loin");
-  } else if (selectedAction && selectedObject && selectedSprite && hoveredSprite) {
+  } else if (selectedAction && selectedObject && selectedSprite ) {
     dino.checkIfReach(selectedSprite) || isReadingPoster
       ? executeAction(ctx)
       : drawText(ctx, "Je suis trop loin");
   }
 }
 
-function setTextDisp(txt) {
-  textDisp = txt;
-}
-
 function executeAction(ctx) {
+ 
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
       func(ctx);
       if (outsideAction[i][3]) {
-        setTextDisp(outsideAction[i][3]);
+        textDisp = outsideAction[i][3];
       }
     }
     if (selectedAction === "Utiliser" && selectedObject) {
@@ -89,18 +80,15 @@ function executeAction(ctx) {
         const func = outsideAction[i][2];
         func();
         if (outsideAction[i][3]) {
-          setTextDisp(outsideAction[i][3]);
+          textDisp = outsideAction[i][3];
         }
         resetObject();
       }
     }
   }
-  if (selectedSprite != oldSelectedSprite || selectedAction != oldSelectedAction) {
-    oldSelectedSprite = selectedSprite;
-    oldSelectedAction = selectedAction;
-    setTextDisp(errorText())
+  if (!textDisp) {
+    textDisp = errorText();
   }
-  if (!textDisp) textDisp = "";
   drawText(ctx, textDisp)
 }
 

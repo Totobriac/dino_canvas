@@ -65,8 +65,13 @@ function pull() {
 }
 
 function grabRope() {
-  playSound("tearIvy");
+  playSound("tearIvy");  
   objects.push(["corde", sprite.ropeSprite, false]);
+  sprite.ivy.name = "plante grimpante ";
+  var deleteIvy = setTimeout(rmIvy, 2000);  
+}
+
+function rmIvy() {
   rmSprite("plante grimpante");
 }
 
@@ -211,22 +216,23 @@ var outsideAction = [
   ["Utiliser", "answer1", reply, " Jetez-le par dessus la grille "],
   ["Utiliser", "answer2", reply, " Connais pas de moi "],
 
-  ["Utiliser", "sonette", answer, " Cé koi?"],
-  ["Utiliser", "sonette ", answer, " koi encore?"],
-  ["Ouvrir", "porte", pass, " C'est fermé."],
-  ["Prendre", "couvercle", getLid, "Voyons voir un peu..."],
-  ["Ouvrir", "poubelle", getLid, "Voyons voir un peu..."],
+  ["Utiliser", "sonette", answer, " Cé koi? "],
+  ["Utiliser", "sonette ", answer, " koi encore? "],
+  ["Ouvrir", "porte", pass, " C'est fermé. "],
+  ["Prendre", "couvercle", getLid, "Voyons voir un peu... "],
+  ["Ouvrir", "poubelle", getLid, "Voyons voir un peu... "],
   ["Fouiller", "poubelle ", searchTrash, " Il y a une boite de conserve au fond! "],
-  ["Prendre", "boite au fond de la poubelle", grabCan],
+  ["Prendre", "boite au fond de la poubelle ", grabCan, " Je l'ai. "],
+  ["Prendre", "boite au fond de la poubelle", grabCan, " Je l'ai. "],
 
-  ["Prendre", "scotch", grabDuct],
+  ["Prendre", "scotch", grabDuct, " A quoi cela va me servir ? "],
   ["Pousser", "poubelle", push],
   ["Pousser", "poubelle ", push],
   ["Pousser", "poubelle  ", push],
   ["Tirer", "poubelle", pull],
   ["Tirer", "poubelle ", pull],
   ["Tirer", "poubelle  ", pull],
-  ["Prendre", "plante grimpante", grabRope],
+  ["Prendre", "plante grimpante", grabRope, " J'ai un corde bien solide "],
   ["Prendre", "petit poisson", grabFish],
   ["Prendre", "boite de conserve pleine", catchCat],
   ["Prendre", "poubelle  ", grabCat],
