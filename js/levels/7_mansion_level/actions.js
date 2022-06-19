@@ -68,10 +68,10 @@ function grabRope() {
   playSound("tearIvy");  
   objects.push(["corde", sprite.ropeSprite, false]);
   sprite.ivy.name = "plante grimpante ";
-  var deleteIvy = setTimeout(rmIvy, 2000, "plante grimpante ");  
+  var deleteIvy = setTimeout(rmItem, 2000, "plante grimpante ");  
 }
 
-function rmIvy(item) {
+function rmItem(item) {
   rmSprite(item);
 }
 
@@ -92,7 +92,8 @@ function emptyWater() {
 function grabFish() {
   if (!isRunningWater && !hasWater) {
     objects.push(["poisson", sprite.dyingFish, true]);
-    rmSprite("petit poisson");
+    sprite.fish.name = "petit poisson "
+    var deleteFish = setTimeout(rmItem, 2000, "petit poisson ");
   }
 }
 
@@ -227,7 +228,7 @@ var outsideAction = [
   ["Tirer", "poubelle ", pull, " Oh hisse! "],
   ["Tirer", "poubelle  ", pull, " Oh hisse! "],
   ["Prendre", "plante grimpante", grabRope, " J'ai un corde bien solide "],
-  ["Prendre", "petit poisson", grabFish, " Je suis sur que le chat en est friand "],
+  ["Prendre", "petit poisson", grabFish, " Je suis sûr que le chat en est friand "],
   ["Prendre", "boite de conserve pleine", catchCat, " Je vais pieger ce chat, il va m'aider à rentrer. "],
   ["Prendre", "poubelle  ", grabCat, "  "],
 
