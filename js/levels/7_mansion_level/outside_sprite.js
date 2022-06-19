@@ -92,9 +92,6 @@ fishSprite.src = "./assets/7_mansion/jumping_fish.png";
 export var dyingFish = new Image();
 dyingFish.src = "./assets/7_mansion/fish2.png";
 
-export var fishFloor = new Image();
-fishFloor.src = "./assets/7_mansion/fish_floor.png";
-
 var lighteningsSprite = new Image();
 lighteningsSprite.src = "./assets/7_mansion/lightenings.png";
 

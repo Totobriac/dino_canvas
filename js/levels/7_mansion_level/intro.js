@@ -1,4 +1,5 @@
 import { rideTheLightening } from "./outside_sprite.js";
+import { playSound } from "./sound.js";
 
 var tiles = [];
 var startX = 0;
@@ -67,6 +68,7 @@ export function drawIntro(ctx, game) {
 
 
 export function drawEnding(ctx) {
+  playSound("light");
   if (tickCount < maxTickCount) {
     tickCount++;
   } else {
@@ -78,6 +80,7 @@ export function drawEnding(ctx) {
     if (tiles[i].isVisible) tiles[i].draw();
   }
 }
+
 
 var checkCollsion = (game, tile) => {
   var mouseX = game.mouseMovePosition.x;

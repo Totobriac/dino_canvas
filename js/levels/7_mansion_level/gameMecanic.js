@@ -86,7 +86,6 @@ function executeAction(ctx) {
       }
     }
   }
-  console.log(textDisp);
   if (!textDisp) {
     textDisp = errorText();
   }

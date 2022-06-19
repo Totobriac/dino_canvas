@@ -30,6 +30,7 @@ var isCatFree = true;
 
 function getLid() {
   if (!hasLid) {
+    endLevel()
     playSound("grabLid");
     objects.push(["couvercle", sprite.lidObject, true]);
     hasLid = true;
