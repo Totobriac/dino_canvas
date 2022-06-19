@@ -66,7 +66,7 @@ function mouseMechanic(ctx) {
 }
 
 function executeAction(ctx) {
- 
+
   for (let i = 0; i < outsideAction.length; i++) {
     if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
       const func = outsideAction[i][2];
@@ -86,6 +86,7 @@ function executeAction(ctx) {
       }
     }
   }
+  console.log(textDisp);
   if (!textDisp) {
     textDisp = errorText();
   }

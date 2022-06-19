@@ -65,10 +65,10 @@ function pull() {
 }
 
 function grabRope() {
-  playSound("tearIvy");  
+  playSound("tearIvy");
   objects.push(["corde", sprite.ropeSprite, false]);
   sprite.ivy.name = "plante grimpante ";
-  var deleteIvy = setTimeout(rmItem, 2000, "plante grimpante ");  
+  var deleteIvy = setTimeout(rmItem, 2000, "plante grimpante ");
 }
 
 function rmItem(item) {
@@ -92,7 +92,7 @@ function emptyWater() {
 function grabFish() {
   if (!isRunningWater && !hasWater) {
     objects.push(["poisson", sprite.dyingFish, true]);
-    sprite.fish.name = "petit poisson "
+    sprite.bowl.name = "petit poisson ";
     var deleteFish = setTimeout(rmItem, 2000, "petit poisson ");
   }
 }
@@ -140,7 +140,7 @@ function leavePoster() {
 
 function catchCat() {
   triggerTrap = true;
-  sprite.ring.name = "sonette ";
+  sprite.ring.name = "sonnette ";
   sprite.trash.name = "poubelle  ";
   rmSprite("boite de conserve pleine");
 }
@@ -152,7 +152,12 @@ function answer() {
   canMove = false;
   addSprite(sprite.answer1);
   addSprite(sprite.answer2);
-  if (isCatFree) setDial(choice1); 
+  if (isCatFree) setDial(choice1);
+}
+
+function answer_2() {
+  playSound("ring");
+  sprite.ring.name = "sonnette   ";
 }
 
 function reply() {
@@ -172,7 +177,7 @@ function grabCat() {
   isCatFree = false;
   objects.push(["chat gourmand mais pas fute-fute", sprite.catHeadSprite, false]);
   sprite.trash.name = "poubelle   ";
-  sprite.ring.name = "sonette   ";
+  sprite.ring.name = "sonnette  ";
   resetAction();
 }
 
@@ -199,7 +204,7 @@ var outsideAction = [
   ["Regarder", "annonce", scotch, " L'annonce est collée par du scotch. "],
   ["Regarder", "poubelle", pass, " Quelque chose attire les mouches. "],
   ["Regarder", "poubelle ", pass, " Je vois un truc au fond. "],
-  ["Regarder", "sonette", pass, " Il y a un bouton pour appeler, c'est une sonette quoi... "],
+  ["Regarder", "sonnette", pass, " Il y a un bouton pour appeler, c'est une sonnette quoi... "],
   ["Regarder", "porte", pass, " Elle est trop haute pour que je grimpe par dessus. "],
   ["Regarder", "poster ", pass, " 'And it was cold and it rained, so I felt like an actor, And I thought of Ma and I wanted to get back there. '"],
   ["Regarder", "poster", readPoster,],
@@ -212,7 +217,10 @@ var outsideAction = [
   ["Utiliser", "answer1", reply, " Jetez-le par dessus la grille "],
   ["Utiliser", "answer2", reply, " Connais pas de moi "],
 
-  ["Utiliser", "sonette", answer, " Cé koi? "],
+  ["Utiliser", "sonnette", answer, " Cé koi? "],
+  ["Utiliser", "sonnette  ", answer_2, " Je suis pas là, je suis partie chercher mon chat. "],
+
+
   ["Ouvrir", "porte", pass, " C'est fermé. "],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu... "],
   ["Ouvrir", "poubelle", getLid, "Voyons voir un peu... "],
@@ -230,15 +238,16 @@ var outsideAction = [
   ["Prendre", "plante grimpante", grabRope, " J'ai un corde bien solide "],
   ["Prendre", "petit poisson", grabFish, " Je suis sûr que le chat en est friand "],
   ["Prendre", "boite de conserve pleine", catchCat, " Je vais pieger ce chat, il va m'aider à rentrer. "],
-  ["Prendre", "poubelle  ", grabCat, "  "],
+  ["Prendre", "poubelle  ", grabCat, " Je vais pieger ce chat, il va m'aider à rentrer. "],
 
   ["boulle de scotch", "tête de lion", stopWater, " L'eau de coule plus. "],
   ["boite de conserve", "bassin ", emptyWater, " Je pourrai fabriquer un piége pour attraper le chat mais il me manque un appât. "],
+  ["boite de conserve", "bassin", emptyWater, " A quoi bon? L'eau n'arrête pas de couler, je ne pourrais pas le vider. "],
   ["corde", "lampe", setTrap, " J'ai peut-être une idée. "],
   ["couvercle", "corde", attachLid, " Je suis diabolique. "],
   ["boite de conserve pleine", "corde", attachTin, " Parfait. "],
   ["poisson", "poubelle ", leaveFish, " Cela va attirer minou "],
-  ["chat gourmand mais pas fute-fute", "sonette   ", endGame, " Pepeche mon petit minou ? Entre mon petit minet "],
+  ["chat gourmand mais pas fute-fute", "sonnette   ", endGame, " Pepeche mon petit minou ? Entre mon petit minet "],
 ]
 
 

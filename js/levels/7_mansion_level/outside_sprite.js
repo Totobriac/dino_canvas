@@ -120,7 +120,7 @@ export var bigAnnounce = new Sprite("annonce", bigPeeWeeSprite, 0, 0, 1, 1, 225,
 
 export var announce = new Sprite("annonce", bigPeeWeeSprite, 280, 45, 1, 1, 225, 300, 0.9, false, false);
 
-export var ring = new Sprite("sonette", ringSprite, 315, 240, 1, 1, 100, 100, 0.5, false);
+export var ring = new Sprite("sonnette", ringSprite, 315, 240, 1, 1, 100, 100, 0.5, false);
 export var sign = new Sprite("sign", hotelSignSprite, 519, 210, 1, 1, 200, 200, 0.15, true);
 
 export var lionHead = new Sprite("tête de lion", lionSprite, 90, 280, 1, 1, 162, 199, 0.2, false);
