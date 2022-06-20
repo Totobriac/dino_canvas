@@ -12,8 +12,11 @@ var maxTickCount = 1;
 var tile = 300;
 
 var index = 0;
+var curtain = false;
 
 var wasDrawn = false;
+var ind = 0
+
 
 var msk = [16, 17, 18, 19, 20, 21,
   46, 47, 48, 49, 50, 51,
@@ -79,6 +82,17 @@ export function drawEnding(ctx) {
     tile > 1 ? tile-- : drawCurtain(ctx);
   }
   if (!msk.includes(tiles[tile - 1].index)) tiles[tile - 1].isVisible = true;
+
+  if (curtain) {
+    if (tickCount < maxTickCount) {
+      tickCount++;
+    } else {
+      tickCount = 0;
+      if (ind < msk.length) ind ++;
+    }
+    var coco = msk[ind] - 1;
+    tiles[coco].isVisible = true;
+  }
   for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].isVisible) tiles[i].draw();
   }
@@ -92,10 +106,14 @@ function drawCurtain(ctx) {
 
 function endSoundAndMask(ctx) {
   stopSound();
-  for (let i = 0; i < msk.length; i++) {
-    var index = msk[i] - 1;
-    tiles[index].isVisible = true;
-  }    
+  curtain = true;
+
+
+
+  // for (let i = 0; i < msk.length; i++) {
+  //   var index = msk[i] - 1;
+  //   tiles[index].isVisible = true;
+  // }
   //game.switchLevel(8);
 }
 
