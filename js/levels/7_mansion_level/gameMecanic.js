@@ -68,13 +68,6 @@ function mouseMechanic(ctx) {
 function executeAction(ctx) {
 
   for (let i = 0; i < outsideAction.length; i++) {
-    if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
-      const func = outsideAction[i][2];
-      func(ctx);
-      if (outsideAction[i][3]) {
-        textDisp = outsideAction[i][3];
-      }
-    }
     if (selectedAction === "Utiliser" && selectedObject) {
       if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
@@ -85,6 +78,23 @@ function executeAction(ctx) {
         resetObject();
       }
     }
+    if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
+      const func = outsideAction[i][2];
+      func(ctx);
+      if (outsideAction[i][3]) {
+        textDisp = outsideAction[i][3];
+      }
+    }
+    // if (selectedAction === "Utiliser" && selectedObject) {
+    //   if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
+    //     const func = outsideAction[i][2];
+    //     func();
+    //     if (outsideAction[i][3]) {
+    //       textDisp = outsideAction[i][3];
+    //     }
+    //     resetObject();
+    //   }
+    // }
   }
   if (!textDisp) {
     textDisp = errorText();

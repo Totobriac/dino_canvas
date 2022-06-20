@@ -27,6 +27,7 @@ var objects = [];
 var canMove = true;
 var isCatFree = true;
 
+var hasMiouMiou = false;
 
 function getLid() {
   if (!hasLid) {
@@ -145,23 +146,7 @@ function catchCat() {
   rmSprite("boite de conserve pleine");
 }
 
-function answer() {
-  playSound("ring");
-  var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
-  dino.isMoving = false;
-  canMove = false;
-  addSprite(sprite.answer1);
-  addSprite(sprite.answer2);
-  if (isCatFree) setDial(choice1);
-}
-
-function answer_2() {
-  playSound("ring");
-  sprite.ring.name = "sonnette   ";
-}
-
 function reply() {
-  playSound(undefined)
   var clearAns = setTimeout(rmvAns, 3000);
   setDial([]);
 }
@@ -191,11 +176,33 @@ function renameBowl() {
 }
 
 function endGame() {
-  playSound("cat");
+  if (!hasMiouMiou) playSound("cat");
+  hasMiouMiou = true;
   sprite.gate.columns = 4;
   sprite.gate.frames = 4;
   sprite.gate.sprite = openGateSprite;
   endLevel();
+  reply();
+}
+
+function answer() {
+  playSound("ring");
+  var choice1 = [" J'ai un colis pour vous ", " C'est moi... "];
+  dino.isMoving = false;
+  canMove = false;
+  addSprite(sprite.answer1);
+  addSprite(sprite.answer2);
+  if (isCatFree) setDial(choice1);
+}
+
+function answer_2() {
+  playSound("ring");
+  var choice = [" Miaou "];
+  dino.isMoving = false;
+  canMove = false;
+  addSprite(sprite.answer1);
+  sprite.answer1.name = "answer1 ";
+  setDial(choice);
 }
 
 function pass() { };
@@ -214,13 +221,12 @@ var outsideAction = [
   ["Regarder", "bassin", pass, " Le petit poisson s'amuse sans savoir que au dessus de lui... "],
   ["Regarder", "bassin  ", renameBowl, " Le petit poisson gît au fond "],
 
-  ["Utiliser", "answer1 ", reply, " Pepeche? Mon petit chaton? C'est bien toi? "],
+  ["Utiliser", "answer1 ", endGame, " Pepeche? Mon petit chaton? C'est bien toi? "],
   ["Utiliser", "answer1", reply, " Jetez-le par dessus la grille "],
   ["Utiliser", "answer2", reply, " Connais pas de moi "],
 
   ["Utiliser", "sonnette", answer, " Cé koi? "],
-  ["Utiliser", "sonnette  ", answer_2, " Je suis pas là, je suis partie chercher mon chat. "],
-
+  ["Utiliser", "sonnette  ", answer_2, " Je suis partie chercher mon chat. "],
 
   ["Ouvrir", "porte", pass, " C'est fermé. "],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu... "],
@@ -248,7 +254,6 @@ var outsideAction = [
   ["couvercle", "corde", attachLid, " Je suis diabolique. "],
   ["boite de conserve pleine", "corde", attachTin, " Parfait. "],
   ["poisson", "poubelle ", leaveFish, " Cela va attirer minou "],
-  ["chat gourmand mais pas fute-fute", "sonnette   ", endGame, " Pepeche mon petit minou ? Entre mon petit minet "],
 ]
 
 
