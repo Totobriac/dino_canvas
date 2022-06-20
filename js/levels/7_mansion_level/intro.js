@@ -1,5 +1,6 @@
 import { rideTheLightening } from "./outside_sprite.js";
-import { playSound } from "./sound.js";
+import { playSound, stopSound } from "./sound.js";
+import { game } from "../../script.js";
 
 var tiles = [];
 var startX = 0;
@@ -12,11 +13,13 @@ var tile = 300;
 
 var index = 0;
 
-var msk =
-  [16, 17, 18, 19, 20, 21,
-    46, 47, 48, 49, 50, 51,
-    76, 77, 78, 79, 80, 81,
-    106, 107, 108, 109, 110, 111]
+var wasDrawn = false;
+
+var msk = [16, 17, 18, 19, 20, 21,
+  46, 47, 48, 49, 50, 51,
+  76, 77, 78, 79, 80, 81,
+  106, 107, 108, 109, 110, 111
+]
 
 class Tile {
   constructor(x, y, index, ctx) {
@@ -66,19 +69,29 @@ export function drawIntro(ctx, game) {
   }
 }
 
-
 export function drawEnding(ctx) {
   playSound("light");
   if (tickCount < maxTickCount) {
     tickCount++;
   } else {
     tickCount = 0;
-    tile > 1 ? tile -- : rideTheLightening();
+    tile > 1 ? tile-- : drawCurtain(ctx);
   }
   if (!msk.includes(tiles[tile - 1].index)) tiles[tile - 1].isVisible = true;
   for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].isVisible) tiles[i].draw();
   }
+}
+
+function drawCurtain(ctx) {
+  rideTheLightening();
+  if (!wasDrawn) var draw = setTimeout(endSoundAndMask, 2500, ctx);
+  wasDrawn = true;
+}
+
+function endSoundAndMask(ctx) {
+  stopSound();
+  game.switchLevel(8);
 }
 
 
@@ -97,4 +110,4 @@ var checkCollsion = (game, tile) => {
   }
 }
 
-export { }
+export {}

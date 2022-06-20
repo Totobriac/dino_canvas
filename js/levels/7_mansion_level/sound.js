@@ -18,6 +18,8 @@ var catSound = new sound("../assets/7_mansion/sounds/cat.mp3", false);
 var soundPlaying = false;
 var oldSound = undefined;
 
+var kta;
+
 function playSound(sound) {
   sound != oldSound ? soundPlaying = false : soundPlaying = true;
   if (!soundPlaying) {
@@ -69,6 +71,10 @@ function playSound(sound) {
   }
 }
 
+function stopSound() {
+  lighteningSound.stop();
+}
+
 function fountainSound (dino) {
   fountSound.volume(0.1);
   dino.x < 300 && isRunningWater ? fountSound.play() : fountSound.stop();
@@ -79,4 +85,4 @@ function walkSound (dino, isReadingPoster) {
   dino.isMoving && !isReadingPoster? walkingSound.play() : walkingSound.stop();
 }
 
-export { playSound, walkSound, fountainSound };
+export { playSound, walkSound, fountainSound, stopSound };

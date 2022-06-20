@@ -85,16 +85,6 @@ function executeAction(ctx) {
         textDisp = outsideAction[i][3];
       }
     }
-    // if (selectedAction === "Utiliser" && selectedObject) {
-    //   if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
-    //     const func = outsideAction[i][2];
-    //     func();
-    //     if (outsideAction[i][3]) {
-    //       textDisp = outsideAction[i][3];
-    //     }
-    //     resetObject();
-    //   }
-    // }
   }
   if (!textDisp) {
     textDisp = errorText();

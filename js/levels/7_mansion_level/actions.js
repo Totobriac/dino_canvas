@@ -226,7 +226,7 @@ var outsideAction = [
   ["Utiliser", "answer2", reply, " Connais pas de moi "],
 
   ["Utiliser", "sonnette", answer, " Cé koi? "],
-  ["Utiliser", "sonnette  ", answer_2, " Je suis partie chercher mon chat. "],
+  ["Utiliser", "sonnette  ", answer_2, " C'est qui encore? "],
 
   ["Ouvrir", "porte", pass, " C'est fermé. "],
   ["Prendre", "couvercle", getLid, "Voyons voir un peu... "],
@@ -236,7 +236,9 @@ var outsideAction = [
   ["Prendre", "boite au fond de la poubelle", grabCan, " Je l'ai. "],
 
   ["Prendre", "scotch", grabDuct, " A quoi cela va me servir ? "],
-  ["Pousser", "poubelle", push, " Oh hisse! "],
+  // ["Pousser", "poubelle", push, " Oh hisse! "],
+  ["Pousser", "poubelle", endGame, " Oh hisse! "],
+
   ["Pousser", "poubelle ", push, " Oh hisse! "],
   ["Pousser", "poubelle  ", push, " Oh hisse! "],
   ["Tirer", "poubelle", pull, " Oh hisse! "],
