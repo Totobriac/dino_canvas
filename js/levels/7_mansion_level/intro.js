@@ -19,7 +19,7 @@ var msk = [16, 17, 18, 19, 20, 21,
   46, 47, 48, 49, 50, 51,
   76, 77, 78, 79, 80, 81,
   106, 107, 108, 109, 110, 111
-]
+];
 
 class Tile {
   constructor(x, y, index, ctx) {
@@ -57,6 +57,7 @@ export function drawIntro(ctx, game) {
     for (let i = 0; i < tiles.length; i++) {
       if (startX != game.mouseMovePosition.y && startY != game.mouseMovePosition.y) {
         if (checkCollsion(game, tiles[i]) && tiles[i].isVisible) {
+          console.log(i);
           tiles[i].erase();
           tilesNb++;
         }
@@ -91,7 +92,11 @@ function drawCurtain(ctx) {
 
 function endSoundAndMask(ctx) {
   stopSound();
-  game.switchLevel(8);
+  for (let i = 0; i < msk.length; i++) {
+    var index = msk[i] - 1;
+    tiles[index].isVisible = true;
+  }    
+  //game.switchLevel(8);
 }
 
 
