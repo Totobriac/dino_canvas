@@ -1,5 +1,6 @@
 import { zelda } from "../script.js";
 import { animateFireBall } from "../functions.js";
+import { openGannonCave } from "../maps.js";
 
 var gannonSprite = new Image();
 gannonSprite.src = "../assets/8_zeldouille/gannon_with_explosion.png";
@@ -67,6 +68,7 @@ class Gannon {
       }
       else {
         this.gannonDying();
+        openGannonCave();
       }
       if (this.isVisible === true) {
         if (this.life > 0) this.frame = this.life;

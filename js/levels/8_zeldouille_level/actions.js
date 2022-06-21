@@ -1,10 +1,5 @@
-import {
-  zelda,
-} from "./script.js";
-
-import {
-  mainMap
-} from "./maps.js";
+import { zelda } from "./script.js";
+import { mainMap, openSwordCave } from "./maps.js";
 
 function action(i) {
   switch (i) {
@@ -44,6 +39,7 @@ function exitCave() {
 }
 
 function getSword() {
+  openSwordCave();
   zelda.isGrabingSword = true;
 }
 
