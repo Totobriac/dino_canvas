@@ -1,5 +1,6 @@
 import { zelda } from "./script.js";
 import { mainMap, openSwordCave } from "./maps.js";
+import { resetTextIndex } from "./itemsPng.js";
 
 function action(i) {
   console.log(i);
@@ -61,10 +62,12 @@ function openDoor() {
 
 function removeMansionMessage() {
   mainMap[2].hasEntered = true;
+  resetTextIndex();
 }
 
 function removeGannonMessage() {
   mainMap[1].hasEntered = true;
+  resetTextIndex();
 }
 
 export { action };

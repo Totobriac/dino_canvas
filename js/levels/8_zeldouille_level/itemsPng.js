@@ -73,4 +73,8 @@ function displayItemsPng(ctx) {
 
 }
 
-export { displayItemsPng };
+function resetTextIndex() {
+  index = 0;
+}
+
+export { displayItemsPng, resetTextIndex };

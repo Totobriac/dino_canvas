@@ -38,7 +38,7 @@ function drawTiles(ctx) {
       var column = i - (line * 28);
       ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
         Math.floor(column * 32 + 8 + map.xOffset), Math.floor(line * 32 + 8 + map.yOffset), 32, 32);
-      if (map.actual === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 600 + map.xOffset, -28 + map.yOffset, 178, 200)
+      if (map.actual === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600 + map.xOffset, -28 + map.yOffset, 178, 200)
 
       if (map.newMap != undefined) {
         var selectedTile = getTile(mainMap[map.newMap].bluePrint[i]);
@@ -46,7 +46,7 @@ function drawTiles(ctx) {
         var column = i - (line * 28);
         ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
           Math.floor(column * 32 + 8 - map.zob + map.leftRight + map.xOffset), Math.floor(line * 32 + map.upDown + map.yOffset), 32, 32);
-        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 600  + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
+        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600  + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
       }
       if (map.yOffset === 390 || map.yOffset === -390) {
         map.zobi = false;
