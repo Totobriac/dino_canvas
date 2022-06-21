@@ -122,6 +122,4 @@ function spawnZora(map, ctx) {
   return zora;
 }
 
-export {
-  drawTiles
-};
+export { drawTiles };

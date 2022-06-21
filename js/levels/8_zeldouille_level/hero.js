@@ -67,8 +67,8 @@ class Hero {
   move() {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
-    
-    if (map && !map.zobi) {
+
+    if (map && !map.zobi && !this.isGrabingSword) {
       this.isMoving = true;
       if (game.keyDown.code === "ArrowDown") {
         this.direction = 0;
@@ -104,7 +104,7 @@ class Hero {
       this.isMoving = false;
       this.direction = undefined;
     }
-        
+
 
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
     var missileCollison = collChecker(this.x, this.y, map.missiles);

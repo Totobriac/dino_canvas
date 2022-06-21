@@ -59,6 +59,4 @@ function removeMessage() {
   mainMap[2].hasEntered = true;
 }
 
-export {
-  action
-};
+export { action };
