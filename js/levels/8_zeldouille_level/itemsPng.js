@@ -41,7 +41,7 @@ function displayItemsPng(ctx) {
       );
     }
   }
-    if (mainMap[map.actual].text && mainMap[map.actual].hasEntered === false) {
+    if (mainMap[map.actual].text && !mainMap[map.actual].hasEntered) {
       if (textTickCount > maxTextTickCount) {
         textTickCount = 0;
         if (index < mainMap[map.actual].text.content.length) index++

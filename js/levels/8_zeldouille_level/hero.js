@@ -67,7 +67,7 @@ class Hero {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
 
-    if (map && !map.zobi && !this.isGrabingSword) {
+    if (map && !map.zobi && !this.isGrabingSword && !this.isEnteringCave && !this.isExitingCave) {
       this.isMoving = true;
       if (game.keyDown.code === "ArrowDown") {
         this.direction = 0;

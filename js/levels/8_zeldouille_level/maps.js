@@ -31,6 +31,14 @@ var map2 = {
   ],
   hasWater: false,
   monsterList: [],
+  text: {
+    content: ["T", "U", " ", "A", "S", " ", "B", "E", "S", "O", "I", "N", " ", "D", "\'", "U", "N", "E", " ", "A","R","M","E", "."
+    ],
+    x: 540,
+    y: 260,
+    color: "black"
+  },
+  hasEntered: true,
 }
 
 var map3 = {
