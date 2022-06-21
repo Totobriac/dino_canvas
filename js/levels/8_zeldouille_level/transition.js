@@ -9,11 +9,11 @@ var tickCount = 0;
 function drawTransition(ctx) {
   if (hasGameStarted === false) {
     tickCount++;
-    if (tickCount < 150) {
+    if (tickCount < 200) {
       var xOffset = tickCount * 3;
-      ctx.fillStyle = "black";
-      ctx.fillRect(8, 8, 448 - xOffset, 384);
-      ctx.fillRect(456 + xOffset, 8, 448 - xOffset, 384);
+      ctx.fillStyle = "white";
+      ctx.fillRect(8, 8, 600 - xOffset, 384);
+      ctx.fillRect(600 + xOffset, 8, 600 - xOffset, 384);
     }
     else {
       hasGameStarted = true;
