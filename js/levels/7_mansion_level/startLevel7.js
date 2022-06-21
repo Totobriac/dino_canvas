@@ -1,7 +1,6 @@
 import { pointNClick } from "./gameMecanic.js";
 import { drawIntro, drawEnding } from "./intro.js";
 
-
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
