@@ -32,11 +32,7 @@ function action(i) {
 }
 
 function enterGannon() {
-  if (zelda.hasSword) {
-    enterCave(10);
-  } else {
-    mainMap[1].hasEntered = false;
-  }
+  zelda.hasSword ? enterCave(10) :  mainMap[1].hasEntered = false;
 }
 
 function enterCave(cave) {

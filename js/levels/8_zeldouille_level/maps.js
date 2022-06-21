@@ -34,9 +34,9 @@ var map2 = {
   text: {
     content: ["T", "U", " ", "A", "S", " ", "B", "E", "S", "O", "I", "N", " ", "D", "\'", "U", "N", "E", " ", "A","R","M","E", "."
     ],
-    x: 540,
-    y: 260,
-    color: "black"
+    x: 630,
+    y: 300,
+    color: "white"
   },
   hasEntered: true,
 }
@@ -67,11 +67,11 @@ var map3 = {
     nb: 2
   }],
   text: {
-    content: ["T", "U", " ", "A", "S", " ", "B", "E", "S", "O", "I", "N", " ", "D", "\'", "U", "N", "E", " ", "C","L","E", "."
+    content: [" ","T", "U", " ", "A", "S", " ", "B", "E", "S", "O", "I", "N", " ", "D", "\'", "U", "N", "E", " ", "C","L","E","F", ".", " "
     ],
     x: 540,
-    y: 260,
-    color: "black"
+    y: 285,
+    color: "white"
   },
   hasEntered: true,
 }
