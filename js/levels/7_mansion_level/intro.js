@@ -12,13 +12,14 @@ var maxTickCount = 1;
 var tile = 300;
 
 var index = 0;
-var curtain = false;
 
 var wasDrawn = false;
-var ind = 0
+var ind = 0;
+var curtain = false;
+var curtIndex = 0;
 
-
-var msk = [16, 17, 18, 19, 20, 21,
+var msk = [
+  16, 17, 18, 19, 20, 21,
   46, 47, 48, 49, 50, 51,
   76, 77, 78, 79, 80, 81,
   106, 107, 108, 109, 110, 111
@@ -60,7 +61,6 @@ export function drawIntro(ctx, game) {
     for (let i = 0; i < tiles.length; i++) {
       if (startX != game.mouseMovePosition.y && startY != game.mouseMovePosition.y) {
         if (checkCollsion(game, tiles[i]) && tiles[i].isVisible) {
-          console.log(i);
           tiles[i].erase();
           tilesNb++;
         }
@@ -74,25 +74,29 @@ export function drawIntro(ctx, game) {
 }
 
 export function drawEnding(ctx) {
+
   playSound("light");
+
   if (tickCount < maxTickCount) {
     tickCount++;
   } else {
     tickCount = 0;
     tile > 1 ? tile-- : drawCurtain(ctx);
   }
+
   if (!msk.includes(tiles[tile - 1].index)) tiles[tile - 1].isVisible = true;
 
   if (curtain) {
-    if (tickCount < maxTickCount) {
-      tickCount++;
+    ind++;
+    if (ind < 240 ) {
+      if (ind % 10 === 0 ) curtIndex++
     } else {
-      tickCount = 0;
-      if (ind < msk.length) ind ++;
+      leaveLevel();
     }
-    var coco = msk[ind] - 1;
-    tiles[coco].isVisible = true;
+    var i = msk[curtIndex] - 1;
+    tiles[i].isVisible = true;
   }
+
   for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].isVisible) tiles[i].draw();
   }
@@ -105,18 +109,13 @@ function drawCurtain(ctx) {
 }
 
 function endSoundAndMask(ctx) {
-  stopSound();
   curtain = true;
-
-
-
-  // for (let i = 0; i < msk.length; i++) {
-  //   var index = msk[i] - 1;
-  //   tiles[index].isVisible = true;
-  // }
-  //game.switchLevel(8);
 }
 
+function leaveLevel() {
+  stopSound();
+  game.switchLevel(8);
+}
 
 var checkCollsion = (game, tile) => {
   var mouseX = game.mouseMovePosition.x;
