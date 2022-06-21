@@ -44,22 +44,21 @@ class Hero {
 
     this.hitAnimation();
 
-    if (this.isAttacking === false && this.isGrabingSword === false) {
+    if (!this.isAttacking  && !this.isGrabingSword) {
       if (this.frame != 0 && this.frame != 1) this.frame = 0;
       if (this.tickCount > this.maxTickCount) {
         this.tickCount = 0;
         this.frame === 0 ? this.frame = 1 : this.frame = 0
       } else {
-        if (this.isMoving === true || map.zobi === true) this.tickCount += 1;
+        if (this.isMoving || map.zobi) this.tickCount += 1;
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
-    if (this.isGrabingSword === true) {
+    if (this.isGrabingSword ) {
       this.ctx.drawImage(zeldaSprite, 0, 128, 32, 32, this.x, this.y, 32, 32);
       this.ctx.drawImage(zeldaSprite, 32, 128, 32, 32, this.x - 15, this.y - 32, 32, 32);
     }
-
-    if (this.isAttacking === true) {
+    if (this.isAttacking ) {
       this.attack();
     }
   }
@@ -278,11 +277,16 @@ class Hero {
     }
   }
   attack() {
-    if (this.tickCount > this.maxTickCount * 0.5) {
-      this.tickCount = 0;
-      this.frame < this.totalAttackFrame ? this.frame++ : this.isAttacking = false;
+    if (this.frame < this.totalAttackFrame) {
+      if (this.tickCount > this.maxTickCount * 0.5) {
+        this.tickCount = 0;
+        this.frame++;
+      } else {
+        this.tickCount += 1;
+      }
     } else {
-      this.tickCount += 1;
+      this.isAttacking = false;
+      this.isMoving = false;
     }
     var xOffset;
     var yOffset;
@@ -328,7 +332,6 @@ class Hero {
         map.gannon.isVisible = false;
       }
     }
-
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);
   }
   hitAnimation() {
