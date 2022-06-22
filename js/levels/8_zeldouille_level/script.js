@@ -23,4 +23,4 @@ export function animate(game, ctx) {
   drawTransition(ctx);
 }
 
-export { map, zelda };
+export { map, zelda, sideBar };

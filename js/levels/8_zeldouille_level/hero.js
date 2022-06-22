@@ -1,4 +1,4 @@
-import { map } from "./script.js";
+import { map, sideBar } from "./script.js";
 import { collChecker, gannonCollChecker } from "./functions.js";
 import { checkAction } from "./map.js";
 import { game } from "../../script.js";
@@ -34,7 +34,7 @@ class Hero {
     this.isHit = false;
     this.hitTickCount = 0;
     this.life = 8;
-    this.hasSword = false;
+    this.hasSword = true;
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;
@@ -43,7 +43,6 @@ class Hero {
     this.hasPotion = false;
   }
   draw() {
-
     this.hitAnimation();
 
     if (!this.isAttacking && !this.isGrabingSword) {
@@ -86,6 +85,12 @@ class Hero {
       if (game.keyDown.key === "a" && this.hasSword) {
         if (game.keyDown.repeat) return;
         this.isAttacking = true;
+      }      
+      if (game.keyDown.key === "b" && this.hasPotion) {
+        if (game.keyDown.repeat) return;
+        this.life = 8;
+        this.hasPotion = false;
+        sideBar.heal();
       }
     }
 
@@ -256,7 +261,7 @@ class Hero {
 
     if (potionCoord && collChecker(this.x, this.y, potionCoord)) {
       this.hasPotion = true;
-      setTimeout(resetPotionXY, 800);
+      setTimeout(resetPotionXY, 600);
     };
 
     this.draw();
