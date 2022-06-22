@@ -51,7 +51,7 @@ function drawTransition(ctx) {
     }
   }
 
-  if (zelda.isExitingCave === true) {
+  if (zelda.isExitingCave) {
     ctx.fillStyle = "rgb(116,116,116)";
     zelda.cave === 9 ? ctx.fillRect(200, 72, 32, 32) : ctx.fillRect(488, 232, 32, 32);
     tickCount++;
@@ -74,7 +74,7 @@ function drawTransition(ctx) {
     }
   }
 
-  if (zelda.isGrabingSword === true) {
+  if (zelda.isGrabingSword) {
     mainMap[map.actual].objects.splice(0, 1);
     tickCount++;
     if (tickCount > 76) {

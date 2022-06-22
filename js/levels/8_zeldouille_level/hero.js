@@ -4,6 +4,7 @@ import { checkAction } from "./map.js";
 import { game } from "../../script.js";
 
 import { action } from "./actions.js";
+import { potionCoord, resetPotionXY } from "./itemsPng.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "../assets/8_zeldouille/dino.png";
@@ -39,12 +40,13 @@ class Hero {
     this.isGrabingSword = false;
     this.cave = 0;
     this.hasKey = false;
+    this.hasPotion = false;
   }
   draw() {
 
     this.hitAnimation();
 
-    if (!this.isAttacking  && !this.isGrabingSword) {
+    if (!this.isAttacking && !this.isGrabingSword) {
       if (this.frame != 0 && this.frame != 1) this.frame = 0;
       if (this.tickCount > this.maxTickCount) {
         this.tickCount = 0;
@@ -54,11 +56,11 @@ class Hero {
       }
       this.ctx.drawImage(zeldaSprite, 32 * this.frame, 32 * this.lastDirection, 32, 32, this.x, this.y, 32, 32);
     }
-    if (this.isGrabingSword ) {
+    if (this.isGrabingSword) {
       this.ctx.drawImage(zeldaSprite, 0, 128, 32, 32, this.x, this.y, 32, 32);
       this.ctx.drawImage(zeldaSprite, 32, 128, 32, 32, this.x - 15, this.y - 32, 32, 32);
     }
-    if (this.isAttacking ) {
+    if (this.isAttacking) {
       this.attack();
     }
   }
@@ -104,10 +106,9 @@ class Hero {
       this.direction = undefined;
     }
 
-
     var enemyCollison = collChecker(this.x, this.y, map.monsters);
-    var missileCollison = collChecker(this.x, this.y, map.missiles);
 
+    var missileCollison = collChecker(this.x, this.y, map.missiles);
 
     if (map.zora && map.zora.x) {
       var zoraCollision = collChecker(this.x, this.y, [map.zora]);
@@ -253,6 +254,11 @@ class Hero {
       action(actionTile);
     };
 
+    if (potionCoord && collChecker(this.x, this.y, potionCoord)) {
+      this.hasPotion = true;
+      setTimeout(resetPotionXY, 800);
+    };
+
     this.draw();
 
   }
@@ -325,7 +331,7 @@ class Hero {
     if (map.gannon) {
       var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY);
       if (hasHitGannon) {
-        if (map.gannon.isVisible === false) map.gannon.life --;
+        if (map.gannon.isVisible === false) map.gannon.life--;
         map.gannon.isVisible = true;
       }
       else {

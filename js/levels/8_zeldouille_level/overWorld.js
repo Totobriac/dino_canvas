@@ -66,7 +66,6 @@ function drawTiles(ctx) {
       }
     }
 
-
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, 8);
     ctx.fillRect(0, 392, canvas.width, 8);

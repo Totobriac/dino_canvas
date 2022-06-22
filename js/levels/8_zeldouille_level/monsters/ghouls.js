@@ -1,10 +1,10 @@
 import { collChecker } from "../functions.js";
 import { map } from "../script.js";
-
+import { setPotionXY } from "../itemsPng.js";
+import { zelda } from "../script.js";
 
 var dyingEffect = new Image();
 dyingEffect.src = "../assets/8_zeldouille/effects.png";
-
 
 export class Monster {
   constructor(map, bundaries, ctx, speed) {
@@ -181,6 +181,7 @@ function monsterAnimation(ctx) {
           map.monsters[i].dyingTick = 0;
         }
         if (map.monsters[i].dyingFrame === 5) {
+          if (!zelda.hasPotion) setPotionXY(map.monsters[i].x + 10, map.monsters[i].y + 4 );    
           map.monsters.splice(i, 1);
           return
         }

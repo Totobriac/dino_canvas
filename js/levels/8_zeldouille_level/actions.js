@@ -3,7 +3,6 @@ import { mainMap, openSwordCave } from "./maps.js";
 import { resetTextIndex } from "./itemsPng.js";
 
 function action(i) {
-  console.log(i);
   switch (i) {
     case 4:
       enterCave(9);
