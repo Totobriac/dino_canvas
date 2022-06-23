@@ -4,6 +4,7 @@ import { Map } from "./map.js";
 import { SideBar } from "./sideBar.js";
 import { monsterAnimation } from "./monsters/ghouls.js";
 import { drawTransition } from "./transition.js";
+import { playMainSound } from "./music.js";
 
 var zelda;
 var sideBar;
@@ -16,6 +17,9 @@ export function animate(game, ctx) {
     map = new Map();
     game.loadedLevel[8] = true;
   }
+
+  playMainSound();
+
   drawTiles(ctx);
   zelda.move();
   monsterAnimation(ctx);
