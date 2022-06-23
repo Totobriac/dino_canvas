@@ -10,23 +10,26 @@ export function sound(src, loop, callBack) {
 
   document.body.appendChild(this.sound);
 
-  this.play = function () {
+  this.play =  () => {
     this.sound.play();
   }
-  this.stop = function () {
+  this.stop =  () => {
     this.sound.pause();
     this.sound.currentTime = 0;
   }
-  this.pause = function () {
+  this.pause =  () => {
     this.sound.pause();
   }
-  this.load = function () {
+  this.load =  () => {
     this.sound.load();
   }
-  this.volume = function (vol) {
+  this.volume = (vol) => {
     this.sound.volume = vol;
   }
-  this.loop = function (loop) {
+  this.loop =  (loop) => {
     this.loop = loop;
+  }
+  this.rate =  (rate) => {
+    this.sound.playbackRate = rate;
   }
 }

@@ -1,6 +1,7 @@
 import { zelda } from "./script.js";
 import { mainMap, openSwordCave } from "./maps.js";
 import { resetTextIndex } from "./itemsPng.js";
+import { playSound } from "./music.js";
 
 function action(i) {
   switch (i) {
@@ -39,16 +40,19 @@ function enterCave(cave) {
   if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200) {
     zelda.isEnteringCave = true;
     zelda.cave = cave;
+    playSound(2);
   }
 }
 
 function exitCave() {
   if (zelda.direction === 0) zelda.isExitingCave = true;
+  playSound(2);
 }
 
 function getSword() {
   openSwordCave();
-  zelda.isGrabingSword = true;
+  playSound(3);
+  zelda.isGrabingSword = true;  
 }
 
 function openDoor() {

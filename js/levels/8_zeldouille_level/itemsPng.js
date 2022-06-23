@@ -1,6 +1,7 @@
 import { map } from "./script.js";
 import { mainMap } from "./maps.js";
 import { getTile } from "./functions.js";
+import { playSound } from "./music.js";
 
 var potionSprite = new Image();
 potionSprite.src = "../assets/8_zeldouille/potion.png";
@@ -47,6 +48,7 @@ function displayItemsPng(ctx) {
     }
   }
   if (mainMap[map.actual].text && !mainMap[map.actual].hasEntered) {
+    playSound(4);
     if (textTickCount > maxTextTickCount) {
       textTickCount = 0;
       if (index < mainMap[map.actual].text.content.length) index++
