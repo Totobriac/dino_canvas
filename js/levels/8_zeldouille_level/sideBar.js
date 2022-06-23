@@ -36,19 +36,21 @@ class SideBar {
     this.ctx.fillStyle = "red";
     this.ctx.textAlign = "center";
     this.ctx.fillText("-LIFE-", 1052, 50);
+
     var fullHeart = Math.floor(zelda.life / 2);
     var halfHeart = zelda.life - fullHeart * 2;
     var emptyHeart = 4 - fullHeart - halfHeart;
+
     if (halfHeart === 1) {
+      this.hearts.splice(fullHeart, 1, 1);
       this.hearts.fill(2, 4 - emptyHeart);
-      this.hearts.splice(fullHeart, 1, 1)
     } else {
       this.hearts.fill(2, 4 - emptyHeart);
-    }    
+    };
+
     for (let i = 0; i < this.hearts.length; i++) {
       this.ctx.drawImage(itemsSprite, 28 * this.hearts[i], 0, 28, 32, 990 + i * 31, 80, 28, 32)
-    }
-
+    };
 
     this.ctx.fillStyle = "green";
     var line = Math.floor(map.actual / 3);
@@ -107,7 +109,7 @@ class SideBar {
 
     if (zelda.hasPotion) this.ctx.drawImage(potionSprite, 1038, 150);
   }
-  heal() {    
+  resetHearts() {
     this.hearts = [0, 0, 0, 0];
   }
 }

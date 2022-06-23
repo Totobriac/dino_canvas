@@ -33,6 +33,7 @@ class Hero {
     this.isAttacking = false;
     this.isHit = false;
     this.hitTickCount = 0;
+    this.lifeTickCount = 0;
     this.life = 8;
     this.hasSword = true;
     this.isEnteringCave = false;
@@ -41,6 +42,7 @@ class Hero {
     this.cave = 0;
     this.hasKey = false;
     this.hasPotion = false;
+    this.isHealing = false; 
   }
   draw() {
     this.hitAnimation();
@@ -88,9 +90,8 @@ class Hero {
       }      
       if (game.keyDown.key === "b" && this.hasPotion) {
         if (game.keyDown.repeat) return;
-        this.life = 8;
-        this.hasPotion = false;
-        sideBar.heal();
+        this.isHealing = true;
+        this.hasPotion = false;       
       }
     }
 
@@ -128,8 +129,7 @@ class Hero {
     if (map.gannon && map.gannon.x) {
       var gannonCollision = collChecker(this.x, this.y, [map.gannon]);
       if (gannonCollision.isColliding === true) {
-        if (this.isHit === false) {
-          console.log('gannon fault!!!!');
+        if (this.isHit === false) {         
           this.isHit = true;
           this.life--;
         }
@@ -264,8 +264,12 @@ class Hero {
       setTimeout(resetPotionXY, 600);
     };
 
+    if (this.isHealing) {
+      sideBar.resetHearts();
+      this.life < 8 ? this.life += 0.06 : this.isHealing = false;
+    }
+    
     this.draw();
-
   }
   checkCollision(x, y) {
     return collChecker(x, y, map.obstacles);
