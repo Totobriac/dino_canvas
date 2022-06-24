@@ -1,6 +1,6 @@
 import { zelda } from "./script.js";
 import { mainMap, openSwordCave } from "./maps.js";
-import { resetTextIndex } from "./itemsPng.js";
+import { resetTextIndex, resetTxtSnd } from "./itemsPng.js";
 import { playSound } from "./music.js";
 
 function action(i) {
@@ -46,6 +46,7 @@ function enterCave(cave) {
 
 function exitCave() {
   if (zelda.direction === 0) zelda.isExitingCave = true;
+  resetTxtSnd();
   playSound(2);
 }
 
@@ -66,11 +67,13 @@ function openDoor() {
 function removeMansionMessage() {
   mainMap[2].hasEntered = true;
   resetTextIndex();
+  resetTxtSnd();
 }
 
 function removeGannonMessage() {
   mainMap[1].hasEntered = true;
   resetTextIndex();
+  resetTxtSnd();
 }
 
 export { action };

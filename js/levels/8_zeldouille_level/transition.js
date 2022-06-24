@@ -26,9 +26,9 @@ function drawTransition(ctx) {
     tickCount++;
     if (tickCount < 100) {
       zelda.isMoving = true;
-      zelda.y += 0.32;
+      zelda.y += 0.36;
       ctx.fillStyle = "rgb(116,116,116)";
-      zelda.cave === 9 ? ctx.fillRect(200, 72, 32, 32) : ctx.fillRect(488, 232, 32, 32);
+      zelda.cave === 9 ? ctx.fillRect(200, 72, 32, 36) : ctx.fillRect(488, 232, 32, 36);
     }
     else if (tickCount >= 100 && tickCount < 126) {
       ctx.fillStyle = "black";
@@ -60,11 +60,11 @@ function drawTransition(ctx) {
       ctx.fillRect(8, 8, 896, 384);
       zelda.cave === 9 ? map.actual = 3 : map.actual = 1;
       zelda.cave === 9 ? zelda.x = 200 : zelda.x = 488;
-      zelda.cave === 9 ? zelda.y = 72 : zelda.y = 232;
+      zelda.cave === 9 ? zelda.y = 76 : zelda.y = 232;
     }
     else if (tickCount >= 26 && tickCount < 126) {
       zelda.isMoving = true;
-      zelda.y -= 0.32;
+      zelda.y -= 0.36;
     }
     else {
       zelda.cave === 9 ? zelda.x = 200 : zelda.x = 488;

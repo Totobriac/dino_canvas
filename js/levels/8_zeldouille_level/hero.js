@@ -5,6 +5,7 @@ import { game } from "../../script.js";
 
 import { action } from "./actions.js";
 import { potionCoord, resetPotionXY } from "./itemsPng.js";
+import { playSound } from "./music.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "../assets/8_zeldouille/dino.png";
@@ -42,7 +43,7 @@ class Hero {
     this.cave = 0;
     this.hasKey = false;
     this.hasPotion = false;
-    this.isHealing = false; 
+    this.isHealing = false;
   }
   draw() {
     this.hitAnimation();
@@ -87,11 +88,12 @@ class Hero {
       if (game.keyDown.key === "a" && this.hasSword) {
         if (game.keyDown.repeat) return;
         this.isAttacking = true;
-      }      
+        playSound(6);
+      }
       if (game.keyDown.key === "b" && this.hasPotion) {
         if (game.keyDown.repeat) return;
         this.isHealing = true;
-        this.hasPotion = false;       
+        this.hasPotion = false;
       }
     }
 
@@ -122,6 +124,7 @@ class Hero {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
+          playSound(8);
         }
       }
     }
@@ -129,9 +132,10 @@ class Hero {
     if (map.gannon && map.gannon.x) {
       var gannonCollision = collChecker(this.x, this.y, [map.gannon]);
       if (gannonCollision.isColliding === true) {
-        if (this.isHit === false) {         
+        if (this.isHit === false) {
           this.isHit = true;
           this.life--;
+          playSound(8);
         }
       }
     }
@@ -140,6 +144,7 @@ class Hero {
       if (this.isHit === false) {
         this.isHit = true;
         this.life--;
+        playSound(8);
       }
 
       var dir = enemyCollison.object.direction;
@@ -163,6 +168,7 @@ class Hero {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
+          playSound(8);
         }
       }
       else if (missileCollison.object.isPiercing === false) {
@@ -233,6 +239,7 @@ class Hero {
         if (this.isHit === false) {
           this.isHit = true;
           this.life--;
+          playSound(8);
         }
         if (this.direction === 0) {
           this.y -= this.wallBounce(0, -1);
@@ -261,14 +268,16 @@ class Hero {
 
     if (potionCoord && collChecker(this.x, this.y, potionCoord)) {
       this.hasPotion = true;
+      playSound(9);
       setTimeout(resetPotionXY, 600);
     };
 
     if (this.isHealing) {
+      playSound(4);
       sideBar.resetHearts();
-      this.life < 8 ? this.life += 0.06 : this.isHealing = false;
+      this.life < 8 ? this.life += 0.06 : (this.isHealing = false, playSound(5), this.life = 8);
     }
-    
+
     this.draw();
   }
   checkCollision(x, y) {

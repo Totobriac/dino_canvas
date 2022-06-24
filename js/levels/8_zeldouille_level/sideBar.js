@@ -40,7 +40,7 @@ class SideBar {
     var fullHeart = Math.floor(zelda.life / 2);
     var halfHeart = zelda.life - fullHeart * 2;
     var emptyHeart = 4 - fullHeart - halfHeart;
-
+     
     if (halfHeart === 1) {
       this.hearts.splice(fullHeart, 1, 1);
       this.hearts.fill(2, 4 - emptyHeart);

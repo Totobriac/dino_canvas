@@ -20,9 +20,7 @@ var potionCoord;
 var txtSnd = false;
 
 function displayItemsPng(ctx) {
-
   if (potionCoord) ctx.drawImage(potionSprite, potionCoord[0].x, potionCoord[0].y, 12, 24);
-
   tickCount++;
   textTickCount++;
   if (mainMap[map.actual].itemsPng) {
@@ -55,7 +53,7 @@ function displayItemsPng(ctx) {
     }
     if (textTickCount > maxTextTickCount) {
       textTickCount = 0;
-      index < mainMap[map.actual].text.content.length ? index++ : txtSnd = false;
+      index < mainMap[map.actual].text.content.length ? index++ : playSound(5);
     }
     for (let i = 0; i < index; i++) {
       ctx.font = "30px pixel";
@@ -95,4 +93,8 @@ function resetPotionXY() {
   potionCoord = undefined;
 }
 
-export { displayItemsPng, resetTextIndex, setPotionXY, potionCoord, resetPotionXY };
+function resetTxtSnd() {
+  txtSnd = false;
+}
+
+export { displayItemsPng, resetTextIndex, setPotionXY, potionCoord, resetPotionXY, resetTxtSnd };
