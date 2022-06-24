@@ -1,6 +1,7 @@
 import { zelda } from "../script.js";
 import { animateFireBall } from "../functions.js";
 import { openGannonCave } from "../maps.js";
+import { playSound } from "../music.js";
 
 var gannonSprite = new Image();
 gannonSprite.src = "../assets/8_zeldouille/gannon_with_explosion.png";
@@ -17,7 +18,7 @@ class Gannon {
     this.radians;
     this.isFiring = false;
     this.isVisible = false;
-    this.life = 5;
+    this.life = 1;
     this.hasAppeard = false;
     this.dyingTickCount = 0;
     this.frame;
@@ -54,6 +55,7 @@ class Gannon {
           this.isFiring = true;
           this.x = this.gannonX;
           this.y = this.gannonY;
+          playSound(12);
         }
         if (this.isFiring === true) {
           if (this.x > 264 && this.x < 648 &&
@@ -81,6 +83,7 @@ class Gannon {
   gannonDying() {
     this.isVisible === true
     this.dyingTickCount++;
+    if (this.dyingTickCount === 1) playSound(11);
     if (this.dyingTickCount < 150) {
       if (this.tickCount > this.maxTickCount * 0.5) {
         this.frame === 0 ? this.frame = 5 : this.frame = 0;
@@ -100,10 +103,11 @@ class Gannon {
       }
     }
     else {
+      if (this.dyingTickCount === 251) playSound(14);
       this.frame = 9;
-      if (zelda.hasKey === false) {
+      if (!zelda.hasKey) {
         this.ctx.drawImage(gannonSprite, 0, 320, 64, 64, this.gannonX, this.gannonY, 64, 64);
-        this.grabKey();
+        setTimeout(() => { this.grabKey() }, 1000);
       }
     }
   }
@@ -114,6 +118,7 @@ class Gannon {
     }
     else {
       zelda.hasKey = true;
+      playSound(9);
     }
   }
 }

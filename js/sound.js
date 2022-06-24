@@ -27,7 +27,7 @@ export function sound(src, loop, callBack) {
     this.sound.volume = vol;
   }
   this.loop = (loop) => {
-    this.loop = loop;
+    this.sound.loop = loop;
   }
   this.rate = (rate) => {
     this.sound.playbackRate = rate;

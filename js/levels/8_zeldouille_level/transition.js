@@ -53,14 +53,14 @@ function drawTransition(ctx) {
 
   if (zelda.isExitingCave) {
     ctx.fillStyle = "rgb(116,116,116)";
-    zelda.cave === 9 ? ctx.fillRect(200, 72, 32, 32) : ctx.fillRect(488, 232, 32, 32);
+    zelda.cave === 9 ? ctx.fillRect(200, 72, 32, 32) : ctx.fillRect(488, 232, 32, 36);
     tickCount++;
     if (tickCount < 26) {
       ctx.fillStyle = "black";
       ctx.fillRect(8, 8, 896, 384);
       zelda.cave === 9 ? map.actual = 3 : map.actual = 1;
       zelda.cave === 9 ? zelda.x = 200 : zelda.x = 488;
-      zelda.cave === 9 ? zelda.y = 76 : zelda.y = 232;
+      zelda.cave === 9 ? zelda.y = 76 : zelda.y = 238;
     }
     else if (tickCount >= 26 && tickCount < 126) {
       zelda.isMoving = true;

@@ -6,6 +6,8 @@ import { Octorok } from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
 import { Zora } from "./monsters/zora.js";
 import { Lynel } from "./monsters/lynel.js";
+import { playSound } from "./music.js";
+
 
 var tiles = new Image();
 tiles.src = "../assets/8_zeldouille/sprites.png";
@@ -19,6 +21,7 @@ mansionSprite.src = "../assets/8_zeldouille/mansion.png";
 function drawTiles(ctx) {
 
   if (map.actual === 10) {
+    map.gannon.life > 0 ? playSound(10) : playSound(13);
     ctx.fillStyle = "black";
     ctx.fillRect(8, 8, 896, 384);
     ctx.drawImage(gannonCave, 0, 0, 256, 176, 200, 40, 512, 352);
@@ -46,7 +49,7 @@ function drawTiles(ctx) {
         var column = i - (line * 28);
         ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
           Math.floor(column * 32 + 8 - map.zob + map.leftRight + map.xOffset), Math.floor(line * 32 + map.upDown + map.yOffset), 32, 32);
-        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600  + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
+        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600 + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
       }
       if (map.yOffset === 390 || map.yOffset === -390) {
         map.zobi = false;
