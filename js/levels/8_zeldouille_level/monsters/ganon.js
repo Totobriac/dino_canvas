@@ -1,6 +1,6 @@
 import { zelda } from "../script.js";
 import { animateFireBall } from "../functions.js";
-import { openGannonCave } from "../maps.js";
+import { openGanonCave } from "../maps.js";
 import { playSound } from "../music.js";
 
 var gannonSprite = new Image();
@@ -18,7 +18,7 @@ class Ganon {
     this.radians;
     this.isFiring = false;
     this.isVisible = false;
-    this.life = 1;
+    this.life = 5;
     this.hasAppeard = false;
     this.dyingTickCount = 0;
     this.frame;
@@ -27,7 +27,7 @@ class Ganon {
     this.gannonX = 264 + Math.floor(Math.random() * 320);
     this.gannonY = 104 + Math.floor(Math.random() * 160);
   }
-  gannonAnimation() {
+  ganonAnimation() {
     if (this.hasAppeard === false) {
       this.tickCount++;
       if (this.tickCount < 40) {
@@ -69,8 +69,8 @@ class Ganon {
         }
       }
       else {
-        this.gannonDying();
-        openGannonCave();
+        this.ganonDying();
+        openGanonCave();
       }
       if (this.isVisible === true) {
         if (this.life > 0) this.frame = this.life;
@@ -80,7 +80,7 @@ class Ganon {
       }
     }
   }
-  gannonDying() {
+  ganonDying() {
     this.isVisible === true
     this.dyingTickCount++;
     if (this.dyingTickCount === 1) playSound(11);

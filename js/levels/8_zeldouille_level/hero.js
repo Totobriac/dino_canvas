@@ -36,7 +36,7 @@ class Hero {
     this.hitTickCount = 0;
     this.lifeTickCount = 0;
     this.life = 8;
-    this.hasSword = true;
+    this.hasSword = false;
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;

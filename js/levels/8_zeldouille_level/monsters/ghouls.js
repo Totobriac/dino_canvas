@@ -145,7 +145,7 @@ function monsterAnimation(ctx) {
   }
 
   if(map.actual === 10) {
-    map.ganon.gannonAnimation();
+    map.ganon.ganonAnimation();
   }
 
   if (map.monsters) {

@@ -75,6 +75,8 @@ function playSound(sound) {
       ganonHitSound.volume(1);
       ganonHitSound.play();
       break;
+    case 16:
+      mainSound.stop();
   }
 }
 

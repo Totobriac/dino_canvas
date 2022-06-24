@@ -1,4 +1,4 @@
-import { zelda, map } from "./script.js";
+import { zelda, map, setMainMusic } from "./script.js";
 import { mainMap } from "./maps.js";
 import { monsterMayem } from "./monsters/ghouls.js";
 import { Ganon } from "./monsters/ganon.js";
@@ -71,6 +71,7 @@ function drawTransition(ctx) {
       zelda.isMoving = false;
       zelda.isExitingCave = false;
       tickCount = 0;
+      setMainMusic(1);
     }
   }
 

@@ -1,4 +1,4 @@
-import { zelda } from "./script.js";
+import { setMainMusic, zelda } from "./script.js";
 import { mainMap, openSwordCave } from "./maps.js";
 import { resetTextIndex, resetTxtSnd } from "./itemsPng.js";
 import { playSound } from "./music.js";
@@ -38,6 +38,7 @@ function enterGannon() {
 
 function enterCave(cave) {
   if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200) {
+    setMainMusic(0);
     zelda.isEnteringCave = true;
     zelda.cave = cave;
     playSound(2);

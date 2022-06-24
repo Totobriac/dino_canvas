@@ -300,11 +300,11 @@ function openSwordCave() {
   swordCave.bluePrint[322] = 10;
 }
 
-function openGannonCave() {
+function openGanonCave() {
   gannonCave.bluePrint[293] = 10;
   gannonCave.bluePrint[294] = 10;
   gannonCave.bluePrint[321] = 10;
   gannonCave.bluePrint[322] = 10;
 }
 
-export { mainMap, openSwordCave, openGannonCave };
+export { mainMap, openSwordCave, openGanonCave };

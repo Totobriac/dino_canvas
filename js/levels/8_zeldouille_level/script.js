@@ -10,13 +10,18 @@ var zelda;
 var sideBar;
 var map;
 
+var playMain = true;
+
 export function animate(game, ctx) {
   if(!game.loadedLevel[8]) {
     zelda = new Hero(90, 192, 32, ctx);
     sideBar = new SideBar(ctx);
     map = new Map();
     game.loadedLevel[8] = true;    
-  }  
+  }
+
+  playMain ? playSound(1) : playSound(16);
+
   drawTiles(ctx);
   zelda.move();
   monsterAnimation(ctx);
@@ -24,4 +29,8 @@ export function animate(game, ctx) {
   drawTransition(ctx);
 }
 
-export { map, zelda, sideBar };
+function setMainMusic(onOff) {
+  onOff === 1 ? playMain = true : playMain = false;
+}
+
+export { map, zelda, sideBar, setMainMusic };
