@@ -6,6 +6,7 @@ import { game } from "../../script.js";
 import { action } from "./actions.js";
 import { potionCoord, resetPotionXY } from "./itemsPng.js";
 import { playSound } from "./music.js";
+import { monsterMayem } from "./monsters/ghouls.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "../assets/8_zeldouille/dino.png";
@@ -35,7 +36,8 @@ class Hero {
     this.isHit = false;
     this.hitTickCount = 0;
     this.lifeTickCount = 0;
-    this.life = 8;
+    this.life = 2;
+    this.isDead = false;
     this.hasSword = false;
     this.isEnteringCave = false;
     this.isExitingCave = false;
@@ -44,6 +46,10 @@ class Hero {
     this.hasKey = false;
     this.hasPotion = false;
     this.isHealing = false;
+    this.deathTickCount = 0;
+    this.deathAnim = 0;
+    this.directions = [0, 3, 1, 2];
+    this.totalAnim = 0;
   }
   draw() {
     this.hitAnimation();
@@ -71,7 +77,7 @@ class Hero {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
 
-    if (map && !map.zobi && !this.isGrabingSword && !this.isEnteringCave && !this.isExitingCave) {
+    if (map && !map.zobi && !this.isGrabingSword && !this.isEnteringCave && !this.isExitingCave && !this.isDead) {
       this.isMoving = true;
       if (game.keyDown.code === "ArrowDown") {
         this.direction = 0;
@@ -190,7 +196,7 @@ class Hero {
       }
     }
 
-    if (map.zobi === false) {
+    if (!map.zobi && !this.isDead) {
       if (this.direction === 2) {
         this.y += this.align(this.y + 8, 16);
         var nextX = this.x + 4;
@@ -252,7 +258,7 @@ class Hero {
         }
       }
 
-    } else {
+    } else if ( !this.isDead ){
       if (this.direction != undefined) this.exit = this.direction;
       if (this.exit === 3 && this.x < 840) this.x += 4;
       else if (this.exit === 2 && this.x > 40) this.x -= 4;
@@ -280,7 +286,20 @@ class Hero {
 
     this.life > 2 ? playSound(18) : playSound(17);
 
+    if (this.life === 0) this.die();
+
     this.draw();
+  }
+  die() {
+    this.isDead = true;
+    monsterMayem();
+    if (this.deathTickCount > this.maxTickCount && this.totalAnim < 4) {
+      this.deathAnim < 2 ? this.deathAnim ++ : (this.deathAnim = 0, this.totalAnim ++);
+      this.deathTickCount = 0;
+    } else {
+      this.deathTickCount ++;
+    }
+    this.direction = this.directions[this.deathAnim];
   }
   checkCollision(x, y) {
     return collChecker(x, y, map.obstacles);
