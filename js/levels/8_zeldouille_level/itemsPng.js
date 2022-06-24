@@ -17,6 +17,7 @@ var frame = 0;
 var index = 0;
 
 var potionCoord;
+var txtSnd = false;
 
 function displayItemsPng(ctx) {
 
@@ -48,10 +49,13 @@ function displayItemsPng(ctx) {
     }
   }
   if (mainMap[map.actual].text && !mainMap[map.actual].hasEntered) {
-    playSound(4);
+    if (!txtSnd) {
+      playSound(4);
+      txtSnd = true;
+    }
     if (textTickCount > maxTextTickCount) {
       textTickCount = 0;
-      if (index < mainMap[map.actual].text.content.length) index++
+      index < mainMap[map.actual].text.content.length ? index++ : txtSnd = false;
     }
     for (let i = 0; i < index; i++) {
       ctx.font = "30px pixel";

@@ -22,8 +22,11 @@ function playSound(sound) {
       break;
     case 4:
       textSound.volume(1);
-      textSound.rate(4);     
       textSound.play();
+      break;
+    case 5:
+      textSound.stop();
+      break;
   }
 
 }
