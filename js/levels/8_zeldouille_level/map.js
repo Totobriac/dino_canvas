@@ -8,7 +8,7 @@ class Map {
     this.obstacles;
     this.monsters = [];
     this.zora;
-    this.gannon;
+    this.ganon;
     this.missiles = [];
     this.newMap;
     this.xOffset = 0;

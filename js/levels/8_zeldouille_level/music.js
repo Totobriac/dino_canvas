@@ -12,6 +12,7 @@ var ganonCaveSound = new sound("../assets/8_zeldouille/sounds/ganonDungeon.mp3",
 var ganonDefeatedSound = new sound("../assets/8_zeldouille/sounds/ganonDefeated.mp3", false);
 var ganonScreamSound = new sound("../assets/8_zeldouille/sounds/scream.wav", false);
 var keyAppearsSound = new sound("../assets/8_zeldouille/sounds/keyAppears.wav", false);
+var ganonHitSound = new sound("../assets/8_zeldouille/sounds/ganonHit.wav", false);
 
 
 function playSound(sound) {
@@ -69,6 +70,10 @@ function playSound(sound) {
     case 14:
       keyAppearsSound.volume(1);
       keyAppearsSound.play();
+      break;
+    case 15:
+      ganonHitSound.volume(1);
+      ganonHitSound.play();
       break;
   }
 }

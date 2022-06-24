@@ -129,8 +129,8 @@ class Hero {
       }
     }
 
-    if (map.gannon && map.gannon.x) {
-      var gannonCollision = collChecker(this.x, this.y, [map.gannon]);
+    if (map.ganon && map.ganon.x) {
+      var gannonCollision = collChecker(this.x, this.y, [map.ganon]);
       if (gannonCollision.isColliding === true) {
         if (this.isHit === false) {
           this.isHit = true;
@@ -346,14 +346,17 @@ class Hero {
     if (hasHitMonster.isColliding === true) {
       map.monsters[hasHitMonster.index].isDead = true;
     }
-    if (map.gannon) {
-      var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.gannon.gannonX, map.gannon.gannonY);
+    if (map.ganon) {
+      var hasHitGannon = gannonCollChecker(this.x + xHitOffset, this.y + yHitOffset, map.ganon.gannonX, map.ganon.gannonY);
       if (hasHitGannon) {
-        if (map.gannon.isVisible === false) map.gannon.life--;
-        map.gannon.isVisible = true;
+        if (!map.ganon.isVisible) {
+          map.ganon.life--;
+          playSound(15);
+        }
+        map.ganon.isVisible = true;
       }
       else {
-        map.gannon.isVisible = false;
+        map.ganon.isVisible = false;
       }
     }
     this.ctx.drawImage(zeldaAttackSprite, 54 * this.frame, 56 * this.lastDirection, 54, 56, this.x + xOffset, this.y + yOffset, 54, 56);

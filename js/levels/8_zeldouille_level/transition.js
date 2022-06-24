@@ -1,7 +1,7 @@
 import { zelda, map } from "./script.js";
 import { mainMap } from "./maps.js";
 import { monsterMayem } from "./monsters/ghouls.js";
-import { Gannon } from "./monsters/gannon.js";
+import { Ganon } from "./monsters/ganon.js";
 
 var hasGameStarted = false;
 var tickCount = 0;
@@ -37,7 +37,7 @@ function drawTransition(ctx) {
       zelda.x = 440;
       zelda.y = 324;
       if (map.actual === 10) {
-        map.gannon = new Gannon(ctx);
+        map.ganon = new Ganon(ctx);
       }
     }
     else if (tickCount >= 126 && tickCount < 166) {

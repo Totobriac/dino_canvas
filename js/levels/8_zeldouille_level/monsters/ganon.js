@@ -6,7 +6,7 @@ import { playSound } from "../music.js";
 var gannonSprite = new Image();
 gannonSprite.src = "../assets/8_zeldouille/gannon_with_explosion.png";
 
-class Gannon {
+class Ganon {
   constructor(ctx) {
     this.gannonX = 400;
     this.gannonY = 160;
@@ -107,7 +107,7 @@ class Gannon {
       this.frame = 9;
       if (!zelda.hasKey) {
         this.ctx.drawImage(gannonSprite, 0, 320, 64, 64, this.gannonX, this.gannonY, 64, 64);
-        setTimeout(() => { this.grabKey() }, 1000);
+        this.grabKey();
       }
     }
   }
@@ -117,11 +117,11 @@ class Gannon {
       zelda.hasKey = false;
     }
     else {
-      zelda.hasKey = true;
-      playSound(9);
+      if (!zelda.hasKey) playSound(9);
+      zelda.hasKey = true;      
     }
   }
 }
 
 
-export { Gannon };
+export { Ganon };
