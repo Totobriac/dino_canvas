@@ -278,6 +278,8 @@ class Hero {
       this.life < 8 ? this.life += 0.06 : (this.isHealing = false, playSound(5), this.life = 8);
     }
 
+    this.life > 2 ? playSound(18) : playSound(17);
+
     this.draw();
   }
   checkCollision(x, y) {
