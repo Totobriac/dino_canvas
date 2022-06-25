@@ -6,7 +6,7 @@ import { playSound } from "./music.js";
 import { spawnZora, spawnMonsters } from "./overWorld.js";
 
 var fairySprite = new Image();
-fairySprite.src = "../assets/8_zeldouille/fairy.png";
+fairySprite.src = "../assets/8_zeldouille/fairy2.png";
 
 var hasGameStarted = false;
 var tickCount = 0;
@@ -113,7 +113,7 @@ function drawTransition(ctx) {
       ctx.rotate(-Math.PI / 180 * heartsAngle[i]);
       ctx.translate(120, 120);
       ctx.rotate(Math.PI / 180 * heartsAngle[i]);
-      ctx.drawImage(fairySprite, 32, 0, 14, 16, 0, 0, 14, 16);
+      ctx.drawImage(fairySprite, 32, 0, 28, 32, 0, 0, 28, 32);
       ctx.restore();
     }
 
@@ -121,6 +121,7 @@ function drawTransition(ctx) {
       console.log("cc");
       fairy = false;
       zelda.isDead = false;
+      zelda.totalAnim = 0;
       map.actual === 10 ? playSound(10) : setMainMusic(1);
       removeDeath();
       resetMonsters(ctx);
