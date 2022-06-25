@@ -1,6 +1,6 @@
 import { mainMap } from "./maps.js";
 import { getObstaclesList, getTile } from "./functions.js";
-import { map } from "./script.js";
+import { map, zelda } from "./script.js";
 import { displayItemsPng } from "./itemsPng.js";
 import { Octorok } from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
@@ -21,7 +21,7 @@ mansionSprite.src = "../assets/8_zeldouille/mansion.png";
 function drawTiles(ctx) {
 
   if (map.actual === 10) {
-    map.ganon.life > 0 ? playSound(10) : playSound(13);
+    map.ganon.life > 0 && !zelda.isDead ? playSound(10) : playSound(13);
     ctx.fillStyle = "black";
     ctx.fillRect(8, 8, 896, 384);
     ctx.drawImage(gannonCave, 0, 0, 256, 176, 200, 40, 512, 352);

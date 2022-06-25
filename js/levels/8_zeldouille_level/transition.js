@@ -118,6 +118,7 @@ function drawTransition(ctx) {
     }
 
     if (zelda.life === 8) {
+      console.log("cc");
       fairy = false;
       zelda.isDead = false;
       map.actual === 10 ? playSound(10) : setMainMusic(1);
