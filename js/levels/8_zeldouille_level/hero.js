@@ -1,4 +1,4 @@
-import { map, sideBar } from "./script.js";
+import { map, sideBar, castDeath, setMainMusic } from "./script.js";
 import { collChecker, gannonCollChecker } from "./functions.js";
 import { checkAction } from "./map.js";
 import { game } from "../../script.js";
@@ -7,6 +7,7 @@ import { action } from "./actions.js";
 import { potionCoord, resetPotionXY } from "./itemsPng.js";
 import { playSound } from "./music.js";
 import { monsterMayem } from "./monsters/ghouls.js";
+import { callFairy } from "./transition.js";
 
 var zeldaSprite = new Image();
 zeldaSprite.src = "../assets/8_zeldouille/dino.png";
@@ -38,7 +39,7 @@ class Hero {
     this.lifeTickCount = 0;
     this.life = 2;
     this.isDead = false;
-    this.hasSword = false;
+    this.hasSword = true;
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;
@@ -284,13 +285,16 @@ class Hero {
       this.life < 8 ? this.life += 0.06 : (this.isHealing = false, playSound(5), this.life = 8);
     }
 
-    this.life > 2 ? playSound(18) : playSound(17);
+    this.life > 2 || this.isDead ? playSound(18) : playSound(17);
 
     if (this.life === 0) this.die();
 
     this.draw();
   }
   die() {
+    map.actual === 10 ? playSound(13) : setMainMusic(0);
+
+    playSound(19);
     this.isDead = true;
     monsterMayem();
     if (this.deathTickCount > this.maxTickCount && this.totalAnim < 4) {
@@ -300,6 +304,8 @@ class Hero {
       this.deathTickCount ++;
     }
     this.direction = this.directions[this.deathAnim];
+    if (this.totalAnim === 3) castDeath();
+    if (this.totalAnim === 4) callFairy();
   }
   checkCollision(x, y) {
     return collChecker(x, y, map.obstacles);

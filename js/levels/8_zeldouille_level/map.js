@@ -4,7 +4,7 @@ import { monsterMayem } from "./monsters/ghouls.js";
 
 class Map {
   constructor() {
-    this.actual = 3;
+    this.actual = 2;
     this.obstacles;
     this.monsters = [];
     this.zora;

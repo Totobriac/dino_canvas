@@ -1,10 +1,20 @@
-import { zelda, map, setMainMusic } from "./script.js";
+import { zelda, map, setMainMusic, removeDeath } from "./script.js";
 import { mainMap } from "./maps.js";
 import { monsterMayem } from "./monsters/ghouls.js";
 import { Ganon } from "./monsters/ganon.js";
+import { playSound } from "./music.js";
+import { spawnZora, spawnMonsters } from "./overWorld.js";
+
+var fairySprite = new Image();
+fairySprite.src = "../assets/8_zeldouille/fairy.png";
 
 var hasGameStarted = false;
 var tickCount = 0;
+var fairyTickCount = 0;
+var fairy = false;
+var maxTickCount = 8;
+var fairyAnim = 0;
+var heartsAngle = [0, 40, 80, 120, 160, 200, 240, 280, 320];
 
 function drawTransition(ctx) {
   if (hasGameStarted === false) {
@@ -84,6 +94,46 @@ function drawTransition(ctx) {
       tickCount = 0;
     }
   }
+
+  if (fairy) {
+    playSound(20);
+    zelda.isHealing = true;
+    if (fairyTickCount > maxTickCount) {
+      fairyTickCount = 0;
+      fairyAnim === 0 ? fairyAnim = 1 : fairyAnim = 0;
+    } else {
+      fairyTickCount++;
+    }
+    ctx.drawImage(fairySprite, 16 * fairyAnim, 0, 16, 32, 440, 100, 20, 40);
+
+    for (let i = 0; i < heartsAngle.length; i++) {
+      heartsAngle[i]+= 1.5;
+      ctx.save();
+      ctx.translate(440, 192);
+      ctx.rotate(-Math.PI / 180 * heartsAngle[i]);
+      ctx.translate(120, 120);
+      ctx.rotate(Math.PI / 180 * heartsAngle[i]);
+      ctx.drawImage(fairySprite, 32, 0, 14, 16, 0, 0, 14, 16);
+      ctx.restore();
+    }
+
+    if (zelda.life === 8) {
+      fairy = false;
+      zelda.isDead = false;
+      map.actual === 10 ? playSound(10) : setMainMusic(1);
+      removeDeath();
+      resetMonsters(ctx);
+    }
+  }
 }
 
-export { drawTransition }
+function callFairy() {
+  fairy = true;
+}
+
+function resetMonsters(ctx) {
+  map.monsters = spawnMonsters(mainMap[map.actual], ctx);
+  if (mainMap[map.actual].hasWater) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
+}
+
+export { drawTransition, callFairy }
