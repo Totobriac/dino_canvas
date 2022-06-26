@@ -25,8 +25,8 @@ function initMaze(game, canvasCtx) {
   if (game.loadedLevel[9] == false) {
     ctx = canvasCtx;
     level = new Level(canvas);
-    player = new Player(ctx, level, 80, 60);
-    createSprites(level.level.sprites);    
+    player = new Player(ctx, level, 146, 42);
+    createSprites(level.level.sprites);
     pistol = new Pistol(ctx);
     hud = new Hud(ctx, player, pistol);
     game.loadedLevel[9] = true;

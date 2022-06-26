@@ -166,7 +166,6 @@ function createEnemies(enemyList) {
   for (let i = 0; i < enemyList.length; i++) {
     enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][2]);
   }
-  console.log(enemies);
 }
 
 function removeEnemies() {
@@ -185,8 +184,4 @@ function drawEnemies() {
   }
 }
 
-export {
-  createEnemies,
-  drawEnemies,
-  removeEnemies,
-}
+export { createEnemies, drawEnemies, removeEnemies };

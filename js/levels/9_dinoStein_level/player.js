@@ -79,7 +79,7 @@ class Player {
         this.level.levelChange(102);
         break;
       case 103:
-        this.level.levelChange(levels[1]);
+        this.level.levelChange(levels[4]);
         this.newX = 80;
         this.newY = 60;
         this.turnAngle = 6.22;
@@ -157,6 +157,7 @@ class Player {
     }
   }
   draw() {
+    console.log(this.x, this.y);
     this.update();
     for (let i = 0; i < this.numbOfRays; i++) {
       this.rays[i].draw();
@@ -164,6 +165,4 @@ class Player {
   }
 }
 
-export {
-  Player
-}
+export { Player };
