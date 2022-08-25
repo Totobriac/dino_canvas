@@ -1,7 +1,7 @@
 function getObstaclesList(map) {
   var obstacles = [];
   for (let i = 0; i < map.bluePrint.length; i++) {
-    if (map.bluePrint[i] != 2 && map.bluePrint[i] != 10 && map.bluePrint[i] != 53  && map.bluePrint[i] != 55  && map.bluePrint[i] != 47) {
+    if (map.bluePrint[i] != 2 && map.bluePrint[i] != 10 && map.bluePrint[i] != 53 && map.bluePrint[i] != 55 && map.bluePrint[i] != 47) {
       var line = Math.floor(i / 28);
       var column = i - (line * 28);
       obstacles.push({ x: column * 32 + 8, y: line * 32 + 8 });
@@ -19,7 +19,7 @@ function collChecker(x, y, objects) {
   var colliding;
   for (let i = 0; i < objects.length; i++) {
     if (x + 32 <= objects[i].x || x >= objects[i].x + 32 ||
-      y + 32 <= objects[i].y || y >= objects[i].y + 32 ) {
+      y + 32 <= objects[i].y || y >= objects[i].y + 32) {
       colliding = false;
     }
     else {
@@ -30,14 +30,13 @@ function collChecker(x, y, objects) {
 }
 
 function gannonCollChecker(x, y, gannonX, gannonY) {
-  var colliding;
-    if (x + 32 <= gannonX || x >= gannonX + 64 ||
-      y + 32 <= gannonY || y >= gannonY + 64 ) {
-      return false;
-    }
-    else {
-      return true;
-    }
+  if (x + 32 <= gannonX || x >= gannonX + 64 ||
+    y + 32 <= gannonY || y >= gannonY + 64) {
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 
 function getTile(tile) {

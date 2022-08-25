@@ -58,13 +58,13 @@ class Confetti {
 }
 
 function generateConfettis(ctx) {
-  for (let i = 0; i < 600; i++) {
+  for (let i = 0; i < 700; i++) {
     confettis.push(new Confetti(ctx))
   }
 }
 
 function celebrate() {
-  confettis.forEach((confetti,i) => {    
+  confettis.forEach((confetti,i) => {
     confetti.draw(i);
     if (confetti.y > winHeight) confettis.splice(i, 1);
     i --;

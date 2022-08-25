@@ -6,6 +6,9 @@ itemsSprite.src = "../assets/8_zeldouille/heart_key.png";
 var swordSprite = new Image();
 swordSprite.src = "../assets/8_zeldouille/sword.png";
 
+var potionSprite = new Image();
+potionSprite.src = "../assets/8_zeldouille/potion.png";
+
 class SideBar {
   constructor(ctx) {
     this.x = 912;
@@ -37,16 +40,17 @@ class SideBar {
     var fullHeart = Math.floor(zelda.life / 2);
     var halfHeart = zelda.life - fullHeart * 2;
     var emptyHeart = 4 - fullHeart - halfHeart;
+     
     if (halfHeart === 1) {
+      this.hearts.splice(fullHeart, 1, 1);
       this.hearts.fill(2, 4 - emptyHeart);
-      this.hearts.splice(fullHeart, 1, 1)
     } else {
       this.hearts.fill(2, 4 - emptyHeart);
-    }
+    };
 
     for (let i = 0; i < this.hearts.length; i++) {
       this.ctx.drawImage(itemsSprite, 28 * this.hearts[i], 0, 28, 32, 990 + i * 31, 80, 28, 32)
-    }
+    };
 
     this.ctx.fillStyle = "green";
     var line = Math.floor(map.actual / 3);
@@ -97,11 +101,16 @@ class SideBar {
     var key;
     zelda.hasKey === true ? key = 1 : key = 0;
 
-    this.ctx.fillText("X" + key, 990, 220)
+    this.ctx.fillText("X" + key, 990, 220);
 
     if (zelda.hasSword) {
       this.ctx.drawImage(swordSprite, 96, 0, 48, 48, 1104, 145, 64, 64);
     }
+
+    if (zelda.hasPotion) this.ctx.drawImage(potionSprite, 1038, 150);
+  }
+  resetHearts() {
+    this.hearts = [0, 0, 0, 0];
   }
 }
 

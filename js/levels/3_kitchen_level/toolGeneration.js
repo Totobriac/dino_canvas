@@ -1,3 +1,8 @@
+import { sound } from "../../sound.js";
+
+var laySound = new sound("./assets/3_kitchen/sounds/lay.wav", false);
+
+
 import { Tool } from "./tools/tool.js";
 import { Pot } from "./tools/pot.js";
 import { ButterKnife } from "./tools/butter_knife.js";
@@ -121,7 +126,7 @@ function generateTools(ctx) {
     x: 120,
     y: 132,
     r: 60
-  }, sink);
+  }, sink, laySound);
 
   Sink.prototype.pot = pot;
 
@@ -129,13 +134,13 @@ function generateTools(ctx) {
     x: 1102,
     y: 170,
     r: 20
-  }, pot);
+  }, pot, laySound);
 
   colander = new Colander("colander", colanderSprite, 550, 16, 200, 175, ctx, 22, 48, {
     x: 120,
     y: 132,
     r: 60
-  });
+  }, laySound);
 
   butterPlate = new Butter("butterPlate", butterPlateSprite, 980, 5, 100, 73, ctx, undefined, undefined, {
     x: 0,
@@ -147,7 +152,9 @@ function generateTools(ctx) {
     x: 964,
     y: 225,
     r: 60
-  }, butterPlate);
+  }, butterPlate, laySound);
+
+  Colander.prototype.pan = pan;
 
   butterKnife = new ButterKnife("butterKnife", butterKnifeSprite, 720, 255, 14, 135, ctx, undefined, undefined, {
     x: 0,
@@ -159,7 +166,7 @@ function generateTools(ctx) {
     x: 506,
     y: 304,
     r: 28
-  }, pan);
+  }, pan, laySound);
 
   chefKnife = new ChefKnife("chefKnife", chefKnifeSprite, 400, 190, 200, 33, ctx, undefined, undefined, {
     x: 0,
@@ -179,25 +186,25 @@ function generateTools(ctx) {
     x: 516,
     y: 314,
     r: 40
-  });
+  }, laySound);
 
   garlic = new Garlic("garlic", garlicHeadSprite, 85, 350, 40, 40, ctx, 495, 290, {
     x: 516,
     y: 314,
     r: 20
-  }, pan);
+  }, pan, laySound);
 
   garlicPress = new GarlicPress("garlicPress", garlicPressSprite, 850, 20, 100, 30, ctx, 475, 290, {
     x: 516,
     y: 314,
     r: 30
-  }, garlic);
+  }, garlic, laySound);
 
   carrot = new Carrot("carrot", carrotSprite, 10, 330, 105, 22, ctx, 450, 305, {
     x: 506,
     y: 314,
     r: 40
-  }, grater, pan);
+  }, grater, pan, laySound);
 
   spoon = new Spoon("spoon", spoonSprite, 680, 180, 40, 213, ctx, undefined, undefined, {
     x: undefined,
@@ -219,13 +226,13 @@ function generateTools(ctx) {
     x: 502,
     y: 300,
     r: 28
-  });
+  }, laySound);
 
   tin = new Tin("tin", tinSprite, 135, 350, 50, 50, ctx, 475, 275, {
     x: 502,
     y: 300,
     r: 28
-  }, tinOpener, pan);
+  }, tinOpener, pan, laySound);
 
   TinOpener.prototype.tin = tin;
 
@@ -254,14 +261,6 @@ function generateTools(ctx) {
   return tools;
 }
 
-export {
-  generateTools,
-  pot,
-  butterKnife,
-  butterBig,
-  onion,
-  chefKnife,
-  garlicPress,
-  meat,
-  notepad,
+export { generateTools, pot, butterKnife, butterBig,
+  onion, chefKnife, garlicPress, meat, notepad, pasta, pan
 };

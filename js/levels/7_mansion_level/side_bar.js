@@ -1,9 +1,9 @@
-import { Sprite } from "../character/sprite.js";
-import { leavePoster, objects } from "./outside_mansion.js";
-import { isReadingPoster } from "./outside_mansion.js";
+import { Sprite } from "./sprite.js";
 import { drawText, hoveredSprite } from "./gameMecanic.js";
+import { leavePoster, objects, isReadingPoster } from "./actions.js";
 
-var actionsList = ["Pousser", "Tirer", "Ouvrir", "Fermer", "Reset",
+var actionsList =
+  ["Pousser", "Tirer", "Ouvrir", "Fouiller", "Annuler",
   "Prendre", "Utiliser", "Allumer", "Eteindre", "Regarder"];
 
 var actions = [];
@@ -14,6 +14,7 @@ var oldSelection;
 var selectedAction;
 
 var objectsList = [];
+
 var selectedObject;
 
 class Action {
@@ -29,9 +30,6 @@ class Action {
   }
   draw() {
     this.ctx.filter = "url(#turb" + this.filter + ")";
-    this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(this.x, this.y - 30, 145, 45);
     this.isHovered === true ? this.ctx.fillStyle = this.color1 : this.ctx.fillStyle = this.color2;
     this.ctx.fillRect(this.x, this.y - 30, 145, 45);
     this.isHovered === true ? this.ctx.fillStyle = this.color2 : this.ctx.fillStyle = this.color1;
@@ -62,20 +60,21 @@ function createActions(ctx) {
   }
 }
 
-export function drawActions(ctx, game) {
-  if (game.loadedLevel[7] === false) {
+export function drawActions(ctx, game, gameBegun) {
+  if (!game.loadedLevel[7]) {
     createActions(ctx);
     game.loadedLevel[7] = true;
   }
-  ctx.fillStyle = "purple";
+  ctx.fillStyle = "orange";
   ctx.fillRect(895, 0, 305, 400)
   for (let i = 0; i < actions.length; i++) {
     actions[i].draw();
   }
-  checkAction(game.mousePosition, game.mouseMovePosition, ctx);
+  if (gameBegun) checkAction(game.mousePosition, game.mouseMovePosition, ctx);
   ctx.filter = "none";
 
   drawObjects(ctx);
+  animateText();
 }
 
 function checkAction(mouse, mouseMove, ctx) {
@@ -90,7 +89,7 @@ function checkAction(mouse, mouseMove, ctx) {
       if (i === 4 && isReadingPoster == true) leavePoster();
 
       if (i === 4) {
-        selectedAction = "none";
+        selectedAction = undefined;
         actions[i].filter = "none";
         if (oldSelection != undefined) {
           actions[oldSelection].filter = "none";
@@ -116,12 +115,13 @@ function checkAction(mouse, mouseMove, ctx) {
 }
 
 function drawObjects(ctx) {
-  ctx.fillStyle = "orange";
+  objectsList = [];
+  ctx.fillStyle = "purple";
   ctx.fillRect(900, 255, 295, 140);
   var oY = 3;
   for (let i = 0; i < objects.length; i++) {
     if (i < 4) {
-      var object = new Sprite(objects[i][0], objects[i][1], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5);
+      var object = new Sprite(objects[i][0], objects[i][1], 900 + (i * 70) + oY, 260, 1, 1, 140, 120, 0.5, objects[i][2]);
       objectsList.push(object);
       object.draw(ctx);
       oY += 3;
@@ -133,12 +133,17 @@ function checkObject(mouse, ctx) {
   for (let i = 0; i < objectsList.length; i++) {
     if ((mouse.x > objectsList[i].x && mouse.x < objectsList[i].x + objectsList[i].spriteWidth * objectsList[i].scale) &&
       (mouse.y > objectsList[i].y && mouse.y < objectsList[i].y + objectsList[i].spriteHeight * objectsList[i].scale)) {
-      selectedObject = objectsList[i].name;
+      selectedObject = objectsList[i];
     }
-
-    if (selectedAction === "Utiliser" && selectedObject != undefined) {
+    if (selectedAction === "Utiliser" && selectedObject) {
       var text;
-      hoveredSprite == undefined ? text = "Utiliser " + selectedObject + " avec ... " : text = "Utiliser " + selectedObject + " avec " + hoveredSprite;
+      var articleObj;
+      selectedObject.male ? articleObj = "le " : articleObj = "la ";
+      var articleSpr;
+      hoveredSprite && hoveredSprite.gender ? articleSpr = "le " : articleSpr = "la ";
+      hoveredSprite
+        ? text = "Utiliser " + articleObj + selectedObject.name + " avec " + articleSpr + hoveredSprite.name
+        : text = "Utiliser " + articleObj + selectedObject.name + " avec ... ";
       drawText(ctx, text);
     }
     else {
@@ -155,5 +160,16 @@ function animateText() {
   }
 }
 
+function resetAction() {
+  selectedAction = undefined;
+  if (oldSelection != undefined) {
+    actions[oldSelection].filter = "none";
+    oldSelection = null;
+  }
+}
 
-export { selectedAction, animateText, selectedObject };
+function resetObject() {
+  selectedObject = null;
+}
+
+export { selectedAction, resetAction, selectedObject, resetObject };

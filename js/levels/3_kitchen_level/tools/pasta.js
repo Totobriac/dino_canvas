@@ -1,6 +1,12 @@
 import { Tool } from "./tool.js";
 import { onTop, onTopTwo, addStep } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var dropPastaSound = new sound("../assets/3_kitchen/sounds/drop_pastas.mp3", false);
+var drainPastaSound = new sound("../assets/3_kitchen/sounds/pasta_drain.mp3", false);
+
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/3_kitchen/pasta.png";
 
@@ -39,6 +45,7 @@ class Pasta extends Tool {
     this.colander = colander;
     this.top = "pasta";
     this.angle = 0;
+    this.sound = false;
   }
   populatePastas() {
     for (let i = 0; i < 150; i++) {
@@ -53,7 +60,7 @@ class Pasta extends Tool {
       super.draw();
     }
 
-    if (this.areCooking === true) {
+    if (this.areCooking) {
 
       this.notepad.isSelected || this.spoon.isSelected ? onTopTwo(this.top) : onTop(this.top);
 
@@ -111,7 +118,7 @@ class Pasta extends Tool {
             y: 132,
             r: 60
           };
-          if (this.pot.inPlace === false) {
+          if (!this.pot.inPlace) {
             this.doneCooking = true;
           }
         }
@@ -120,9 +127,14 @@ class Pasta extends Tool {
       super.draw();
     }
     if (this.doneCooking && this.pot.inPlace && this.colander.inPlace) {
+      playSound(drainPastaSound, 0.3);
+      this
       this.colander.hasPastas = true;
+
       this.pot.waterLevel = 0;
       this.pot.isFilled = false;
+      this.pot.x = 860;
+      this.pot.y = 166;
       this.pot.perfX = undefined;
       this.pot.perfY = undefined;
       this.pot.shadow = {
@@ -130,7 +142,7 @@ class Pasta extends Tool {
         y: undefined,
         r: undefined,
       };
-      this.top = "pot";
+
     }
     if (this.colander.hasPastas) {
 
@@ -147,7 +159,7 @@ class Pasta extends Tool {
       tempCanvas.width = 1400;
       tempCanvas.height = 400;
 
-      tempContext.translate(this.colander.x , this.colander.y);
+      tempContext.translate(this.colander.x, this.colander.y);
       tempContext.rotate(this.angle * 0.5 * Math.PI / 180);
 
       tempContext.globalAlpha = 0.7;
@@ -164,9 +176,16 @@ class Pasta extends Tool {
   }
   inPot() {
     this.areCooking = true;
+    if (!this.sound) {
+      playSound(dropPastaSound, 0.3);
+      this.sound = true;
+    }
   }
 }
 
-export {
-  Pasta
-};
+function distance(obj1, obj2) {
+  return Math.sqrt((obj1.x - obj2.x) * (obj1.x - obj2.x) +
+    (obj1.y - obj2.y) * (obj1.y - obj2.y))
+}
+
+export { Pasta };

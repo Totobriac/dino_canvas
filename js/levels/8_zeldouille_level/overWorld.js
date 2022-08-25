@@ -1,11 +1,13 @@
 import { mainMap } from "./maps.js";
 import { getObstaclesList, getTile } from "./functions.js";
-import { map } from "./script.js";
+import { map, zelda } from "./script.js";
 import { displayItemsPng } from "./itemsPng.js";
 import { Octorok } from "./monsters/octorok.js";
 import { Moblin } from "./monsters/moblin.js";
 import { Zora } from "./monsters/zora.js";
 import { Lynel } from "./monsters/lynel.js";
+import { playSound } from "./music.js";
+
 
 var tiles = new Image();
 tiles.src = "../assets/8_zeldouille/sprites.png";
@@ -19,6 +21,7 @@ mansionSprite.src = "../assets/8_zeldouille/mansion.png";
 function drawTiles(ctx) {
 
   if (map.actual === 10) {
+    map.ganon.life > 0 && !zelda.isDead ? playSound(10) : playSound(13);
     ctx.fillStyle = "black";
     ctx.fillRect(8, 8, 896, 384);
     ctx.drawImage(gannonCave, 0, 0, 256, 176, 200, 40, 512, 352);
@@ -38,7 +41,7 @@ function drawTiles(ctx) {
       var column = i - (line * 28);
       ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
         Math.floor(column * 32 + 8 + map.xOffset), Math.floor(line * 32 + 8 + map.yOffset), 32, 32);
-      if (map.actual === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 600 + map.xOffset, -28 + map.yOffset, 178, 200)
+      if (map.actual === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600 + map.xOffset, -28 + map.yOffset, 178, 200)
 
       if (map.newMap != undefined) {
         var selectedTile = getTile(mainMap[map.newMap].bluePrint[i]);
@@ -46,7 +49,7 @@ function drawTiles(ctx) {
         var column = i - (line * 28);
         ctx.drawImage(tiles, selectedTile[1], selectedTile[0], 16, 16,
           Math.floor(column * 32 + 8 - map.zob + map.leftRight + map.xOffset), Math.floor(line * 32 + map.upDown + map.yOffset), 32, 32);
-        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 892, 1000, 600  + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
+        if (map.newMap === 2) ctx.drawImage(mansionSprite, 0, 0, 178, 200, 600 + map.xOffset + map.leftRight, -36 + map.yOffset + map.upDown, 178, 200);
       }
       if (map.yOffset === 390 || map.yOffset === -390) {
         map.zobi = false;
@@ -54,7 +57,7 @@ function drawTiles(ctx) {
         map.actual = map.newMap;
         map.direction = 0;
         map.monsters = spawnMonsters(mainMap[map.actual], ctx);
-        if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
+        if (mainMap[map.actual].hasWater) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
       }
       if (map.xOffset === 888 || map.xOffset === -896) {
         map.zobi = false;
@@ -62,10 +65,9 @@ function drawTiles(ctx) {
         map.actual = map.newMap;
         map.direction = 0;
         map.monsters = spawnMonsters(mainMap[map.actual], ctx);
-        if (mainMap[map.actual].hasWater === true) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
+        if (mainMap[map.actual].hasWater) map.zora = spawnZora(mainMap[map.actual].bluePrint, ctx);
       }
     }
-
 
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, 8);
@@ -122,6 +124,4 @@ function spawnZora(map, ctx) {
   return zora;
 }
 
-export {
-  drawTiles
-};
+export { drawTiles, spawnZora, spawnMonsters };

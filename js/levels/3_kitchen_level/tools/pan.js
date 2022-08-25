@@ -2,6 +2,15 @@ import { Tool } from "./tool.js";
 import { burners } from "./stove.js";
 import { mouse } from "../control.js";
 import { addStep } from "../tools.js";
+import { pan } from "../toolGeneration.js";
+import { endLevel } from "../startLevel3.js";
+
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
+var stirFrySound = new sound("../assets/3_kitchen/sounds/stir_fry.mp3", true);
+var sauceSound = new sound("../assets/3_kitchen/sounds/sauce.mp3", true);
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
@@ -15,10 +24,13 @@ crushedCloveSprite.src = "./assets/3_kitchen/crushed_garlic.png";
 var meatSprite = new Image();
 meatSprite.src = "./assets/3_kitchen/meat.png";
 
+var cookedPastasSprite = new Image();
+cookedPastasSprite.src = "./assets/3_kitchen/cooked_pastas.png";
+
 var sauceRadius = 0;
 
 class Veggy {
-  constructor(pX, pY, pWidth, pHeight, width, height, color, ctx) {
+  constructor(pX, pY, pWidth, pHeight, width, height, color, ctx, pan) {
     this.panX = pX + pWidth / 2 + 28;
     this.panY = pY + pHeight / 3 + 5;
     this.x = this.panX - 56 + Math.floor(Math.random() * 112);
@@ -28,6 +40,7 @@ class Veggy {
     this.color = color;
     this.angle = -30 + Math.floor(Math.random() * 60);
     this.ctx = ctx;
+    this.pan = pan;
   }
   draw() {
     this.ctx.save();
@@ -39,9 +52,9 @@ class Veggy {
   }
   update() {
     if (distance({
-        x: this.x,
-        y: this.y
-      }, mouse) < 5) {
+      x: this.x,
+      y: this.y
+    }, mouse) < 5) {
 
       switch (true) {
         case mouse.moveX > 0 && mouse.moveY > 0:
@@ -58,18 +71,22 @@ class Veggy {
           break;
       }
     }
+    if (this.pan.hasSauce) {
+      if (this.width > 1) this.width -= 0.002;
+      if (this.height > 1) this.height -= 0.002;
+    }
   }
   moveVeggy(x, y) {
     for (let i = 0; i < 5; i++) {
       var nextX = this.x + x;
       var nextY = this.y + y;
       if (distance({
-          x: nextX,
-          y: nextY
-        }, {
-          x: this.panX,
-          y: this.panY
-        }) < 56) {
+        x: nextX,
+        y: nextY
+      }, {
+        x: this.panX,
+        y: this.panY
+      }) < 56) {
         this.x += x;
         this.y += y;
       } else {
@@ -81,7 +98,7 @@ class Veggy {
 }
 
 class MeatPiece extends Veggy {
-  constructor(pX, pY, pWidth, pHeight, x, y, picX, picY, ctx) {
+  constructor(pX, pY, pWidth, pHeight, x, y, picX, picY, ctx, pan) {
     super();
     this.panX = pX + pWidth / 2 + 28;
     this.panY = pY + pHeight / 3 + 5;
@@ -92,6 +109,7 @@ class MeatPiece extends Veggy {
     this.picX = picX;
     this.picY = picY;
     this.ctx = ctx;
+    this.pan = pan;
   }
   drawMeat() {
     this.ctx.drawImage(meatSprite, this.picX, this.picY, 33, 33, this.x, this.y, this.width, this.height);
@@ -99,8 +117,8 @@ class MeatPiece extends Veggy {
 }
 
 class Pan extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butterPlate, laySound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, laySound);
     this.pieceWidth = 20;
     this.pieceHeight = 23;
     this.xOffset = 0;
@@ -111,6 +129,7 @@ class Pan extends Tool {
     this.hasCarrot = false;
     this.hasGarlic = false;
     this.hasSauce = false;
+    this.hasPastas = false;
     this.canStir = false;
     this.stirVeg = false;
     this.veggies = [];
@@ -118,23 +137,34 @@ class Pan extends Tool {
     this.justCrushed = false;
     this.stirV = 0;
     this.stirM = 0;
+
+    this.tickcount = 0;
+    this.maxTickcount = 200;
+    this.frame = 0;
+
+    this.cookingPastas = false;
   }
   draw() {
     super.draw();
 
     if (this.hasSauce) {
+      if (sauceRadius === 0) playSound(sauceSound, 0.3);
       if (sauceRadius < 57) sauceRadius += 0.2;
       if (Math.floor(sauceRadius) === 57) addStep(16);
       this.ctx.fillStyle = "red";
       this.ctx.beginPath();
-      this.ctx.arc(this.x + this.width / 2 + 28 , this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
+      this.ctx.arc(this.x + this.width / 2 + 28, this.y + this.height / 3 + 7, sauceRadius, 0, 2 * Math.PI);
       this.ctx.fill();
     }
+
+    if (this.hasPastas && this.frame === 0 && this.tickcount === 0) this.panPastas();
+    if (this.cookingPastas) this.addPastas();
+
     if (!this.stirVeg) {
-      if (this.butter.isCut === true) this.buttMelt();
-      if (this.hasOnion === true) this.addOnion();
-      if (this.hasCarrot === true) this.addCarrot();
-      if (this.hasGarlic === true) this.addGarlic();
+      if (this.butter.isCut ) this.buttMelt();
+      if (this.hasOnion ) this.addOnion();
+      if (this.hasCarrot ) this.addCarrot();
+      if (this.hasGarlic ) this.addGarlic();
     } else if (this.stirVeg) {
       this.isSelected = false;
       for (let i = 0; i < this.veggies.length; i++) {
@@ -146,8 +176,8 @@ class Pan extends Tool {
     var x = this.x + this.width / 2 + 28;
     var y = this.y + this.height / 3 + 5;
 
-    if(this.stirVeg && this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
-      this.stirV ++;
+    if (this.stirVeg && this.spoon.isSelected && distance(mouse, { x: x, y: y }) < 56) {
+      this.stirV++;
       if (this.stirV > 600) addStep(11);
     }
     if (this.justCrushed) {
@@ -155,9 +185,12 @@ class Pan extends Tool {
         this.meatP[i].update();
         this.meatP[i].drawMeat();
       };
-      if(this.spoon.isSelected && distance(mouse, {x: x , y: y }) < 56) {
-        this.stirM ++;
+      if (this.spoon.isSelected && distance(mouse, { x: x, y: y }) < 56) {
+        this.stirM++;
+        playSound(stirFrySound, 0.3)
         if (this.stirM > 600) addStep(14);
+      } else {
+        stopSound(stirFrySound);
       }
     }
 
@@ -167,11 +200,14 @@ class Pan extends Tool {
     }
 
     if (this.inPlace && this.spoon.isSelected && distance(mouse, {
-        x: this.x + this.width / 2 + 28,
-        y: this.y + this.height / 3 + 5
-      }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
+      x: this.x + this.width / 2 + 28,
+      y: this.y + this.height / 3 + 5
+    }) < 56 && this.butter.isCut === true && this.hasOnion === true &&
       this.hasCarrot === true && this.hasGarlic === true) {
       this.stirVeg = true;
+      playSound(stirFrySound, 0.3)
+    } else {
+      stopSound(stirFrySound);
     }
 
     if (this.meat.isCrushed) {
@@ -179,15 +215,16 @@ class Pan extends Tool {
     }
   }
   generateMeat() {
-    if (this.justCrushed === false) {
-      this.meat.pieces.forEach((piece, i) => {
-        this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx))
-      });
-      this.justCrushed = true;
+  if (!this.justCrushed) {
+    this.meat.pieces.forEach((piece, i) => {
+      this.meatP.push(new MeatPiece(this.x, this.y, this.width, this.height, piece.x, piece.y, piece.picX, piece.picY, this.ctx, pan))
+    });
+    this.justCrushed = true;
     }
   }
   buttMelt() {
-    if (burners[2].isOn === true && this.inPlace === true && this.pieceWidth > 0) {
+    if (burners[2].isOn && this.inPlace && this.pieceWidth > 0) {
+      playSound(meltingButterSound, 0.3);
       this.xOffset += 0.1;
       this.yOffset += 0.1;
       this.pieceWidth -= 0.1;
@@ -236,42 +273,63 @@ class Pan extends Tool {
   }
   generateVeggies() {
     var vegetables = [{
-        number: 350,
-        width: 5,
-        height: 5,
-        color: "white"
-      },
-      {
-        number: 250,
-        width: 3,
-        height: 3,
-        color: "yellow"
-      },
-      {
-        number: 350,
-        width: 4,
-        height: 4,
-        color: "orange"
-      },
+      number: 350,
+      width: 5,
+      height: 5,
+      color: "white"
+    },
+    {
+      number: 250,
+      width: 3,
+      height: 3,
+      color: "yellow"
+    },
+    {
+      number: 350,
+      width: 4,
+      height: 4,
+      color: "orange"
+    },
     ];
     vegetables.forEach((veg, i) => {
       for (let i = 0; i < veg.number; i++) {
-        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx);
+        var newVeg = new Veggy(this.x, this.y, this.width, this.height, veg.width, veg.height, veg.color, this.ctx, pan);
 
         if (distance(newVeg, {
-            x: this.x + this.width / 2 + 28,
-            y: this.y + this.height / 3 + 5
-          }) < 56) {
+          x: this.x + this.width / 2 + 28,
+          y: this.y + this.height / 3 + 5
+        }) < 56) {
           this.veggies.push(newVeg);
           this.veggies.sort((a, b) => 0.5 - Math.random());
         }
       }
     });
   }
-  stir() {
+  panPastas() {
+    this.cookingPastas = true;
+  }
+  addPastas() {
+    if (this.tickcount > this.maxTickcount - 1) {
+      this.tickcount = 0;
+      this.frame ++;
+    } else {
+      this.tickcount ++;
+    }
 
+    this.ctx.save();
+    this.ctx.globalAlpha = 1 - ((this.tickcount * 0.5) / 100);
+
+    this.ctx.drawImage(cookedPastasSprite, 469 * (this.frame - 1), 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
+    this.ctx.restore();
+
+    this.ctx.drawImage(cookedPastasSprite, 469 * this.frame, 0, 469, 500, this.x + this.width / 3, this.y + 2, 117, 125);
+
+    if (this.frame === 8 && this.tickcount === 0) {
+      endLevel();
+    } 
   }
 }
+
 
 function distance(obj1, obj2) {
   return Math.sqrt((obj1.x - obj2.x) * (obj1.x - obj2.x) +

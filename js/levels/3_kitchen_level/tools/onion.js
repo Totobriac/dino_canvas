@@ -3,6 +3,14 @@ import { mouse, key } from "../control.js";
 import { onion } from "../toolGeneration.js";
 import { sink, deleteTool, onTop, addStep, tools } from "../tools.js";
 
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
+
+var sliceSound = new sound("../assets/3_kitchen/sounds/slice_onion.mp3", false);
+var peelSound = new sound("../assets/3_kitchen/sounds/peel_onion.mp3", true);
+var sideCutSound = new sound("../assets/3_kitchen/sounds/side_cut.mp3", true);
+var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -16,6 +24,9 @@ onionPeeledSprite.src = "./assets/3_kitchen/onion_peeled.png";
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
+var arrowkeysSprite = new Image();
+arrowkeysSprite.src = "./assets/3_kitchen/arrow_keys.png";
+
 var rgb = {
   r: 0,
   g: 0,
@@ -26,8 +37,8 @@ var i = -4;
 var blockSize = 5;
 
 class Onion extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.state = "intact";
     this.angle = 0;
     this.slice = 0;
@@ -46,7 +57,6 @@ class Onion extends Tool {
     this.points = [];
   }
   draw() {
-
     this.spinOnion();
 
     super.draw();
@@ -67,10 +77,13 @@ class Onion extends Tool {
       sink.faucet = false;
 
       onTop("onion");
+
       var backPic = document.getElementById("back");
       backPic.style.background = "url('./assets/3_kitchen/peeled_onion_back.png')";
+
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       this.ctx.drawImage(onionSprite, (1200 - 548 * this.coef) / 2, 10, 548 * this.coef, 600 * this.coef);
 
@@ -79,12 +92,16 @@ class Onion extends Tool {
     if (this.state === "peeled" && this.pieceWidth === 0) this.beheading();
 
     if (this.state === "peeled" || this.state === "beheaded") {
+
       sink.faucet = false;
       onTop("chefKnife");
       this.chefKnife.isSelected = true;
       this.chefKnife.isChopping = true;
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      this.ctx.drawImage(arrowkeysSprite, 1000, 250);
+      
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       var x = canvas.width / 2;
       var y = canvas.height / 2;
@@ -128,6 +145,7 @@ class Onion extends Tool {
         r: 28
       }
       if (this.inPlace === true) {
+        playSound(fryingSound, 0.3);
         this.pan.hasOnion = true;
         addStep(8);
         deleteTool("onion");
@@ -135,6 +153,7 @@ class Onion extends Tool {
     }
   }
   peel() {
+    this.ctx.save();
     this.ctx.globalCompositeOperation = 'destination-out';
     this.ctx.fillStyle = "rgba(0,0,0,1)"
     for (let i = 0; i < this.points.length; i++) {
@@ -142,12 +161,9 @@ class Onion extends Tool {
       this.ctx.arc(this.points[i].x, this.points[i].y, 30, 0, 2 * Math.PI);
       this.ctx.fill();
     }
+    this.ctx.restore();
 
-    rgb = {
-      r: 0,
-      g: 0,
-      b: 0
-    };
+    rgb = {r: 0, g: 0, b: 0 };
     count = 0;
     i = -4;
     blockSize = 5;
@@ -172,6 +188,7 @@ class Onion extends Tool {
     }
   }
   donePeeling() {
+    stopSound(peelSound);
     this.inPlace = false;
     this.state = "peeled";
     var backPic = document.getElementById("back");
@@ -180,6 +197,7 @@ class Onion extends Tool {
   halfOnion() {
     if (mouse.upX > 508 && mouse.upX < 515 && tools[tools.length - 1].name === "chefKnife") {
       this.state = "halfed";
+      playSound(sliceSound, 0.3);
     }
   }
   spinOnion() {
@@ -201,6 +219,7 @@ class Onion extends Tool {
   beheading() {
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||
       (this.angle === 270 && mouse.upX > 529 && mouse.upX < 534)) {
+        playSound(sliceSound, 0.3);
       this.state = "beheaded";
       this.pieceWidth = 180;
     }
@@ -218,9 +237,12 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice1 = true;
+      if (this.canSlice1 && mouse.x < 750) playSound(sideCutSound, 1);
+
       if (this.chefKnife.x > 499 && this.chefKnife.x < 502) {
         this.slice = 1;
         this.canSlice1 = false;
+        stopSound(sideCutSound);
       }
     }
 
@@ -239,13 +261,18 @@ class Onion extends Tool {
       this.ctx.stroke();
 
       if (mouse.x > 750) this.canSlice2 = true;
+      if (this.canSlice2 && mouse.x < 750) playSound(sideCutSound, 1);
+
       if (this.chefKnife.x > 534 && this.chefKnife.x < 540) {
         this.canChop = true;
+        stopSound(sideCutSound);
       }
     }
   }
   sliceIt() {
-    if (this.canSlice === true && this.angle === 180 && this.canMince === false) {
+    if (this.canSlice && this.angle === 180 && !this.canMince) {
+      stopSound(sliceSound);
+      playSound(sliceSound, 0.3);
       this.slices.push({
         x: this.chefKnife.x + this.chefKnife.width / 2,
         y: this.chefKnife.y,
@@ -278,16 +305,11 @@ class Onion extends Tool {
 
     if (this.canMince === false) {
       this.ctx.beginPath();
-
       this.ctx.arc(0, 0, 125, 2 * Math.PI, Math.PI, false);
-
       this.ctx.strokeStyle = "red";
-
       this.ctx.setLineDash([4, 4]);
       this.ctx.lineWidth = 15;
-
       this.ctx.stroke();
-
       this.ctx.closePath();
     }
 
@@ -308,7 +330,6 @@ class Onion extends Tool {
     this.ctx.restore();
 
     if (this.angle === 180) {
-
       var distance = Math.sqrt((x - (this.chefKnife.x + this.chefKnife.width / 2)) * (x - (this.chefKnife.x + this.chefKnife.width / 2)) +
         (y - this.chefKnife.y) * (y - this.chefKnife.y)
       )
@@ -362,6 +383,8 @@ class Onion extends Tool {
         }
 
         if (this.piecesAXY.length === i) {
+          stopSound(sliceSound);
+          playSound(sliceSound, 0.3);
           this.piecesAXY.push(Array.from({
             length: 11
           }, () => setPiece()));
@@ -396,7 +419,8 @@ class Onion extends Tool {
     };
   }
   addPoints(e) {
-    if (this.inPlace === true && this.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
+    if (this.inPlace && this.state === "halfed" && e.offsetX > 400 && e.offsetX < 800) {
+      playSound(peelSound, 0.3);
       this.points.push({
         x: e.offsetX,
         y: e.offsetY
@@ -417,6 +441,4 @@ class Onion extends Tool {
 }
 
 
-export {
-  Onion
-}
+export { Onion };

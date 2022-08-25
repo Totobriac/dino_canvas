@@ -1,7 +1,14 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
+import { engineOn } from "./startLevel6.js";
 
-var carSprite = new Image();
-carSprite.src = "./assets/6_race/red_coupe.png";
+var motoSprite = new Image();
+motoSprite.src = "./assets/6_race/moto-6.png";
+
+var fallMotoSprite = new Image();
+fallMotoSprite.src = "./assets/6_race/fall_moto.png";
+
+var fallDriverSprite = new Image();
+fallDriverSprite.src = "./assets/6_race/fall_driver.png";
 
 const camera = {
   FOV: 100,
@@ -9,7 +16,7 @@ const camera = {
 }
 
 var roadWidth = 1200;
-var speed = 20;
+var speed = 0;
 var roadMark = 45;
 var middleLine = 20;
 var newZ = 100;
@@ -22,6 +29,16 @@ var treeSprite = [{ x: 0, width: 50 }, { x: 50, width: 50 }, { x: 100, width: 60
 var dY = calculateDY(camera.FOV);
 var showHotel = 0;
 var light = false;
+
+var motoTickCount = 0;
+var maxTickCount = 12;
+var frame = 0;
+
+var fallTickCount = 0;
+var fallMotoFrame = 0;
+var fallDriverFrame = 0;
+
+var falling = false;
 
 class Segment {
   constructor(z, c, s, sR, sL, xR, xL, bX, bS, rR) {
@@ -42,9 +59,17 @@ class Segment {
     this.boarX = bX;
     this.boarS = bS;
     this.runRight = rR;
-    this.hasBoar = false;
+    this.side = Math.floor(Math.random() * 2);
+    this.hasBoar;
+    this.hasTrunk;
+    this.putObstacles();
   }
-  update(i) {
+  putObstacles() {
+    var random = Math.floor(Math.random() * 100);
+    random > 95 ? this.hasTrunk = true : this.hasTrunk = false;
+    random > 90 ? this.hasBoar = true : this.hasBoar = false;
+  }
+  update() {
     tickCount++;
     this.y = ((camera.height + this.slope) * dY) / this.z + canvas.height / 2;
     this.scale = dY / this.z;
@@ -68,7 +93,7 @@ export function generateRoad(game) {
   if (game.loadedLevel[6] === false) {
     var sum = 0;
     var sections = [];
-    while (sum < 2500) {
+    while (sum < 600) {
       var sectionLength = 20 + 20 * (Math.floor(Math.random() * 3));
       sum += sectionLength;
       sections.push(sectionLength);
@@ -91,27 +116,32 @@ export function generateRoad(game) {
         j < sections[i] / 2 ? newS += S : newS -= S;
         var point = new Segment(newZ, newC, newS, sR, sL, xR, xL, bX, bS, rR);
         points.unshift(point)
-        newZ += 160
+        newZ += 160;
       }
-      game.loadedLevel[6] = true;
     }
+    game.loadedLevel[6] = true;
   }
 }
+
 function calculateDY(FOV) {
   var dY = (canvas.height / 2) / Math.tan((FOV / 2 * Math.PI) / 180);
   return dY;
 }
-
 export function drawScenery(ctx, game) {
-  for (let i = 0; i < points.length; i++) {
-    points[i].update(i);
-    if (points[0].z < 220) {
+
+
+  for (let i = 0; i < points.length; i++) {    
+    points[i].update();
+
+     if (points[0].z < 600) {
       speed = 0;
-      showHotel += 0.01;
+      showHotel += 0.005;
     }
   }
+
   drawBackground(ctx, playerX, light);
-  if (points[0].z > 220) {
+
+  if (points[0].z > 260) {
     drawForest_1(ctx, playerX);
     drawForest_2(ctx, playerX);
   }
@@ -128,28 +158,70 @@ export function drawScenery(ctx, game) {
   drawRoad(ctx, points);
   drawBoars(ctx, points, tickCount);
   steer(game);
-  ctx.drawImage(carSprite, 510, 250, 180, 180);
+
+  var coll = checkCollision();
+  if (coll) falling = true;
+  if (falling) speed = 0;
+
+  if (!falling) {
+    ctx.drawImage(motoSprite, 50 * frame, 0, 50, 110, 575, 285, 50, 110);
+  } else {
+    fallAnimation(ctx);
+  }
+}
+
+function fallAnimation(ctx) {
+  fallTickCount ++;
+  if (fallMotoFrame < 3 && fallTickCount % 10 === 0) fallMotoFrame ++;
+  ctx.drawImage(fallMotoSprite, 90 * fallMotoFrame, 0, 91, 110, 579, 285, 91, 110);
+  if (fallMotoFrame === 3) {
+    if (fallTickCount % 10 === 0 && fallDriverFrame < 7) fallDriverFrame ++;
+    ctx.drawImage(fallDriverSprite,fallDriverFrame * 84,0,84,110,670,285,84,110);
+    if (fallDriverFrame === 7) {
+      falling = false;
+      fallTickCount = 0;
+      fallMotoFrame = 0;
+      fallDriverFrame = 0;
+    }
+  }
 }
 
 function checkCollision() {
   for (let i = 0; i < points.length; i++) {
     var checkBoar = canvas.width / 2 + (points[i].boarX * points[i].scale) + points[i].offset - points[i].curve;
-    if (points[i].z < 250 && points[i].z > 100 && points[i].hasBoar == true && checkBoar > 300 && checkBoar < 400) return true;
+    if (points[i].z < 300 && points[i].z > 100 && points[i].hasBoar && checkBoar > 550 && checkBoar < 650) return true;
+    var checkTrunk;
+    points[i].side === 0
+      ? checkTrunk = canvas.width / 2 - (350 * points[i].scale) + points[i].offset - points[i].curve
+      : checkTrunk = canvas.width / 2 + (150 * points[i].scale) + points[i].offset - points[i].curve;
+    var trunkColl;
+    checkTrunk > 625 || checkTrunk + 100 < 575 ? trunkColl = false : trunkColl = true;
+    if (points[i].z < 250 && points[i].z > 100 && points[i].hasTrunk && trunkColl ) return true;
   }
+  return false;
 }
 
 export function steer(game) {
- if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
+
+  if (game.keyUp.code === "ArrowLeft" || game.keyUp.code === "ArrowRight") {
     offset = 0;
-  }
-  else {
-    if (game.keyDown.repeat) {
-      return;}
-    if (game.keyDown.code === 'ArrowLeft') {
-      offset += 0.002;
+    if (motoTickCount < maxTickCount) {
+      motoTickCount++;
+    } else {
+      motoTickCount = 0;
+      frame === 0 ? frame = 1 : frame = 0;
+    }
+  } else {
+    if (game.keyDown.code === 'ArrowLeft' && engineOn) {
+      frame = 3;
+      if (playerX < 575) offset += 0.002;
     };
-    if (game.keyDown.code === 'ArrowRight') {
-      offset += -0.002;
+    if (game.keyDown.code === 'ArrowRight' && engineOn) {
+      frame = 2;
+      if (playerX > -575) offset += -0.002;
     };
   }
+  playerX > 575 || playerX < -575 || !engineOn  ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
 }
+
+export { showHotel };

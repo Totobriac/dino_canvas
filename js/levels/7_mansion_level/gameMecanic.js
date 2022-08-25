@@ -1,126 +1,95 @@
 import { drawOutsideScenery } from "./outside_mansion.js";
-import { drawActions, animateText } from "./side_bar.js";
-import {
-  sprites, outsideText, outsideAction, isReadingPoster,
-  outsideObjectAction
-} from "./outside_mansion.js";
-import { MansionDino } from "../character/mansionDino.js";
-import { selectedAction, selectedObject } from "./side_bar.js";
+import { drawActions } from "./side_bar.js";
+import { MansionDino } from "./mansionDino.js";
+import { selectedAction, selectedObject, resetAction, resetObject } from "./side_bar.js";
 import { trash } from "./outside_sprite.js";
+import { outsideAction, isReadingPoster, canMove } from "./actions.js";
+import { fountainSound, walkSound } from "./sound.js";
+import { checkSelectedSprite, checkHoveredSprite } from "./mouse.js";
+import { drawText, introText, errorText, dialogue } from "./text.js";
 
 var dino;
+var textDisp;
+var oldMouseX = undefined;
 var selectedSprite;
 var hoveredSprite;
-var isInReach;
-var level = 0;
-var isDinoCreated = false;
 
-export function pointNClick(ctx, game) {
-  if (!isDinoCreated) {
-    dino = new MansionDino(ctx, 820, 300, 90, 188, 1);
-    isDinoCreated = true;
-    game.mousePosition = { x: 881, y: 300 };
+
+export function pointNClick(ctx, game, gameBegun) {
+
+  if (!dino) dino = new MansionDino(ctx, 1120, 300, 90, 188, 820, 0, 290, 320);
+  drawOutsideScenery(ctx);
+
+  if (oldMouseX != game.mousePosition.x) {
+    oldMouseX = game.mousePosition.x;
+    textDisp = undefined;
   }
-  if (game.level === 7) {
-    drawOutsideScenery(ctx);
-    dino.checkBundaries(820, 0, 300, 320);
-    if (game.mousePosition.x < 910) dino.moveAround(game, trash);
-    if (isReadingPoster === false) {
-      dino.animateDino();
+
+  if (gameBegun) {
+    walkSound(dino, isReadingPoster);
+    fountainSound(dino);
+    //if (!hoveredSprite) drawText(ctx, introText);
+    if (game.mousePosition.x < 910 && !isReadingPoster && canMove && gameBegun) {
+      dino.moveAround(game, trash);
     }
+    if (!isReadingPoster) dino.animateDino();
+    selectedSprite = checkSelectedSprite(game);
+    hoveredSprite = checkHoveredSprite(game);
+    mouseMechanic(ctx);
+    dialogue(ctx, hoveredSprite);
   }
-
-  drawActions(ctx, game);
-  animateText();
-
-  checkSelectedSprite(game);
-  checkHoveredSprite(game);
-  checkAction(ctx);
+  drawActions(ctx, game, gameBegun);
 }
 
-function checkSelectedSprite(game) {
-  for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mousePosition.x, game.mousePosition.y, 1, 1) == true) {
-      selectedSprite = sprites[i];
-      return
-    }
-    else {
-      selectedSprite = null;
-    }
-  }
-}
-
-function checkHoveredSprite(game) {
-  for (let i = 0; i < sprites.length; i++) {
-    if (sprites[i].checkCollision(game.mouseMovePosition.x, game.mouseMovePosition.y, 1, 1) == true) {
-      hoveredSprite = sprites[i].name;
-      return
-    }
-    else {
-      hoveredSprite = null;
-    }
-  }
-}
-
-function checkIfReach(dino, sprite) {
-  if (isReadingPoster == true) return true;
-  if (dino.x + (dino.spriteWidth * dino.scale) < sprite.x || dino.x > sprite.x + (sprite.spriteWidth * sprite.scale)) {
-    return false;
-  }
-  else {
-    return true;
+function mouseMechanic(ctx) {
+  if (hoveredSprite && !selectedAction) {
+    var gender;
+    hoveredSprite.male ? gender = "un " : gender = "une ";
+    var text = gender + hoveredSprite.name;
+    drawText(ctx, text);
+  } else if (selectedAction && !selectedObject && !selectedSprite && !hoveredSprite) {
+    drawText(ctx, selectedAction + "... ");
+  } else if (selectedAction && !selectedObject && !selectedSprite && hoveredSprite) {
+    var gender;
+    hoveredSprite.male ? gender = " le " : gender = " la ";
+    var text = selectedAction + gender + hoveredSprite.name;
+    drawText(ctx, text);
+  } else if (selectedAction && !selectedObject && selectedSprite ) {
+    dino.checkIfReach(selectedSprite) || isReadingPoster
+      ? executeAction(ctx)
+      : drawText(ctx, "Je suis trop loin");
+  } else if (selectedAction && selectedObject && selectedSprite ) {
+    dino.checkIfReach(selectedSprite) || isReadingPoster
+      ? executeAction(ctx)
+      : drawText(ctx, "Je suis trop loin");
   }
 }
 
-function checkAction(ctx) {
-  if (selectedSprite) {
-    isInReach = checkIfReach(dino, selectedSprite);
-    if (isInReach == true) {
-      displayText(ctx);
-      executeAction();
-      objectInteraction();
-    }
-  }
-}
+function executeAction(ctx) {
 
-function displayText(ctx) {
-  if (level == 0) {
-    for (let i = 0; i < outsideText.length; i++) {
-      if (selectedSprite.name === outsideText[i][0] && selectedAction === outsideText[i][1]) {
-        drawText(ctx, outsideText[i][2]);
-      }
-    }
-  }
-}
-
-function executeAction() {
-  if (level == 0) {
-    for (let i = 0; i < outsideAction.length; i++) {
-      if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
+  for (let i = 0; i < outsideAction.length; i++) {
+    if (selectedAction === "Utiliser" && selectedObject) {
+      if (selectedObject.name === outsideAction[i][0] && selectedSprite.name === outsideAction[i][1]) {
         const func = outsideAction[i][2];
         func();
+        if (outsideAction[i][3]) {
+          textDisp = outsideAction[i][3];
+        }
+        resetObject();
+      }
+    }
+    if (selectedSprite.name === outsideAction[i][1] && selectedAction === outsideAction[i][0]) {
+      const func = outsideAction[i][2];
+      func(ctx);
+      if (outsideAction[i][3]) {
+        textDisp = outsideAction[i][3];
       }
     }
   }
-}
-
-function objectInteraction() {
-  if (level == 0 && selectedAction === "Utiliser") {
-    for (let i = 0; i < outsideObjectAction.length; i++) {
-      if (selectedObject == outsideObjectAction[i][0] && selectedSprite.name === outsideObjectAction[i][1]) {
-        const func = outsideObjectAction[i][2];
-        func();
-      }
-    }
+  if (!textDisp) {
+    textDisp = errorText();
   }
-}
-
-function drawText(ctx, text) {
-  ctx.font = "50px Pixeboy";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "purple";
-  ctx.fillText(text, 200, 50);
+  drawText(ctx, textDisp)
 }
 
 export { dino, drawText, hoveredSprite };

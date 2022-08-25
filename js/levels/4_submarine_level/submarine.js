@@ -12,7 +12,11 @@ subJetRight.src = "./assets/4_submarine/bubble_jet_right.png";
 
 import { game } from "../../script.js";
 
+var dx = 0;
+var dy = 0;
+
 export function drawSubmarine(ctx, dino, mousePosition) {
+
   update(dino, game);
   ctx.save();
   ctx.translate(dino.x, dino.y);
@@ -20,10 +24,10 @@ export function drawSubmarine(ctx, dino, mousePosition) {
   ctx.rotate(dino.angle);
   if (dino.x >= mousePosition.x) {
     ctx.drawImage(subLeft, 0 - 40, 0 - 45, 71, 80);
-    ctx.drawImage(subJet, dino.frameIndex * 108, 0, 108, 108, 30, -29, 60, 60);
+    ctx.drawImage(subJet, dino.frameIndex * 108, 0, 108, 108, 30, -29, 40, 40);
   } else {
     ctx.drawImage(subRight, -40, -35, 71, 80);
-    ctx.drawImage(subJetRight, dino.frameIndex * 108, 0, 108, 108, 34, -28, 60, 60);
+    ctx.drawImage(subJetRight, dino.frameIndex * 108, 0, 108, 108, 34, -28, 40, 40);
   }
   ctx.restore();
 }
@@ -32,8 +36,8 @@ function update(dino, game) {
   dino.tickCount += 1;
   dino.mouseX = game.mousePosition.x;
   dino.mouseY = game.mousePosition.y;
-  const dx = dino.x - dino.mouseX;
-  const dy = dino.y - dino.mouseY;
+  dx = dino.x - dino.mouseX;
+  dy = dino.y - dino.mouseY;
   if (game.mousePosition.x != dino.x) {
     dino.x -= dx / 20;
   }
@@ -49,3 +53,5 @@ function getAngle(x, y, mouse) {
   let theta = Math.atan2(dy, dx);
   return theta
 }
+
+export {dx, dy};

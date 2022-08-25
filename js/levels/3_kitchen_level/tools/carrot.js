@@ -1,7 +1,12 @@
 import { Tool } from "./tool.js";
 import { tools, deleteTool, onTop, sink, addStep } from "../tools.js";
-
 import { mouse } from "../control.js";
+
+import { sound } from "../../../sound.js";
+import { playSound, stopSound, pauseSound } from "../sound.js";
+
+var gratingSound = new sound("../assets/3_kitchen/sounds/grating_carrot.mp3", true);
+var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -27,8 +32,8 @@ class Peel {
 }
 
 class Carrot extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, grater, pan) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, grater, pan, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.grater = grater;
     this.pan = pan;
     this.toBeGrated = false;
@@ -38,7 +43,7 @@ class Carrot extends Tool {
   }
   draw() {
 
-    if (this.inPlace === true && this.grater.inPlace === true && this.toBeGrated === false) {
+    if (this.inPlace && this.grater.inPlace && !this.toBeGrated) {
       sink.faucet = false;
       this.grateMe();
     }
@@ -82,14 +87,19 @@ class Carrot extends Tool {
         this.height
       );
 
-      if (this.isSelected === true) {
+      if (this.isSelected) {
         if (mouse.x != this.oldX && (this.oldX < mouse.x || this.oldX > mouse.x)
           && (this.x > 405 && this.x < 485) && (this.y > 60 && this.y < 230)) {
           this.oldX = mouse.x;
           this.cut += 0.6;
           this.generatePeel();
+          playSound(gratingSound, 0.3);
+        } else {
+          pauseSound(gratingSound);
         }
-        if (this.cut > 490) {
+        // if (this.cut > 490) {
+        if (this.cut > 10) {
+          stopSound(gratingSound);
           sink.faucet = true;
           this.toBeGrated = false;
           this.isGrated = true;
@@ -113,8 +123,9 @@ class Carrot extends Tool {
       }
     }
     else {
-      if (this.inPlace === true && this.isGrated === true) {
+      if (this.inPlace && this.isGrated) {
         this.pan.hasCarrot = true;
+        playSound(fryingSound, 0.3);
         addStep(10);
         deleteTool("carrot");
       }
@@ -144,6 +155,4 @@ function distance(obj1, obj2) {
     (obj1.y - obj2.y) * (obj1.y - obj2.y))
 }
 
-export {
-  Carrot
-};
+export { Carrot };

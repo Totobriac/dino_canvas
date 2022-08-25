@@ -1,10 +1,7 @@
-import {
-  zelda,
-} from "./script.js";
-
-import {
-  mainMap
-} from "./maps.js";
+import { setMainMusic, zelda } from "./script.js";
+import { mainMap, openSwordCave } from "./maps.js";
+import { resetTextIndex, resetTxtSnd } from "./itemsPng.js";
+import { playSound } from "./music.js";
 
 function action(i) {
   switch (i) {
@@ -18,7 +15,7 @@ function action(i) {
       getSword();
       break;
     case 7:
-      enterCave(10);
+      enterGannon();
       break;
     case 8:
       exitCave();
@@ -27,24 +24,37 @@ function action(i) {
       openDoor();
       break;
     case 10:
-      removeMessage();
+      removeMansionMessage();
+      break;
+    case 11:
+      removeGannonMessage();
       break;
   }
 }
 
+function enterGannon() {
+  zelda.hasSword ? enterCave(10) :  mainMap[1].hasEntered = false;
+}
+
 function enterCave(cave) {
   if (zelda.direction === 1 && zelda.y === 40 || zelda.direction === 1 && zelda.y === 200) {
+    setMainMusic(0);
     zelda.isEnteringCave = true;
-    zelda.cave = cave
+    zelda.cave = cave;
+    playSound(2);
   }
 }
 
 function exitCave() {
   if (zelda.direction === 0) zelda.isExitingCave = true;
+  resetTxtSnd();
+  playSound(2);
 }
 
 function getSword() {
-  zelda.isGrabingSword = true;
+  openSwordCave();
+  playSound(3);
+  zelda.isGrabingSword = true;  
 }
 
 function openDoor() {
@@ -55,10 +65,16 @@ function openDoor() {
   }
 }
 
-function removeMessage() {
+function removeMansionMessage() {
   mainMap[2].hasEntered = true;
+  resetTextIndex();
+  resetTxtSnd();
 }
 
-export {
-  action
-};
+function removeGannonMessage() {
+  mainMap[1].hasEntered = true;
+  resetTextIndex();
+  resetTxtSnd();
+}
+
+export { action };

@@ -18,7 +18,7 @@ export function drawDinoPiano(ctx, dino) {
   ctx.globalAlpha = 1;
   update(dino);
   ctx.drawImage(pianoSprite, 620, y - 8)
-  if (isWalking === true) {    
+  if (isWalking === true) {
     ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, x, y, width, height);
   }
   else {

@@ -1,192 +1,307 @@
 import { Sprite } from "./sprite.js";
-import { player, ctx, level, pistol } from "./raycasting.js";
+import { getPath } from "./pathFinder.js";
+import { distance } from "./functions.js";
 
-var enemies = [];
-
-var soldier = new Image();
 
 class Enemy extends Sprite {
-  constructor(x, y, image, frame, player, ctx, level, pistol, type) {
-    super(x, y, image, frame, player, ctx);
-    this.level = level;
-    this.speed = 1;
-    this.radians;
+  constructor(x, y, image, frame, player, still, ctx, map, character, alarmSound, hitSound, shootSound, dieSound,) {
+    super(x, y, image, frame, player, still, ctx);
+    this.level = map;
+    this.angle = 0;
     this.tickCount = 0;
+    this.guardPathTickount = 0;
     this.maxTickCount = 12;
     this.isInRange = false;
-    this.isShot = false;
-    this.pistol = pistol;
-    this.type = type;
-    this.life = 5;
-    this.lifeCounter = true;
-    this.dies = false;
+    this.xFrame = 0;
+    this.guardPath = 0;
+    this.alerted = false;
+    this.path = [];
+    this.isFiring;
+    this.fireTickCount = 0;
+    this.hitTickCount = 0;
+    this.isHitten = false;
+    this.type = "enemy";
+    this.character = character;
+    this.sawEnemy = false;
     this.isDead = false;
-    this.isSpriteRemoved = false;
+    this.alarmSound = alarmSound;
+    this.hittingSound = hitSound;
+    this.shootingSound = shootSound;
+    this.dieSound = dieSound;
 
-    this.soldier = new Image();
-    this.soldier.src = "./assets/9_dinoStein/" + this.type + "/still.png";
-
-    this.walk_0 = new Image();
-    this.walk_0.src = "./assets/9_dinoStein/" + this.type + "/0.png";
-    this.walk_1 = new Image();
-    this.walk_1.src = "./assets/9_dinoStein/" + this.type + "/1.png";
-    this.walk_2 = new Image();
-    this.walk_2.src = "./assets/9_dinoStein/" + this.type + "/2.png";
-    this.walk_3 = new Image();
-    this.walk_3.src = "./assets/9_dinoStein/" + this.type + "/3.png";
-
-    this.shoot_0 = new Image();
-    this.shoot_0.src = "./assets/9_dinoStein/" + this.type + "/shoot_0.png";
-    this.shoot_1 = new Image();
-    this.shoot_1.src = "./assets/9_dinoStein/" + this.type + "/shoot_1.png";
-    this.shoot_2 = new Image();
-    this.shoot_2.src = "./assets/9_dinoStein/" + this.type + "/shoot_2.png";
-
-    this.die_0 = new Image();
-    this.die_0.src = "./assets/9_dinoStein/" + this.type + "/die_0.png";
-    this.die_1 = new Image();
-    this.die_1.src = "./assets/9_dinoStein/" + this.type + "/die_1.png";
-    this.die_2 = new Image();
-    this.die_2.src = "./assets/9_dinoStein/" + this.type + "/die_2.png";
-    this.die_3 = new Image();
-    this.die_3.src = "./assets/9_dinoStein/" + this.type + "/die_3.png";
-    this.die_4 = new Image();
-    this.die_4.src = "./assets/9_dinoStein/" + this.type + "/die_4.png";
-
-    this.hurt = new Image();
-    this.hurt.src = "./assets/9_dinoStein/" + this.type + "/die_0.png";
+    this.setStats();
   }
+  draw() {
+    this.angle <= 90 || this.angle >= 270 ? this.Xoffset = 32 : this.Xoffset = -32;
+    this.angle < 180 ? this.Yoffset = 32 : this.Yoffset = -32;
+    this.update();
+    super.draw();
+  }
+  checkForCollision(x, y) {
+    var collision = false;
+    var xGridNb = Math.floor((x + this.Xoffset) / this.level.mapS);
+    var yGridNb = Math.floor((y + this.Yoffset) / this.level.mapS);
+    if (this.level.checkPlayerCollision(yGridNb, xGridNb)) {
+      collision = true;
+    };
+    return collision;
+  }
+  update() {
+    this.playXGrid = Math.floor(this.player.x / 64);
+    this.playYGrid = Math.floor(this.player.y / 64);
+    if (!this.still && !this.alerted) {
+      var newX = this.x + Math.cos(this.angle * Math.PI / 180) * this.speed;
+      var newY = this.y + Math.sin(this.angle * Math.PI / 180) * this.speed;
 
-  alert() {
-    if (this.dies === false) {
-      if (this.distance < 50) {
-        this.shoot();
-      } else if (this.distance < 150) {
-        this.pursue();
+      if (!this.checkForCollision(newX, newY)) {
+        this.x = newX;
+        this.y = newY;
+        this.guardPath++;
       } else {
-        this.image = this.soldier;
-        this.frame = 0;
+        this.angle += 90;
+        if (this.angle < 0) {
+          this.angle += 360;
+        } else if (this.angle > 360) {
+          this.angle -= 360;
+        }
+        this.guardPath = 0;
+      }
+    }
+
+    if (this.alerted && !this.isHitten) {
+      // il suit le joueur
+      this.findPath();
+
+      // si il est plus loin que son champs de tir, il le suit, sinon il tire
+      if (this.path.length === 0) {
+        this.alerted = false;
+        this.isFiring = false;
+      } else if (this.path.length > this.fireRange) {
+
+        this.isFiring = false;
+        this.stopShootSound();
+        var angleSet = false;
+
+        if (this.x - 32 === this.path[1].x * 64) {
+          this.x = this.x;
+        } else if (this.x - 32 < this.path[1].x * 64) {
+          this.x += this.speed;
+          if (!angleSet) this.angle = 0, angleSet = true;
+        } else if (this.x + 32 > this.path[1].x * 64) {
+          this.x -= this.speed;
+          if (!angleSet) this.angle = 180, angleSet = true;
+        }
+
+        if (this.y - 32 === this.path[1].y * 64) {
+          this.y = this.y;
+        } else if (this.y - 32 < this.path[1].y * 64) {
+          this.y += this.speed;
+          if (!angleSet) this.angle = 90, angleSet = true;
+        } else if (this.y + 32 > this.path[1].y * 64) {
+          this.y -= this.speed;
+          if (!angleSet) this.angle = 270, angleSet = true;
+        }
+
+      } else {
+        this.canBeSeen ? this.isFiring = true : this.isFiring = false;
+      }
+    }
+
+    // on choisit le sprite en fonction de son angle par rapport au joueur
+
+    var diff = (this.player.angle * 180 / Math.PI) - this.angle;
+
+    if (diff < 0) diff += 360;
+    if (diff > 360) diff -= 360;
+
+    if (this.life > 0) {
+      switch (true) {
+        case diff < 18:
+          this.frame = 4
+          break;
+        case diff > 18 && diff < 67.5:
+          this.frame = 3
+          break;
+        case diff > 67.5 && diff < 112.5:
+          this.frame = 2
+          break;
+        case diff > 112.5 && diff < 157.5:
+          this.frame = 1
+          break;
+        case diff > 157.5 && diff < 202.5:
+          this.frame = 0
+          break;
+        case diff > 202.5 && diff < 247.5:
+          this.frame = 7
+          break;
+        case diff > 247.5 && diff < 292.5:
+          this.frame = 6
+          break;
+        case diff > 292.5 && diff < 337.5:
+          this.frame = 5
+          break;
+        case diff > 342:
+          this.frame = 4
+          break;
+      }
+      this.imageX = this.frame * 64;
+    }
+
+    if (this.distance && this.distance < 200 && this.life > 0 && !this.alerted ) {
+      this.alerted = true
+      if (this.path && this.path.length > 0 ) this.shout();
+    };
+
+
+    if (this.life > 0) {
+      if ((!this.still || this.alerted) && !this.isFiring && !this.isHitten) {
+        if (this.tickCount > this.maxTickCount) {
+          this.yFrame < 4 ? this.yFrame++ : this.yFrame = 1;
+          this.tickCount = 0;
+        } else {
+          this.tickCount++;
+        }
+        this.xFrame = 0;
+        this.imageY = this.yFrame * 64;
+        this.fireTickCount = 0;
+      } else if (this.isFiring) {
+        if (!this.sawEnemy) this.shout()
+        this.imageY = 6 * 64;
+        this.imageX = this.xFrame * 64;
+        if (this.fireTickCount > this.maxTickCount * 0.5) {
+          this.xFrame < 2 ? this.xFrame++ : this.xFrame = 1;
+          this.fireTickCount = 0;
+          if (this.sawEnemy && this.xFrame === 1) this.shootSound();
+          var rand = Math.floor(Math.random() * 10);
+          if (rand > 7) {
+            this.player.life -= 2;
+          }
+        } else {
+          this.fireTickCount++;
+        }
       }
     } else {
-      this.tickCount++;
-      if (this.tickCount > this.maxTickCount) {
-        this.dies = false;
-        this.tickCount = 0;
-      }
-      this.life > 0 ? this.bleeding() : this.isDying();
-    }
-  }
-  pursue() {
-    this.walkAnimation();
-    this.radians = Math.atan2(this.player.y - this.y, this.player.x - this.x);
-    var X = this.x;
-    var Y = this.y;
-
-    var nextX = X += Math.cos(this.radians) * 1.2;
-    var nextY = Y += Math.sin(this.radians) * 1.2;
-
-    var squareX = parseInt(nextX / this.level.tileWidth);
-    var squareY = parseInt(nextY / this.level.tileHeight);
-
-    var noCollision = this.level.colision(squareX, squareY);
-    if (noCollision === false) {
-      this.x = nextX;
-      this.y = nextY;
-    } else {
-      this.image = this.soldier;
-      this.frame = 0;
-    }
-  }
-  walkAnimation() {
-    this.tickCount++;
-    if (this.tickCount > this.maxTickCount) {
-      this.tickCount = 0;
-      this.frame < 3 ? this.frame++ : this.frame = 0;
-    }
-    var pic = "this.walk_" + this.frame;
-    this.image = eval(pic);
-  }
-  shoot() {
-    if (this.frame > 2) this.frame = 0;
-    this.tickCount++;
-    if (this.tickCount > this.maxTickCount) {
-      this.tickCount = 0;
-      if (this.frame < 2) {
-        this.frame++
+      if (!this.isDead) this.deathShout()
+      this.alerted = false;
+      this.still = true;
+      if (this.hitTickCount < this.maxTickCount / 4) {
+        this.hitTickCount++;
       } else {
-        this.player.life -= 5;
-        this.ctx.fillStyle = "red";
-        this.ctx.globalAlpha = 0.8;
-        this.ctx.fillRect(300, 0, 600, 325);
-        this.ctx.globalAlpha = 1;
-        this.frame = 0;
+        if (this.xFrame === 0) this.xFrame = 1;
+        this.hitTickCount = 0;
+        if (this.xFrame < 4) {
+          this.xFrame++;
+        }
+        this.imageY = 5 * 64;
+        this.imageX = this.xFrame * 64;
       }
     }
-    var pic = "this.shoot_" + this.frame;
-    this.image = eval(pic);
-  }
-  isDying() {
-    this.dies = true;
-    this.tickCount++;
-    if (this.tickCount > this.maxTickCount) {
-      this.tickCount = 0;
-      if (this.frame === 1) this.player.score += 50;
-      if (this.frame < 4) this.frame++;
+    if (this.isHitten) {
+      this.stopShootSound();
+      this.hitSound();
+      this.alerted = true;
+      alertNme(this.x, this.y, this.level);
+      if (this.life > 0) {
+        if (this.hitTickCount < this.maxTickCount * 3) {
+          this.hitTickCount++;
+        } else {
+          this.hitTickCount = 0;
+          this.isHitten = false;
+          this.player.chosenWeapon != 3 ? this.life-- : this.life -= 2;
+        }
+      }
+      this.imageX = 0;
+      this.imageY = 5 * 64;
     }
-    var pic = "this.die_" + this.frame;
-    this.image = eval(pic);
+  }
+  isHit() {
+    switch (true) {
+      case this.player.chosenWeapon === 0 && this.distance < 64:
+        if (!this.isHitten) this.isHitten = true;
+        break;
+      case this.player.chosenWeapon === 1 && this.distance < 256:
+        if (!this.isHitten) this.isHitten = true;
+        break;
+      case this.player.chosenWeapon === 2 && this.distance < 512:
+        if (!this.isHitten) this.isHitten = true;
+        break;
+      case this.player.chosenWeapon === 3 && this.distance < 256:
+        if (!this.isHitten) this.isHitten = true;
+        break;
+    }
+  }
+  findPath() {
+    if (this.guardPathTickount > this.maxTickCount) {
+      this.guardPathTickount = 0;
+      this.path = getPath(this.player, this.level, this.x, this.y);
+    } else {
+      this.guardPathTickount++;
+    }
+  }
+  setStats() {
+    this.yFrame = Math.floor(Math.random() * 4);
+    this.maxPath = Math.floor(Math.random() * 8) * 64;
+    switch (this.character) {
+      case "guard":
+        this.fireRange = Math.floor(Math.random() * 2 + 2);
+        this.life = 6;
+        this.speed = Math.floor(Math.random() * 1) + 2
+        break;
+      case "officer":
+        this.fireRange = Math.floor(Math.random() * 2 + 4);
+        this.life = 8;
+        this.speed = Math.floor(Math.random() * 2) + 2
+        break;
+      case "dog":
+        this.fireRange = 2;
+        this.life = 6;
+        this.speed = 5;
+        break;
+      case "boss1":
+        this.type = "boss";
+        this.fireRange = Math.floor(Math.random() * 2 + 4);
+        this.life = 20;
+        this.speed = 4;
+        break;
+      case "boss2":
+        this.type = "boss";
+        this.fireRange = Math.floor(Math.random() * 2 + 4);
+        this.life = 25;
+        this.speed = 4;
+        break;
+      case "boss3":
+        this.type = "boss";
+        this.fireRange = Math.floor(Math.random() * 2 + 2);
+        this.life = 30;
+        this.speed = 1;
+        break;
+    }
+  }
+  shout() {
+    this.sawEnemy = true;
+    this.alarmSound.play();
+  }
+  deathShout() {
     this.isDead = true;
+    this.dieSound.play();
   }
-  bleeding() {
-    this.image = this.hurt;
+  hitSound() {
+    this.hittingSound.play()
   }
-  checkIfInRange() {
-    if (this.halfSprite + 20 < 592 || this.halfSprite > 638) {
-      this.isInRange = false;
-    } else {
-      this.isInRange = true;
+  shootSound() {
+    this.shootingSound.play();
+  }
+  stopShootSound() {
+    this.shootingSound.stop();
+  }
+}
+function alertNme(x, y, level) {
+  for (let i = 0; i < level.spritesList.length; i++) {
+    if (level.spritesList[i] && level.spritesList[i].type === "enemy" && level.spritesList[i].life > 0) {
+      var dist = distance(level.spritesList[i].x, level.spritesList[i].y, x, y);
+      if (dist < 128) level.spritesList[i].alerted = true;
     }
-    if (this.isInRange === true && this.pistol.isShooting === true && this.lifeCounter === true) {
-      this.lifeCounter = false;
-      this.life--;
-      this.dies = true;
-    }
-    if (this.pistol.isShooting === false) {
-      this.lifeCounter = true;
-    }
-  }
-  removeSprite(index, enemy) {
-    this.isSpriteRemoved = true;
-    this.level.level.sprites.push([enemy.x, enemy.y, 0, this.type]);
-    this.level.level.enemies.splice(index, 1);
   }
 }
 
-function createEnemies(enemyList) {
-  for (let i = 0; i < enemyList.length; i++) {
-    enemies[i] = new Enemy(enemyList[i][0], enemyList[i][1], soldier, 0, player, ctx, level, pistol, enemyList[i][2]);
-  }
-  console.log(enemies);
-}
-
-function removeEnemies() {
-  enemies = [];
-}
-
-function drawEnemies() {
-  enemies.sort(function (obj1, obj2) {
-    return obj2.distance - obj1.distance;
-  });
-  for (let a = 0; a < enemies.length; a++) {
-    enemies[a].alert();
-    enemies[a].checkIfInRange();
-    enemies[a].draw();
-    if (enemies[a].isDead === true && enemies[a].isSpriteRemoved === false) enemies[a].removeSprite(a, enemies[a]);
-  }
-}
-
-export {
-  createEnemies,
-  drawEnemies,
-  removeEnemies,
-}
+export { Enemy };

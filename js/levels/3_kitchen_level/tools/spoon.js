@@ -26,6 +26,4 @@ class Spoon extends Tool {
   }
 }
 
-export {
-  Spoon
-};
+export { Spoon };

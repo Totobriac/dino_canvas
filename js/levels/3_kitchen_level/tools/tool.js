@@ -1,5 +1,7 @@
+import { playSound } from "../sound.js";
+
 class Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound) {
     this.name = name;
     this.sprite = sprite;
     this.x = x;
@@ -17,13 +19,25 @@ class Tool {
     this.inPlace = false;
     this.isMoving = false;
     this.isSelected = false;
-    this.isDesplayed = true;
+    this.isDisplayed = true;
     this.canBeSelected = true;
+
+    this.sound = sound;
+    this.playSound = false;
+  }
+  plSound() {
+    if(this.playSound && !this.isSelected) {
+      playSound(this.sound, 0.3);
+      this.playSound = false;
+    }
   }
   draw() {
-    if (this.isSelected === true) this.drawShadow();
-
-    if (this.isMoving === true) {
+    if (this.sound) this.plSound();
+    if (this.isSelected) {      
+      this.drawShadow();
+      this.playSound = true;
+    }
+    if (this.isMoving) {
       this.ctx.shadowBlur = 10;
       this.ctx.shadowOffsetX = 20;
       this.ctx.shadowColor = "rgba(0,0,0,1)";
@@ -61,6 +75,5 @@ class Tool {
     this.ctx.fill();
   }
 }
-
 
 export { Tool };

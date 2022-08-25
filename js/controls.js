@@ -1,18 +1,18 @@
 export class Control {
   constructor(game) {
     this.keyDown;
-    
+
     window.addEventListener('keydown', function (e) {
       game.keyDown = e;
       game.keyUp = " ";
 
       if (isFinite(e.key) && e.key != " ") {
-        game.level = parseInt(e.key);        
+        game.level = parseInt(e.key);
       }
     })
     window.addEventListener('keyup', function (e) {
       game.keyDown = " ";
-      game.keyUp = e;    
+      game.keyUp = e;
     });
     window.addEventListener('mousemove', function (e) {
       var position = getCursorPosition(canvas, e);

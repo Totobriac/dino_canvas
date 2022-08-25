@@ -1,169 +1,137 @@
-import { convertToRadians, normalizeAngle } from "./functions.js";
-import { Ray } from "./ray.js"
-import { levels } from "./map.js";
-import { game } from "../../script.js";
-import { pistol } from "./raycasting.js";
+import { normalizeAngle } from "./functions.js";
 
-const FOV = 60;
-
-class Player {
-  constructor(ctx, level, x, y) {
-    this.ctx = ctx;
-    this.level = level;
+export class Player {
+  constructor(x, y, map, ctx) {
+    this.color = "yellow";
     this.x = x;
     this.y = y;
+    this.map = map;
+    this.ctx = ctx;
+    this.angle = 0;
+    this.speed = 3;
 
-    this.newX = 0;
-    this.newY = 0;
+    this.moveX = 0;
+    this.moveY = 0;
 
-    this.move = 0;
-    this.turn = 0;
-    this.turnAngle = 1.55;
-    this.turnSpeed = convertToRadians(3);
-    this.moveSpeed = 3;
-
-    this.numbOfRays = 600;
-    this.rays = [];
-
+    this.rotate = 0;
+    this.rotationSpeed = 2 * (Math.PI / 180);
+    this.isColliding = false;
+    this.FOV = 60;
+    this.isMoving = false;
+    this.isShooting;
+    this.speedTick = 0;
+    this.maxTickCount = 4;
+    this.chosenWeapon = 0;
+    this.discoWeapon = 0;
+    this.keys = 0;
     this.life = 100;
-    this.score = 0;
-
-    var halfFOV = FOV / 2;
-    var addedAngle = convertToRadians(FOV / this.numbOfRays);
-    var startAngle = convertToRadians(this.turnAngle - halfFOV);
-    var angleRay = startAngle;
-
-    for (let i = 0; i < this.numbOfRays; i++) {
-      this.rays[i] = new Ray(this.ctx, this.level, this.x, this.y, this.turnAngle, angleRay, i);
-      angleRay += addedAngle;
-    }
   }
   up() {
-    this.move = 1;
+    this.moveX = 1;
+    this.moveY = 1;
+    this.isMoving = true;
   }
   down() {
-    this.move = -1;
+    this.moveX = -1;
+    this.moveY = -1;
+    this.isMoving = true;
   }
   right() {
-    this.turn = 1;
+    this.rotate = 1;
   }
   left() {
-    this.turn = -1;
+    this.rotate = -1;
   }
-  stopMoving() {
-    this.move = 0;
+  stopMove() {
+    this.moveX = 0;
+    this.moveY = 0;
+    this.isMoving = false;
   }
-  stopTurning() {
-    this.turn = 0;
+  stopTurn() {
+    this.rotate = 0;
   }
-  colision(x, y) {
-
-    var hit = false;
-    var squareX = parseInt(x / this.level.tileWidth);
-    var squareY = parseInt(y / this.level.tileHeight);
-
-    switch (this.level.grid[squareY][squareX]) {
-      case 100:
-        this.level.levelChange(levels[0]);
-        this.x = 64;
-        this.y = 80;
-        this.turnAngle = 1.675;
-        break;
-      case 101:
-        this.level.levelChange(levels[1]);
-        this.newX = 490;
-        this.newY = 220;
-        this.turnAngle = 3.14;
-        break;
-      case 102:
-        this.level.levelChange(102);
-        break;
-      case 103:
-        this.level.levelChange(levels[1]);
-        this.newX = 80;
-        this.newY = 60;
-        this.turnAngle = 6.22;
-        break;
-      case 104:
-        this.level.levelChange(levels[2]);
-        this.newX = 110;
-        this.newY = 350;
-        this.turnAngle = 4.7;
-        break;
-      case 105:
-        this.level.levelChange(levels[3]);
-        this.newX = 220;
-        this.newY = 80;
-        this.turnAngle = 1.55;
-        break;
-      case 106:
-        this.level.levelChange(levels[0]);
-        this.x = 65;
-        this.y = 350;
-        this.turnAngle = 4.65;
-        break;
-    }
-    if (this.level.colision(squareX, squareY))
-      hit = true;
-    return hit;
+  chooseWeapon(nb) {
+    if (nb <= this.discoWeapon) this.chosenWeapon = nb;
   }
+  checkForCollision(x, y) {
+    var collision = false;
+    var xGridNb = Math.floor(x / this.map.mapS);
+    var yGridNb = Math.floor(y / this.map.mapS);
+   
+    if (this.map.checkPlayerCollision(yGridNb, xGridNb)) {
+      collision = true;
+    };
+    return collision;
+  } 
   update() {
-    switch (game.keyDown.key) {
-      case "ArrowUp":
-        this.up();
-        break;
-      case "ArrowDown":
-        this.down();
-        break;
-      case "ArrowRight":
-        this.right();
-        break;
-      case "ArrowLeft":
-        this.left();
-        break;
-      case " ":
-        pistol.shoot();
-        break;
-    };
+    var newX = this.x + this.moveX * Math.cos(this.angle) * this.speed;
+    var newY = this.y + this.moveY * Math.sin(this.angle) * this.speed;
 
-    switch (game.keyUp.key) {
-      case "ArrowUp":
-        this.stopMoving();
-        break;
-      case "ArrowDown":
-        this.stopMoving();
-        break;
-      case "ArrowRight":
-        this.stopTurning();
-        break;
-      case "ArrowLeft":
-        this.stopTurning();
-        break;
-    };
+    this.angle += this.rotate * this.rotationSpeed;
+    this.angle = normalizeAngle(this.angle);  
 
-    this.newX = this.x + this.move * Math.cos(this.turnAngle) * this.moveSpeed;
-    this.newY = this.y + this.move * Math.sin(this.turnAngle) * this.moveSpeed;
-
-    if (!this.colision(this.newX, this.newY)) {
-      this.x = this.newX;
-      this.y = this.newY;
+     if (!this.checkForCollision(newX, this.y)) {
+      this.x = newX;      
     }
-    this.turnAngle += this.turn * this.turnSpeed;
-    this.turnAngle = normalizeAngle(this.turnAngle);
-    for (let i = 0; i < this.numbOfRays; i++) {
-      this.rays[i].x = this.x;
-      this.rays[i].y = this.y;
-      this.rays[i].setAngle(this.turnAngle);
+
+     if (!this.checkForCollision(this.x, newY)) {      
+      this.y = newY;
     }
+    
+    this.checkForItem();
+      if (this.map.isSearching === true) this.resetSearch();    
   }
   draw() {
     this.update();
-    for (let i = 0; i < this.numbOfRays; i++) {
-      this.rays[i].draw();
+  }
+  shoot(nb) {
+    this.isShooting = true;
+  }
+  stopShoot() {
+    this.isShooting = false;
+  }
+  checkForItem() {
+    var X = Math.floor(this.x / 64);
+    var Y = Math.floor(this.y / 64);
+
+    switch (parseInt(this.map.sprites[Y][X])) {
+      case 35:
+        if (this.discoWeapon < 1) {
+          this.map.removeSprite(35);
+          this.discoWeapon = 1;
+        }
+        break;
+      case 29:
+        if (this.discoWeapon < 2) {
+          this.map.removeSprite(29);
+          this.discoWeapon = 2;
+        }
+        break;
+      case 30:
+        if (this.discoWeapon < 3) {
+          this.map.removeSprite(30);
+          this.discoWeapon = 3;
+        }
+        break;
+      case 22:
+        if (this.keys < 1) {
+          this.map.removeSprite(22);
+          this.keys = 1;
+        }
+        break;
+      case 23:
+        if (this.keys < 2) {
+          this.map.removeSprite(23);
+          this.keys = 2;
+        }
+        break;
     }
   }
-}
-
-export {
-  Player
+  resetSearch() {
+    var X = Math.floor(this.x / 64);
+    var Y = Math.floor(this.y / 64);
+    if (X != this.map.itemTile[0] || Y != this.map.itemTile[1]) {
+      this.map.isSearching = false;
+    }
+  }
 }

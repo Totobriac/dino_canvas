@@ -38,19 +38,29 @@ const cook = {
   tickCount: 0,
 }
 
+var isCookFired = false;
+
 function generateCustomers(ctx, left) {
+
   mustache.tickCount += 1;
   checkFrame(mustache);
   ctx.drawImage(customerSprite, 50 * mustache.frameIndex, 0, 50, 84, -444 + charOffset + left, 210 + top, 60, 101);
+
   lady.tickCount += 1;
   checkFrame(lady);
   ctx.drawImage(customerSprite, 150 + (50 * lady.frameIndex), 0, 50, 84, -310 + charOffset + left, 212 + top, 60, 101);
+
   bold.tickCount += 1;
   checkFrame(bold);
   ctx.drawImage(customerSprite, 250 + (50 * bold.frameIndex), 0, 50, 84, 180 + charOffset + left, 210 + top, 60, 101);
-  cook.tickCount += 1;
-  checkFrame(cook);
-  ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset + left, 155 + top, 60, 120);
+
+
+  if (!isCookFired) {
+    cook.tickCount += 1;
+    checkFrame(cook);
+    ctx.drawImage(cookSprite, (50 * cook.frameIndex), 0, 50, 100, 1000 + charOffset + left, 155 + top, 60, 120);
+  }
+
   ctx.drawImage(tableEdgeSprite, 208 + charOffset + left, 270 + top, 126, 22);
   ctx.drawImage(tableEdgeSprite, -408 + charOffset + left, 270 + top, 126, 22);
 }
@@ -66,4 +76,8 @@ function checkFrame(sprite) {
   }
 }
 
-export { generateCustomers };
+function fireCook() {
+  isCookFired = true;
+}
+
+export { generateCustomers, fireCook };

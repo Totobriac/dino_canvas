@@ -1,16 +1,11 @@
-import {
-  Tool,
-} from "./tool.js";
+import { Tool } from "./tool.js";
+import { addStep } from "../tools.js";
+import { mouse } from "../control.js";
 
-import {
-  onTop,
-  displayTool,
-  addStep,
-} from "../tools.js";
+import { sound } from "../../../sound.js";
+import { playSound, stopSound } from "../sound.js";
 
-import {
-  mouse
-} from "../control.js";
+var canOpeningSound = new sound("../assets/3_kitchen/sounds/can_opening.mp3", false);
 
 var handleSprite = new Image();
 handleSprite.src = "./assets/3_kitchen/handle_tin_opener.png";
@@ -19,10 +14,10 @@ var crankSprite = new Image();
 crankSprite.src = "./assets/3_kitchen/crank_tin_opener.png";
 
 class TinOpener extends Tool {
-  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow) {
-    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow);
+  constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound) {
+    super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.isOpening = false;
-    this.angle = 0;
+    this.angle = 730;
   }
   draw() {
     if (this.isOpening) {
@@ -54,26 +49,33 @@ class TinOpener extends Tool {
           if (mouse.moveX > 0 && mouse.moveY > 0) {
             this.angle++;
             this.tin.rotate();
+            playSound(canOpeningSound, 0.3);
           }
         } else if (mouse.x < 600 && mouse.y < 150) {
           if (mouse.moveX < 0 && mouse.moveY > 0) {
             this.angle++;
             this.tin.rotate();
+            playSound(canOpeningSound, 0.3);
           }
         } else if (mouse.x > 600 && mouse.y > 150) {
           if (mouse.moveX > 0 && mouse.moveY < 0) {
             this.angle++;
             this.tin.rotate();
+            playSound(canOpeningSound, 0.3);
           }
         } else if (mouse.x > 600 && mouse.y < 150) {
           if (mouse.moveX < 0 && mouse.moveY < 0) {
             this.angle++;
             this.tin.rotate();
+            playSound(canOpeningSound, 0.3);
           }
+        } else {
+          stop(canOpeningSound);
         }
       }
 
       if (this.angle > 740) {
+        stop(canOpeningSound);
         this.isOpening = false;
         this.isSelected = false;
         this.tin.open();
@@ -92,6 +94,4 @@ function distance(obj1, obj2) {
     (obj1.y - obj2.y) * (obj1.y - obj2.y))
 }
 
-export {
-  TinOpener
-};
+export { TinOpener };

@@ -1,4 +1,3 @@
-
 import { Sink } from "./tools/sink.js";
 import { generateTools } from "./toolGeneration.js";
 import { drawSlice } from "./tools/slice.js";
@@ -14,17 +13,15 @@ function load(ctx, game) {
       sink = new Sink();
       tools = generateTools(ctx);
       game.loadedLevel[3] = true;
-      console.log("second");
       resolve();
     })
   }
 }
 
 async function drawTools(ctx, game) {
-  console.log(game.loadedLevel[3]);
   await  load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
-    if (tools[i].isDesplayed === true) {
+    if (tools[i].isDisplayed === true) {
       tools[i].draw();
       tools[i].isClose();
     }
@@ -38,16 +35,16 @@ async function drawTools(ctx, game) {
 function displayTool(toolL) {
   for (let i = 0; i < tools.length; i++) {
     if (toolL.includes(tools[i].name)) {
-      tools[i].isDesplayed = true;
+      tools[i].isDisplayed = true;
     } else {
-      tools[i].isDesplayed = false;
+      tools[i].isDisplayed = false;
     }
   }
 }
 
 function displayAllTools() {
   for (let i = 0; i < tools.length; i++) {
-    tools[i].isDesplayed = true;
+    tools[i].isDisplayed = true;
   }
 }
 
@@ -118,7 +115,7 @@ function selectable() {
       objects = ["spoon"];
     break;
     case 11:
-      objects = ["spoon", "meat"];
+      objects = ["meat", "spoon"];
     break;
     case 12:
       objects = ["pasta"];

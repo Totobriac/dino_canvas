@@ -1,16 +1,16 @@
 import { dino, top } from "../../script.js";
 import { generateCustomers } from "./customers.js";
 import { generateChar } from "./backCharacters.js";
-import { isEntering, dinoXOffset, doorOffset, xOffset, charOffset, isComingBack } from "./dinoAnimation.js";
+import { dinoXOffset, doorOffset, xOffset, charOffset } from "./dinoAnimation.js";
 
-const restBackSprite = new Image();
+var restBackSprite = new Image();
 restBackSprite.src = "./assets/2_restaurant/inside_no_door.png";
 
-const seaSprite = new Image();
-seaSprite.src = "./assets/2_restaurant/sea_animation.png";
+var seaSprite = new Image();
+seaSprite.src = "./assets/2_restaurant/sea_animation_blue.png";
 
-const outsideSprite = new Image();
-outsideSprite.src = "./assets/2_restaurant/rampe_original.png";
+var outsideSprite = new Image();
+outsideSprite.src = "./assets/2_restaurant/rampe_lg.png";
 
 var leftDoorSprite = new Image();
 leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
@@ -18,26 +18,36 @@ leftDoorSprite.src = "./assets/2_restaurant/left_door.png";
 var rightDoorSprite = new Image();
 rightDoorSprite.src = "./assets/2_restaurant/right_door.png";
 
-const dinoWalk = new Image();
+var dinoWalk = new Image();
 dinoWalk.src = "./assets/dino/dino_walk_left.png";
 
-const dinoWalkR = new Image();
+var dinoWalkR = new Image();
 dinoWalkR.src = "./assets/dino/dino_walk.png";
 
-const dinoStillSprite = new Image();
+var dinoStillSprite = new Image();
 dinoStillSprite.src = "./assets/dino/dino_still_left.png";
 
+var dinoStillRSprite = new Image();
+dinoStillRSprite.src = "./assets/dino/dino_still.png";
+
+var gradHatSprite = new Image();
+gradHatSprite.src = "./assets/2_restaurant/grad_hat.png";
+
+var skySprite = new Image();
+skySprite.src = "./assets/2_restaurant/sky.png";
 
 function generateBack(ctx, left) {
-  if (!isEntering) {
+
+  if (dino.state === "walkin") {
     dinoXOffset < 520 ? ctx.drawImage(dinoWalk, dino.frameIndex * 90, 0, 90, 99, 1100 + left - dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillSprite, 0, 0, 90, 99, 580 + left, 165 + top, 66, 70);
   }
-  if (isComingBack) {
-    ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, left + dinoXOffset, 165 + top, 66, 70)
+  if (dino.state === "comingBack") {
+    dinoXOffset < 530 ? ctx.drawImage(dinoWalkR, dino.frameIndex * 90, 0, 90, 99, left + dinoXOffset, 165 + top, 66, 70) : ctx.drawImage(dinoStillRSprite, 0, 0, 90, 99, 530 + left, 165 + top, 66, 70);
+    ctx.drawImage(gradHatSprite, left + dinoXOffset + 18, 165 + top - 26, 55, 55);
   }
   ctx.drawImage(leftDoorSprite, 542 - doorOffset + charOffset + left, 105 + top, 78, 140);
   ctx.drawImage(rightDoorSprite, 620 + doorOffset + charOffset + left, 105 + top, 78, 140);
-  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, 0 + top, 1200, 400);
+  ctx.drawImage(restBackSprite, xOffset, 0, 600, 200, left, top, 1200, 400);
 }
 
 const seaAnim = {
@@ -48,10 +58,12 @@ const seaAnim = {
 }
 
 function generateSea(ctx, left) {
+  ctx.drawImage(skySprite, 0, 0, 1200, 820, left , top - 1500 + 820, 1200,820);
+
   seaAnim.tickCount += 1;
   checkFrame(seaAnim);
-  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1280, 241, left, 90 + top, 1290, 241);
-  ctx.drawImage(outsideSprite, xOffset * 0.8, 0, 982, 49, left, 159 + top, 982 * 1.8, 49 * 1.8);
+  ctx.drawImage(seaSprite, xOffset * 0.1, 20 + (241 * seaAnim.frameIndex), 1200, 241, left, 140 + top, 1200, 241);
+  ctx.drawImage(outsideSprite, xOffset * 0.8 , 0, 600, 49, left, top + 159, 1200, 98);
 }
 
 function checkFrame(sprite) {
@@ -69,7 +81,7 @@ function generateRestBack(ctx, game, left) {
   dino.tickCount += 1;
   dino.checkFrame(2);
   generateSea(ctx, left);
-  generateChar(ctx, game);
+  generateChar(ctx, game, dino);
   generateBack(ctx, left);
   generateCustomers(ctx, left);
 }
