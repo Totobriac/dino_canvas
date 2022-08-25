@@ -100,7 +100,7 @@ class Onion extends Tool {
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      this.ctx.drawImage(arrowkeysSprite, 1000, 250);
+      this.ctx.drawImage(arrowkeysSprite, 1050, 250);
       
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       var x = canvas.width / 2;

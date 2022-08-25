@@ -128,7 +128,7 @@ class Pasta extends Tool {
     }
     if (this.doneCooking && this.pot.inPlace && this.colander.inPlace) {
       playSound(drainPastaSound, 0.3);
-      this
+    
       this.colander.hasPastas = true;
 
       this.pot.waterLevel = 0;
