@@ -31,7 +31,6 @@ export function startLevel(game, ctx) {
   if (game.start) {
     animate(game, ctx);
   }
-
 }
 
 function startGame() {

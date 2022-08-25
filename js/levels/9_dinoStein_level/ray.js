@@ -1,206 +1,340 @@
-import { normalizeAngle, distBetweenTwoPoints } from "./functions.js";
-import { zBuffer } from "./raycasting.js";
-var canvasWidth = 600;
-var canvasHeight = 400;
-const FOV = 60;
+import { distance, normalizeAngle } from "./functions.js";
+import { floorData } from "./init.js";
+import { getTextNb } from "./zone.js";
 
-var tileSize = 40;
-var tiles = new Image();
-tiles.src = "./assets/9_dinoStein/walls_2.png";
+var wallsSprite = new Image();
+wallsSprite.src = "./assets/9_dinoStein/walls2.png";
 
-class Ray {
+var zBuffer = [];
 
-  constructor(con, level, x, y, playerAngle, addedAngle, stripe) {
-    this.ctx = con;
-    this.level = level;
-
-    this.x = x;
-    this.y = y;
-
-    this.addedAngle = addedAngle;
-    this.playerAngle = playerAngle;
-    this.angle = playerAngle + addedAngle;
-
-    this.wallHitX = 0;
-    this.wallHitY = 0;
-
-    this.wallHitXHorizontal = 0;
-    this.wallHitYHorizontal = 0;
-    this.wallHitXVertical = 0;
-    this.wallHitYVertical = 0;
-
-
-    this.stripe = stripe;
-    this.distance = 0;
-
-    this.pixelTexture = 0;
-    this.textureId = 0;
-
-    this.projectPlaneDist = (canvasWidth / 2) / Math.tan(FOV / 2);
+export class Ray {
+  constructor(player, map, ctx, angleR, screenDist, i) {
+    this.player = player;
+    this.x = player.x;
+    this.y = player.y;
+    this.dist = 0;
+    this.map = map;
+    this.ctx = ctx;
+    this.yIntercept;
+    this.xIntercept;
+    this.xStep;
+    this.yStep;
+    this.angleR = angleR;
+    this.isHittingX;
+    this.isHittingY;
+    this.wallHitHX;
+    this.wallHitHY;
+    this.wallHitVX;
+    this.wallHitVY;
+    this.wallHitX;
+    this.wallHitY;
+    this.angle = this.player.angle + this.angleR;
+    this.lookUp;
+    this.lookRight;
+    this.index = i;
+    this.distHit = 0;
+    this.texturePix;
+    this.texture;
+    this.screenDist;
+    this.floorPointx;
+    this.floorPointy;
+    this.screenDist = screenDist;
+    this.wallToBorder;
   }
-  setAngle(angle) {
-    this.playerAngle = angle;
-    this.angle = normalizeAngle(angle + this.addedAngle);
+  update() {
+    this.angle = this.player.angle + this.angleR;
+    this.angle = normalizeAngle(this.angle)
+    this.angle > Math.PI ? this.lookUp = true : this.lookUp = false;
+    this.angle > Math.PI / 2 && this.angle < (3 * Math.PI) / 2 ? this.lookRight = false : this.lookRight = true;
+    this.x = this.player.x;
+    this.y = this.player.y;
+
   }
-  cast() {
-    this.xIntercept = 0;
-    this.yIntercept = 0;
+  cast(floorSprite) {
+    this.update();
+    this.collision();
+    this.checkTile();
+    this.wallRendering(floorSprite);
+  }
+  collision() {
 
-    this.xStep = 0;
-    this.yStep = 0;
+    // yCollision
 
-
-    this.down = false;
-    this.left = false;
-
-    if (this.angle < Math.PI)
-      this.down = true;
-
-    if (this.angle > Math.PI / 2 && this.angle < 3 * Math.PI / 2)
-      this.left = true;
-
-
-    var horizontalHit = false;
-    this.yIntercept = Math.floor(this.y / tileSize) * tileSize;
-
-
-    if (this.down)
-      this.yIntercept += tileSize;
-
-     var adjacente = (this.yIntercept - this.y) / Math.tan(this.angle);
-    this.xIntercept = this.x + adjacente;
-
-
-    this.yStep = tileSize;
-    this.xStep = this.yStep / Math.tan(this.angle);
-
-
-    if (!this.down)
-      this.yStep = -this.yStep;
-
-      if ((this.left && this.xStep > 0) || (!this.left && this.xStep < 0)) {
+    this.isHittingY = false;
+    this.yIntercept = Math.floor(this.y / 64) * 64;
+    if (!this.lookUp) this.yIntercept += 64;
+    var xOffset = (this.yIntercept - this.y) / Math.tan(this.angle);
+    this.xIntercept = this.x + xOffset;
+    this.xStep = 64 / Math.tan(this.angle);
+    this.yStep = 64;
+    if (this.lookUp) this.yStep *= -1;
+    if ((!this.lookRight && this.xStep > 0) || (this.lookRight && this.xStep < 0)) {
       this.xStep *= -1;
     }
-
-
-    var nextXHorizontal = this.xIntercept;
-    var nextYHorizontal = this.yIntercept;
-
-    if (!this.down)
-      nextYHorizontal--;
-
-      while (!horizontalHit) {
-
-      var squareX = parseInt(nextXHorizontal / tileSize);
-      var squareY = parseInt(nextYHorizontal / tileSize);
-      if (this.level.colision(squareX, squareY)) {
-        horizontalHit = true;
-        this.wallHitXHorizontal = nextXHorizontal;
-        this.wallHitYHorizontal = nextYHorizontal;
-      }
-      else {
-        nextXHorizontal += this.xStep;
-        nextYHorizontal += this.yStep;
+    var nextHorizX = this.xIntercept;
+    var nextHorizY = this.yIntercept;
+    if (this.lookUp) {
+      nextHorizY--;
+    }
+    while (!this.isHittingY) {
+      var xTile = Math.floor(nextHorizX / 64);
+      var yTile = Math.floor(nextHorizY / 64);
+      if (this.map.checkCollision(yTile, xTile, nextHorizX, nextHorizY, this.angle, "yCollision", this.lookUp)) {
+        this.isHittingY = true;
+        this.wallHitHX = nextHorizX;
+        this.wallHitHY = nextHorizY;
+      } else {
+        nextHorizX += this.xStep;
+        nextHorizY += this.yStep;
       }
     }
 
+    // xCollision
 
-    var verticalHit = false;
-
-    this.xIntercept = Math.floor(this.x / tileSize) * tileSize;
-
-
-    if (!this.left)
-      this.xIntercept += tileSize;
-
-
-      var opposite = (this.xIntercept - this.x) * Math.tan(this.angle);
-    this.yIntercept = this.y + opposite;
-
-
-    this.xStep = tileSize;
-
-    if (this.left)
-      this.xStep *= -1;
-    this.yStep = tileSize * Math.tan(this.angle);
-
-    if ((!this.down && this.yStep > 0) || (this.down && this.yStep < 0)) {
+    this.isHittingX = false;
+    this.xIntercept = Math.floor(this.x / 64) * 64;
+    if (this.lookRight) this.xIntercept += 64;
+    var yOffset = (this.xIntercept - this.x) * Math.tan(this.angle);
+    this.yIntercept = this.y + yOffset;
+    this.xStep = 64;
+    this.yStep = 64 * Math.tan(this.angle);
+    if (!this.lookRight) this.xStep *= -1;
+    if ((this.lookUp && this.yStep > 0) || (!this.lookUp && this.yStep < 0)) {
       this.yStep *= -1;
     }
-
-
-    var nextXVertical = this.xIntercept;
-    var nextYVertical = this.yIntercept;
-
-    if (this.left)
-      nextXVertical--;
-
-      while (!verticalHit && (nextXVertical >= 0 && nextYVertical >= 0 && nextXVertical < canvasWidth && nextYVertical < canvasHeight)) {
-
-      var squareX = parseInt(nextXVertical / tileSize);
-      var squareY = parseInt(nextYVertical / tileSize);
-      if (this.level.colision(squareX, squareY)) {
-        verticalHit = true;
-        this.wallHitXVertical = nextXVertical;
-        this.wallHitYVertical = nextYVertical;
-      }
-      else {
-        nextXVertical += this.xStep;
-        nextYVertical += this.yStep;
+    var nextHorizX = this.xIntercept;
+    var nextHorizY = this.yIntercept;
+    if (!this.lookRight) {
+      nextHorizX--;
+    }
+    var mapWidth = this.map.mapX * 64;
+    var mapHeight = this.map.mapY * 64;
+    while (!this.isHittingX && (nextHorizX > 1 && nextHorizY > 1 && nextHorizX < mapWidth - 1 && nextHorizY < mapHeight - 1)) {
+      var xTile = Math.floor(nextHorizX / 64);
+      var yTile = Math.floor(nextHorizY / 64);
+      if (this.map.checkCollision(yTile, xTile, nextHorizX, nextHorizY, this.angle, "xCollision", this.lookRight)) {
+        this.isHittingX = true;
+        this.wallHitVX = nextHorizX;
+        this.wallHitVY = nextHorizY;
+      } else {
+        nextHorizX += this.xStep;
+        nextHorizY += this.yStep;
       }
     }
-    var horizontalDistance = 9999;
-    var verticalDistance = 9999;
-
-    if (horizontalHit) {
-      horizontalDistance = distBetweenTwoPoints(this.x, this.y, this.wallHitXHorizontal, this.wallHitYHorizontal);
+  }
+  checkTile() {
+    var horizDst = 999999;
+    var vertiDst = 999999;
+    var square;
+    if (this.isHittingY) {
+      vertiDst = distance(this.x, this.y, this.wallHitHX, this.wallHitHY);
+      var tex = this.map.getTile(this.wallHitHX, this.wallHitHY, "wall");
+      if (tex && (tex == 25 || tex == 24) && !this.lookUp) {
+        this.wallHitHX += 32 / Math.tan(this.angle);
+        this.wallHitHY += 32;
+        vertiDst = distance(this.x, this.y, this.wallHitHX, this.wallHitHY);
+      } else if (tex && (tex == 25 || tex === 24) && this.lookUp) {
+        this.wallHitHX -= 32 / Math.tan(this.angle);
+        this.wallHitHY -= 32;
+        vertiDst = distance(this.x, this.y, this.wallHitHX, this.wallHitHY);
+      }
     }
-    if (verticalHit) {
-      verticalDistance = distBetweenTwoPoints(this.x, this.y, this.wallHitXVertical, this.wallHitYVertical);
+    if (this.isHittingX) {
+      horizDst = distance(this.x, this.y, this.wallHitVX, this.wallHitVY);
+      var tex = this.map.getTile(this.wallHitVX, this.wallHitVY, "wall");
+      if (tex == 25 || tex === 24 && this.lookRight) {
+        this.wallHitVX += 32;
+        this.wallHitVY += 32 * Math.tan(this.angle);
+        horizDst = distance(this.x, this.y, this.wallHitVX, this.wallHitVY);
+      } else if (tex == 25 || tex === 24 && !this.lookRight) {
+        this.wallHitVX -= 32;
+        this.wallHitVY -= 32 * Math.tan(this.angle);
+        horizDst = distance(this.x, this.y, this.wallHitVX, this.wallHitVY);
+      }
     }
-    if (horizontalDistance < verticalDistance) {
-      this.wallHitX = this.wallHitXHorizontal;
-      this.wallHitY = this.wallHitYHorizontal;
-      this.distance = horizontalDistance;
+    if (horizDst < vertiDst) {
+      this.wallHitX = this.wallHitVX;
+      this.wallHitY = this.wallHitVY;
+      this.distHit = horizDst;
+      square = Math.floor(this.wallHitY / 64);
+      this.texturePix = Math.floor(this.wallHitY) - (square * 64);
+      this.texture = this.map.getTile(this.wallHitX, this.wallHitY, "wall");
+      switch (Number(this.texture)) {
+        case 96:
+          this.texture = 6;
+          break;
+        case 90:
+          this.texture = 22;
+          break;
+        case 91:
+          this.texture = 14;
+          break;
+        case 69:
+        case 68:
+        case 92:
+        case 93:
+          this.texture = 26;
+          break;
+        case 82:
+          this.lookRight ? this.texture = 18 : this.texture = 30;
+          break;
+        case 83:
+          this.lookRight ? this.texture = 20 : this.texture = 32;
+          break;
+        case 84:
+          this.lookRight ? this.texture = 32 : this.texture = 6;
+          break;
+        case 85:
+          this.lookRight ? this.texture = 30 : this.texture = 6;
+          break;
+      }
+    } else {
+      this.wallHitX = this.wallHitHX;
+      this.wallHitY = this.wallHitHY;
+      this.distHit = vertiDst;
+      square = Math.floor(this.wallHitX / 64) * 64;
+      this.texturePix = Math.floor(this.wallHitX) - square;
+      this.texture = this.map.getTile(this.wallHitX, this.wallHitY, "wall");
+      switch (Number(this.texture)) {
+        case 96:
+        case 90:
+        case 91:
+          this.texture = 26;
+          break;
+        case 68:
+          this.texture = 18;
+          break;
+        case 69:
+          this.texture = 6;
+          break;
+        case 92:
+          this.texture = 14;
+          break;
+        case 93:
+          this.texture = 16;
+          break;
+        case 80:
+          this.lookUp ? this.texture = 30 : this.texture = 22;
+          break;
+        case 81:
+          this.lookUp ? this.texture = 32 : this.texture = 22;
+          break;
+      }
+      this.texture++;
+    }
+    this.distHit = this.distHit * Math.cos(this.player.angle - this.angle);
 
-      var square = parseInt(this.wallHitX / tileSize);
-      this.pixelTexture = this.wallHitX - (square * tileSize);
+    zBuffer[this.index] = this.distHit;
+  }
+  wallRendering(floorSprite) {
 
-      this.textureId = this.level.tile(this.wallHitX, this.wallHitY);
+    var realWallHeight = 64;
+
+    var wallHeight = (realWallHeight / this.distHit) * this.screenDist;
+
+    var y = 200 - Math.floor(wallHeight / 2);
+   
+    var line = Math.floor(this.texture / 10);
+    var col = this.texture - (line * 10);
+
+    this.ctx.imageSmoothingEnabled = false;
+
+    if (this.texture != 24 && this.texture != 25  ) {
+      this.ctx.drawImage(
+        wallsSprite,
+        col * 64 + this.texturePix,
+        line * 64,
+        1,
+        63,
+        this.index + 300,
+        y,
+        1,
+        wallHeight
+      );
     }
     else {
-      this.wallHitX = this.wallHitXVertical;
-      this.wallHitY = this.wallHitYVertical;
-      this.distance = verticalDistance;
+      var X = Math.floor(this.wallHitX / 64);
+      var Y = Math.floor(this.wallHitY / 64);
+      var i = this.map.getDoor(X, Y);
 
-      var square = parseInt(this.wallHitY / tileSize) * tileSize;
-      this.pixelTexture = this.wallHitY - square;
+      var yO;
+      this.texture === 24 ? yO = 4 : yO = 5;
 
-      this.textureId = this.level.tile(this.wallHitX, this.wallHitY);
+      this.ctx.drawImage(
+        wallsSprite,
+        (yO * 64) + this.texturePix - this.map.doors[i].yOffset,
+        128,
+        1,
+        63,
+        this.index + 300,
+        y,
+        1,
+        wallHeight
+      );
     }
 
-    this.distance = this.distance * (Math.cos(this.playerAngle - this.angle));
+    this.wallToBorder = Math.floor((400 - wallHeight) / 2);    
 
-    zBuffer[this.stripe] = this.distance;
-  }
+    // we calculate the distance between the first pixel at the bottom of the wall and the player eyes (canvas.height / 2)
+    var pixelRowHeight = 199 - this.wallToBorder;
 
-  renderWalls() {
-    var tileHeightile = 400;
-    var wallHeight = (tileHeightile / this.distance) * this.projectPlaneDist;
+    // then we loop through every pixels until we reach the border of the canvas
+    if (this.index % 2 === 0) {
 
-    var y0 = parseInt(canvasHeight / 2) - parseInt(wallHeight / 2);
-    var y1 = y0 + wallHeight;
-    var x = this.stripe;
+      for (let i = pixelRowHeight; i < 199; i += 1) {
 
-    var heightTileTexture = 64;
-    var textureHeight = y0 - y1;
-    this.ctx.imageSmoothingEnabled = false;
-      this.ctx.drawImage(tiles, this.pixelTexture, ((this.textureId - 1) * heightTileTexture), this.pixelTexture, 63, x + 300, y1, 1, textureHeight);
-  }
-  draw() {
-    this.cast();
-    this.renderWalls();
+        // we calculate the straight distance between the player and the pixel
+        var directDistFloor = (this.screenDist * 200) / i;
+
+        // we calculate it's real world distance with the angle relative to the player       
+
+
+        var realDistance = (directDistFloor / Math.cos(Math.abs(this.angleR))) / 6.4;
+
+
+        // we calculate it's real world coordinates with the player angle
+        // 5.19 = this.screenDist / 100
+     
+
+        this.floorPointX = this.player.x  + Math.cos(this.angle) * realDistance ;
+        this.floorPointY = this.player.y  + Math.sin(this.angle) * realDistance ;       
+
+        var textNb = getTextNb(this.floorPointX, this.floorPointY);
+      
+        if (textNb) {
+
+          var floorYOffset = Math.floor(textNb[0] / 10) * 64;
+          var floorXOffset = (textNb[0] - (floorYOffset / 6.4)) * 64;
+
+          var floorTextX = Math.floor(this.floorPointX % 64) + floorXOffset;
+          var floorTextY = Math.floor(this.floorPointY % 64) + floorYOffset;
+
+
+          var ceilingYOffset = Math.floor(textNb[1] / 10) * 64;
+          var ceilingXOffset = (textNb[1] - (ceilingYOffset / 6.4)) * 64;
+
+          var ceilingTextX = Math.floor(this.floorPointX % 64) + ceilingXOffset;
+          var ceilingTextY = Math.floor(this.floorPointY % 64) + ceilingYOffset;
+
+          if (floorData) {
+
+            var shade = i - 150;
+
+            var floorIndex = floorTextY * 2304 + floorTextX * 4;
+            var ceilingIndex = ceilingTextY * 2304 + ceilingTextX * 4;
+
+            for (let j = 0; j < 3; j++) {
+              floorSprite.data[((this.index * 4)) + (i + 200) * 2400 + j] = floorData.data[floorIndex + j] + shade;
+              floorSprite.data[(this.index + 1) * 4 + (i + 200) * 2400 + j] = floorData.data[floorIndex + j] + shade;
+
+              floorSprite.data[((this.index * 4)) + (200 - i) * 2400 + j] = floorData.data[ceilingIndex + j] + shade;
+              floorSprite.data[((this.index + 1)) * 4 + (200 - i) * 2400 + j] = floorData.data[ceilingIndex + j] + shade;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
-export { Ray }
+export { zBuffer };
