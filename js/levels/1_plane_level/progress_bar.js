@@ -7,7 +7,10 @@ var filter = 0;
 
 function drawProgBar(ctx, score) {
 
-  score > 4172 ? score = 4172 : score = score;
+  if (score > 0) {
+    score > 4172 ? score = 4172 : score = score;
+  }
+ 
   tick += 1;
   if (tick >= maxTick) {
     tick = 0;

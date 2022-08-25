@@ -77,12 +77,12 @@ export function startLevel(ctx, game, dino) {
 
     if (animated) {
       drawOpening(ctx, left, top);
-    } else {
+    } else {      
       generateRestBack(ctx, game, left);
       setTimeout(animateDino, 6000);
       if (dinoAnimation) {
         dinoAnim(ctx, left, newHeight);
-        if (vVolume > 0.01) vVolume -= 0.01;
+        vVolume > 0.01 ? vVolume -= 0.01 : velvetMusic.stop();
         if (dino.state != "levelEnd") gVolume < 0.99 ? Math.floor(gVolume += 0.01) : gVolume = 1;
         gunsMusic.volume(gVolume);
         gunsMusic.play();
@@ -117,7 +117,10 @@ export function startLevel(ctx, game, dino) {
     ctx.fillRect(endX, endY, endWidth, endHeight);
     ctx.restore();
     gVolume > 0.001 ? Math.floor(gVolume -= 0.001) : gunsMusic.stop();
-    if (endWidth < 0 || endHeight < 0) game.switchLevel(3);
+    if (endWidth < 0 || endHeight < 0) {
+      game.switchLevel(3);
+      gunsMusic.stop();
+    }
   }
 }
 

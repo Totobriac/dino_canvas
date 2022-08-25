@@ -12,16 +12,15 @@ const cloud = {
 export function generateClouds(ctx, game) {
   if (cloud.x1 <= -cloudSprite.width + game.gamespeed) {
     cloud.x1 = cloudSprite.width;
-  }
-  else {
+  } else {
     cloud.x1 -= game.gamespeed * 0.1;
   }
   if (cloud.x2 <= -cloudSprite.width + game.gamespeed) {
     cloud.x2 = cloudSprite.width;
-  }
-  else {
+  } else {
     cloud.x2 -= game.gamespeed * 0.1;
   }
+  console.log(cloud.x1, cloud.x2);
   ctx.drawImage(cloudSprite, cloud.x1, 0, cloudSprite.width, cloudSprite.height);
   ctx.drawImage(cloudSprite, cloud.x2, 0, cloudSprite.width, cloudSprite.height);
 

@@ -5,7 +5,7 @@ import { landing } from "./plane.js";
 
 var monuIndex = 0;
 
-const monuSprites = ["./assets/1_plane/liberty.png","./assets/1_plane/pagoda.png","./assets/1_plane/cn_tower.png",
+var monuSprites = ["./assets/1_plane/liberty.png","./assets/1_plane/pagoda.png","./assets/1_plane/cn_tower.png",
                     "./assets/1_plane/scottish.png","./assets/1_plane/thai.png","./assets/1_plane/russian.png", "./assets/1_plane/sol.png"];
 
 var statue = new Image();
@@ -13,17 +13,17 @@ var angle;
 var stop = false;
 var banderaY = 1490;
 
-const sWidth = 200;
-const sHeight = 200;
+var sWidth = 200;
+var sHeight = 200;
 
-const origin = {x: 600, y: 1200 };
-const radius = 900;
-const start = 0.9272951769;
-const end = 2.21429922;
+var origin = {x: 600, y: 1200 };
+var radius = 900;
+var start = 0.9272951769;
+var end = 2.21429922;
 
 let step = 0;
-const totalSteps = 700;
-const stepSize = (end - start)/totalSteps;
+var totalSteps = 700;
+var stepSize = (end - start)/totalSteps;
 
 export function animateMonument(ctx, game) {
 

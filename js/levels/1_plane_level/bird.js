@@ -74,7 +74,9 @@ export function createBirds(ctx, game) {
 
     var collide = checkCollision(dino, birdArray[i])
 
-    if (collide === true) game.score -= 14;
+    if (collide ) {
+      game.score > 14 ?  game.score -= 14 : game.score = 0;
+    } 
   }
   if (birdArray.length > 5) {
     birdArray.pop(birdArray[0])
