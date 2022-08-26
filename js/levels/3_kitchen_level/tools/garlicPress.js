@@ -155,9 +155,7 @@ class GarlicPress extends Tool {
 
       switch (true) {
         case this.cursorH < 88:
-        // this.angle +=2;
           this.angle += 20;
-
           break;
         case this.cursorH < 146:
           this.angle -= 2;

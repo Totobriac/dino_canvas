@@ -24,7 +24,13 @@ var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
 
 var arrowkeysSprite = new Image();
-arrowkeysSprite.src = "./assets/3_kitchen/arrow_keys.png";
+arrowkeysSprite.src = "./assets/3_kitchen/arrows.png";
+
+var arrowRightSprite = new Image();
+arrowRightSprite.src = "./assets/3_kitchen/arrow_right.png";
+
+var arrowDownSprite = new Image();
+arrowDownSprite.src = "./assets/3_kitchen/arrow_down.png";
 
 var rgb = {
   r: 0,
@@ -35,6 +41,8 @@ var rgb = {
 var count = 0;
 var i = -4;
 var blockSize = 5;
+
+var sprite = arrowkeysSprite;
 
 class Onion extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, pan, sound) {
@@ -100,8 +108,6 @@ class Onion extends Tool {
       this.ctx.fillStyle = "rgb(0,0,0,0.81)";
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      this.ctx.drawImage(arrowkeysSprite, 1050, 250);
-
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       var x = canvas.width / 2;
       var y = canvas.height / 2;
@@ -129,10 +135,12 @@ class Onion extends Tool {
       this.ctx.restore();
     }
     if (this.canChop) {
+      sprite = arrowDownSprite;
       this.chop();
     }
 
     if (this.canMince) {
+      sprite = arrowRightSprite;
       this.mince();
     }
 
@@ -150,6 +158,8 @@ class Onion extends Tool {
         addStep(8);
         deleteTool("onion");
       }
+    } else {
+      this.ctx.drawImage(sprite, 1050, 250, 583 * 0.2, 411 *0.2);
     }
   }
   peel() {
@@ -217,6 +227,7 @@ class Onion extends Tool {
     };
   }
   beheading() {
+    sprite = arrowRightSprite;
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||
       (this.angle === 270 && mouse.upX > 529 && mouse.upX < 534)) {
         playSound(sliceSound, 0.3);

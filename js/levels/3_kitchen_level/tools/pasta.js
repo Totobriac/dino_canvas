@@ -131,7 +131,6 @@ class Pasta extends Tool {
 
       this.colander.hasPastas = true;
 
-      //deleteTool("pot");
       this.pot.waterLevel = 0;
       this.pot.isFilled = false;
       this.pot.x = 375;

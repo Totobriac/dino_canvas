@@ -5,7 +5,7 @@ import { drawBottomPress } from "./tools/bottom_press.js";
 
 var sink;
 var tools = [];
-var stepDone = 0;
+var stepDone = 7;
 
 function load(ctx, game) {
   if (!game.loadedLevel[3]) {
