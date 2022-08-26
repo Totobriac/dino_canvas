@@ -158,7 +158,7 @@ class Onion extends Tool {
         addStep(8);
         deleteTool("onion");
       }
-    } else {
+    } else if (this.state != "intact") {
       this.ctx.drawImage(sprite, 1050, 250, 583 * 0.2, 411 *0.2);
     }
   }
@@ -300,7 +300,7 @@ class Onion extends Tool {
         this.piecesWidth.push({w: newW, pW:this.pieceWidth})
         this.dif = 612 - mouse.x;
       }
-      if (startX > 200 && this.piecesWidth.length > 9) {
+      if (startX > 200 || this.piecesWidth.length > 12) {
         this.done();
       }
     }
@@ -314,7 +314,7 @@ class Onion extends Tool {
     this.ctx.translate(x, y);
     this.ctx.rotate((Math.PI / 180) * this.angle);
 
-    if (this.canMince === false) {
+    if (!this.canMince) {
       this.ctx.beginPath();
       this.ctx.arc(0, 0, 125, 2 * Math.PI, Math.PI, false);
       this.ctx.strokeStyle = "red";
@@ -327,7 +327,6 @@ class Onion extends Tool {
     this.ctx.strokeStyle = "green";
     this.ctx.lineWidth = 1;
     this.ctx.setLineDash([]);
-
 
     this.slices.forEach((slice, i) => {
       if (-(slice.y - y) > onion.dif) {
@@ -369,6 +368,7 @@ class Onion extends Tool {
     }
   }
   mince() {
+
     this.perfX = undefined;
     this.perfY = undefined;
     if (this.angle === 90) {
@@ -422,7 +422,6 @@ class Onion extends Tool {
             54 * this.coef,
             this.piecesWidth[i].w * this.coef
           );
-
           this.ctx.restore();
         }
       }
