@@ -5,7 +5,7 @@ import { drawBottomPress } from "./tools/bottom_press.js";
 
 var sink;
 var tools = [];
-var stepDone = 7;
+var stepDone = 0;
 
 function load(ctx, game) {
   if (!game.loadedLevel[3]) {
@@ -162,7 +162,7 @@ function calculateOffset(e) {
 
 function move(e) {
   for (let i = 0; i < tools.length; i++) {
-    if (tools[i].isSelected === true) {
+    if (tools[i].isSelected) {
       tools[i].x = e.offsetX - tools[i].offset.x;
       tools[i].y = e.offsetY - tools[i].offset.y;
       tools[i].isMoving = true;

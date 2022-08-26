@@ -32,8 +32,8 @@ canvas.width = 1200;
 var circleD = 0;
 var start = false;
 
-//var mask = true;
-var mask = false
+var mask = true;
+
 var levelDone = false;
 
 var ambianceVol = 0;

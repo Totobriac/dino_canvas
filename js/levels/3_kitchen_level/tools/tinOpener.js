@@ -17,7 +17,7 @@ class TinOpener extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound) {
     super(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, sound);
     this.isOpening = false;
-    this.angle = 730;
+    this.angle = 0;
   }
   draw() {
     if (this.isOpening) {

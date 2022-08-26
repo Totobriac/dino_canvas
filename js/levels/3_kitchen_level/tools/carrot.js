@@ -97,8 +97,8 @@ class Carrot extends Tool {
         } else {
           pauseSound(gratingSound);
         }
-        // if (this.cut > 490) {
-        if (this.cut > 10) {
+        
+        if (this.cut > 490) {
           stopSound(gratingSound);
           sink.faucet = true;
           this.toBeGrated = false;
