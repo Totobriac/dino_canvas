@@ -2,7 +2,7 @@ import { getCursorPosition } from "../function.js";
 import { addStep, stepDone } from "../tools.js";
 
 import { sound } from "../../../sound.js";
-var stoveSound = new sound("../assets/3_kitchen/sounds/stove.mp3", true);
+var stoveSound = new sound("./assets/3_kitchen/sounds/stove.mp3", true);
 import { playSound, stopSound } from "../sound.js";
 
 var stoveSprite = new Image();

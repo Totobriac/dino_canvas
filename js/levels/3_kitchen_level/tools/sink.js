@@ -3,8 +3,8 @@ import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
 
-var tapSound = new sound("../assets/3_kitchen/sounds/tap.mp3", true);
-var drainSound = new sound("../assets/3_kitchen/sounds/sink_drain_sm.mp3", true);
+var tapSound = new sound("./assets/3_kitchen/sounds/tap.mp3", true);
+var drainSound = new sound("./assets/3_kitchen/sounds/sink_drain_sm.mp3", true);
 
 var sinkSprite = new Image();
 sinkSprite.src = "./assets/3_kitchen/sink.png";

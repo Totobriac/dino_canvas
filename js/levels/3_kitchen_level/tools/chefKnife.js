@@ -4,7 +4,7 @@ import { mouse } from "../control.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var grabKnifeSound = new sound("../assets/3_kitchen/sounds/grab_knife.wav", false);
+var grabKnifeSound = new sound("./assets/3_kitchen/sounds/grab_knife.wav", false);
 
 var chefKnifeUpSprite = new Image();
 chefKnifeUpSprite.src = "./assets/3_kitchen/chef_knife_up.png";

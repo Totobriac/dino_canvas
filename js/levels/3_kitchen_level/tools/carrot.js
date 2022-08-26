@@ -5,8 +5,8 @@ import { mouse } from "../control.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound, pauseSound } from "../sound.js";
 
-var gratingSound = new sound("../assets/3_kitchen/sounds/grating_carrot.mp3", true);
-var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+var gratingSound = new sound("./assets/3_kitchen/sounds/grating_carrot.mp3", true);
+var fryingSound = new sound("./assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";

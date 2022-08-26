@@ -49,70 +49,48 @@ var notepad;
 var tools;
 
 var potSprite = new Image();
-potSprite.src = "./assets/3_kitchen/pot.png";
 
 var saltSprite = new Image();
-saltSprite.src = "./assets/3_kitchen/salt.png";
 
 var panSprite = new Image();
-panSprite.src = "./assets/3_kitchen/pan.png";
 
 var butterPlateSprite = new Image();
-butterPlateSprite.src = "./assets/3_kitchen/butter_sm.png";
 
 var butterBigSprite = new Image();
-butterBigSprite.src = "./assets/3_kitchen/butter_big.png";
 
 var butterKnifeSprite = new Image();
-butterKnifeSprite.src = "./assets/3_kitchen/butter_knife.png";
 
 var chefKnifeSprite = new Image();
-chefKnifeSprite.src = "./assets/3_kitchen/chef_knife.png";
 
 var onionSprite = new Image();
-onionSprite.src = "./assets/3_kitchen/onion_top.png";
 
 var halfOnionSprite = new Image();
-halfOnionSprite.src = "./assets/3_kitchen/half_onion.png";
 
 var spineKnifeSprite = new Image();
-spineKnifeSprite.src = "./assets/3_kitchen/chef_knife_spine.png";
 
 var butterCutSprite = new Image();
-butterCutSprite.src = "./assets/3_kitchen/butter_sm_cut.png";
 
 var carrotSprite = new Image();
-carrotSprite.src = "./assets/3_kitchen/carrot.png";
 
 var graterSprite = new Image();
-graterSprite.src = "./assets/3_kitchen/grater.png";
 
 var garlicHeadSprite = new Image();
-garlicHeadSprite.src = "./assets/3_kitchen/garlic_head.png";
 
 var garlicPressSprite = new Image();
-garlicPressSprite.src = "./assets/3_kitchen/garlic_press.png";
 
 var spoonSprite = new Image();
-spoonSprite.src = "./assets/3_kitchen/spoon.png";
 
 var meatSprite = new Image();
-meatSprite.src = "./assets/3_kitchen/meat.png";
 
 var tinSprite = new Image();
-tinSprite.src = "./assets/3_kitchen/tin.png";
 
 var tinOpenerSprite = new Image();
-tinOpenerSprite.src = "./assets/3_kitchen/tin_opener.png";
 
 var pastaUpSprite = new Image();
-pastaUpSprite.src = "./assets/3_kitchen/pasta_up.png";
 
 var colanderSprite = new Image();
-colanderSprite.src = "./assets/3_kitchen/colander.png";
 
 var notepadSprite = new Image();
-notepadSprite.src = "./assets/3_kitchen/notepad.png";
 
 var pics = [potSprite, saltSprite, butterPlateSprite, butterKnifeSprite,
   panSprite, chefKnifeSprite, onionSprite, carrotSprite, graterSprite,
@@ -120,6 +98,49 @@ var pics = [potSprite, saltSprite, butterPlateSprite, butterKnifeSprite,
   tinOpenerSprite, pastaUpSprite, colanderSprite, notepadSprite
 ];
 
+potSprite.src = "./assets/3_kitchen/pot.png";
+
+saltSprite.src = "./assets/3_kitchen/salt.png";
+
+panSprite.src = "./assets/3_kitchen/pan.png";
+
+butterPlateSprite.src = "./assets/3_kitchen/butter_sm.png";
+
+butterBigSprite.src = "./assets/3_kitchen/butter_big.png";
+
+butterKnifeSprite.src = "./assets/3_kitchen/butter_knife.png";
+
+chefKnifeSprite.src = "./assets/3_kitchen/chef_knife.png";
+
+onionSprite.src = "./assets/3_kitchen/onion_top.png";
+
+halfOnionSprite.src = "./assets/3_kitchen/half_onion.png";
+
+spineKnifeSprite.src = "./assets/3_kitchen/chef_knife_spine.png";
+
+butterCutSprite.src = "./assets/3_kitchen/butter_sm_cut.png";
+
+carrotSprite.src = "./assets/3_kitchen/carrot.png";
+
+graterSprite.src = "./assets/3_kitchen/grater.png";
+
+garlicHeadSprite.src = "./assets/3_kitchen/garlic_head.png";
+
+garlicPressSprite.src = "./assets/3_kitchen/garlic_press.png";
+
+spoonSprite.src = "./assets/3_kitchen/spoon.png";
+
+meatSprite.src = "./assets/3_kitchen/meat.png";
+
+tinSprite.src = "./assets/3_kitchen/tin.png";
+
+tinOpenerSprite.src = "./assets/3_kitchen/tin_opener.png";
+
+pastaUpSprite.src = "./assets/3_kitchen/pasta_up.png";
+
+colanderSprite.src = "./assets/3_kitchen/colander.png";
+
+notepadSprite.src = "./assets/3_kitchen/notepad.png";
 
 function generateTools(ctx) {
   pot = new Pot("pot", potSprite, 860, 166, 210, 161, ctx, 22, 48, {

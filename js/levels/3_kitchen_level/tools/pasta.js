@@ -1,11 +1,11 @@
 import { Tool } from "./tool.js";
-import { onTop, onTopTwo, addStep } from "../tools.js";
+import { onTop, onTopTwo, addStep, deleteTool } from "../tools.js";
 
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var dropPastaSound = new sound("../assets/3_kitchen/sounds/drop_pastas.mp3", false);
-var drainPastaSound = new sound("../assets/3_kitchen/sounds/pasta_drain.mp3", false);
+var dropPastaSound = new sound("./assets/3_kitchen/sounds/drop_pastas.mp3", false);
+var drainPastaSound = new sound("./assets/3_kitchen/sounds/pasta_drain.mp3", false);
 
 var pastaSprite = new Image();
 pastaSprite.src = "./assets/3_kitchen/pasta.png";
@@ -128,13 +128,14 @@ class Pasta extends Tool {
     }
     if (this.doneCooking && this.pot.inPlace && this.colander.inPlace) {
       playSound(drainPastaSound, 0.3);
-    
+
       this.colander.hasPastas = true;
 
+      //deleteTool("pot");
       this.pot.waterLevel = 0;
       this.pot.isFilled = false;
-      this.pot.x = 860;
-      this.pot.y = 166;
+      this.pot.x = 375;
+      this.pot.y = 8;
       this.pot.perfX = undefined;
       this.pot.perfY = undefined;
       this.pot.shadow = {
@@ -145,6 +146,8 @@ class Pasta extends Tool {
 
     }
     if (this.colander.hasPastas) {
+      this.pot.x = 375;
+      this.pot.y = 8;
 
       if (this.angle > 110) {
         add = -0.2;

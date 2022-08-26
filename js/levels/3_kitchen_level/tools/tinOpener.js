@@ -5,7 +5,7 @@ import { mouse } from "../control.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var canOpeningSound = new sound("../assets/3_kitchen/sounds/can_opening.mp3", false);
+var canOpeningSound = new sound("./assets/3_kitchen/sounds/can_opening.mp3", false);
 
 var handleSprite = new Image();
 handleSprite.src = "./assets/3_kitchen/handle_tin_opener.png";

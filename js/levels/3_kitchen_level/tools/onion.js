@@ -6,11 +6,10 @@ import { sink, deleteTool, onTop, addStep, tools } from "../tools.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var sliceSound = new sound("../assets/3_kitchen/sounds/slice_onion.mp3", false);
-var peelSound = new sound("../assets/3_kitchen/sounds/peel_onion.mp3", true);
-var sideCutSound = new sound("../assets/3_kitchen/sounds/side_cut.mp3", true);
-var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
-
+var sliceSound = new sound("./assets/3_kitchen/sounds/slice_onion.mp3", false);
+var peelSound = new sound("./assets/3_kitchen/sounds/peel_onion.mp3", true);
+var sideCutSound = new sound("./assets/3_kitchen/sounds/side_cut.mp3", true);
+var fryingSound = new sound("./assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 var choppingBoardSprite = new Image();
 choppingBoardSprite.src = "./assets/3_kitchen/chopping_board.png";
@@ -32,6 +31,7 @@ var rgb = {
   g: 0,
   b: 0
 };
+
 var count = 0;
 var i = -4;
 var blockSize = 5;
@@ -101,7 +101,7 @@ class Onion extends Tool {
       this.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       this.ctx.drawImage(arrowkeysSprite, 1050, 250);
-      
+
       this.ctx.drawImage(choppingBoardSprite, 204, 0, 810, 531);
       var x = canvas.width / 2;
       var y = canvas.height / 2;
@@ -125,14 +125,14 @@ class Onion extends Tool {
         this.ctx.closePath();
       }
 
-      if (this.canChop === false) this.sliceOnion();
+      if (!this.canChop) this.sliceOnion();
       this.ctx.restore();
     }
-    if (this.canChop === true) {
+    if (this.canChop) {
       this.chop();
     }
 
-    if (this.canMince === true) {
+    if (this.canMince) {
       this.mince();
     }
 

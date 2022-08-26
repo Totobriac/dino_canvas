@@ -19,7 +19,7 @@ function load(ctx, game) {
 }
 
 async function drawTools(ctx, game) {
-  await  load(ctx, game);
+  await load(ctx, game);
   for (let i = 0; i < tools.length; i++) {
     if (tools[i].isDisplayed === true) {
       tools[i].draw();

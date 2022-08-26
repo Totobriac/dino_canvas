@@ -8,9 +8,9 @@ import { endLevel } from "../startLevel3.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var meltingButterSound = new sound("../assets/3_kitchen/sounds/butter_pan.mp3", false);
-var stirFrySound = new sound("../assets/3_kitchen/sounds/stir_fry.mp3", true);
-var sauceSound = new sound("../assets/3_kitchen/sounds/sauce.mp3", true);
+var meltingButterSound = new sound("./assets/3_kitchen/sounds/butter_pan.mp3", false);
+var stirFrySound = new sound("./assets/3_kitchen/sounds/stir_fry.mp3", true);
+var sauceSound = new sound("./assets/3_kitchen/sounds/sauce.mp3", true);
 
 var onionChoppedSprite = new Image();
 onionChoppedSprite.src = "./assets/3_kitchen/onion_chopped.png";
@@ -326,7 +326,7 @@ class Pan extends Tool {
 
     if (this.frame === 8 && this.tickcount === 0) {
       endLevel();
-    } 
+    }
   }
 }
 

@@ -4,7 +4,7 @@ import { deleteTool, addStep } from "../tools.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+var fryingSound = new sound("./assets/3_kitchen/sounds/frying_onion.mp3", false);
 
 var splitGarlicSprite = new Image();
 splitGarlicSprite.src = "./assets/3_kitchen/garlic_split.png";
@@ -26,7 +26,7 @@ class Garlic extends Tool {
   }
   draw() {
 
-    if (this.inPlace && this.minced === false) {
+    if (this.inPlace && !this.minced ) {
       this.sprite = splitGarlicSprite;
       this.width = 122;
       this.height = 81;
@@ -49,7 +49,7 @@ class Garlic extends Tool {
         this.resetPos = true;
       }
     }
-    if (this.inPlace === true && this.minced === true) {
+    if (this.inPlace  && this.minced ) {
       this.pan.hasGarlic = true;
       playSound(fryingSound, 0.3);
       addStep(9);

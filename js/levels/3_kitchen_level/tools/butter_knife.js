@@ -5,7 +5,7 @@ import { butterBig } from "../toolGeneration.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var cutSound = new sound("../assets/3_kitchen/sounds/butter_cut.mp3", false);
+var cutSound = new sound("./assets/3_kitchen/sounds/butter_cut.mp3", false);
 
 class ButterKnife extends Tool {
   constructor(name, sprite, x, y, width, height, ctx, perfX, perfY, shadow, butter) {

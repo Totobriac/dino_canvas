@@ -4,7 +4,7 @@ import { deleteTool, addStep } from "../tools.js";
 import { sound } from "../../../sound.js";
 import { playSound, stopSound } from "../sound.js";
 
-var fryingSound = new sound("../assets/3_kitchen/sounds/frying_onion.mp3", false);
+var fryingSound = new sound("./assets/3_kitchen/sounds/frying_onion.mp3", false);
 var laySound = new sound("./assets/3_kitchen/sounds/lay.wav", false);
 
 var meatSprite = new Image();
