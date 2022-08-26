@@ -51,7 +51,7 @@ class Garlic extends Tool {
     }
     if (this.inPlace  && this.minced ) {
       this.pan.hasGarlic = true;
-      playSound(fryingSound, 0.3);
+      // playSound(fryingSound, 0.3);
       addStep(9);
       deleteTool("garlic");
     }

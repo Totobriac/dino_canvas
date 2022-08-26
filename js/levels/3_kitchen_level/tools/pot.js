@@ -115,6 +115,9 @@ class Pot extends Tool {
   addSalt() {
     this.hasSalt = true;
   }
+  stopBoilingSound() {
+    stopSound(boilSound);
+  }
 }
 
 function populatePoints() {

@@ -20,7 +20,7 @@ export function generateClouds(ctx, game) {
   } else {
     cloud.x2 -= game.gamespeed * 0.1;
   }
-  console.log(cloud.x1, cloud.x2);
+  
   ctx.drawImage(cloudSprite, cloud.x1, 0, cloudSprite.width, cloudSprite.height);
   ctx.drawImage(cloudSprite, cloud.x2, 0, cloudSprite.width, cloudSprite.height);
 

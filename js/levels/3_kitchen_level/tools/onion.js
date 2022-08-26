@@ -153,13 +153,13 @@ class Onion extends Tool {
         r: 28
       }
       if (this.inPlace === true) {
-        playSound(fryingSound, 0.3);
+        // playSound(fryingSound, 0.3);
         this.pan.hasOnion = true;
         addStep(8);
         deleteTool("onion");
       }
     } else if (this.state != "intact") {
-      this.ctx.drawImage(sprite, 1050, 250, 583 * 0.2, 411 *0.2);
+      this.ctx.drawImage(sprite, 1050, 250, 583 * 0.2, 411 * 0.2);
     }
   }
   peel() {
@@ -173,7 +173,7 @@ class Onion extends Tool {
     }
     this.ctx.restore();
 
-    rgb = {r: 0, g: 0, b: 0 };
+    rgb = { r: 0, g: 0, b: 0 };
     count = 0;
     i = -4;
     blockSize = 5;
@@ -213,24 +213,24 @@ class Onion extends Tool {
   spinOnion() {
     switch (key) {
       case "ArrowUp":
-      this.angle = 0;
-      break;
+        this.angle = 0;
+        break;
       case "ArrowRight":
-      this.angle = 90;
-      break;
+        this.angle = 90;
+        break;
       case "ArrowDown":
-      this.angle = 180;
-      break;
+        this.angle = 180;
+        break;
       case "ArrowLeft":
-      this.angle = 270;
-      break;
+        this.angle = 270;
+        break;
     };
   }
   beheading() {
     sprite = arrowRightSprite;
     if ((this.angle === 90 && mouse.upX > 690 && mouse.upX < 694) ||
       (this.angle === 270 && mouse.upX > 529 && mouse.upX < 534)) {
-        playSound(sliceSound, 0.3);
+      playSound(sliceSound, 0.3);
       this.state = "beheaded";
       this.pieceWidth = 180;
     }
@@ -297,7 +297,7 @@ class Onion extends Tool {
       if (180 + startX / 0.65 > this.pieceWidth) {
         var newW = 180 + startX / 0.65 - oldWidth;
         this.pieceWidth = 180 + startX / 0.65;
-        this.piecesWidth.push({w: newW, pW:this.pieceWidth})
+        this.piecesWidth.push({ w: newW, pW: this.pieceWidth })
         this.dif = 612 - mouse.x;
       }
       if (startX > 200 || this.piecesWidth.length > 12) {
@@ -352,7 +352,7 @@ class Onion extends Tool {
 
     if (this.slices.length === 10) {
       this.canMince = true;
-      this.slices.sort(function(a, b) {
+      this.slices.sort(function (a, b) {
         return a.x - b.x;
       });
       this.slices.push({
@@ -447,6 +447,9 @@ class Onion extends Tool {
       tool.isSelected = false;
     });
     this.sprite = onionChoppedSprite;
+  }
+  stopFryingSound() {
+    stopSound(fryingSound);
   }
 }
 

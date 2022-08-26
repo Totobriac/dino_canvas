@@ -30,6 +30,7 @@ async function drawTools(ctx, game) {
   drawBottomPress(ctx);
   selectable();
   if (sink) sink.drawFaucet(ctx);
+ 
 }
 
 function displayTool(toolL) {
@@ -134,6 +135,9 @@ function selectable() {
     break;
     case 17 :
       objects = ["colander"];
+    break;
+    case 18 : 
+      objects = [];
     break;
   }
 

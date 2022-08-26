@@ -89,6 +89,12 @@ function drawStove(ctx) {
     }
   });
   stoveSnd() ? playSound(stoveSound, 0.04) : stopSound(stoveSound);
+
+  if (stepDone === 18) {
+    burners.forEach(burner=> {
+      burner.isOn = false;
+    } )
+  }
 }
 
 function stoveSnd() {

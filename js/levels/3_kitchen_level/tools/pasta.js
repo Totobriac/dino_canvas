@@ -130,7 +130,7 @@ class Pasta extends Tool {
       playSound(drainPastaSound, 0.3);
 
       this.colander.hasPastas = true;
-
+      this.pot.stopBoilingSound();
       this.pot.waterLevel = 0;
       this.pot.isFilled = false;
       this.pot.x = 375;

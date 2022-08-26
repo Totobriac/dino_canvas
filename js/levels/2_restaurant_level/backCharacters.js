@@ -59,7 +59,7 @@ function generateChar(ctx, game, dino) {
     exiting = new Character(ctx, game, pics.moonWalk, mJx, 140, -1, 7, 0.2, 40, 67, 2.2);
     isMikiKaKo = true;
   }
-  if (entering) console.log(entering.x);
+  
   if (dino.state === "done") exit = true;
 
   if (isMikiKaKo) {

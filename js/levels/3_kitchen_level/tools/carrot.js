@@ -125,7 +125,7 @@ class Carrot extends Tool {
     else {
       if (this.inPlace && this.isGrated) {
         this.pan.hasCarrot = true;
-        playSound(fryingSound, 0.3);
+        //playSound(fryingSound, 0.3);
         addStep(10);
         deleteTool("carrot");
       }

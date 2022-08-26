@@ -118,7 +118,6 @@ function drawTransition(ctx) {
     }
 
     if (zelda.life === 8) {
-      console.log("cc");
       fairy = false;
       zelda.isDead = false;
       zelda.totalAnim = 0;

@@ -91,7 +91,7 @@ class Weapon {
       } else if (this.sprites[i].type === "boss" && this.sprites[i].life > 0) {
 
         if (this.sprites[i].screenX - this.sprites[i].spriteWidth / 2 <= 300 && this.sprites[i].screenX + this.sprites[i].spriteWidth / 2 >= 300) {
-          console.log(this.sprites[i].screenX - this.sprites[i].spriteWidth / 2 );
+         
           this.sprites[i].isHit();
           return
         }

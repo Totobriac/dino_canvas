@@ -1,6 +1,6 @@
 import { Tool } from "./tool.js";
 import { sink, deleteTool } from "../tools.js";
-import { pasta } from "../toolGeneration.js";
+import { onion, pasta } from "../toolGeneration.js";
 
 
 var choppingBoardSprite = new Image();
@@ -59,6 +59,9 @@ class Tin extends Tool {
 
     if (this.inPlace && this.isOpen && this.isSelected) {
       this.pan.hasSauce = true;
+      
+      onion.stopFryingSound();
+
       deleteTool("tin");
     }
   }

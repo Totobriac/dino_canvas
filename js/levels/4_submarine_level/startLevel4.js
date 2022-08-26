@@ -33,7 +33,7 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-    console.log(dino.score);
+    
     if (!isDiving) tick(ctx);
     if (isDiving) {
       generateEyes(game, ctx, dino);
