@@ -22,7 +22,7 @@ var exitD = 720;
 export function startLevel(ctx, game, dino) {
 
   if (game.start) {
-
+    console.log(game.score);
     music.volume(vol);
     if(!game.levelDone) {
       music.play();
@@ -37,7 +37,7 @@ export function startLevel(ctx, game, dino) {
     }
     drawPlane(ctx, dino);
     animateMonument(ctx, game);
-
+    game.score ++;
     ctx.save();
     ctx.globalAlpha = alpha;
     createBirds(ctx, game);

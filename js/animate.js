@@ -18,8 +18,7 @@ let start;
 export function anim(game, dino, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  game.frame++;
-  game.score++;
+  game.frame++;  
 
   switch (game.level) {
     case 0:

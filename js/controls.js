@@ -36,5 +36,5 @@ function getCursorPosition(canvas, event) {
   const x = xM - rect.left;
   const y = yM - rect.top;
   xM > rect.left && xM < rect.right && yM < rect.bottom && yM > rect.top ? isInside = true : isInside = false;
-  if (isInside == true) return { x: x, y: y };
+  if (isInside) return { x: x, y: y };
 }

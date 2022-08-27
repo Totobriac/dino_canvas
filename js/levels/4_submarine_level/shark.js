@@ -1,5 +1,3 @@
-import { endBubbles } from "./bubbles.js";
-
 var sharkRightSprite = new Image();
 sharkRightSprite.src = "./assets/4_submarine/shark_right.png";
 
@@ -128,7 +126,7 @@ class Shark {
         }
       } else {
         if (this.oldFrame != this.frame) {
-            if (this.dino.score> 1) this.dino.updateScore(-1);
+            if (this.game.score > 1) this.game.score --;
             this.oldFrame = this.frame;
         }
 

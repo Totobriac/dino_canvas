@@ -65,8 +65,8 @@ class Explosion {
   }
 }
 
-function generateMines(ctx, frame, dino) {
-  if (frame % 42 == 0) {
+function generateMines(ctx, game, dino) {
+  if (game.frame % 42 == 0) {
     minesArray.push(new Mine(ctx));
   }
   for (let i = 0; i < minesArray.length; i++) {
@@ -74,12 +74,14 @@ function generateMines(ctx, frame, dino) {
     var sharkExplosion = exploShark(minesArray[i], ctx);
 
     minesArray[i].update(dino);
-    if (minesArray[i].distance < minesArray[i].radius + dino.radius || sharkExplosion) {
-      sharkExplosion ? dino.updateScore(2) : (dino.score > 4) ? dino.updateScore(-4) : dino.updateScore(0);
+
+    if (minesArray[i].distance < minesArray[i].radius + dino.radius || sharkExplosion ) {
+      if (!sharkExplosion) game.score -= 4;
       addExplosion(minesArray[i].x, minesArray[i].y, ctx);
       minesArray.splice(i, 1);
       continue
     }
+
     if (minesArray[i].y < - minesArray[i].radius) {
       minesArray.splice(i, 1);
       i--;

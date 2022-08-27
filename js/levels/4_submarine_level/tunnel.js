@@ -1,6 +1,5 @@
 import { dive } from "./startLevel4.js";
 
-
 var w = 1200;
 var pi = Math.PI;
 var sin = Math.sin;
@@ -26,8 +25,8 @@ function tick(ctx) {
 
   ctx.translate((2 * canvas.width) / 3, (2 * canvas.height) / 3);
 
-  if (tickCount < 450) {
-    if (tickCount > 400 && tickCount % 2 === 0) c--;
+  if (tickCount < 1080) {
+    if (tickCount > 1030 && tickCount % 2 === 0) c--;
     for (var i = c; i >= 0; i--) {
       var cycle = ~~((c * (1 + sin(((tickCount - i) * pi * 2) / c))) / 2);
       var cyclep = ~~((c * (1 + sin(((tickCount * 0.3 - i) * pi * 2) / c))) / 2);
@@ -36,9 +35,9 @@ function tick(ctx) {
       var h = 0;
       var s = 0;
       var l ;
-      tickCount < 400 ? (h = 0) : (h = 238);
-      tickCount < 400 ? (s = 0) : (s = 75);
-      tickCount < 400 ? (l = 0) : (l = 58);
+      tickCount < 1030 ? (h = 0) : (h = 238);
+      tickCount < 1030 ? (s = 0) : (s = 75);
+      tickCount < 1030 ? (l = 0) : (l = 58);
 
       i != 1 ? (l = ~~((cycle * 50) / c)) : (l = 75);
 
@@ -57,8 +56,6 @@ function tick(ctx) {
   }
   ctx.restore();
   tickCount += 1;
-
-
 }
 
 export { tick };

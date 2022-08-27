@@ -6,16 +6,21 @@ import { generateBubbles, endBubbles } from "./bubbles.js";
 import { generateShark } from "./shark.js";
 import { drawCounter } from "./counter.js";
 
+import { sound } from "../../sound.js";
+
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 
+var prayerSound = new sound("./assets/4_submarine/prayer2.mp3");
+var splashSound = new sound("./assets/4_submarine/splash.wav");
+
 var circleD = 0;
 var start = false;
-var isDiving = true;
-
+var isDiving = false;
+var splash = false;
 
 window.addEventListener('mousedown', function () {
-  startGame();
+  startGame();  
 })
 
 export function startLevel(ctx, game, dino) {
@@ -33,20 +38,30 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-    
+
+    prayerSound.volume(1);
+    prayerSound.play();
     if (!isDiving) tick(ctx);
     if (isDiving) {
+      splashSound.volume(1);
+      if (!splash) {
+        splashSound.play();
+        splash = true;
+      }
       generateEyes(game, ctx, dino);
       drawSubmarine(ctx, dino, game.mousePosition);
       if (endBubbles) {
-        generateMines(ctx, game.frame, dino);
+
         handleExplosion();
+        game.score += 0.025;
         generateShark(dino, game, ctx);
-        drawCounter(dino, ctx);
+        generateMines(ctx, game, dino);
+        drawCounter(game, ctx);
+
       }
       generateBubbles(ctx);
     }
-    if (dino.score >= 52) game.levelDone = true;
+    if (game.score >= 52) game.levelDone = true;
   }
 }
 
@@ -58,4 +73,4 @@ function dive() {
   isDiving = true;
 }
 
-export { dive } ;
+export { dive };
