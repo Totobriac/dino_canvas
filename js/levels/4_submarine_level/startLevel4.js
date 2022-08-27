@@ -14,6 +14,15 @@ mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 var prayerSound = new sound("./assets/4_submarine/prayer2.mp3");
 var splashSound = new sound("./assets/4_submarine/splash.wav");
 
+var entrance = new Image();
+entrance.src = "./assets/4_submarine/indy_entrance.png";
+
+var exit = new Image();
+exit.src = "./assets/4_submarine/indy_exit.png";
+
+var maze = new Image();
+maze.src = "./assets/4_submarine/maze.png";
+
 var circleD = 0;
 var start = false;
 var isDiving = false;
@@ -63,6 +72,8 @@ export function startLevel(ctx, game, dino) {
     }
     if (game.score >= 52) game.levelDone = true;
   }
+  ctx.drawImage(exit, 198,0)
+  ctx.drawImage(maze, 0,0)
 }
 
 function startGame() {
