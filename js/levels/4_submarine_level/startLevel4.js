@@ -5,6 +5,7 @@ import { tick } from "./tunnel.js";
 import { generateBubbles, endBubbles } from "./bubbles.js";
 import { generateShark } from "./shark.js";
 import { drawCounter } from "./counter.js";
+import { drawFinalScene } from "./finalScene.js";
 
 import { sound } from "../../sound.js";
 
@@ -14,22 +15,13 @@ mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
 var prayerSound = new sound("./assets/4_submarine/prayer2.mp3");
 var splashSound = new sound("./assets/4_submarine/splash.wav");
 
-var entrance = new Image();
-entrance.src = "./assets/4_submarine/indy_entrance.png";
-
-var exit = new Image();
-exit.src = "./assets/4_submarine/indy_exit.png";
-
-var maze = new Image();
-maze.src = "./assets/4_submarine/maze.png";
-
 var circleD = 0;
 var start = false;
 var isDiving = false;
 var splash = false;
 
 window.addEventListener('mousedown', function () {
-  startGame();  
+  startGame();
 })
 
 export function startLevel(ctx, game, dino) {
@@ -48,32 +40,34 @@ export function startLevel(ctx, game, dino) {
 
   if (game.start) {
 
-    prayerSound.volume(1);
-    prayerSound.play();
-    if (!isDiving) tick(ctx);
-    if (isDiving) {
-      splashSound.volume(1);
-      if (!splash) {
-        splashSound.play();
-        splash = true;
-      }
-      generateEyes(game, ctx, dino);
-      drawSubmarine(ctx, dino, game.mousePosition);
-      if (endBubbles) {
+    // prayerSound.volume(1);
+    // prayerSound.play();
+    // if (!isDiving) tick(ctx);
+    // if (isDiving) {
+    //   splashSound.volume(1);
+    //   if (!splash) {
+    //     splashSound.play();
+    //     splash = true;
+    //   }
+    //   generateEyes(game, ctx, dino);
+    //   drawSubmarine(ctx, dino, game.mousePosition);
+    //   if (endBubbles) {
+    //
+    //     handleExplosion();
+    //     game.score += 0.025;
+    //     generateShark(dino, game, ctx);
+    //     generateMines(ctx, game, dino);
+    //     drawCounter(game, ctx);
+    //
+    //   }
+    //   generateBubbles(ctx);
+    // }
+    // if (game.score >= 52) game.levelDone = true;
 
-        handleExplosion();
-        game.score += 0.025;
-        generateShark(dino, game, ctx);
-        generateMines(ctx, game, dino);
-        drawCounter(game, ctx);
+    drawFinalScene(ctx);
 
-      }
-      generateBubbles(ctx);
-    }
-    if (game.score >= 52) game.levelDone = true;
   }
-  ctx.drawImage(exit, 198,0)
-  ctx.drawImage(maze, 0,0)
+  //drawFinalScene(ctx);
 }
 
 function startGame() {
