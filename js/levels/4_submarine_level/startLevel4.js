@@ -39,7 +39,7 @@ export function startLevel(ctx, game, dino) {
   ctx.restore();
 
   if (game.start) {
-
+    console.log(game.mouseMovePosition);
     // prayerSound.volume(1);
     // prayerSound.play();
     // if (!isDiving) tick(ctx);
