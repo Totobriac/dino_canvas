@@ -31,8 +31,16 @@ dino.src = "./assets/dino/dino_walk_left.png";
 var dino2 = new Image();
 dino2.src = "./assets/dino/dino_walk.png";
 
+var maskSprite = new Image();
+maskSprite.src = "./assets/4_submarine/mask.png";
+
 var exitingSub;
 var exitingDino;
+
+var mask = {
+  x: 0,
+  y: 0,
+}
 
 var scene = 2;
 
@@ -80,17 +88,16 @@ class ExitingDino {
       this.tickount++;
 
       if (this.path === 0 && this.x > 516 || this.y > 277) {
-        if (this.x > 516) this.x -= 0.22;
-        if (this.y > 277) this.y -= 0.2;
+        if (this.x > 516) this.x -= 0.33, mask.x -= 0.33;
+        if (this.y > 277) this.y -= 0.3, mask.y -= 0.3;
       } else {
         this.path = 1
       }
 
       if (this.path === 1) {
         this.sprite = dino2;
-        console.log(this.x);
-        if (this.x < 715) this.x += 0.17;
-        if (this.y > 52) this.y -= 0.2;
+        if (this.x < 715) this.x += 0.26, mask.x += 0.26;
+        if (this.y > 52) this.y -= 0.3, mask.y -= 0.3;
       }
     }
   }
@@ -161,6 +168,41 @@ function switchScene(n) {
   scene = n;
 }
 
+class Eyes {
+  constructor(ctx) {
+    this.x = Math.floor(Math.random() * 227) + Math.floor(Math.random() * 2) * 577;
+    this.y = Math.floor(Math.random() * 400);
+    this.side = Math.floor(Math.random() * 2);
+    this.size = Math.floor(Math.random() * 2) + 2;
+    this.ctx = ctx;
+  }
+  draw() {
+    this.ctx.fillRect(198 + this.x , this.y, this.size, this.size);
+    this.ctx.fillRect(198 + this.x + 5 , this.y, this.size, this.size);
+  }
+}
+
+var eyes = [];
+var eyesTick = 0;
+
+function drawEyes(ctx) {
+
+  eyesTick ++;
+
+  if (eyesTick % 60 === 0) {
+    eyes.push(new Eyes(ctx));
+  }
+  
+  if (eyes.length > 6) eyes.splice(0,1);
+
+  ctx.save();
+  ctx.fillStyle = "red";
+  eyes.forEach(eye => {
+    eye.draw();
+  });
+  ctx.restore();
+}
+
 function drawFinalScene(ctx) {
 
   if (!exitingSub) exitingSub = new ExitingSub(920, 260, subRight, ctx);
@@ -181,15 +223,19 @@ function drawFinalScene(ctx) {
   } else if (scene === 2) {
 
     if (!curtain1.isOpen) openCurtain();
+
     ctx.drawImage(maze, 0, 0);
     exitingDino.draw();
     ctx.drawImage(topMaze, 0, 0);
+    ctx.drawImage(maskSprite, mask.x, mask.y);   
 
-
+    drawEyes(ctx);
   }
 
   ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);
   ctx.fillRect(curtain2.x, curtain2.y, curtain2.width, curtain2.height);
+
+
 }
 
 export { drawFinalScene };
