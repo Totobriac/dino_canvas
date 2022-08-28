@@ -1,3 +1,7 @@
+import { sound } from "../../sound.js";
+
+var cataSound = new sound("./assets/4_submarine/catacomb.mp3");
+
 var entrance = new Image();
 entrance.src = "./assets/4_submarine/indy_entrance.png";
 
@@ -42,13 +46,15 @@ maskSprite.src = "./assets/4_submarine/mask.png";
 
 var exitingSub;
 var exitingDino;
+var eyes = [];
+var eyesTick = 0;
+var vol = 1;
+var scene = 1;
 
 var mask = {
   x: 0,
   y: 0,
 }
-
-var scene = 3;
 
 class ExitingDino {
   constructor(sprite, ctx, exitingSub) {
@@ -58,15 +64,11 @@ class ExitingDino {
     this.tickount = 0;
     this.dinoFrame = 1;
     this.sub = exitingSub;
-    this.x = 220;
-    this.y = 280;
+    this.x;
+    this.y;
     this.path = 0;
-
-    this.width = 67;
-    this.height = 75;
-
-    // this.width = 27;
-    // this.height = 30;
+    this.width = 27;
+    this.height = 30;
   }
   draw() {
     this.update();
@@ -117,7 +119,7 @@ class ExitingDino {
           } else {
             this.width = 67;
             this.height = 75;
-            this.x = 250;
+            this.x = 190;
             this.y = 280;
             switchScene(3);
             this.path = 0;
@@ -126,19 +128,39 @@ class ExitingDino {
       }
     }
     else if (scene === 3) {
-      this.tickount++;
-      this.sprite = dino2;
+      if (this.path != 3) this.tickount++;
 
       if (this.path === 0 && this.x < 613) {
+        this.sprite = dino2;
         if (this.x < 613) this.x += 1;
-        if (this.y < 300) this.y += 0.05;  
+        if (this.y < 300) this.y += 0.05;
       } else {
         this.path = 1;
       }
-     
-      if (this.path === 1 ) {
-        if (this.x < 837) this.x += 1;
-        if (this.y > 224) this.y -= 0.33;  
+
+      if (this.path === 1) {
+        if (this.x < 187 || this.y > 224) {
+          if (this.x < 837) this.x += 1;
+          if (this.y > 224) this.y -= 0.33;
+        } else {
+          this.path = 2;
+        }
+      }
+
+      if (this.path === 2) {
+        this.sprite = dino;
+        if (this.x > 738 || this.y > 140) {
+          if (this.x > 738) this.x -= 0.375;
+          if (this.y > 140) this.y -= 0.345;
+        } else {
+          this.path = 3;
+          vol > 0.01 ? vol -= 0.01 : cataSound.stop();
+          if (curtain1.isOpen) {
+            closeCurtain();
+          } else {
+            switchScene(4);
+          }          
+        }
       }
     }
   }
@@ -180,15 +202,15 @@ class ExitingSub {
 }
 
 var curtain1 = {
-  x: -402,
+  x: 0,
   y: 0,
   height: 400,
   width: 600,
-  isOpen: true,
+  isOpen: false,
 }
 
 var curtain2 = {
-  x: 1002,
+  x: 600,
   y: 0,
   height: 400,
   width: 600,
@@ -200,9 +222,14 @@ function closeCurtain() {
   curtain2.x > 600 ? curtain2.x -= 2 : curtain2.isOpen = false;
 }
 
-function openCurtain() {
+function openCurtain() {  
   curtain1.x > -402 ? curtain1.x -= 2 : curtain1.isOpen = true;
   curtain2.x < 1002 ? curtain2.x += 2 : curtain2.isOpen = true;
+}
+
+function finalOpening() {
+  curtain1.x > -600 ? curtain1.x -= 2 : curtain1.isOpen = true;
+  curtain2.x < 1200 ? curtain2.x += 2 : curtain2.isOpen = true;
 }
 
 function switchScene(n) {
@@ -223,8 +250,7 @@ class Eyes {
   }
 }
 
-var eyes = [];
-var eyesTick = 0;
+
 
 function drawEyes(ctx) {
   eyesTick++;
@@ -240,12 +266,17 @@ function drawEyes(ctx) {
   ctx.restore();
 }
 
-function drawFinalScene(ctx) {
+function drawFinalScene(ctx, game) {
+
+  cataSound.volume(vol);
+  cataSound.play();
 
   if (!exitingSub) exitingSub = new ExitingSub(920, 260, subRight, ctx);
   if (!exitingDino) exitingDino = new ExitingDino(dino, ctx, exitingSub);
 
   if (scene === 1) {
+    console.log("tttttttt");
+    if (!curtain1.isOpen) openCurtain();
     ctx.drawImage(entrance, 198, 0);
     exitingDino.draw();
     exitingSub.draw();
@@ -265,11 +296,14 @@ function drawFinalScene(ctx) {
     exitingDino.draw();
     ctx.drawImage(exitEntrance, 198, 0);
     ctx.drawImage(ramp, 198, 0);
+  } else if (scene === 4) {
+    !curtain1.isOpen ? finalOpening() : game.switchLevel(5);
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, 1200, 400);
   }
-
+  ctx.fillStyle = "black";
   ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);
   ctx.fillRect(curtain2.x, curtain2.y, curtain2.width, curtain2.height);
-
 }
 
 export { drawFinalScene };

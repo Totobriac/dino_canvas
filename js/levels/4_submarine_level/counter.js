@@ -6,12 +6,8 @@ function drawCounter(game, ctx) {
 
   ctx.drawImage(periscoSprite, 480, 5, 35, 35);
 
-
   ctx.fillStyle = "rgb(255,204,0)";
-  ctx.fillRect(525, 12, game.score * 4, 26);
-
-  ctx.fillStyle = "rgb(29,48,70)";
-  ctx.fillRect(525 + game.score * 4, 12, 400 - game.score * 4, 26);
+  ctx.fillRect(525, 12, game.score * 7.6, 26);  
 
   ctx.strokeStyle = "blue";
   ctx.strokeRect(525, 10, 400, 30);
