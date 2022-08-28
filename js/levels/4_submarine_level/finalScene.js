@@ -154,7 +154,7 @@ class ExitingDino {
           if (this.y > 140) this.y -= 0.345;
         } else {
           this.path = 3;
-          vol > 0.01 ? vol -= 0.01 : cataSound.stop();
+          vol > 0.02 ? vol -= 0.02 : cataSound.stop();
           if (curtain1.isOpen) {
             closeCurtain();
           } else {
@@ -271,11 +271,11 @@ function drawFinalScene(ctx, game) {
   cataSound.volume(vol);
   cataSound.play();
 
-  if (!exitingSub) exitingSub = new ExitingSub(920, 260, subRight, ctx);
+  if (!exitingSub) exitingSub = new ExitingSub(940, 260, subRight, ctx);
   if (!exitingDino) exitingDino = new ExitingDino(dino, ctx, exitingSub);
 
   if (scene === 1) {
-    console.log("tttttttt");
+   
     if (!curtain1.isOpen) openCurtain();
     ctx.drawImage(entrance, 198, 0);
     exitingDino.draw();
