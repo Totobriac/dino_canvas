@@ -1,5 +1,6 @@
 var colSize = 2;
 var columns = canvas.width / colSize;
+
 var y = Array(columns).fill(0);
 var yIndex = [...Array(columns).keys()];
 
@@ -38,7 +39,7 @@ function introIn(ctx) {
   });
 }
 
-function introOut(ctx, snap) {
+function introOut(ctx, snap, game) {
 
   if (!out) {
     tempContext.putImageData(snap, 0, 0);
@@ -46,6 +47,8 @@ function introOut(ctx, snap) {
   }
 
   var cols = [];
+  var endedCol = 0;
+
   for (let i = 0; i < 4; i++) {
     cols.push(Math.floor(Math.random() * yIndex2.length));
   }
@@ -57,14 +60,15 @@ function introOut(ctx, snap) {
   });
   for (let i = 0; i < columns; i++) {
     if (y2[i] != 0 && y2[i] < 400) {
-      y2[i] += 2;
-    }  
+      y2[i] += 2;      
+    } else {
+      endedCol ++;
+    } 
     ctx.drawImage(tempCanvas, i * colSize, 0, colSize, 400, i * colSize, y2[i], colSize, 400);
-
   }
+  if (endedCol === 600) {
+    game.switchLevel(6);
+  };
 }
 
-export {
-  introIn,
-  introOut
-};
+export { introIn, introOut };

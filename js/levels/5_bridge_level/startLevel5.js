@@ -52,7 +52,7 @@ export function startLevel(ctx, game, dino) {
   }
 
   if (hasEnded) {
-    introOut(ctx, snap);
+    introOut(ctx, snap, game);
   }
 }
 

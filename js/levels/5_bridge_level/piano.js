@@ -8,7 +8,7 @@ var keys = [["Bb4", 0, 2], ["G5", 8, 5], ["F5", 7, 2], ["G5", 8, 2], ["F5", 7, 5
 ["F5", 7, 1], ["E5", 6, 1], ["Ab5", 9, 1], ["G5", 8, 1], ["Db6", 12, 1], ["C6", 11, 1], ["G5", 8, 1], ["Bb5", 10, 5.7], ["Ab5", 9, 3.8], ["F5", 7, 1.9],
 ["F5", 7, 5.7], ["G5", 8, 1.9], ["G5", 8, 1.9], ["D5", 4, 1.9], ["Eb5", 5, 5.7], ["C5", 2, 5.7], ["Bb4", 0, 2], ["D6", 13, 2], ["C6", 11, 2], ["Bb5", 10, 1],
 ["Ab5", 9, 1], ["G5", 8, 1], ["Ab5", 9, 0.5], ["Ab5", 9, 0.5], ["C5", 2, 1], ["D5", 4, 1], ["Eb5", 5, 7.1]];
-console.log(keys.length);
+
 var part = false;
 var partition = [];
 var oldFrame = 0;
@@ -100,7 +100,7 @@ export function generatePiano(ctx, frame) {
         partition[i].drawTile();
       }
     }
-    drawLine(ctx);
+    drawLine(ctx);   
   }
 }
 
@@ -136,3 +136,5 @@ document.addEventListener('keydown', function (event) {
       break;
   }
 });
+
+export { partition };

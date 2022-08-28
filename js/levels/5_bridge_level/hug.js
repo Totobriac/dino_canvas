@@ -1,4 +1,5 @@
 import { endGame } from "./startLevel5.js";
+import { partition } from "./piano.js";
 
 var hug = new Image();
 hug.src = "./assets/5_bridge/hug.png";
@@ -51,9 +52,11 @@ if (!init2) {
 }
 
 function drawHug(ctx) {
-  console.log(alpha);
-  if (alpha > 90 && distortion > 0.05) distortion -= 0.05;
+
+  // if (alpha > 90 && distortion > 0.05) distortion -= 0.05;
+
   var data = imageData.data;
+
   for (let i = 0; i < data.length; i += 4) {
     if (data[i] != 0 || data[i + 1] != 0 || data[i + 2] != 0) {
       data[i + 3] = Math.floor(Math.random() * alpha * 3 + alpha * 2);
@@ -66,10 +69,15 @@ function drawHug(ctx) {
     }
   }
 
-  if (alpha > 90 && distortion < 0.05 && !hasEnded) {
-    hasEnded = true;
-    alpha = 0;
-  }
+  if (partition.length < 1 && !hasEnded) {
+    if (alpha < 90 || distortion > 0.05 && !hasEnded) {
+      if (distortion > 0.05) distortion -= 0.05;
+      if (alpha < 90) alpha += 0.25;
+    } else {
+      hasEnded = true;
+      alpha = 0;
+    }    
+  }  
 
   if (hasEnded) {
     drawStars(ctx);
@@ -102,7 +110,7 @@ function drawStars(ctx) {
   var data = imageData2.data;
   for (let i = 0; i < data.length; i += 4) {
     if (data[i] != 0 || data[i + 1] != 0 || data[i + 2] != 0) {
-      data[i + 3] = Math.floor(Math.random() * alpha + alpha/2);
+      data[i + 3] = Math.floor(Math.random() * alpha + alpha / 2);
     }
   }
   tempContext2.putImageData(imageData2, 0, 0);
