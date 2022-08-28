@@ -17,9 +17,30 @@ var splashSound = new sound("./assets/4_submarine/splash.wav");
 
 var circleD = 0;
 var start = false;
-var isDiving = true;
+var isDiving = false;
 var splash = false;
 var vol = 1;
+
+var curtain1 = {
+  x: -600,
+  y: 0,
+  height: 400,
+  width: 600,
+  isOpen: true,
+}
+
+var curtain2 = {
+  x: 1200,
+  y: 0,
+  height: 400,
+  width: 600,
+  isOpen: true,
+}
+
+function closeCurtain() {
+  curtain1.x < 0 ? curtain1.x += 2 : curtain1.isOpen = false;
+  curtain2.x > 600 ? curtain2.x -= 2 : curtain2.isOpen = false;
+}
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -39,7 +60,7 @@ export function startLevel(ctx, game, dino) {
   ctx.fill();
   ctx.restore();
 
-  if (game.start) {  
+  if (game.start) {
     if (!game.levelDone) {
       prayerSound.volume(vol);
       prayerSound.play();
@@ -58,15 +79,19 @@ export function startLevel(ctx, game, dino) {
           game.score += 0.025;
           generateShark(dino, game, ctx);
           generateMines(ctx, game, dino);
-          drawCounter(game, ctx);
+          if (game.score <= 52)drawCounter(game, ctx);
         }
         generateBubbles(ctx);
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);
+        ctx.fillRect(curtain2.x, curtain2.y, curtain2.width, curtain2.height);
       }
-      if (game.score >= 5) {
-        game.levelDone = true;        
-      } 
+      if (game.score >= 52) {        
+        curtain1.isOpen ? closeCurtain() : game.levelDone = true;
+        vol > 0.1 ? vol -= 0.01 : prayerSound.stop();
+      }
     } else {
-      vol > 0.1 ? vol -= 0.01 : prayerSound.stop();
       drawFinalScene(ctx, game);
     }
   }

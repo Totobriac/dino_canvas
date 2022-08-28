@@ -26,13 +26,12 @@ var imageData2;
 var alpha = 0;
 var distortion = 20;
 
+var g;
 var glowR = 0;
-var g
 var countUp = true;
 
 var hasEnded = false;
 
-var resize = 0;
 var takeSnap = false;
 
 if (!init) {
@@ -52,7 +51,7 @@ if (!init2) {
 }
 
 function drawHug(ctx) {
-  if (!hasEnded) alpha += 1.02;
+  console.log(alpha);
   if (alpha > 90 && distortion > 0.05) distortion -= 0.05;
   var data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
@@ -110,5 +109,8 @@ function drawStars(ctx) {
   ctx.drawImage(tempCanvas2, 0, 0);
 }
 
+function updateAlpha(n) {
+  alpha += n;
+}
 
-export { drawHug };
+export { drawHug, updateAlpha };

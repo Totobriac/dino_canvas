@@ -34,6 +34,7 @@ export function drawSubmarine(ctx, dino, mousePosition) {
 
 function update(dino, game) {
   dino.tickCount += 1;
+
   dino.mouseX = game.mousePosition.x;
   dino.mouseY = game.mousePosition.y;
   dx = dino.x - dino.mouseX;
@@ -54,4 +55,4 @@ function getAngle(x, y, mouse) {
   return theta
 }
 
-export {dx, dy};
+export { dx, dy };

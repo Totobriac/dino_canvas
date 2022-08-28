@@ -15,13 +15,14 @@ arrowsKeys.src = "./assets/5_bridge/arrows.png";
 
 var circleD = 0;
 var start = false;
+var hasRained = false;
 
 var hasEnded = false;
 var snap;
 
 window.addEventListener('keydown', function (event) {
   if (event.key === "ArrowUp") {
-    rainSound.play();
+    if (!hasRained) rainSound.play(), hasRained = true;
     rainSound.volume(1);
     startGame();
   }

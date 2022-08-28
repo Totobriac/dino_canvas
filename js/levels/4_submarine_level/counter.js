@@ -3,7 +3,6 @@ periscoSprite.src = "./assets/4_submarine/peri_icon.png";
 
 function drawCounter(game, ctx) {
   ctx.lineWidth = 2;
-
   ctx.drawImage(periscoSprite, 480, 5, 35, 35);
 
   ctx.fillStyle = "rgb(255,204,0)";

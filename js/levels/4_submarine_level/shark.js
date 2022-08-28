@@ -126,7 +126,7 @@ class Shark {
         }
       } else {
         if (this.oldFrame != this.frame) {
-            if (this.game.score > 1) this.game.score --;
+            if (this.game.score > 1 && this.game.score < 52) this.game.score --;
             this.oldFrame = this.frame;
         }
 
