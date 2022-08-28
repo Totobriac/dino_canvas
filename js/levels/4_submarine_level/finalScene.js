@@ -13,6 +13,12 @@ waterTop.src = "./assets/4_submarine/waterTop.png";
 var exit = new Image();
 exit.src = "./assets/4_submarine/indy_exit.png";
 
+var ramp = new Image();
+ramp.src = "./assets/4_submarine/ramp.png";
+
+var exitEntrance = new Image();
+exitEntrance.src = "./assets/4_submarine/exitEntrance.png";
+
 var maze = new Image();
 maze.src = "./assets/4_submarine/maze.png";
 
@@ -42,7 +48,7 @@ var mask = {
   y: 0,
 }
 
-var scene = 1;
+var scene = 3;
 
 class ExitingDino {
   constructor(sprite, ctx, exitingSub) {
@@ -52,13 +58,19 @@ class ExitingDino {
     this.tickount = 0;
     this.dinoFrame = 1;
     this.sub = exitingSub;
-    this.x = 580;
-    this.y = 350;
+    this.x = 220;
+    this.y = 280;
     this.path = 0;
+
+    this.width = 67;
+    this.height = 75;
+
+    // this.width = 27;
+    // this.height = 30;
   }
   draw() {
     this.update();
-    this.ctx.drawImage(this.sprite, 90 * this.dinoFrame, 0, 90, 99, this.x, this.y, 27, 30);
+    this.ctx.drawImage(this.sprite, 90 * this.dinoFrame, 0, 90, 99, this.x, this.y, this.width, this.height);
   }
   update() {
     if (this.tickount > this.maxTicount) {
@@ -95,19 +107,38 @@ class ExitingDino {
       }
 
       if (this.path === 1) {
-        if (this.x < 715 || this.y > 52) {
+        if (this.x < 730 || this.y > 52) {
           this.sprite = dino2;
-          if (this.x < 725) this.x += 0.26, mask.x += 0.26;
+          if (this.x < 730) this.x += 0.26, mask.x += 0.26;
           if (this.y > 52) this.y -= 0.3, mask.y -= 0.3;
         } else {
           if (curtain1.isOpen) {
             closeCurtain();
           } else {
-            this.x = 585;
-            this.y = 390;
+            this.width = 67;
+            this.height = 75;
+            this.x = 250;
+            this.y = 280;
             switchScene(3);
+            this.path = 0;
           }
         }
+      }
+    }
+    else if (scene === 3) {
+      this.tickount++;
+      this.sprite = dino2;
+
+      if (this.path === 0 && this.x < 613) {
+        if (this.x < 613) this.x += 1;
+        if (this.y < 300) this.y += 0.05;  
+      } else {
+        this.path = 1;
+      }
+     
+      if (this.path === 1 ) {
+        if (this.x < 837) this.x += 1;
+        if (this.y > 224) this.y -= 0.33;  
       }
     }
   }
@@ -231,12 +262,14 @@ function drawFinalScene(ctx) {
   } else if (scene === 3) {
     if (!curtain1.isOpen) openCurtain();
     ctx.drawImage(exit, 198, 0);
+    exitingDino.draw();
+    ctx.drawImage(exitEntrance, 198, 0);
+    ctx.drawImage(ramp, 198, 0);
   }
 
   ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);
   ctx.fillRect(curtain2.x, curtain2.y, curtain2.width, curtain2.height);
 
-  console.log(curtain1);
 }
 
 export { drawFinalScene };
