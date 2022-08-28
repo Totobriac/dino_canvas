@@ -300,6 +300,7 @@ function drawFinalScene(ctx, game) {
     !curtain1.isOpen ? finalOpening() : game.switchLevel(5);
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, 1200, 400);
+    cataSound.stop()
   }
   ctx.fillStyle = "black";
   ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);

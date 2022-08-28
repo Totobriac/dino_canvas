@@ -2,9 +2,11 @@ import { endGame } from "./startLevel5.js";
 import { partition } from "./piano.js";
 
 var hug = new Image();
+hug.crossOrigin = 'anonymous';
 hug.src = "./assets/5_bridge/hug.png";
 
 var night = new Image();
+night.crossOrigin = 'anonymous';
 night.src = "./assets/5_bridge/starry_night_stars.png";
 
 var tempCanvas = document.createElement('canvas');

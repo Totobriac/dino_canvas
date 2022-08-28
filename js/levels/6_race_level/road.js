@@ -130,10 +130,10 @@ function calculateDY(FOV) {
 export function drawScenery(ctx, game) {
 
 
-  for (let i = 0; i < points.length; i++) {    
+  for (let i = 0; i < points.length; i++) {
     points[i].update();
 
-     if (points[0].z < 600) {
+    if (points[0].z < 600) {
       speed = 0;
       showHotel += 0.005;
     }
@@ -171,12 +171,12 @@ export function drawScenery(ctx, game) {
 }
 
 function fallAnimation(ctx) {
-  fallTickCount ++;
-  if (fallMotoFrame < 3 && fallTickCount % 10 === 0) fallMotoFrame ++;
+  fallTickCount++;
+  if (fallMotoFrame < 3 && fallTickCount % 10 === 0) fallMotoFrame++;
   ctx.drawImage(fallMotoSprite, 90 * fallMotoFrame, 0, 91, 110, 579, 285, 91, 110);
   if (fallMotoFrame === 3) {
-    if (fallTickCount % 10 === 0 && fallDriverFrame < 7) fallDriverFrame ++;
-    ctx.drawImage(fallDriverSprite,fallDriverFrame * 84,0,84,110,670,285,84,110);
+    if (fallTickCount % 10 === 0 && fallDriverFrame < 7) fallDriverFrame++;
+    ctx.drawImage(fallDriverSprite, fallDriverFrame * 84, 0, 84, 110, 670, 285, 84, 110);
     if (fallDriverFrame === 7) {
       falling = false;
       fallTickCount = 0;
@@ -196,7 +196,7 @@ function checkCollision() {
       : checkTrunk = canvas.width / 2 + (150 * points[i].scale) + points[i].offset - points[i].curve;
     var trunkColl;
     checkTrunk > 625 || checkTrunk + 100 < 575 ? trunkColl = false : trunkColl = true;
-    if (points[i].z < 250 && points[i].z > 100 && points[i].hasTrunk && trunkColl ) return true;
+    if (points[i].z < 250 && points[i].z > 100 && points[i].hasTrunk && trunkColl) return true;
   }
   return false;
 }
@@ -221,7 +221,9 @@ export function steer(game) {
       if (playerX > -575) offset += -0.002;
     };
   }
-  playerX > 575 || playerX < -575 || !engineOn  ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
+  playerX > 575 || playerX < -575 || !engineOn ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
+
+  console.log(offset);
 }
 
 export { showHotel };

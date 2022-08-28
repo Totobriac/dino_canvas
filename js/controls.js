@@ -6,9 +6,9 @@ export class Control {
       game.keyDown = e;
       game.keyUp = " ";
 
-      if (isFinite(e.key) && e.key != " ") {
-        game.level = parseInt(e.key);
-      }
+      // if (isFinite(e.key) && e.key != " ") {
+      //   game.level = parseInt(e.key);
+      // }
     })
     window.addEventListener('keyup', function (e) {
       game.keyDown = " ";
