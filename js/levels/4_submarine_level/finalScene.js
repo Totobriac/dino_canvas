@@ -42,7 +42,7 @@ var mask = {
   y: 0,
 }
 
-var scene = 2;
+var scene = 1;
 
 class ExitingDino {
   constructor(sprite, ctx, exitingSub) {
@@ -72,14 +72,14 @@ class ExitingDino {
         this.x = this.sub.x + 12;
         this.y = this.sub.y + 35;
       } else if (this.y > 132 || this.x > 196) {
-        if (this.y > 132) this.y -= 5;
-        if (this.x > 196) this.x -= 5;
+        if (this.y > 132) this.y -= 0.5;
+        if (this.x > 196) this.x -= 0.5;
       } else {
         if (curtain1.isOpen) {
           closeCurtain();
         } else {
-          this.x = 585;
-          this.y = 390;
+          this.x = 580;
+          this.y = 350;
           switchScene(2);
         }
       }
@@ -91,13 +91,23 @@ class ExitingDino {
         if (this.x > 516) this.x -= 0.33, mask.x -= 0.33;
         if (this.y > 277) this.y -= 0.3, mask.y -= 0.3;
       } else {
-        this.path = 1
+        this.path = 1;
       }
 
       if (this.path === 1) {
-        this.sprite = dino2;
-        if (this.x < 715) this.x += 0.26, mask.x += 0.26;
-        if (this.y > 52) this.y -= 0.3, mask.y -= 0.3;
+        if (this.x < 715 || this.y > 52) {
+          this.sprite = dino2;
+          if (this.x < 725) this.x += 0.26, mask.x += 0.26;
+          if (this.y > 52) this.y -= 0.3, mask.y -= 0.3;
+        } else {
+          if (curtain1.isOpen) {
+            closeCurtain();
+          } else {
+            this.x = 585;
+            this.y = 390;
+            switchScene(3);
+          }
+        }
       }
     }
   }
@@ -155,13 +165,13 @@ var curtain2 = {
 }
 
 function closeCurtain() {
-  curtain1.x < 0 ? curtain1.x += 1 : curtain1.isOpen = false;
-  curtain2.x > 600 ? curtain2.x -= 1 : curtain2.isOpen = false;
+  curtain1.x < 0 ? curtain1.x += 2 : curtain1.isOpen = false;
+  curtain2.x > 600 ? curtain2.x -= 2 : curtain2.isOpen = false;
 }
 
 function openCurtain() {
-  curtain1.x > -198 ? curtain1.x -= 1 : curtain1.isOpen = true;
-  curtain2.x < 1002 ? curtain2.x += 1 : curtain2.isOpen = true;
+  curtain1.x > -402 ? curtain1.x -= 2 : curtain1.isOpen = true;
+  curtain2.x < 1002 ? curtain2.x += 2 : curtain2.isOpen = true;
 }
 
 function switchScene(n) {
@@ -177,8 +187,8 @@ class Eyes {
     this.ctx = ctx;
   }
   draw() {
-    this.ctx.fillRect(198 + this.x , this.y, this.size, this.size);
-    this.ctx.fillRect(198 + this.x + 5 , this.y, this.size, this.size);
+    this.ctx.fillRect(198 + this.x, this.y, this.size, this.size);
+    this.ctx.fillRect(198 + this.x + 5, this.y, this.size, this.size);
   }
 }
 
@@ -186,15 +196,11 @@ var eyes = [];
 var eyesTick = 0;
 
 function drawEyes(ctx) {
-
-  eyesTick ++;
-
+  eyesTick++;
   if (eyesTick % 60 === 0) {
     eyes.push(new Eyes(ctx));
   }
-  
-  if (eyes.length > 6) eyes.splice(0,1);
-
+  if (eyes.length > 6) eyes.splice(0, 1);
   ctx.save();
   ctx.fillStyle = "red";
   eyes.forEach(eye => {
@@ -208,34 +214,29 @@ function drawFinalScene(ctx) {
   if (!exitingSub) exitingSub = new ExitingSub(920, 260, subRight, ctx);
   if (!exitingDino) exitingDino = new ExitingDino(dino, ctx, exitingSub);
 
-
   if (scene === 1) {
-
     ctx.drawImage(entrance, 198, 0);
-
     exitingDino.draw();
     exitingSub.draw();
-
     ctx.drawImage(rock, 198, 0);
     ctx.drawImage(waterBottom, 198, 0);
     ctx.drawImage(waterTop, 198, 0);
-
   } else if (scene === 2) {
-
     if (!curtain1.isOpen) openCurtain();
-
     ctx.drawImage(maze, 0, 0);
     exitingDino.draw();
     ctx.drawImage(topMaze, 0, 0);
-    ctx.drawImage(maskSprite, mask.x, mask.y);   
-
+    ctx.drawImage(maskSprite, mask.x, mask.y);
     drawEyes(ctx);
+  } else if (scene === 3) {
+    if (!curtain1.isOpen) openCurtain();
+    ctx.drawImage(exit, 198, 0);
   }
 
   ctx.fillRect(curtain1.x, curtain1.y, curtain1.width, curtain1.height);
   ctx.fillRect(curtain2.x, curtain2.y, curtain2.width, curtain2.height);
 
-
+  console.log(curtain1);
 }
 
 export { drawFinalScene };
