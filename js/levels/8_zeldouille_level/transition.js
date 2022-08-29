@@ -6,7 +6,7 @@ import { playSound } from "./music.js";
 import { spawnZora, spawnMonsters } from "./overWorld.js";
 
 var fairySprite = new Image();
-fairySprite.src = "../assets/8_zeldouille/fairy2.png";
+fairySprite.src = "./assets/8_zeldouille/fairy2.png";
 
 var hasGameStarted = false;
 var tickCount = 0;

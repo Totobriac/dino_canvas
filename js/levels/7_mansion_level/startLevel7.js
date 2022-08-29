@@ -20,7 +20,7 @@ export function startLevel(ctx, game) {
   if (circleD === 0 && start) game.start = true;
 
   var canvasDiv = document.getElementById("canvas");
-  canvasDiv.setAttribute("style", "cursor: url('../assets/7_mansion/pointer.png'), auto");
+  canvasDiv.setAttribute("style", "cursor: url('./assets/7_mansion/pointer.png'), auto");
 
   ctx.drawImage(mouseKeys, 545, 130, 160 * 0.7, 164 * 0.7);
   ctx.save();

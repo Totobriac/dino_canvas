@@ -1,5 +1,5 @@
 import { drawRoad, drawBackground, drawGrass, drawTrees, drawBoars, drawForest_1, drawForest_2 } from "./drawRoad.js";
-import { engineOn } from "./startLevel6.js";
+import { engineOn, motoFinished, updateVol, strokesSound, vol } from "./startLevel6.js";
 
 var motoSprite = new Image();
 motoSprite.src = "./assets/6_race/moto-6.png";
@@ -90,10 +90,10 @@ class Segment {
 }
 
 export function generateRoad(game) {
-  if (game.loadedLevel[6] === false) {
+  if (!game.loadedLevel[6]) {
     var sum = 0;
     var sections = [];
-    while (sum < 600) {
+    while (sum < 100) {
       var sectionLength = 20 + 20 * (Math.floor(Math.random() * 3));
       sum += sectionLength;
       sections.push(sectionLength);
@@ -127,8 +127,8 @@ function calculateDY(FOV) {
   var dY = (canvas.height / 2) / Math.tan((FOV / 2 * Math.PI) / 180);
   return dY;
 }
-export function drawScenery(ctx, game) {
 
+export function drawScenery(ctx, game) {
 
   for (let i = 0; i < points.length; i++) {
     points[i].update();
@@ -136,6 +136,7 @@ export function drawScenery(ctx, game) {
     if (points[0].z < 600) {
       speed = 0;
       showHotel += 0.005;
+      vol > 0.0001 ? updateVol(-0.0001) : strokesSound.stop();
     }
   }
 
@@ -149,6 +150,7 @@ export function drawScenery(ctx, game) {
     if (showHotel >= 400) {
       showHotel = 400;
       light = true;
+      setTimeout ( motoFinished, 1500);
     }
     drawForest_1(ctx, showHotel);
     drawForest_2(ctx, -showHotel);
@@ -223,7 +225,6 @@ export function steer(game) {
   }
   playerX > 575 || playerX < -575 || !engineOn ? speed = 0 : speed = 0 ? speed = 20 : speed = 20;
 
-  console.log(offset);
 }
 
 export { showHotel };

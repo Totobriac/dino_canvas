@@ -1,13 +1,13 @@
 import { map, zelda } from "./script.js";
 
 var itemsSprite = new Image();
-itemsSprite.src = "../assets/8_zeldouille/heart_key.png";
+itemsSprite.src = "./assets/8_zeldouille/heart_key.png";
 
 var swordSprite = new Image();
-swordSprite.src = "../assets/8_zeldouille/sword.png";
+swordSprite.src = "./assets/8_zeldouille/sword.png";
 
 var potionSprite = new Image();
-potionSprite.src = "../assets/8_zeldouille/potion.png";
+potionSprite.src = "./assets/8_zeldouille/potion.png";
 
 class SideBar {
   constructor(ctx) {
@@ -40,7 +40,7 @@ class SideBar {
     var fullHeart = Math.floor(zelda.life / 2);
     var halfHeart = zelda.life - fullHeart * 2;
     var emptyHeart = 4 - fullHeart - halfHeart;
-     
+
     if (halfHeart === 1) {
       this.hearts.splice(fullHeart, 1, 1);
       this.hearts.fill(2, 4 - emptyHeart);

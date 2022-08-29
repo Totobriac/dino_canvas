@@ -4,10 +4,10 @@ import { getTile } from "./functions.js";
 import { playSound } from "./music.js";
 
 var potionSprite = new Image();
-potionSprite.src = "../assets/8_zeldouille/potion.png";
+potionSprite.src = "./assets/8_zeldouille/potion.png";
 
 var sprites = new Image();
-sprites.src = "../assets/8_zeldouille/sprites.png";
+sprites.src = "./assets/8_zeldouille/sprites.png";
 
 var tickCount = 0;
 var textTickCount = 0;

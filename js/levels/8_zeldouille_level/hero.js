@@ -10,12 +10,12 @@ import { monsterMayem } from "./monsters/ghouls.js";
 import { callFairy } from "./transition.js";
 
 var zeldaSprite = new Image();
-zeldaSprite.src = "../assets/8_zeldouille/dino.png";
+zeldaSprite.src = "./assets/8_zeldouille/dino.png";
 
 var zeldaAttackSprite = new Image();
-zeldaAttackSprite.src = "../assets/8_zeldouille/dino_attack.png";
+zeldaAttackSprite.src = "./assets/8_zeldouille/dino_attack.png";
 
-const zeldaHit = ["../assets/8_zeldouille/hit_1.png", "../assets/8_zeldouille/hit_2.png", "../assets/8_zeldouille/hit_3.png"];
+const zeldaHit = ["./assets/8_zeldouille/hit_1.png", "./assets/8_zeldouille/hit_2.png", "./assets/8_zeldouille/hit_3.png"];
 
 class Hero {
   constructor(x, y, spriteSize, ctx) {
@@ -37,9 +37,9 @@ class Hero {
     this.isHit = false;
     this.hitTickCount = 0;
     this.lifeTickCount = 0;
-    this.life = 2;
+    this.life = 8;
     this.isDead = false;
-    this.hasSword = true;
+    this.hasSword = false;
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;
@@ -397,7 +397,7 @@ class Hero {
       } else if (this.hitTickCount > 100) {
         this.hitTickCount = 0;
         this.isHit = false;
-        zeldaSprite.src = "../assets/8_zeldouille/dino.png";
+        zeldaSprite.src = "./assets/8_zeldouille/dino.png";
       }
     }
   }

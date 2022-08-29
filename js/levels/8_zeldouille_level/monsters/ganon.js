@@ -4,7 +4,7 @@ import { openGanonCave } from "../maps.js";
 import { playSound } from "../music.js";
 
 var gannonSprite = new Image();
-gannonSprite.src = "../assets/8_zeldouille/gannon_with_explosion.png";
+gannonSprite.src = "./assets/8_zeldouille/gannon_with_explosion.png";
 
 class Ganon {
   constructor(ctx) {
@@ -118,7 +118,7 @@ class Ganon {
     }
     else {
       if (!zelda.hasKey) playSound(9);
-      zelda.hasKey = true;      
+      zelda.hasKey = true;
     }
   }
 }

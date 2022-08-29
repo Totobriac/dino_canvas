@@ -5,7 +5,7 @@ import { zelda } from "../script.js";
 import { playSound } from "../music.js";
 
 var dyingEffect = new Image();
-dyingEffect.src = "../assets/8_zeldouille/effects.png";
+dyingEffect.src = "./assets/8_zeldouille/effects.png";
 
 export class Monster {
   constructor(map, bundaries, ctx, speed) {
@@ -183,7 +183,7 @@ function monsterAnimation(ctx) {
         }
         if (map.monsters[i].dyingFrame === 5) {
           playSound(7);
-          if (!zelda.hasPotion) setPotionXY(map.monsters[i].x + 10, map.monsters[i].y + 4 );    
+          if (!zelda.hasPotion) setPotionXY(map.monsters[i].x + 10, map.monsters[i].y + 4 );
           map.monsters.splice(i, 1);
           return
         }
