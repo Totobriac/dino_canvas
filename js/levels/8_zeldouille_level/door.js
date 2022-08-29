@@ -1,12 +1,12 @@
 import { sound } from "../../sound.js";
 
 var door = new Image();
-door.src = "./assets/8_zeldouille/door2.png";
+door.src = "./assets/8_zeldouille/door.png";
 
 var doorOpening = new sound("./assets/8_zeldouille/sounds/doorSound.mp3");
 
-var width = door.width;
-var height = door.height;
+var width = 269;
+var height = 600;
 
 var alpha = 0;
 var angle;
@@ -39,14 +39,14 @@ function drawDoorAnimation(ctx, game) {
       zoom < 1.8 ? zoom += 0.005 : step = 4;
       break;
     case 4:      
-      ctx.globalAlpha > 0.01 ? ctx.globalAlpha -= 0.01 : game.switchLevel(9);
+      ctx.globalAlpha >= 0.01 ? ctx.globalAlpha -= 0.01 : game.switchLevel(9);
       break;
   }
 
   angle = (alpha * Math.PI) / 180;
 
   ctx.save();
-
+ 
   for (var i = 0; i <= height / 2; ++i) {
     ctx.setTransform(zoom, (angle * i) / height, 0, zoom, (1200 - width * zoom) / 2, 20);
     ctx.drawImage(
@@ -60,6 +60,11 @@ function drawDoorAnimation(ctx, game) {
       width * Math.cos(angle),
       2
     );
+
+
+
+
+    
     ctx.setTransform(zoom, (-angle * i) / height, 0, zoom, (1200 - width * zoom) / 2, 20);
     ctx.drawImage(
       door,
@@ -76,8 +81,5 @@ function drawDoorAnimation(ctx, game) {
   ctx.restore();
 }
 
-function skew() {
-
-}
 
 export { drawDoorAnimation };
