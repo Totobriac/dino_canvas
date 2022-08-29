@@ -1,4 +1,5 @@
 import { animate } from "./script.js";
+import { drawDoorAnimation } from "./door.js";
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
@@ -29,7 +30,8 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
-    animate(game, ctx);
+    //animate(game, ctx);
+    drawDoorAnimation(ctx);
   }
 }
 
