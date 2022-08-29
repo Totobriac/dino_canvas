@@ -9,6 +9,7 @@ var circleD = 0;
 var start = false;
 
 var didTheDinoSuceedToGetTheKey = false;
+var deleteAll = false;
 
 window.addEventListener('keydown', function(e) {
   if (e.key === "ArrowRight" || e.key === "ArrowLeft" ||
@@ -34,12 +35,12 @@ export function startLevel(game, ctx) {
 
   if (game.start) {
 
-    if(!didTheDinoSuceedToGetTheKey) {
-      animate(game, ctx);
-    } else {
+    if (!deleteAll) animate(game, ctx);
+
+    if (didTheDinoSuceedToGetTheKey) {
       playSound(22);
       drawDoorAnimation(ctx, game);
-    }   
+    }
   }
 }
 
@@ -51,4 +52,8 @@ function endLevel() {
   didTheDinoSuceedToGetTheKey = true;
 }
 
-export { endLevel }; 
+function deleteLevel() {
+  deleteAll = true;
+}
+
+export { endLevel, deleteLevel };
