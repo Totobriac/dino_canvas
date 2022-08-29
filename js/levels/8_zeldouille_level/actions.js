@@ -1,7 +1,9 @@
-import { setMainMusic, zelda } from "./script.js";
+import { setMainMusic, zelda, map } from "./script.js";
 import { mainMap, openSwordCave } from "./maps.js";
 import { resetTextIndex, resetTxtSnd } from "./itemsPng.js";
 import { playSound } from "./music.js";
+import { endLevel } from "./startLevel8.js";
+
 
 function action(i) {
   switch (i) {
@@ -58,8 +60,10 @@ function getSword() {
 }
 
 function openDoor() {
-  if (zelda.hasKey === true) {
-    console.log("game is over !!!!!");
+  if (zelda.hasKey) {
+    zelda.isDone = true;    
+    var playing = playSound(21);
+    if (!playing) endLevel();
   } else {
     mainMap[2].hasEntered = false;
   }

@@ -1,11 +1,14 @@
 import { animate } from "./script.js";
 import { drawDoorAnimation } from "./door.js";
+import { playSound } from "./music.js";
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
 
 var circleD = 0;
 var start = false;
+
+var didTheDinoSuceedToGetTheKey = false;
 
 window.addEventListener('keydown', function(e) {
   if (e.key === "ArrowRight" || e.key === "ArrowLeft" ||
@@ -30,11 +33,22 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
-    //animate(game, ctx);
-    drawDoorAnimation(ctx);
+
+    if(!didTheDinoSuceedToGetTheKey) {
+      animate(game, ctx);
+    } else {
+      playSound(22);
+      drawDoorAnimation(ctx, game);
+    }   
   }
 }
 
 function startGame() {
   start = true;
 };
+
+function endLevel() {
+  didTheDinoSuceedToGetTheKey = true;
+}
+
+export { endLevel }; 

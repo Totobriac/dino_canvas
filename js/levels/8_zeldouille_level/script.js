@@ -21,7 +21,7 @@ export function animate(game, ctx) {
     map = new Map();
     game.loadedLevel[8] = true;
   }
-
+  
   playMain ? playSound(1) : playSound(16);
 
   drawTiles(ctx);

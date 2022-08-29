@@ -44,13 +44,14 @@ class Hero {
     this.isExitingCave = false;
     this.isGrabingSword = false;
     this.cave = 0;
-    this.hasKey = false;
+    this.hasKey = true;
     this.hasPotion = false;
     this.isHealing = false;
     this.deathTickCount = 0;
     this.deathAnim = 0;
     this.directions = [0, 3, 1, 2];
     this.totalAnim = 0;
+    this.isDone = false;
   }
   draw() {
     this.hitAnimation();
@@ -78,7 +79,7 @@ class Hero {
 
     if (this.direction != undefined) this.lastDirection = this.direction;
 
-    if (map && !map.zobi && !this.isGrabingSword && !this.isEnteringCave && !this.isExitingCave && !this.isDead) {
+    if (map && !map.zobi && !this.isGrabingSword && !this.isEnteringCave && !this.isExitingCave && !this.isDead && !this.isDone) {
       this.isMoving = true;
       if (game.keyDown.code === "ArrowDown") {
         this.direction = 0;

@@ -17,7 +17,7 @@ var delay = 0;
 
 var isPlaying = false;
 
-function drawDoorAnimation(ctx) {
+function drawDoorAnimation(ctx, game) {
   doorOpening.volume(1);
   if (!isPlaying) doorOpening.play(), isPlaying = true;
   ctx.save();
@@ -37,6 +37,9 @@ function drawDoorAnimation(ctx) {
       break;
     case 3:
       zoom < 1.8 ? zoom += 0.005 : step = 4;
+      break;
+    case 4:      
+      ctx.globalAlpha > 0.01 ? ctx.globalAlpha -= 0.01 : game.switchLevel(9);
       break;
   }
 

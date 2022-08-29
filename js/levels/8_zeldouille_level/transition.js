@@ -31,7 +31,7 @@ function drawTransition(ctx) {
     }
   }
 
-  if (zelda.isEnteringCave === true) {
+  if (zelda.isEnteringCave) {
     monsterMayem();
     tickCount++;
     if (tickCount < 100) {

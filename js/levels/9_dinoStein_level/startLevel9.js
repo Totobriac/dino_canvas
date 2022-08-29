@@ -21,6 +21,8 @@ var weapon;
 
 export function startLevel(game, ctx) {
 
+  ctx.globalAlpha = 1;
+  
   if (!game.loadedLevel[9]) {
 
     map = new Map(ctx);
