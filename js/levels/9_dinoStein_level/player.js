@@ -7,7 +7,7 @@ export class Player {
     this.y = y;
     this.map = map;
     this.ctx = ctx;
-    this.angle = Math.PI;
+    this.angle = 0;
     this.speed = 3;
 
     this.moveX = 0;
@@ -126,7 +126,7 @@ export class Player {
           this.map.removeSprite(23);
           this.keys = 2;
         }
-        break;    
+        break;
     }
   }
   resetSearch() {

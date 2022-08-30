@@ -16,7 +16,7 @@ class Sprite {
     this.halfSprite = 0;
     this.screenDist = Math.floor(300 / Math.tan((30 * Math.PI) / 180));
     this.still = still;
-    this.type = "object";    
+    this.type = "object";
     this.getImageXY();
   }
   getImageXY() {
@@ -51,15 +51,15 @@ class Sprite {
     var columnWidth = spriteHeight / 64;
 
     var screenY = 200 - spriteHeight / 2;
-    this.canBeSeen = false;    
-    
-    for (let i = 0; i < 64; i++) {      
+    this.canBeSeen = false;
+
+    for (let i = 0; i < 64; i++) {
       var x = Math.floor(this.screenX + (columnWidth * i) - (32 * columnWidth));
       if (zBuffer[x] + 32 > this.distance ) {
         this.ctx.drawImage(this.image, i + this.imageX, this.imageY, 1, 63, this.screenX + (columnWidth * i) - (32 * columnWidth) + 300, screenY, columnWidth, spriteHeight);
-        if (i === 26 || i === 38) this.canBeSeen = true;        
+        if (i === 26 || i === 38) this.canBeSeen = true;
       }
-    }    
+    }
   }
 }
 
