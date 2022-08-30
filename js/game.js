@@ -13,6 +13,7 @@ export class Game {
     this.levelDone = false;
   }
   switchLevel(lvl) {
+
     this.start = false;
     this.level = lvl;
     this.levelDone = false;

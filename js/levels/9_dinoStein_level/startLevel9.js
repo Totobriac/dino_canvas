@@ -8,6 +8,8 @@ import { Weapon } from "./weapons.js";
 import { drawMini, generateMonsters } from "./init.js";
 import { SoundPlayer } from "./sound.js";
 import { drawOverlay } from "./overlay.js";
+import { drawBoot } from "./booting.js";
+
 
 var circleD = 0;
 var start = false;
@@ -20,6 +22,7 @@ var hud;
 var soundPlayer;
 var miniMap;
 var weapon;
+var booting = true;
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
@@ -51,11 +54,8 @@ export function startLevel(game, ctx) {
   if (!game.loadedLevel[9]) {
 
     map = new Map(ctx);
-
     miniMap = drawMini(map);
-
     player = new Player(1974, 2440, map, ctx);
-
     controls = new Controls(player, map);
     rayCaster = new RayCaster(player, map, ctx);
     hud = new Hud(ctx, player, map);
@@ -72,16 +72,23 @@ export function startLevel(game, ctx) {
 
   if (game.start) {
 
-    soundPlayer.mainTheme();
-    hud.draw(map.spritesList, miniMap);
-    map.update();
-    rayCaster.draw();
-    drawSprites(map);
-    player.update();
-    weapon.draw();
+    var element = document.getElementById("back");
+    element.classList.toggle("crt");
 
-    drawOverlay(ctx, player);
+    if (booting) {
+      drawBoot(ctx);
+    } else {
+      soundPlayer.mainTheme();
+      hud.draw(map.spritesList, miniMap);
+      map.update();
+      rayCaster.draw();
+      drawSprites(map);
+      player.update();
+      weapon.draw();
+      drawOverlay(ctx, player);
+    }
   }
+
 }
 
 function startGame() {

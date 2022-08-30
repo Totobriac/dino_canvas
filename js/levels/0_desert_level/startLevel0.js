@@ -4,14 +4,14 @@ import { drawDinoDesert } from "./desert_dino.js";
 import { sound } from "../../sound.js";
 
 var dinoSprite = new Image();
-dinoSprite.src = "../assets/dino/dino_run.png";
+dinoSprite.src = "./assets/dino/dino_run.png";
 
 var startAnim = false;
 var alpha = 1;
 var circleD = 900;
 var endVolume = 1;
 
-var music = new sound("../assets/0_desert/lusty.mp3");
+var music = new sound("./assets/0_desert/lusty.mp3");
 
 export function startLevel(ctx, game, dino) {
 

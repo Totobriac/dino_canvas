@@ -38,7 +38,10 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
-    
+
+    var element = document.getElementById("back");
+    element.classList.toggle("crt");
+
     widthTickCount ++;
 
     generateRoad(game);
@@ -86,6 +89,10 @@ function drawEndIntro(ctx) {
     ctx.stroke();
   }
   ctx.restore();
+
+  var element = document.getElementById("back");
+  element.classList.remove("crt");
+
 }
 
 function startGame() {
@@ -98,7 +105,6 @@ function motoFinished() {
 
 function updateVol (nb) {
   vol += nb;
-  console.log(vol);
   strokesSound.volume(vol);
 }
 
