@@ -39,12 +39,12 @@ class Hero {
     this.lifeTickCount = 0;
     this.life = 8;
     this.isDead = false;
-    this.hasSword = true;
+    this.hasSword = false;
     this.isEnteringCave = false;
     this.isExitingCave = false;
     this.isGrabingSword = false;
     this.cave = 0;
-    this.hasKey = true;
+    this.hasKey = false;
     this.hasPotion = false;
     this.isHealing = false;
     this.deathTickCount = 0;

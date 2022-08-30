@@ -23,24 +23,24 @@ boss2.src = "./assets/9_dinoStein/FettGesicht.png";
 var boss3 = new Image();
 boss3.src = "./assets/9_dinoStein/uberZombi.png";
 
-var painSound = new sound("/assets/9_dinoStein/sounds/nme_pain2.mp3");
-var dogHitSound = new sound("/assets/9_dinoStein/sounds/dog_hit.mp3");
+var painSound = new sound("./assets/9_dinoStein/sounds/nme_pain2.mp3");
+var dogHitSound = new sound("./assets/9_dinoStein/sounds/dog_hit.mp3");
 
-var achtungSound = new sound("/assets/9_dinoStein/sounds/achtung.mp3");
-var alarmSound = new sound("/assets/9_dinoStein/sounds/guard_alarm.mp3");
-var spionSound = new sound("/assets/9_dinoStein/sounds/spia.mp3");
-var barkingSound = new sound("/assets/9_dinoStein/sounds/dog_barking.mp3");
-var boss1Shout = new sound("/assets/9_dinoStein/sounds/ach_so.mp3");
-var boss2Shout = new sound("/assets/9_dinoStein/sounds/erlauben_sie.mp3");
-var boss3Shout = new sound("/assets/9_dinoStein/sounds/zombi_intro.mp3");
+var achtungSound = new sound("./assets/9_dinoStein/sounds/achtung.mp3");
+var alarmSound = new sound("./assets/9_dinoStein/sounds/guard_alarm.mp3");
+var spionSound = new sound("./assets/9_dinoStein/sounds/spia.mp3");
+var barkingSound = new sound("./assets/9_dinoStein/sounds/dog_barking.mp3");
+var boss1Shout = new sound("./assets/9_dinoStein/sounds/ach_so.mp3");
+var boss2Shout = new sound("./assets/9_dinoStein/sounds/erlauben_sie.mp3");
+var boss3Shout = new sound("./assets/9_dinoStein/sounds/zombi_intro.mp3");
 
 
-var enemyShootingSound = new sound("/assets/9_dinoStein/sounds/enemy_shooting2.mp3");
-var bossShootingSound = new sound("/assets/9_dinoStein/sounds/boss_firing.mp3")
-var dogBittingSound = new sound("/assets/9_dinoStein/sounds/dog_barking_2.mp3");
+var enemyShootingSound = new sound("./assets/9_dinoStein/sounds/enemy_shooting2.mp3");
+var bossShootingSound = new sound("./assets/9_dinoStein/sounds/boss_firing.mp3")
+var dogBittingSound = new sound("./assets/9_dinoStein/sounds/dog_barking_2.mp3");
 
-var mummySound = new sound("/assets/9_dinoStein/sounds/death_mami.mp3");
-var lebenSound = new sound("/assets/9_dinoStein/sounds/death_mein_leben.mp3");
+var mummySound = new sound("./assets/9_dinoStein/sounds/death_mami.mp3");
+var lebenSound = new sound("./assets/9_dinoStein/sounds/death_mein_leben.mp3");
 var dyingDogSound = new sound("./assets/9_dinoStein/sounds/dog_death.mp3");
 var boss1Dies = new sound ("./assets/9_dinoStein/sounds/wenn_schon.mp3");
 var boss2Dies = new sound("./assets/9_dinoStein/sounds/rosebund.mp3");
@@ -109,7 +109,7 @@ function getSpritesList(mapX, mapY, mapSprites, player, ctx) {
         sprites[index] = new Sprite((j * 64) + 32, (i * 64) + 32, eval(items), parseInt(mapSprites[i][j]), player, false, ctx);
       }
     }
-  }  
+  }
   return sprites
 }
 
