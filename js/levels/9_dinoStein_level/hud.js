@@ -106,6 +106,7 @@ class Hud {
     }
 
     this.ctx.drawImage(weaponIcon, this.wOffset, 0, 48, 24, 978, 250, 144, 72);
+
     this.ctx.drawImage(weaponBorder, 967, 247);
 
     this.ctx.drawImage(red, 969 + this.player.chosenWeapon * 40, 340);
@@ -118,6 +119,7 @@ class Hud {
       340,
       41 + this.player.discoWeapon * 40,
       40);
+
 
   }
   drawLifeMeter() {

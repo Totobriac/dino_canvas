@@ -9,6 +9,7 @@ var loadWidth = 0;
 var loaded = false;
 
 var doorTuto = false;
+var weaponTuto = false;
 
 
 function drawOverlay(ctx, player) {
@@ -21,7 +22,7 @@ function drawOverlay(ctx, player) {
   } else {
     doorTuto = false;
   }
-
+  console.log(player.xGrid, player.yGrid);
   if (!loaded) {
     ctx.drawImage(psyched, 376, 175, 448,100);
     ctx.save();

@@ -22,7 +22,7 @@ export class Player {
     this.speedTick = 0;
     this.maxTickCount = 4;
     this.chosenWeapon = 0;
-    this.discoWeapon = 0;
+    this.discoWeapon =0;
     this.keys = 0;
     this.life = 100;
   }
@@ -126,7 +126,7 @@ export class Player {
           this.map.removeSprite(23);
           this.keys = 2;
         }
-        break;
+        break;    
     }
   }
   resetSearch() {
