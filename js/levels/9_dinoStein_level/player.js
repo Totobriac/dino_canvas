@@ -7,7 +7,7 @@ export class Player {
     this.y = y;
     this.map = map;
     this.ctx = ctx;
-    this.angle = 0;
+    this.angle = Math.PI;
     this.speed = 3;
 
     this.moveX = 0;
@@ -57,29 +57,29 @@ export class Player {
     var collision = false;
     var xGridNb = Math.floor(x / this.map.mapS);
     var yGridNb = Math.floor(y / this.map.mapS);
-   
+
     if (this.map.checkPlayerCollision(yGridNb, xGridNb)) {
       collision = true;
     };
     return collision;
-  } 
+  }
   update() {
     var newX = this.x + this.moveX * Math.cos(this.angle) * this.speed;
     var newY = this.y + this.moveY * Math.sin(this.angle) * this.speed;
 
     this.angle += this.rotate * this.rotationSpeed;
-    this.angle = normalizeAngle(this.angle);  
+    this.angle = normalizeAngle(this.angle);
 
      if (!this.checkForCollision(newX, this.y)) {
-      this.x = newX;      
+      this.x = newX;
     }
 
-     if (!this.checkForCollision(this.x, newY)) {      
+     if (!this.checkForCollision(this.x, newY)) {
       this.y = newY;
     }
-    
+
     this.checkForItem();
-      if (this.map.isSearching === true) this.resetSearch();    
+      if (this.map.isSearching === true) this.resetSearch();
   }
   draw() {
     this.update();

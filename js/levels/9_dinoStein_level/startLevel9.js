@@ -7,6 +7,7 @@ import { Hud } from "./hud.js";
 import { Weapon } from "./weapons.js";
 import { drawMini, generateMonsters } from "./init.js";
 import { SoundPlayer } from "./sound.js";
+import { drawOverlay } from "./overlay.js";
 
 var circleD = 0;
 var start = false;
@@ -53,7 +54,8 @@ export function startLevel(game, ctx) {
 
     miniMap = drawMini(map);
 
-    player = new Player(1000, 1365, map, ctx);
+    player = new Player(1974, 2440, map, ctx);
+
     controls = new Controls(player, map);
     rayCaster = new RayCaster(player, map, ctx);
     hud = new Hud(ctx, player, map);
@@ -69,6 +71,7 @@ export function startLevel(game, ctx) {
   }
 
   if (game.start) {
+
     soundPlayer.mainTheme();
     hud.draw(map.spritesList, miniMap);
     map.update();
@@ -76,6 +79,8 @@ export function startLevel(game, ctx) {
     drawSprites(map);
     player.update();
     weapon.draw();
+
+    drawOverlay(ctx);
   }
 }
 
