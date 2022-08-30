@@ -207,7 +207,7 @@
   opacity: 0;
   z-index: 2;
   pointer-events: none;
-  animation: flicker 0.19s infinite;
+  animation: flicker 0.1s infinite;
 }
 .crt::before {
   content: " ";

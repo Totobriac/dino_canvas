@@ -1,7 +1,14 @@
 import { sound } from "./sound.js";
+import { titleData }  from "./startLevel9.js";
 
 var psyched = new Image();
 psyched.src = "./assets/9_dinoStein/psyched.png";
+
+var tempCanvas = document.createElement('canvas');
+var tempCtx = tempCanvas.getContext('2d');
+tempCanvas.width = 1200;
+tempCanvas.height = 400;
+
 
 var dukeSound = new sound("./assets/9_dinoStein/sounds/duke.mp3");
 
@@ -11,11 +18,10 @@ var doorTuto = false;
 var fireTuto = false;
 
 
-
 function drawOverlay(ctx, player) {
 
   loadWidth < 420 ? loadWidth += 2 : loaded = true;
-  if (loadWidth === 320) dukeSound.play();  
+  if (loadWidth === 320) dukeSound.play();
 
   if ((player.xGrid === 29 || player.xGrid === 30) && player.yGrid === 37) {
     doorTuto = true;
@@ -28,7 +34,6 @@ function drawOverlay(ctx, player) {
   } else {
     fireTuto = false;
   }
-
 
   if (!loaded) {
     ctx.drawImage(psyched, 376, 175, 448,100);
@@ -54,6 +59,18 @@ function drawOverlay(ctx, player) {
     ctx.fillText("Pressez 'F' pour tirer. " , 480, 150);
   }
 
+  tileEffect(titleData.data);
+
+  tempCtx.putImageData(titleData, 0, 0);
+
+  ctx.drawImage(tempCanvas,0,0);
+
+}
+
+function tileEffect(data) {
+  for (let i = 0; i < data.length / 2; i += 4) {
+    data[i + 3] = 0
+  }
 }
 
 export { drawOverlay };

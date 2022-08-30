@@ -10,6 +10,20 @@ import { SoundPlayer } from "./sound.js";
 import { drawOverlay } from "./overlay.js";
 import { drawBoot } from "./booting.js";
 
+var titleScreen = new Image();
+titleScreen.src = "./assets/9_dinoStein/titleScreen2.png";
+
+var titleData;
+
+var tempCanvas = document.createElement('canvas');
+var tempCtx = tempCanvas.getContext('2d');
+tempCanvas.width = 1200;
+tempCanvas.height = 400;
+
+titleScreen.onload = function () {
+  tempCtx.drawImage(titleScreen, 0, 0);
+  titleData = tempCtx.getImageData(0, 0, 1200, 400);
+}
 
 var circleD = 0;
 var start = false;
@@ -22,7 +36,7 @@ var hud;
 var soundPlayer;
 var miniMap;
 var weapon;
-var booting = true;
+var booting = false;
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
@@ -95,4 +109,4 @@ function startGame() {
   start = true;
 };
 
-export { player, map, soundPlayer };
+export { player, map, soundPlayer, titleData };
