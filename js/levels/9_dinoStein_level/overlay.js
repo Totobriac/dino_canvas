@@ -68,8 +68,11 @@ function drawOverlay(ctx, player) {
 }
 
 function tileEffect(data) {
-  for (let i = 0; i < data.length / 2; i += 4) {
-    data[i + 3] = 0
+  for (let i = 0; i < data.length ; i += 4) {
+    data[i] = 200
+    data[i + 1] = 0
+    data[i + 2] = 0
+    data[i + 3] = 255
   }
 }
 
