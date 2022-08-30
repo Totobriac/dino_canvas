@@ -80,7 +80,7 @@ export function startLevel(game, ctx) {
     player.update();
     weapon.draw();
 
-    drawOverlay(ctx);
+    drawOverlay(ctx, player);
   }
 }
 

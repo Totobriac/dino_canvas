@@ -8,10 +8,19 @@ var dukeSound = new sound("./assets/9_dinoStein/sounds/duke.mp3");
 var loadWidth = 0;
 var loaded = false;
 
-function drawOverlay(ctx) {
+var doorTuto = false;
+
+
+function drawOverlay(ctx, player) {
 
   loadWidth < 420 ? loadWidth += 2 : loaded = true;
-  if (loadWidth === 320) dukeSound.play(); 
+  if (loadWidth === 320) dukeSound.play();
+
+  if (player.xGrid === 29 || player.xGrid === 30 && player.yGrid === 37 && !doorTuto) {
+    doorTuto = true;
+  } else {
+    doorTuto = false;
+  }
 
   if (!loaded) {
     ctx.drawImage(psyched, 376, 175, 448,100);
@@ -24,6 +33,14 @@ function drawOverlay(ctx) {
     ctx.stroke();
     ctx.restore();
   }
+
+  if (doorTuto) {
+    ctx.font = "50px Wolf";
+    ctx.fillStyle = "rgb(200,0,0)";
+    ctx.fillText("Pressez 'Espace' pour ouvrir les portes. " , 350, 150);
+  }
+
+
 
 }
 
