@@ -44,7 +44,7 @@ class Hero {
     this.isExitingCave = false;
     this.isGrabingSword = false;
     this.cave = 0;
-    this.hasKey = false;
+    this.hasKey = true;
     this.hasPotion = false;
     this.isHealing = false;
     this.deathTickCount = 0;

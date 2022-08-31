@@ -36,7 +36,7 @@ var hud;
 var soundPlayer;
 var miniMap;
 var weapon;
-var booting = false;
+var booting = true;
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
@@ -109,4 +109,8 @@ function startGame() {
   start = true;
 };
 
-export { player, map, soundPlayer, titleData };
+function endBooting() {
+  booting = false;
+};
+
+export { player, map, soundPlayer, titleData, endBooting };
