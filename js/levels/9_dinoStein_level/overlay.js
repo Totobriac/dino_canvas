@@ -24,10 +24,13 @@ var drawTitle = true;
 
 
 function drawOverlay(ctx, player) {
+  
+  tickCount++;
 
-  tickCount ++;
+  if (!drawTitle) {
+    loadWidth < 420 ? loadWidth += 2 : loaded = true;
+  }  
 
-  loadWidth < 420 ? loadWidth += 2 : loaded = true;
   if (loadWidth === 320) dukeSound.play();
 
   if ((player.xGrid === 29 || player.xGrid === 30) && player.yGrid === 37) {
@@ -68,35 +71,34 @@ function drawOverlay(ctx, player) {
 
 
   if (drawTitle) {
-    if(tickCount > 105)tileEffect(titleData.data);
+    if (tickCount > 105) tileEffect(titleData.data);
 
     tempCtx.putImageData(titleData, 0, 0);
-    
+
     ctx.drawImage(tempCanvas, 0, 0);
   }
 }
 
 function tileEffect(pixels) {
-  
+
   if (count < 110000) {
     for (let i = 0; i < pixels.length; i += 1) {
       var rd = Math.floor(Math.random() * pixels.length * 12) * 4;
-  
+
       if (pixels[rd] != 200) {
-        pixels[rd] = 200; 
+        pixels[rd] = 200;
         pixels[rd + 1] = 0;
         pixels[rd + 2] = 0;
         pixels[rd + 3] = 255;
       } else {
         pixels[rd + 3] = 0;
-        count ++;
+        count++;
       }
-    
     }
   } else {
     drawTitle = false;
   }
-  
+
 }
 
 export { drawOverlay };

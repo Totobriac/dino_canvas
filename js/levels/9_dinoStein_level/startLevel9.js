@@ -102,7 +102,6 @@ export function startLevel(game, ctx) {
       drawOverlay(ctx, player);
     }
   }
-
 }
 
 function startGame() {
