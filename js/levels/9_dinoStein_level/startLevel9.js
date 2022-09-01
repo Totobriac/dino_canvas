@@ -36,7 +36,7 @@ var hud;
 var soundPlayer;
 var miniMap;
 var weapon;
-var booting = true;
+var booting = false;
 
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
@@ -86,8 +86,8 @@ export function startLevel(game, ctx) {
 
   if (game.start) {
 
-    var element = document.getElementById("back");
-    element.classList.toggle("crt");
+    // var element = document.getElementById("back");
+    // element.classList.toggle("crt");
 
     if (booting) {
       drawBoot(ctx);
