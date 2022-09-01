@@ -39,6 +39,7 @@ function playWheelGame(ctx) {
 		ctx.drawImage(vannaSprite, 240, 0);
 	} else {
 		ctx.drawImage(backSprite, 240, 0);
+		ctx.fillRect(800, 200, 30, 150)
 	}
 
 }
