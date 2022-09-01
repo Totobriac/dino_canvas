@@ -1,4 +1,8 @@
+import { playVideoPauleta } from "./channel1.js";
 import { generateNoise } from "./noise.js";
+import { buttonsChoice } from "./buttons.js";
+
+var video = document.getElementById("video");
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
@@ -8,6 +12,8 @@ overLay.src = "./assets/10_tv/tvOverlay.png";
 
 var circleD = 0;
 var start = false;
+
+var channel = 0;
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -29,7 +35,17 @@ export function startLevel(game, ctx) {
 
   if (game.start) {
 
-    generateNoise(ctx);
+    var channel = buttonsChoice(game.mousePosition);
+
+    switch (channel) {
+      case 0:
+        generateNoise(ctx);
+        break;
+      case 1:
+        video.play();
+        playVideoPauleta(ctx);;
+        break;
+    }    
     ctx.drawImage(overLay, 0, 0);
   }
 
