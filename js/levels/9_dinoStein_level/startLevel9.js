@@ -99,7 +99,7 @@ export function startLevel(game, ctx) {
       drawSprites(map);
       player.update();
       weapon.draw();
-      drawOverlay(ctx, player);
+      drawOverlay(ctx, player, game);
     }
   }
 }

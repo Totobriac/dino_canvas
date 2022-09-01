@@ -40,6 +40,9 @@ export class Ray {
     this.floorPointy;
     this.screenDist = screenDist;
     this.wallToBorder;
+    this.snow = 34;
+    this.tickCount = 0;
+    this.maxTicount = 6;
   }
   update() {
     this.angle = this.player.angle + this.angleR;
@@ -48,13 +51,24 @@ export class Ray {
     this.angle > Math.PI / 2 && this.angle < (3 * Math.PI) / 2 ? this.lookRight = false : this.lookRight = true;
     this.x = this.player.x;
     this.y = this.player.y;
-
+    this.animateScreen();
   }
   cast(floorSprite) {
     this.update();
     this.collision();
     this.checkTile();
     this.wallRendering(floorSprite);
+  }
+  animateScreen() {
+    if (this.tickCount > this.maxTicount) {
+      this.tickCount = 0;
+      this.snow < 36 ? this.snow++ : this.snow = 34;
+      this.side1 < 42 ? this.side1++ : this.side1 = 40;
+      this.side2 < 46 ? this.side2++ : this.side2 = 44;
+
+    } else {
+      this.tickCount++;
+    }
   }
   collision() {
 
@@ -219,6 +233,16 @@ export class Ray {
         case 81:
           this.lookUp ? this.texture = 32 : this.texture = 22;
           break;
+        case 99:
+          this.lookUp ? this.texture = this.snow : this.texture = 22;
+          break;
+        case 98:
+          this.lookUp ? this.texture = this.side1 : this.texture = 22;
+          break;
+        case 97:
+          this.lookUp ? this.texture = this.side2 : this.texture = 22;
+          break;
+
       }
       this.texture++;
     }
@@ -233,13 +257,13 @@ export class Ray {
     var wallHeight = (realWallHeight / this.distHit) * this.screenDist;
 
     var y = 200 - Math.floor(wallHeight / 2);
-   
+
     var line = Math.floor(this.texture / 10);
     var col = this.texture - (line * 10);
 
     this.ctx.imageSmoothingEnabled = false;
 
-    if (this.texture != 24 && this.texture != 25  ) {
+    if (this.texture != 24 && this.texture != 25) {
       this.ctx.drawImage(
         wallsSprite,
         col * 64 + this.texturePix,
@@ -273,7 +297,7 @@ export class Ray {
       );
     }
 
-    this.wallToBorder = Math.floor((400 - wallHeight) / 2);    
+    this.wallToBorder = Math.floor((400 - wallHeight) / 2);
 
     // we calculate the distance between the first pixel at the bottom of the wall and the player eyes (canvas.height / 2)
     var pixelRowHeight = 199 - this.wallToBorder;
@@ -294,13 +318,13 @@ export class Ray {
 
         // we calculate it's real world coordinates with the player angle
         // 5.19 = this.screenDist / 100
-     
 
-        this.floorPointX = this.player.x  + Math.cos(this.angle) * realDistance ;
-        this.floorPointY = this.player.y  + Math.sin(this.angle) * realDistance ;       
+
+        this.floorPointX = this.player.x + Math.cos(this.angle) * realDistance;
+        this.floorPointY = this.player.y + Math.sin(this.angle) * realDistance;
 
         var textNb = getTextNb(this.floorPointX, this.floorPointY);
-      
+
         if (textNb) {
 
           var floorYOffset = Math.floor(textNb[0] / 10) * 64;

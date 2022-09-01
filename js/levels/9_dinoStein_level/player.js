@@ -25,6 +25,8 @@ export class Player {
     this.discoWeapon =0;
     this.keys = 0;
     this.life = 100;
+
+    this.canMove = true;
   }
   up() {
     this.moveX = 1;

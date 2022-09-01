@@ -23,13 +23,13 @@ var count = 0;
 var drawTitle = true;
 
 
-function drawOverlay(ctx, player) {
-  
+function drawOverlay(ctx, player, game) {
+
   tickCount++;
 
   if (!drawTitle) {
     loadWidth < 420 ? loadWidth += 2 : loaded = true;
-  }  
+  }
 
   if (loadWidth === 320) dukeSound.play();
 
@@ -43,6 +43,16 @@ function drawOverlay(ctx, player) {
     fireTuto = true;
   } else {
     fireTuto = false;
+  }
+
+  if (player.xGrid === 16 && player.yGrid === 18) {
+    player.canMove = false;
+    player.angle = 3 * Math.PI / 2;
+    player.up();
+  }
+
+  if (player.xGrid === 16 && player.yGrid === 9) {
+   game.switchLevel(10);
   }
 
   if (!loaded) {

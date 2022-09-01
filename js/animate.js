@@ -1,4 +1,4 @@
-var loaded = new Array(10).fill(false);
+var loaded = new Array(11).fill(false);
 
 var path = [
   "./levels/0_desert_level/startLevel0.js",
@@ -11,6 +11,7 @@ var path = [
   "./levels/7_mansion_level/startLevel7.js",
   "./levels/8_zeldouille_level/startLevel8.js",
   "./levels/9_dinoStein_level/startLevel9.js",
+  "./levels/10_tv_level/startLevel10.js",
 ];
 
 let start;
@@ -18,7 +19,7 @@ let start;
 export function anim(game, dino, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  game.frame++;  
+  game.frame++;
 
   switch (game.level) {
     case 0:
@@ -50,6 +51,9 @@ export function anim(game, dino, ctx) {
       break;
     case 9:
       loadLevel(9, game, ctx);
+      break;
+    case 10:
+      loadLevel(10, game, ctx);
       break;
   }
 
