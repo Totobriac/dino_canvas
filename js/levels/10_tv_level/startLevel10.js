@@ -1,6 +1,7 @@
 import { playVideoPauleta } from "./channel1.js";
 import { generateNoise } from "./noise.js";
 import { buttonsChoice } from "./buttons.js";
+import { playWheelGame } from "./wheelGame.js";
 
 var video = document.getElementById("video");
 
@@ -45,7 +46,11 @@ export function startLevel(game, ctx) {
         video.play();
         playVideoPauleta(ctx);;
         break;
-    }    
+      case 2:
+        video.play();
+        playWheelGame(ctx);;
+        break;
+    }
     ctx.drawImage(overLay, 0, 0);
   }
 
