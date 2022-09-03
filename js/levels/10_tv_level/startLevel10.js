@@ -35,20 +35,20 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (game.start) {
-
+    
     var channel = buttonsChoice(game.mousePosition);
-
     switch (channel) {
       case 0:
         generateNoise(ctx);
         break;
       case 1:
         video.play();
-        playVideoPauleta(ctx);;
+        playVideoPauleta(ctx);
         break;
       case 2:
-        video.play();
-        playWheelGame(ctx);;
+        video.pause();
+        video.currentTime = 0;        
+        playWheelGame(ctx);
         break;
     }
     ctx.drawImage(overLay, 0, 0);

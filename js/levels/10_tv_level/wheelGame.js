@@ -13,6 +13,22 @@ vannaSprite.src = "./assets/10_tv/vanna.png";
 var backSprite = new Image();
 backSprite.src = "./assets/10_tv/back.png";
 
+var letters = new Image();
+letters.src = "./assets/10_tv/letters.png";
+
+var maskedL = new Image();
+maskedL.src = "./assets/10_tv/maskedL.png";
+
+var questions =
+{
+	lines: [["", "", "", "", "", "", "", "", "", "", ""],
+	["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
+	["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
+	["", "", "", "", "", "", "", "", "", "", ""]
+	]
+}
+
+
 
 var wheelTick = 0;
 var wheelFrame = 0;
@@ -30,18 +46,40 @@ function playWheelGame(ctx) {
 		wheelTick++;
 	}
 
-	if (wheelTurns < 20) {
+	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
-	} else if (wheelTurns < 26) {
+	} else if (wheelTurns < 6) {   // 26
 		ctx.drawImage(starringSprite, 240, 0);
-	} else if (wheelTurns < 36) {
+	} else if (wheelTurns < 8) {    // 36
 		ctx.drawImage(vannaSprite, 240, 0);
 	} else {
-		ctx.drawImage(backSprite, 240, 0);
-		ctx.fillRect(800, 200, 30, 150)
-	}
+		ctx.drawImage(backSprite, 240, 0);	
 
+		drawQuestion(ctx);
+	}
+}
+
+function drawQuestion(ctx) {
+	for (let i = 0; i < questions.lines.length; i++) {
+		for (let j = 0; j < questions.lines[i].length; j++) {
+			if (questions.lines[i][j] != "") {
+
+				var xOff;
+				var yOff;
+				if (questions.lines[i][j] >= 13) {
+					xOff = questions.lines[i][j] - 13;
+					yOff = 1;
+				} else {
+					xOff = questions.lines[i][j];
+					yOff = 0;
+				}
+				ctx.drawImage(maskedL, 337 + 47 * j, 71 + 47 * i);
+
+				ctx.drawImage(letters, xOff * 40, yOff * 40, 40, 40, 337 + 47 * j, 71 + 47 * i, 40, 40);
+			}
+		}
+	}
 }
 
 export { playWheelGame };
