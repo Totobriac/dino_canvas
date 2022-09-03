@@ -9,6 +9,9 @@ class Vanna {
     this.maxTickCount = 12;
     this.tickCount = 0;
     this.frame = 0;
+    this.speed = 2;
+    this.clap = false;
+    this.goTo = 0;
   }
   update(nb) {
     if (this.tickCount > this.maxTickCount) {
@@ -24,13 +27,33 @@ class Vanna {
     this.ctx.drawImage(ladySprite, 0, 0, 28, 73, this.x, this.y, 84, 219);
     this.ctx.restore();  
   }
-  applauding() {
+  clapping() {
     if (this.frame > 1) this.frame = 0;
-    this.update(1)
+    this.update(1);
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;  
     this.ctx.drawImage(ladySprite, this.frame * 28, 0, 28, 73, this.x, this.y, 84, 219);
     this.ctx.restore();  
+  }
+  walkingToTile(x) {
+    this.update(7);
+    this.x < x ? this.x += this.speed : this.goTo = 0;
+    this.ctx.save();
+    this.ctx.imageSmoothingEnabled = false;  
+    this.ctx.drawImage(ladySprite, this.frame * 28, 73, 28, 73, this.x, this.y, 84, 219);
+    this.ctx.restore();      
+  }
+  setGoTo(nb) {
+    this.goTo = nb;
+  }
+  draw() {    
+    if (this.clap) {
+      this.clapping();
+    } else if (this.goTo != 0) {
+      this.walkingToTile(this.goTo)
+    } else {
+      this.standing();
+    }
   }
 }
 

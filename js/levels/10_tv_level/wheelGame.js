@@ -83,7 +83,8 @@ function playWheelGame(ctx) {
 
 		flipCard(ctx);
 
-		vanna.applauding();
+		vanna.draw();
+		
 	}
 }
 
@@ -134,7 +135,10 @@ function flipCard(ctx) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			ty = String(ty);
 			if (questions.lines[i][j] === ty) {
+			
 				questions.lines[i][j] = "";
+
+				vanna.setGoTo(j * 47 + 290);
 
 				if (ty >= 13) {
 					xOff = ty - 13;
@@ -151,12 +155,14 @@ function flipCard(ctx) {
 			}
 		}
 	}
-	animate(lett, ctx);
+	if (vanna.goTo === 0)  animate(lett, ctx);
 }
 
 
 function animate(lett, ctx) {
 	lett.forEach((le, i) => {
+
+		//	questions.lines[le.y][le.x] = "";
 
 		draw(337 + 47 * le.x, 71 + 47 * le.y, le.scaleX / 100, ctx);
 
@@ -185,7 +191,6 @@ function draw(x, y, scaleX, ctx) {
 	ctx.restore();
 }
 
-function drawVanna(ctx) {
-}
+
 
 export { playWheelGame };
