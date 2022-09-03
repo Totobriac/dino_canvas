@@ -19,6 +19,12 @@ letters.src = "./assets/10_tv/letters.png";
 var maskedL = new Image();
 maskedL.src = "./assets/10_tv/maskedL.png";
 
+var key;
+
+window.addEventListener('keydown', function (e) {
+	key = e.key;
+})
+
 var questions =
 {
 	lines: [["", "", "", "", "", "", "", "", "", "", ""],
@@ -27,7 +33,6 @@ var questions =
 	["", "", "", "", "", "", "", "", "", "", ""]
 	]
 }
-
 
 
 var wheelTick = 0;
@@ -54,9 +59,11 @@ function playWheelGame(ctx) {
 	} else if (wheelTurns < 8) {    // 36
 		ctx.drawImage(vannaSprite, 240, 0);
 	} else {
-		ctx.drawImage(backSprite, 240, 0);	
+		ctx.drawImage(backSprite, 240, 0);
 
 		drawQuestion(ctx);
+
+		flipCard(ctx);
 	}
 }
 
@@ -67,6 +74,7 @@ function drawQuestion(ctx) {
 
 				var xOff;
 				var yOff;
+
 				if (questions.lines[i][j] >= 13) {
 					xOff = questions.lines[i][j] - 13;
 					yOff = 1;
@@ -80,6 +88,34 @@ function drawQuestion(ctx) {
 			}
 		}
 	}
+}
+
+function flipCard(ctx) {
+
+	var xOff = 2;
+	var yOff = 0;
+
+	var tempCanvas = document.createElement('canvas');
+	var tempCtx = tempCanvas.getContext('2d');
+	tempCanvas.width = 40;
+	tempCanvas.height = 40;
+	tempCtx.drawImage(letters, xOff * 40, yOff * 40, 40, 40, 0, 0, 40, 40);
+	var data = tempCanvas.toDataURL();
+	var letter = new Image();
+	letter.src = data;
+
+	if (key) {
+		var ty = key.charCodeAt(0) - 97;
+	}
+
+	for (let i = 0; i < questions.lines.length; i++) {
+		for (let j = 0; j < questions.lines[i].length; j++) {
+			if (questions.lines[i][j] === String(ty)) {
+				questions.lines[i][j] = "";
+			}
+		}
+	}
+
 }
 
 export { playWheelGame };
