@@ -21,12 +21,9 @@ maskedL.src = "./assets/10_tv/maskedL.png";
 
 var key;
 var letter = new Image();
-var animation = false;
-var screenX;
-var screenY;
 var lett = [];
 
-var scaleX = 100;
+//var scaleX = 100;
 var scaleDirection = -1;
 var scaleDelta = 0.5;
 
@@ -41,6 +38,11 @@ var questions =
 	["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
 	["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
 	["", "", "", "", "", "", "", "", "", "", ""]
+	],
+	answers: [["", "", "", "", "", "", "", "", "", "", ""],
+	["", "", "", "", "", "", "", "", "", "", ""],
+	["", "", "", "", "", "", "", "", "", "", ""],
+	["", "", "", "", "", "", "", "", "", "", ""]
 	]
 }
 
@@ -52,7 +54,6 @@ var maxTickCount = 8;
 var wheelTurns = 0;
 
 function playWheelGame(ctx) {
-
 	if (wheelTick > maxTickCount) {
 		wheelTick = 0;
 		wheelFrame < 2 ? wheelFrame++ : wheelFrame = 0;
@@ -60,7 +61,7 @@ function playWheelGame(ctx) {
 	} else {
 		wheelTick++;
 	}
-
+	
 	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
@@ -81,10 +82,8 @@ function drawQuestion(ctx) {
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			if (questions.lines[i][j] != "") {
-
 				var xOff;
 				var yOff;
-
 				if (questions.lines[i][j] >= 13) {
 					xOff = questions.lines[i][j] - 13;
 					yOff = 1;
@@ -93,6 +92,18 @@ function drawQuestion(ctx) {
 					yOff = 0;
 				}
 				ctx.drawImage(maskedL, 337 + 47 * j, 71 + 47 * i);
+			}
+			if (questions.answers[i][j] != "") {
+				var xOff;
+				var yOff;
+				if (questions.answers[i][j] >= 13) {
+					xOff = questions.answers[i][j] - 13;
+					yOff = 1;
+				} else {
+					xOff = questions.answers[i][j];
+					yOff = 0;
+				}
+				ctx.drawImage(letters, xOff * 40, yOff * 40 + 80, 40, 40, 337 + 47 * j, 71 + 47 * i, 40, 40)
 			}
 		}
 	}
@@ -106,9 +117,8 @@ function flipCard(ctx) {
 	var tempCtx = tempCanvas.getContext('2d');
 	tempCanvas.width = 40;
 	tempCanvas.height = 40;
-
 	if (key) {
-		var ty = key.charCodeAt(0) - 97;
+		var ty = key.charCodeAt(0) - 97;		
 	}
 
 	for (let i = 0; i < questions.lines.length; i++) {
@@ -124,42 +134,39 @@ function flipCard(ctx) {
 					xOff = ty;
 					yOff = 0;
 				}
-				//tempCtx.fillRect(0,0,40,40)
+
 				tempCtx.drawImage(letters, xOff * 40, yOff * 40, 40, 40, 0, 0, 40, 40);
 				var data = tempCanvas.toDataURL();
-				letter.src = data;
-
-				animation = true;
-
-				screenX = 337 + 47 * j;
-				screenY = 71 + 47 * i;
-
-				lett.push({ x: screenX, y: screenY })
+				letter.src = data;				
+				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
 			}
 		}
 	}
-	if (animation) animate(lett, ctx)
+	animate(lett, ctx);
 }
 
 
 function animate(lett, ctx) {
-	lett.forEach(le => {
+	lett.forEach((le,i) => {
 
-		draw(le.x, le.y, scaleX / 100, ctx);
-		scaleX += scaleDirection * scaleDelta;
-		if (scaleX > -100) {
+		draw(337 + 47 * le.x, 71 + 47 * le.y, le.scaleX / 100, ctx);
+
+		le.scaleX += scaleDirection * scaleDelta;
+		if (le.scaleX > -100) {
 			scaleDirection *= 1;
-			scaleX += scaleDirection * scaleDelta;
-		} else {
-			scaleX = -100;
-			
-		}		
+			le.scaleX += scaleDirection * scaleDelta;
+		} else {			
+			questions.answers[le.y][le.x] = le.nb;
+			lett.splice(i,1);
+		}
 	});
+
 }
 
 function draw(x, y, scaleX, ctx) {
+	
 	ctx.save();
-	ctx.translate(x + 20,y + 20);
+	ctx.translate(x + 20, y + 20);
 	ctx.scale(scaleX, 1);
 	if (scaleX >= 0) {
 		ctx.drawImage(maskedL, -letter.width / 2, -letter.height / 2);
