@@ -134,11 +134,9 @@ function flipCard(ctx) {
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			ty = String(ty);
-			if (questions.lines[i][j] === ty) {
-			
-				questions.lines[i][j] = "";
+			if (questions.lines[i][j] === ty) {		
 
-				vanna.setGoTo(j * 47 + 290);
+				if (!vanna.isMoving) vanna.setGoTo(j * 47 + 290);
 
 				if (ty >= 13) {
 					xOff = ty - 13;
@@ -155,14 +153,19 @@ function flipCard(ctx) {
 			}
 		}
 	}
-	if (vanna.goTo === 0)  animate(lett, ctx);
+	if (vanna.goTo === 0 && vanna.isMoving ) {		
+		animate(lett, ctx);		
+	} 
 }
 
 
 function animate(lett, ctx) {
+	
+	if (!vanna.rowToFlip) vanna.setToFlip(lett[0].y);
+
 	lett.forEach((le, i) => {
 
-		//	questions.lines[le.y][le.x] = "";
+		questions.lines[le.y][le.x] = "";
 
 		draw(337 + 47 * le.x, 71 + 47 * le.y, le.scaleX / 100, ctx);
 
