@@ -1,3 +1,5 @@
+import { Vanna } from "./vanna.js";
+
 var titleSprite = new Image();
 titleSprite.src = "./assets/10_tv/title.png";
 
@@ -23,7 +25,6 @@ var key;
 var letter = new Image();
 var lett = [];
 
-//var scaleX = 100;
 var scaleDirection = -1;
 var scaleDelta = 0.5;
 
@@ -34,15 +35,17 @@ window.addEventListener('keydown', function (e) {
 
 var questions =
 {
-	lines: [["", "", "", "", "", "", "", "", "", "", ""],
-	["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
-	["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
-	["", "", "", "", "", "", "", "", "", "", ""]
+	lines: [
+		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
+		["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""]
 	],
-	answers: [["", "", "", "", "", "", "", "", "", "", ""],
-	["", "", "", "", "", "", "", "", "", "", ""],
-	["", "", "", "", "", "", "", "", "", "", ""],
-	["", "", "", "", "", "", "", "", "", "", ""]
+	answers: [
+		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""]
 	]
 }
 
@@ -52,8 +55,12 @@ var wheelFrame = 0;
 var maxTickCount = 8;
 
 var wheelTurns = 0;
+var vanna;
 
 function playWheelGame(ctx) {
+
+	if (!vanna) vanna = new Vanna(272, 95, ctx);
+
 	if (wheelTick > maxTickCount) {
 		wheelTick = 0;
 		wheelFrame < 2 ? wheelFrame++ : wheelFrame = 0;
@@ -61,7 +68,7 @@ function playWheelGame(ctx) {
 	} else {
 		wheelTick++;
 	}
-	
+
 	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
@@ -75,6 +82,8 @@ function playWheelGame(ctx) {
 		drawQuestion(ctx);
 
 		flipCard(ctx);
+
+		vanna.applauding();
 	}
 }
 
@@ -118,7 +127,7 @@ function flipCard(ctx) {
 	tempCanvas.width = 40;
 	tempCanvas.height = 40;
 	if (key) {
-		var ty = key.charCodeAt(0) - 97;		
+		var ty = key.charCodeAt(0) - 97;
 	}
 
 	for (let i = 0; i < questions.lines.length; i++) {
@@ -137,7 +146,7 @@ function flipCard(ctx) {
 
 				tempCtx.drawImage(letters, xOff * 40, yOff * 40, 40, 40, 0, 0, 40, 40);
 				var data = tempCanvas.toDataURL();
-				letter.src = data;				
+				letter.src = data;
 				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
 			}
 		}
@@ -147,7 +156,7 @@ function flipCard(ctx) {
 
 
 function animate(lett, ctx) {
-	lett.forEach((le,i) => {
+	lett.forEach((le, i) => {
 
 		draw(337 + 47 * le.x, 71 + 47 * le.y, le.scaleX / 100, ctx);
 
@@ -155,16 +164,16 @@ function animate(lett, ctx) {
 		if (le.scaleX > -100) {
 			scaleDirection *= 1;
 			le.scaleX += scaleDirection * scaleDelta;
-		} else {			
+		} else {
 			questions.answers[le.y][le.x] = le.nb;
-			lett.splice(i,1);
+			lett.splice(i, 1);
 		}
 	});
 
 }
 
 function draw(x, y, scaleX, ctx) {
-	
+
 	ctx.save();
 	ctx.translate(x + 20, y + 20);
 	ctx.scale(scaleX, 1);
@@ -174,6 +183,9 @@ function draw(x, y, scaleX, ctx) {
 		ctx.drawImage(letter, -maskedL.width / 2, -maskedL.height / 2);
 	}
 	ctx.restore();
+}
+
+function drawVanna(ctx) {
 }
 
 export { playWheelGame };
