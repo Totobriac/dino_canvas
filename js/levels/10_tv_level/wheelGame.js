@@ -36,10 +36,10 @@ window.addEventListener('keydown', function (e) {
 var questions =
 {
 	lines: [
-		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "", "", "1", "1", "1", "", "", "", ""],
 		["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
 		["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""]
+		["", "", "", "", "1O", "25", "", "", "", "", ""]
 	],
 	answers: [
 		["", "", "", "", "", "", "", "", "", "", ""],
@@ -160,8 +160,8 @@ function flipCard(ctx) {
 
 
 function animate(lett, ctx) {
-	
-	if (!vanna.rowToFlip) vanna.setToFlip(lett[0].y);
+
+	if (vanna.rowToFlip === undefined) vanna.setToFlip(lett[0].y);
 
 	lett.forEach((le, i) => {
 
