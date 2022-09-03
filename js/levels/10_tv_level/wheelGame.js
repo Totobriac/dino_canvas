@@ -147,10 +147,13 @@ function animate(lett, ctx) {
 
 		draw(le.x, le.y, scaleX / 100, ctx);
 		scaleX += scaleDirection * scaleDelta;
-		if (scaleX < -100 || scaleX > 100) {
-			scaleDirection *= -1;
+		if (scaleX > -100) {
+			scaleDirection *= 1;
 			scaleX += scaleDirection * scaleDelta;
-		}
+		} else {
+			scaleX = -100;
+			
+		}		
 	});
 }
 
