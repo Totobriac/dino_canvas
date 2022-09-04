@@ -39,6 +39,8 @@ var wheelTurns = 0;
 var vanna;
 var isPlaying = true;
 
+var solved = false;
+
 
 window.addEventListener('keydown', function (e) {
 	if (canPress) {
@@ -46,7 +48,8 @@ window.addEventListener('keydown', function (e) {
 		key = e.key;
 		canPress = false;
 		vanna.stopClap();
-	}	
+		solved = false;
+	}
 })
 
 var index = 0;
@@ -64,7 +67,7 @@ function playWheelGame(ctx) {
 	} else {
 		wheelTick++;
 	}
-	console.log(isPlaying);
+	
 	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
@@ -76,20 +79,21 @@ function playWheelGame(ctx) {
 		ctx.drawImage(backSprite, 240, 0);
 
 		drawQuestion(ctx);
-		
+
 		flipCard(ctx);
 		vanna.draw();
-
+		console.log(index);
 		drawTxt(ctx);
 	}
 }
+
 var count = 0
 function drawQuestion(ctx) {
 	count = 0
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			if (questions.lines[i][j] != "") {
-				count ++
+				count++
 				var xOff;
 				var yOff;
 				if (questions.lines[i][j] >= 13) {
@@ -98,10 +102,10 @@ function drawQuestion(ctx) {
 				} else {
 					xOff = questions.lines[i][j];
 					yOff = 0;
-				}				
+				}
 				ctx.drawImage(maskedL, 337 + 47 * j, 71 + 47 * i);
 			}
-			
+
 			if (questions.answers[i][j] != "") {
 				var xOff;
 				var yOff;
@@ -156,7 +160,7 @@ function flipCard(ctx) {
 				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
 			}
 		}
-	}	
+	}
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
 	} else {
@@ -181,8 +185,8 @@ function animate(lett, ctx) {
 			le.scaleX += scaleDirection * scaleDelta;
 		} else {
 			questions.answers[le.y][le.x] = le.nb;
-			if(vanna.isStanding) {
-				if (isPlaying) { 
+			if (vanna.isStanding) {
+				if (isPlaying) {
 					vanna.reset();
 					canPress = true;
 				} else {
@@ -217,8 +221,11 @@ function drawTxt(ctx) {
 	ctx.fillText(questions.question, x, 344);
 }
 
-function switchQuestion () {	
-	if(questions.solved) index = 1;
+function switchQuestion() {
+	if (!solved) {
+		index++;
+		solved = true;
+	}
 }
 
 
