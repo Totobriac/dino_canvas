@@ -30,6 +30,7 @@ var scaleDelta = 0.5;
 
 var canPress = true;
 
+
 window.addEventListener('keydown', function (e) {
 	if (canPress) {
 		lett = [];
@@ -85,11 +86,8 @@ function playWheelGame(ctx) {
 		ctx.drawImage(backSprite, 240, 0);
 
 		drawQuestion(ctx);
-
 		flipCard(ctx);
-
 		vanna.draw();
-
 	}
 }
 
@@ -131,6 +129,7 @@ function flipCard(ctx) {
 	var tempCtx = tempCanvas.getContext('2d');
 	tempCanvas.width = 40;
 	tempCanvas.height = 40;
+
 	if (key) {
 		var ty = key.charCodeAt(0) - 97;
 	}
@@ -138,6 +137,7 @@ function flipCard(ctx) {
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			ty = String(ty);
+
 			if (questions.lines[i][j] === ty) {
 
 				if (!vanna.isMoving) vanna.setGoTo(j * 47 + 290);
@@ -156,8 +156,11 @@ function flipCard(ctx) {
 			}
 		}
 	}
+	
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
+	} else {
+		canPress = true;
 	}
 }
 
@@ -180,7 +183,9 @@ function animate(lett, ctx) {
 			questions.answers[le.y][le.x] = le.nb;
 			if(vanna.isStanding) vanna.reset(), canPress = true;
 		}
+
 	});
+
 }
 
 function draw(x, y, scaleX, ctx) {
