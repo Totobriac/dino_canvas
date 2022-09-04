@@ -28,10 +28,14 @@ var lett = [];
 var scaleDirection = -1;
 var scaleDelta = 0.5;
 
+var canPress = true;
 
 window.addEventListener('keydown', function (e) {
-	lett = [];
-	key = e.key;
+	if (canPress) {
+		lett = [];
+		key = e.key;
+		canPress = false;
+	}	
 })
 
 var questions =
@@ -174,7 +178,7 @@ function animate(lett, ctx) {
 			le.scaleX += scaleDirection * scaleDelta;
 		} else {
 			questions.answers[le.y][le.x] = le.nb;
-			if(vanna.isStanding) vanna.reset();
+			if(vanna.isStanding) vanna.reset(), canPress = true;
 		}
 	});
 }
