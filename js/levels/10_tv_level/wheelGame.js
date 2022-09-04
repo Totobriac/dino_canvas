@@ -1,5 +1,6 @@
 import { Vanna } from "./vanna.js";
 import { questionList } from "./questionList.js";
+import { soundPlayer } from "./sounds.js";
 
 var titleSprite = new Image();
 titleSprite.src = "./assets/10_tv/title.png";
@@ -144,8 +145,11 @@ function flipCard(ctx) {
 			ty = String(ty);
 
 			if (questions.lines[i][j] === ty) {
-
-				if (!vanna.isMoving) vanna.setGoTo(j * 47 + 290);
+				
+				if (!vanna.isMoving) {
+					vanna.setGoTo(j * 47 + 290);
+					soundPlayer(0);
+				}
 				if (ty >= 13) {
 					xOff = ty - 13;
 					yOff = 1;
@@ -158,13 +162,14 @@ function flipCard(ctx) {
 				var data = tempCanvas.toDataURL();
 				letter.src = data;
 				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
-			}
+			} 
 		}
 	}
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
 	} else {
-		canPress = true;
+		
+		canPress = true;		
 	}
 }
 
@@ -184,6 +189,7 @@ function animate(lett, ctx) {
 			scaleDirection *= 1;
 			le.scaleX += scaleDirection * scaleDelta;
 		} else {
+			le.scaleX = -100;
 			questions.answers[le.y][le.x] = le.nb;
 			if (vanna.isStanding) {
 				if (isPlaying) {
