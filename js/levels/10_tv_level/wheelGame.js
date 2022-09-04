@@ -161,7 +161,7 @@ function flipCard(ctx) {
 
 function animate(lett, ctx) {
 
-	if (vanna.rowToFlip === undefined) vanna.setToFlip(lett[0].y);
+	if (vanna.rowToFlip === undefined && !vanna.walkingBack) vanna.setToFlip(lett[0].y);
 
 	lett.forEach((le, i) => {
 

@@ -14,10 +14,12 @@ class Vanna {
     this.goTo = 0;
     this.isMoving = false;
     this.rowToFlip;
+    this.walkingBack = false;
   }
-  update(nb) {
+  update(frames, speed, loop) {
+    this.maxTickCount = speed;
     if (this.tickCount > this.maxTickCount) {
-      this.frame < nb ? this.frame++ : this.frame = 0;
+      this.frame < frames ? this.frame++ : loop ? this.frame = 0 : this.walkingBack = true;
       this.tickCount = 0;
     } else {
       this.tickCount++;
@@ -31,14 +33,14 @@ class Vanna {
   }
   clapping() {
     if (this.frame > 1) this.frame = 0;
-    this.update(1);
+    this.update(1, 12, true);
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;
     this.ctx.drawImage(ladySprite, this.frame * 28, 0, 28, 73, this.x, this.y, 84, 219);
     this.ctx.restore();
   }
   walkingToTile(x) {
-    this.update(7);
+    this.update(7, 12, true);
     this.x < x ? this.x += this.speed : this.goTo = 0;
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;
@@ -49,9 +51,9 @@ class Vanna {
     this.goTo = nb;
     this.isMoving = true;
   }
-  flip() {    
+  flip() {
     if (this.frame > 1) this.frame = 0;
-    this.update(1);
+    this.update(1, 36, false);
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;
     this.ctx.drawImage(ladySprite, this.rowToFlip * 56 + this.frame * 28, 146, 28, 73, this.x, this.y, 84, 219);
@@ -60,12 +62,28 @@ class Vanna {
   setToFlip(nb) {
     this.rowToFlip = nb;
   }
-  draw() {
+  backToPlace() {    
+    this.update(7, 12, true);
+    this.x > 272 ? this.x -= this.speed : this.reset();
+    this.ctx.save();
+    this.ctx.imageSmoothingEnabled = false;
+    this.ctx.drawImage(ladySprite, this.frame * 28, 219, 28, 73, this.x, this.y, 84, 219);
+    this.ctx.restore();
+  }
+  reset() {
+    this.goTo = 0;
+    this.rowToFlip = undefined;
+    this.isMoving = false;
+    this.walkingBack = false;
+  }
+  draw() {    
     if (this.clap) {
       this.clapping();
     } else if (this.goTo != 0) {
       this.walkingToTile(this.goTo)
-    } else if (this.rowToFlip != undefined) {
+    } else if (this.walkingBack) {
+      this.backToPlace();
+    }else if (this.rowToFlip != undefined) {
       this.flip();
     } else {
       this.standing();
