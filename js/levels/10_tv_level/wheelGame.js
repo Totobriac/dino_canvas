@@ -171,7 +171,7 @@ function flipCard(ctx) {
 		animate(lett, ctx);
 	} else {
 		if (!canPress && !vanna.isMoving) soundPlayer(1);
-		canPress = true;
+		vanna.isMoving ? canPress = false : canPress = true;
 	}
 }
 
