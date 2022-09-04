@@ -49,22 +49,27 @@ var ty = null;
 
 
 window.addEventListener('keydown', function (e) {
-	console.log(canPress, vanna.isMoving);
+	soundPlayer(4);
 	solved = false;
-	if (canPress) {
+	if (canPress && hasStarted) {
 		lett = [];
 		key = e.key;
 		canPress = false;
 		vanna.stopClap();
 	}
+	hasStarted = true;
 })
 
+var hasStarted = false;
 
+function playWheelGame(ctx) {	
 
-function playWheelGame(ctx) {
 	questions = questionList[index];
 
-	if (!vanna) vanna = new Vanna(272, 95, ctx);
+	if (!vanna) {
+		vanna = new Vanna(272, 95, ctx);
+		soundPlayer(3);
+	} 
 
 	if (wheelTick > maxTickCount) {
 		wheelTick = 0;
@@ -74,13 +79,21 @@ function playWheelGame(ctx) {
 		wheelTick++;
 	}
 
-	if (wheelTurns < 2) {   // 20
+	if (wheelTurns < 40) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
-	} else if (wheelTurns < 6) {   // 26
+	} else if (wheelTurns < 46) {   // 26
 		ctx.drawImage(starringSprite, 240, 0);
-	} else if (wheelTurns < 8) {    // 36
+	} else if (!hasStarted) {    // 36
 		ctx.drawImage(vannaSprite, 240, 0);
+		ctx.save();
+		ctx.fillStyle = "white";
+		ctx.font = "26px Dos";		
+		ctx.fillText("Pour participer,", 600, 244);
+		ctx.fillText("utilisez votre clavier", 600, 270);
+
+		if( wheelFrame === 1) ctx.fillText("APPUYEZ SUR UNE TOUCHE", 600, 340);
+		ctx.restore();
 	} else {
 		ctx.drawImage(backSprite, 240, 0);
 
