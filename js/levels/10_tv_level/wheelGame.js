@@ -41,6 +41,11 @@ var vanna;
 var isPlaying = true;
 
 var solved = false;
+var index = 0;
+var questions;
+
+var count = 0;
+var ty = null;
 
 
 window.addEventListener('keydown', function (e) {
@@ -53,12 +58,11 @@ window.addEventListener('keydown', function (e) {
 	}
 })
 
-var index = 0;
-var questions;
+
 
 function playWheelGame(ctx) {
 	questions = questionList[index];
-	console.log(index);
+
 	if (!vanna) vanna = new Vanna(272, 95, ctx);
 
 	if (wheelTick > maxTickCount) {
@@ -68,7 +72,7 @@ function playWheelGame(ctx) {
 	} else {
 		wheelTick++;
 	}
-	
+
 	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
@@ -83,12 +87,12 @@ function playWheelGame(ctx) {
 
 		flipCard(ctx);
 		vanna.draw();
-		console.log(index);
+
 		drawTxt(ctx);
 	}
 }
 
-var count = 0
+
 function drawQuestion(ctx) {
 	count = 0
 	for (let i = 0; i < questions.lines.length; i++) {
@@ -121,11 +125,7 @@ function drawQuestion(ctx) {
 			}
 		}
 	}
-	if (count === 0) {
-		isPlaying = false;
-	} else {
-		isPlaying = true;
-	}
+	count === 0 ? isPlaying = false : isPlaying = true;
 }
 
 function flipCard(ctx) {
@@ -137,7 +137,7 @@ function flipCard(ctx) {
 	tempCanvas.height = 40;
 
 	if (key) {
-		var ty = key.charCodeAt(0) - 97;
+		ty = key.charCodeAt(0) - 97;
 	}
 
 	for (let i = 0; i < questions.lines.length; i++) {
@@ -145,7 +145,7 @@ function flipCard(ctx) {
 			ty = String(ty);
 
 			if (questions.lines[i][j] === ty) {
-				
+
 				if (!vanna.isMoving) {
 					vanna.setGoTo(j * 47 + 290);
 					soundPlayer(0);
@@ -162,14 +162,16 @@ function flipCard(ctx) {
 				var data = tempCanvas.toDataURL();
 				letter.src = data;
 				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
-			} 
+			}
+
 		}
 	}
+	
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
 	} else {
-		
-		canPress = true;		
+		if (!canPress && !vanna.isMoving) soundPlayer(1);
+		canPress = true;
 	}
 }
 
