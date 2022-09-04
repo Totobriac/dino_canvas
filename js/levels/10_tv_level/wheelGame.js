@@ -1,4 +1,5 @@
 import { Vanna } from "./vanna.js";
+import { questionList } from "./questionList.js";
 
 var titleSprite = new Image();
 titleSprite.src = "./assets/10_tv/title.png";
@@ -44,31 +45,16 @@ window.addEventListener('keydown', function (e) {
 		lett = [];
 		key = e.key;
 		canPress = false;
+		vanna.stopClap();
 	}	
 })
 
-var questions =
-{
-	lines: [
-		["", "", "", "", "", "", "", "", "", "", ""],
-		// ["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
-		// ["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
-		["", "", "", "21", "0", "1", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""]
-	],
-	answers: [
-		["", "", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", "", "", "", ""]
-	],
-	question : "MON NOM EST:"
-}
-
+var index = 0;
+var questions;
 
 function playWheelGame(ctx) {
-	
+	questions = questionList[index];
+	console.log(index);
 	if (!vanna) vanna = new Vanna(272, 95, ctx);
 
 	if (wheelTick > maxTickCount) {
@@ -78,7 +64,7 @@ function playWheelGame(ctx) {
 	} else {
 		wheelTick++;
 	}
-
+	console.log(isPlaying);
 	if (wheelTurns < 2) {   // 20
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
@@ -90,6 +76,7 @@ function playWheelGame(ctx) {
 		ctx.drawImage(backSprite, 240, 0);
 
 		drawQuestion(ctx);
+		
 		flipCard(ctx);
 		vanna.draw();
 
@@ -131,6 +118,8 @@ function drawQuestion(ctx) {
 	}
 	if (count === 0) {
 		isPlaying = false;
+	} else {
+		isPlaying = true;
 	}
 }
 
@@ -167,8 +156,7 @@ function flipCard(ctx) {
 				lett.push({ x: j, y: i, nb: ty, scaleX: 100 })
 			}
 		}
-	}
-	
+	}	
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
 	} else {
@@ -200,12 +188,12 @@ function animate(lett, ctx) {
 				} else {
 					vanna.reset();
 					vanna.clap();
+					questions.solved = true;
+					switchQuestion();
 				}
 			}
 		}
-
 	});
-
 }
 
 function draw(x, y, scaleX, ctx) {
@@ -227,6 +215,10 @@ function drawTxt(ctx) {
 	var v = width.width
 	var x = 250 + (655 - v) / 2;
 	ctx.fillText(questions.question, x, 344);
+}
+
+function switchQuestion () {	
+	if(questions.solved) index = 1;
 }
 
 

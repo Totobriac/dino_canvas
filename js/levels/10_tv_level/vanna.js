@@ -76,6 +76,9 @@ class Vanna {
   clap() {
     this.isClapping = true;
   }
+  stopClap() {
+    this.isClapping = false;
+  }
   reset() {
     this.goTo = 0;
     this.rowToFlip = undefined;
