@@ -55,7 +55,7 @@ window.addEventListener('keydown', function (e) {
 		lett = [];
 		key = e.key;
 		canPress = false;
-		vanna.stopClap();		
+		vanna.stopClap();
 	}
 })
 
@@ -147,7 +147,7 @@ function flipCard(ctx) {
 
 			if (questions.lines[i][j] === ty) {
 
-				if (!vanna.isMoving) {
+				if (!vanna.isMoving && !vanna.isClapping) {
 					vanna.setGoTo(j * 47 + 290);
 					soundPlayer(0);
 				}
@@ -167,12 +167,12 @@ function flipCard(ctx) {
 
 		}
 	}
-	
+
 	if (vanna.goTo === 0 && vanna.isMoving) {
 		animate(lett, ctx);
 	} else {
-		if (!canPress && !vanna.isMoving) soundPlayer(1);
-		vanna.isMoving && !solved 	? canPress = false : canPress = true;
+		if (!canPress && !vanna.isMoving && !vanna.isClapping) soundPlayer(1);
+		vanna.isMoving && !solved ? canPress = false : canPress = true;
 	}
 }
 
@@ -201,9 +201,9 @@ function animate(lett, ctx) {
 				} else {
 					vanna.reset();
 					vanna.clap();
-					
+
 					switchQuestion();
-					
+
 				}
 			}
 		}
@@ -236,6 +236,7 @@ function switchQuestion() {
 		index++;
 		solved = true;
 		canPress = true;
+		soundPlayer(2);
 	}
 }
 
