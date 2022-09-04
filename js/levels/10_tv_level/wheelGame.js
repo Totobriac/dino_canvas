@@ -30,6 +30,7 @@ var scaleDelta = 0.5;
 
 
 window.addEventListener('keydown', function (e) {
+	lett = [];
 	key = e.key;
 })
 
@@ -58,7 +59,7 @@ var wheelTurns = 0;
 var vanna;
 
 function playWheelGame(ctx) {
-
+	
 	if (!vanna) vanna = new Vanna(272, 95, ctx);
 
 	if (wheelTick > maxTickCount) {
@@ -84,7 +85,7 @@ function playWheelGame(ctx) {
 		flipCard(ctx);
 
 		vanna.draw();
-		
+
 	}
 }
 
@@ -120,7 +121,6 @@ function drawQuestion(ctx) {
 }
 
 function flipCard(ctx) {
-
 	var xOff;
 	var yOff;
 	var tempCanvas = document.createElement('canvas');
@@ -134,10 +134,9 @@ function flipCard(ctx) {
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			ty = String(ty);
-			if (questions.lines[i][j] === ty) {		
+			if (questions.lines[i][j] === ty) {
 
 				if (!vanna.isMoving) vanna.setGoTo(j * 47 + 290);
-
 				if (ty >= 13) {
 					xOff = ty - 13;
 					yOff = 1;
@@ -153,15 +152,15 @@ function flipCard(ctx) {
 			}
 		}
 	}
-	if (vanna.goTo === 0 && vanna.isMoving ) {		
-		animate(lett, ctx);		
-	} 
+	if (vanna.goTo === 0 && vanna.isMoving) {
+		animate(lett, ctx);
+	}
 }
 
 
 function animate(lett, ctx) {
 
-	if (vanna.rowToFlip === undefined && !vanna.walkingBack) vanna.setToFlip(lett[0].y);
+	if (vanna.rowToFlip === undefined) vanna.setToFlip(lett[0].y);
 
 	lett.forEach((le, i) => {
 
@@ -175,10 +174,9 @@ function animate(lett, ctx) {
 			le.scaleX += scaleDirection * scaleDelta;
 		} else {
 			questions.answers[le.y][le.x] = le.nb;
-			lett.splice(i, 1);
+			if(vanna.isStanding) vanna.reset();
 		}
 	});
-
 }
 
 function draw(x, y, scaleX, ctx) {

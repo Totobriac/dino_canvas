@@ -14,14 +14,12 @@ overLay.src = "./assets/10_tv/tvOverlay.png";
 var circleD = 0;
 var start = false;
 
-var channel = 0;
-
 window.addEventListener('mousedown', function () {
   startGame();
 })
 
 export function startLevel(game, ctx) {
-
+  game.start = true
   if (circleD < 60 && !start) circleD += 0.5;
   if (circleD >= 0.5 && start) circleD -= 0.5;
   if (circleD === 0 && start) game.start = true;
