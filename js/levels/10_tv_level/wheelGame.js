@@ -49,12 +49,13 @@ var ty = null;
 
 
 window.addEventListener('keydown', function (e) {
+	console.log(canPress, vanna.isMoving);
+	solved = false;
 	if (canPress) {
 		lett = [];
 		key = e.key;
 		canPress = false;
-		vanna.stopClap();
-		solved = false;
+		vanna.stopClap();		
 	}
 })
 
@@ -171,7 +172,7 @@ function flipCard(ctx) {
 		animate(lett, ctx);
 	} else {
 		if (!canPress && !vanna.isMoving) soundPlayer(1);
-		vanna.isMoving ? canPress = false : canPress = true;
+		vanna.isMoving && !solved 	? canPress = false : canPress = true;
 	}
 }
 
@@ -200,8 +201,9 @@ function animate(lett, ctx) {
 				} else {
 					vanna.reset();
 					vanna.clap();
-					questions.solved = true;
+					
 					switchQuestion();
+					
 				}
 			}
 		}
@@ -233,6 +235,7 @@ function switchQuestion() {
 	if (!solved) {
 		index++;
 		solved = true;
+		canPress = true;
 	}
 }
 

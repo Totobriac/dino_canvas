@@ -33,6 +33,7 @@ class Vanna {
     this.ctx.restore();
   }
   clapping() {
+    this.isMoving = false;
     if (this.frame > 1) this.frame = 0;
     this.update(1, 12, true);
     this.ctx.save();
