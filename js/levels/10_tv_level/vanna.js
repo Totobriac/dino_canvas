@@ -73,24 +73,27 @@ class Vanna {
     this.ctx.drawImage(ladySprite, this.frame * 28, 219, 28, 73, this.x, this.y, 84, 219);
     this.ctx.restore();
   }
+  clap() {
+    this.isClapping = true;
+  }
   reset() {
     this.goTo = 0;
     this.rowToFlip = undefined;
     this.isMoving = false;
-    this.walkingBack = false;   
+    this.walkingBack = false;
   }
   draw() {
-    if (this.isStanding) {
-      this.standing();
-    } else if (this.isClapping) {
+    if (this.isClapping) {
       this.clapping();
+    } else if (this.isStanding) {
+      this.standing();
     } else if (this.goTo != 0) {
       this.walkingToTile(this.goTo)
     } else if (this.walkingBack) {
       this.backToPlace();
     } else if (this.rowToFlip != undefined) {
       this.flip();
-    } 
+    }
   }
 }
 

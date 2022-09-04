@@ -30,6 +30,14 @@ var scaleDelta = 0.5;
 
 var canPress = true;
 
+var wheelTick = 0;
+var wheelFrame = 0;
+var maxTickCount = 8;
+
+var wheelTurns = 0;
+var vanna;
+var isPlaying = true;
+
 
 window.addEventListener('keydown', function (e) {
 	if (canPress) {
@@ -42,26 +50,22 @@ window.addEventListener('keydown', function (e) {
 var questions =
 {
 	lines: [
-		["", "", "", "", "1", "1", "1", "", "", "", ""],
-		["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
-		["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
-		["", "", "", "", "1O", "25", "", "", "", "", ""]
+		["", "", "", "", "", "", "", "", "", "", ""],
+		// ["", "", "21", "8", "13", "2", "4", "13", "19", "", ""],
+		// ["", "", "", "2", "0", "8", "11", "11", "24", "", ""],
+		["", "", "", "21", "0", "1", "", "", "", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", "", "", "", ""]
 	],
 	answers: [
 		["", "", "", "", "", "", "", "", "", "", ""],
 		["", "", "", "", "", "", "", "", "", "", ""],
 		["", "", "", "", "", "", "", "", "", "", ""],
 		["", "", "", "", "", "", "", "", "", "", ""]
-	]
+	],
+	question : "MON NOM EST:"
 }
 
-
-var wheelTick = 0;
-var wheelFrame = 0;
-var maxTickCount = 8;
-
-var wheelTurns = 0;
-var vanna;
 
 function playWheelGame(ctx) {
 	
@@ -88,13 +92,17 @@ function playWheelGame(ctx) {
 		drawQuestion(ctx);
 		flipCard(ctx);
 		vanna.draw();
+
+		drawTxt(ctx);
 	}
 }
-
+var count = 0
 function drawQuestion(ctx) {
+	count = 0
 	for (let i = 0; i < questions.lines.length; i++) {
 		for (let j = 0; j < questions.lines[i].length; j++) {
 			if (questions.lines[i][j] != "") {
+				count ++
 				var xOff;
 				var yOff;
 				if (questions.lines[i][j] >= 13) {
@@ -103,9 +111,10 @@ function drawQuestion(ctx) {
 				} else {
 					xOff = questions.lines[i][j];
 					yOff = 0;
-				}
+				}				
 				ctx.drawImage(maskedL, 337 + 47 * j, 71 + 47 * i);
 			}
+			
 			if (questions.answers[i][j] != "") {
 				var xOff;
 				var yOff;
@@ -119,6 +128,9 @@ function drawQuestion(ctx) {
 				ctx.drawImage(letters, xOff * 40, yOff * 40 + 80, 40, 40, 337 + 47 * j, 71 + 47 * i, 40, 40)
 			}
 		}
+	}
+	if (count === 0) {
+		isPlaying = false;
 	}
 }
 
@@ -181,7 +193,15 @@ function animate(lett, ctx) {
 			le.scaleX += scaleDirection * scaleDelta;
 		} else {
 			questions.answers[le.y][le.x] = le.nb;
-			if(vanna.isStanding) vanna.reset(), canPress = true;
+			if(vanna.isStanding) {
+				if (isPlaying) { 
+					vanna.reset();
+					canPress = true;
+				} else {
+					vanna.reset();
+					vanna.clap();
+				}
+			}
 		}
 
 	});
@@ -201,6 +221,13 @@ function draw(x, y, scaleX, ctx) {
 	ctx.restore();
 }
 
+function drawTxt(ctx) {
+	ctx.font = "30px Dos";
+	var width = ctx.measureText(questions.question);
+	var v = width.width
+	var x = 250 + (655 - v) / 2;
+	ctx.fillText(questions.question, x, 344);
+}
 
 
 export { playWheelGame };
