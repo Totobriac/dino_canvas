@@ -1,9 +1,9 @@
-import { playVideoPauleta } from "./channel1.js";
+import { playVideoPauleta, stopVideoPauleta } from "./channel3.js";
 import { generateNoise } from "./noise.js";
 import { buttonsChoice } from "./buttons.js";
 import { playWheelGame } from "./wheelGame.js";
 
-var video = document.getElementById("video");
+
 
 var mouseKeys = new Image();
 mouseKeys.src = "./assets/3_kitchen/left_mouse.png";
@@ -42,26 +42,26 @@ export function startLevel(game, ctx) {
   if (game.start) {
 
     var channel = buttonsChoice(game.mousePosition);
-    console.log(channel1);
+
     switch (channel) {
       case 0:
         generateNoise(ctx);
         break;
       case 1:
+        stopVideoPauleta();
+
         if (channel1) {
-          video.pause();
-          video.currentTime = 0;
           playWheelGame(ctx);
         } else {
           ctx.drawImage(mire, 240,0);
         }
         break;
       case 2:
+        stopVideoPauleta();
+
         ctx.drawImage(mire, 240,0);
         break;
       case 3:
-        channel1 = true;
-        video.play();
         playVideoPauleta(ctx);
         break;
     }
@@ -73,3 +73,9 @@ export function startLevel(game, ctx) {
 function startGame() {
   start = true;
 };
+
+function start1 () {
+  channel1 = true;
+};
+
+export { start1 };
