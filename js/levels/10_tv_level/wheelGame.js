@@ -28,7 +28,7 @@ var letter = new Image();
 var lett = [];
 
 var scaleDirection = -1;
-var scaleDelta = 0.5;
+var scaleDelta = 1;
 
 var canPress = true;
 
@@ -62,14 +62,14 @@ window.addEventListener('keydown', function (e) {
 
 var hasStarted = false;
 
-function playWheelGame(ctx) {	
+function playWheelGame(ctx) {
 
 	questions = questionList[index];
 
 	if (!vanna) {
 		vanna = new Vanna(272, 95, ctx);
 		soundPlayer(3);
-	} 
+	}
 
 	if (wheelTick > maxTickCount) {
 		wheelTick = 0;
@@ -88,7 +88,7 @@ function playWheelGame(ctx) {
 		ctx.drawImage(vannaSprite, 240, 0);
 		ctx.save();
 		ctx.fillStyle = "white";
-		ctx.font = "26px Dos";		
+		ctx.font = "26px Dos";
 		ctx.fillText("Pour participer,", 600, 244);
 		ctx.fillText("utilisez votre clavier", 600, 270);
 
@@ -246,7 +246,7 @@ function drawTxt(ctx) {
 
 function switchQuestion() {
 	if (!solved) {
-		index++;
+		if (index < 5) index++;
 		solved = true;
 		canPress = true;
 		soundPlayer(2);

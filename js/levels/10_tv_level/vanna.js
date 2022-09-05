@@ -9,7 +9,7 @@ class Vanna {
     this.maxTickCount = 12;
     this.tickCount = 0;
     this.frame = 0;
-    this.speed = 3;
+    this.speed = 4;
     this.isClapping = false;
     this.goTo = 0;
     this.isMoving = false;
