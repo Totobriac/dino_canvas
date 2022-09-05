@@ -13,8 +13,6 @@ videoDiv.setAttribute("style", "display:none;");
 videoElement.setAttribute("src", "./assets/10_tv/video/pauleta.mp4");
 videoElement.onended = function() {start1()};
 
-
-
 function playVideoPauleta(ctx) {
   videoElement.play();
   ctx.drawImage(videoElement, 200, 0, 1000, 400);

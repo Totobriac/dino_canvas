@@ -4,6 +4,7 @@ var reveal = new sound("./assets/10_tv/sounds/reveal.ogg", false);
 var noLetter = new sound("./assets/10_tv/sounds/noLetter.ogg", false);
 var correct = new sound("./assets/10_tv/sounds/correct.ogg", false);
 var title = new sound("./assets/10_tv/sounds/wheel.mp3", true);
+var derrick = new sound("./assets/10_tv/sounds/derrick.mp3", true);
 
 function soundPlayer(nb) {
 	switch (nb) {
@@ -25,7 +26,11 @@ function soundPlayer(nb) {
 			break;
 		case 4:
 			title.pause();
-			title.currentTime = 0;;
+			title.currentTime = 0;
+			break;
+		case 5:
+			derrick.volume(1);
+			derrick.play();
 			break;
 	}
 }

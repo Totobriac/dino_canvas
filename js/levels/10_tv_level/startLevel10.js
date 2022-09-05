@@ -2,7 +2,7 @@ import { playVideoPauleta, stopVideoPauleta } from "./channel3.js";
 import { generateNoise } from "./noise.js";
 import { buttonsChoice } from "./buttons.js";
 import { playWheelGame } from "./wheelGame.js";
-
+import { drawCredits } from "./credits.js";
 
 
 var mouseKeys = new Image();
@@ -18,6 +18,7 @@ var circleD = 0;
 var start = false;
 
 var channel1 = false;
+var channel2 = true;
 
 window.addEventListener('mousedown', function () {
   startGame();
@@ -49,17 +50,11 @@ export function startLevel(game, ctx) {
         break;
       case 1:
         stopVideoPauleta();
-
-        if (channel1) {
-          playWheelGame(ctx);
-        } else {
-          ctx.drawImage(mire, 240,0);
-        }
+        channel1 ? playWheelGame(ctx) : ctx.drawImage(mire, 240,0);
         break;
       case 2:
         stopVideoPauleta();
-
-        ctx.drawImage(mire, 240,0);
+        channel2 ? drawCredits(ctx) : ctx.drawImage(mire, 240,0);
         break;
       case 3:
         playVideoPauleta(ctx);
