@@ -13,7 +13,6 @@ videoDiv.appendChild(videoElement);
 videoDiv.setAttribute("style", "display:none;");
 
 videoElement.setAttribute("src", "./assets/10_tv/video/derrick.mp4");
-videoElement.onended = function() {credits()};
 
 function drawCredits(ctx) {
 
@@ -24,15 +23,13 @@ function drawCredits(ctx) {
 
   if (derrickIstHier) {
     ctx.drawImage(videoElement, 230, 0, 700, 400);
-    videoElement.play();
-  }  else {
-    console.log("dd");
-    soundPlayer(5);
+    console.log(videoElement.currentTime, videoElement.duration);
+    videoElement.currentTime < videoElement.duration - 0.5 ? videoElement.play() : credits();
   }
 }
 
 function credits() {
-  derrickIstHier = false;
+  soundPlayer(5);
   videoElement.pause();
 }
 

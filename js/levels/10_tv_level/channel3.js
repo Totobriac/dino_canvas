@@ -15,7 +15,7 @@ videoElement.onended = function() {start1()};
 
 function playVideoPauleta(ctx) {
   videoElement.play();
-  ctx.drawImage(videoElement, 200, 0, 1000, 400);
+  ctx.drawImage(videoElement, 200, 0, 800, 400);
 }
 
 function stopVideoPauleta() {
