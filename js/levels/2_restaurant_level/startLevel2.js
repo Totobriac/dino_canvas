@@ -19,8 +19,8 @@ rightLeftKeys.src = "./assets/2_restaurant/keys_r_l.png";
 var winHeight = window.innerHeight;
 var newHeight = winHeight - top - 3;
 
-var winWidth = window.innerWidth;
-
+var winWidth = window.innerWidth - 24;
+console.log(winWidth);
 var canvasStyle = document.body.style;
 canvasStyle.setProperty('--canvas-height', winHeight + 'px');
 canvasStyle.setProperty('--canvas-width', winWidth + 'px');
@@ -77,7 +77,7 @@ export function startLevel(ctx, game, dino) {
 
     if (animated) {
       drawOpening(ctx, left, top);
-    } else {      
+    } else {
       generateRestBack(ctx, game, left);
       setTimeout(animateDino, 6000);
       if (dinoAnimation) {

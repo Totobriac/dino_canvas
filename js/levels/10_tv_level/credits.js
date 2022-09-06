@@ -1,9 +1,12 @@
 import { soundPlayer } from "./sounds.js";
+import { lines } from "./lines.js";
 
 var videoElement;
 var videoDiv;
 
 var derrickIstHier = true;
+
+var yOffset = 400;
 
 videoElement = document.createElement("video");
 videoDiv = document.createElement('div');
@@ -23,14 +26,37 @@ function drawCredits(ctx) {
 
   if (derrickIstHier) {
     ctx.drawImage(videoElement, 230, 0, 700, 400);
-    console.log(videoElement.currentTime, videoElement.duration);
-    videoElement.currentTime < videoElement.duration - 0.5 ? videoElement.play() : credits();
+    videoElement.currentTime < videoElement.duration - 0.5 ? videoElement.play() : credits(ctx);
   }
 }
 
-function credits() {
+function credits(ctx) {
   soundPlayer(5);
   videoElement.pause();
+  drawEndCredits(ctx);
+}
+
+function drawEndCredits(ctx) {
+  yOffset -= 0.2;
+  for (let i = 0; i < lines.length; i++) {
+    drawLine(ctx, lines[i], i)
+  }
+}
+
+function drawLine(ctx, text, index) {
+
+  var width = ctx.measureText(text);
+  var v = width.width
+  var x = 250 + (655 - v) / 2;
+
+  ctx.font = "25px verdana";
+  ctx.shadowColor = "black";
+  ctx.shadowBlur = 9;
+  ctx.lineWidth = 5;
+  ctx.strokeText(text, x, yOffset + index * 35);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgb(208,208,202)";
+  ctx.fillText(text, x, yOffset + index * 35);
 }
 
 export { drawCredits };
