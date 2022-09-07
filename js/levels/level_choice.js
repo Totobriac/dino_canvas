@@ -7,7 +7,8 @@ var levels = [];
 var selectedLevel;
 
 window.addEventListener('mousedown', function() {
-	if (selectedLevel) game.switchLevel(selectedLevel);
+	if (selectedLevel != undefined && selectedLevel != 11) game.switchLevel(selectedLevel);
+	if (selectedLevel === 11) localStorage.clear();
 });
 
 class Level {
@@ -47,8 +48,8 @@ function chooseLevel(ctx) {
 			for (let i = 0; i < level; i++) {
 				levels.push(new Level(i, choice, ctx))
 			}
+			levels.push(new Level(11, choice, ctx))
 		}
-
 		levels.forEach(lvl => {
 			lvl.draw();
 		});
