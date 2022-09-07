@@ -3,12 +3,11 @@ export class Control {
     this.keyDown;
 
     window.addEventListener('keydown', function (e) {
+
+      e.preventDefault();
       game.keyDown = e;
       game.keyUp = " ";
-
-      // if (isFinite(e.key) && e.key != " ") {
-      //   game.level = parseInt(e.key);
-      // }
+      
     })
     window.addEventListener('keyup', function (e) {
       game.keyDown = " ";

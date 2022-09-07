@@ -19,9 +19,11 @@ rightLeftKeys.src = "./assets/2_restaurant/keys_r_l.png";
 var winHeight = window.innerHeight;
 var newHeight = winHeight - top - 3;
 
-var winWidth = window.innerWidth - 24;
-console.log(winWidth);
+var winWidth = window.innerWidth;
+
 var canvasStyle = document.body.style;
+
+
 canvasStyle.setProperty('--canvas-height', winHeight + 'px');
 canvasStyle.setProperty('--canvas-width', winWidth + 'px');
 canvasStyle.setProperty('--canvas-top', '0px');

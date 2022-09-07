@@ -7,7 +7,7 @@ export class Game {
     this.frame = 0;
     this.score = 0;
     this.gamespeed = 5;
-    this.level = 10;
+    this.level = 9;
     this.loadedLevel = new Array(11).fill(false);
     this.start = false;
     this.levelDone = false;

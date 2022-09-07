@@ -3,6 +3,7 @@ import { generateNoise } from "./noise.js";
 import { buttonsChoice } from "./buttons.js";
 import { playWheelGame } from "./wheelGame.js";
 import { drawCredits } from "./credits.js";
+import { soundPlayer } from "./sounds.js";
 
 
 var mouseKeys = new Image();
@@ -20,9 +21,13 @@ var start = false;
 var channel1 = false;
 var channel2 = true;
 
+var channel = 0;
+
 window.addEventListener('mousedown', function () {
   startGame();
 })
+
+var playNoise = true;
 
 export function startLevel(game, ctx) {
 
@@ -38,11 +43,16 @@ export function startLevel(game, ctx) {
   ctx.fill();
   ctx.restore();
 
-
-
   if (game.start) {
 
-    var channel = buttonsChoice(game.mousePosition);
+    if (playNoise) soundPlayer(8);
+
+    if (buttonsChoice(game.mousePosition)) {
+      channel = buttonsChoice(game.mousePosition);
+      soundPlayer(9);
+      soundPlayer(7);
+      playNoise = false;
+    }
 
     switch (channel) {
       case 0:
@@ -50,13 +60,26 @@ export function startLevel(game, ctx) {
         break;
       case 1:
         stopVideoPauleta();
-        channel1 ? playWheelGame(ctx) : ctx.drawImage(mire, 240,0);
+        if (channel1) {
+          playWheelGame(ctx);
+          soundPlayer(7);
+        } else {
+          ctx.drawImage(mire, 240, 0);
+          soundPlayer(6);
+        }
         break;
       case 2:
         stopVideoPauleta();
-        channel2 ? drawCredits(ctx) : ctx.drawImage(mire, 240,0);
+        if (channel2) {
+          drawCredits(ctx);
+          soundPlayer(7);
+        } else {
+          ctx.drawImage(mire, 240, 0);
+          soundPlayer(6);
+        }
         break;
       case 3:
+        soundPlayer(7);
         playVideoPauleta(ctx);
         break;
     }
@@ -69,8 +92,12 @@ function startGame() {
   start = true;
 };
 
-function start1 () {
+function start1() {
   channel1 = true;
 };
 
-export { start1 };
+function start2() {
+  channel2 = true;
+};
+
+export { start1, start2 };

@@ -5,6 +5,9 @@ var noLetter = new sound("./assets/10_tv/sounds/noLetter.ogg", false);
 var correct = new sound("./assets/10_tv/sounds/correct.ogg", false);
 var title = new sound("./assets/10_tv/sounds/wheel.mp3", true);
 var derrick = new sound("./assets/10_tv/sounds/derrick.mp3", true);
+var noSignal = new sound("./assets/10_tv/sounds/noSignal.mp3", true);
+var tvNoise = new sound("./assets/10_tv/sounds/tvNoise.mp3", true);
+
 
 function soundPlayer(nb) {
 	switch (nb) {
@@ -31,6 +34,22 @@ function soundPlayer(nb) {
 		case 5:
 			derrick.volume(1);
 			derrick.play();
+			break;
+		case 6:
+			noSignal.volume(1);
+			noSignal.play();			
+			break;
+		case 7:
+			noSignal.pause();
+			noSignal.currentTime = 0;
+			break;
+		case 8:
+			tvNoise.volume(1);
+			tvNoise.play();
+			break;
+		case 9:
+			tvNoise.pause();
+			tvNoise.currentTime = 0;
 			break;
 	}
 }

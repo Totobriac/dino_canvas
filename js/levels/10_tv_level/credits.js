@@ -37,7 +37,7 @@ function credits(ctx) {
 }
 
 function drawEndCredits(ctx) {
-  yOffset -= 0.2;
+  yOffset -= 0.25;
   for (let i = 0; i < lines.length; i++) {
     drawLine(ctx, lines[i], i)
   }

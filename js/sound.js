@@ -7,6 +7,8 @@ export function sound(src, loop, callBack) {
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
   this.callBack = callBack;
+  this.currentTime = this.sound.currentTime;
+  
 
   document.body.appendChild(this.sound);
 

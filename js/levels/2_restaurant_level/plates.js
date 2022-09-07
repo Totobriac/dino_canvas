@@ -59,7 +59,7 @@ class Plates {
     this.ctx = ctx;
     this.height = 67;
     this.width = 70;
-    this.variety = Math.floor(Math.random() * 16);
+    this.variety = Math.floor(Math.random() * 12);
     this.hasCollided = false;
   }
   draw() {

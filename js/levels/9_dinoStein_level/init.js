@@ -42,7 +42,7 @@ var dogBittingSound = new sound("./assets/9_dinoStein/sounds/dog_barking_2.mp3")
 var mummySound = new sound("./assets/9_dinoStein/sounds/death_mami.mp3");
 var lebenSound = new sound("./assets/9_dinoStein/sounds/death_mein_leben.mp3");
 var dyingDogSound = new sound("./assets/9_dinoStein/sounds/dog_death.mp3");
-var boss1Dies = new sound ("./assets/9_dinoStein/sounds/wenn_schon.mp3");
+var boss1Dies = new sound("./assets/9_dinoStein/sounds/wenn_schon.mp3");
 var boss2Dies = new sound("./assets/9_dinoStein/sounds/rosebund.mp3");
 var boss3Dies = new sound("./assets/9_dinoStein/sounds/zombi_dead.mp3");
 
@@ -82,21 +82,42 @@ function drawMini(map) {
   return tempCanvas2
 }
 
-function doorsList(mapX, mapY,map) {
-  var doors = [];
+var doors = [];
+
+function doorsList(mapX, mapY, map) {
+  
   for (let y = 0; y < mapY; y++) {
     for (let x = 0; x < mapX; x++) {
       if (map[y][x] == 24) {
-        doors.push({
-          x: x,
-          y: y,
-          status: 2,
-          yOffset: 0
-        });
+        if ((x === 16 && y === 19) || (x === 21 && y === 25) || (x === 19 && y === 32) ) {
+          doors.push({
+            x: x,
+            y: y,
+            status: 2,
+            yOffset: 0,
+            canBeOpen: false,
+          });
+        } else {
+          doors.push({
+            x: x,
+            y: y,
+            status: 2,
+            yOffset: 0,
+            canBeOpen: true,
+          });
+        }
       }
     }
   }
   return doors
+}
+
+function unlockDoor(x,y) {
+  for (let i = 0; i < doors.length; i++) {
+    if(doors[i].x === x && doors[i].y === y ) {
+      doors[i].canBeOpen = true;
+    }
+  }
 }
 
 function getSpritesList(mapX, mapY, mapSprites, player, ctx) {
@@ -174,4 +195,4 @@ function generateMonsters(map) {
   }
 }
 
-export { floorData, drawMini, doorsList, getSpritesList, generateMonsters };
+export { floorData, drawMini, doorsList, getSpritesList, generateMonsters, unlockDoor };

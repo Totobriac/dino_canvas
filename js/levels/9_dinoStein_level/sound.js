@@ -47,6 +47,9 @@ class SoundPlayer {
   gatlingGun() {
     this.gatlingGunSound.play();
   }
+  stopMain() {
+    this.theme.stop();
+  }
 }
 
 export { SoundPlayer, sound };

@@ -86,9 +86,6 @@ export function startLevel(game, ctx) {
 
   if (game.start) {
 
-    // var element = document.getElementById("back");
-    // element.classList.toggle("crt");
-
     if (booting) {
       drawBoot(ctx);
     } else {

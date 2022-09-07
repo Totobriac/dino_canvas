@@ -1,4 +1,3 @@
-import { servedDish } from "./plates.js";
 import { left, top } from "../../script.js";
 import { dino } from "../../script.js";
 
@@ -38,14 +37,14 @@ class Dish {
     return (this.index - this.line * 2);
   }
   getVariety() {
-    return Math.floor(Math.random() * 15);
+    return Math.floor(Math.random() * 12);
   }
 }
 
 class Note {
   constructor() {
     this.table = Math.floor(Math.random() * 21) + 1;
-    this.customers = Math.floor(Math.random() * 5) + 1;
+    this.customers = Math.floor(Math.random() * 4) + 1;
     this.dishes = this.getDishes();
     this.note = 4;
   }

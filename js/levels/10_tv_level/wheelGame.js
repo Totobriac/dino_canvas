@@ -1,6 +1,7 @@
 import { Vanna } from "./vanna.js";
 import { questionList } from "./questionList.js";
 import { soundPlayer } from "./sounds.js";
+import { start2 } from "./startLevel10.js";
 
 var titleSprite = new Image();
 titleSprite.src = "./assets/10_tv/title.png";
@@ -79,12 +80,12 @@ function playWheelGame(ctx) {
 		wheelTick++;
 	}
 
-	if (wheelTurns < 40) {   // 20
+	if (wheelTurns < 24) {
 		ctx.drawImage(titleSprite, 240, 0);
 		ctx.drawImage(wheelSprite, wheelFrame * 700, 0, 700, 214, 250, 186, 700, 214);
-	} else if (wheelTurns < 46) {   // 26
+	} else if (wheelTurns < 46) {
 		ctx.drawImage(starringSprite, 240, 0);
-	} else if (!hasStarted) {    // 36
+	} else if (!hasStarted) {
 		ctx.drawImage(vannaSprite, 240, 0);
 		ctx.save();
 		ctx.fillStyle = "white";
@@ -92,12 +93,12 @@ function playWheelGame(ctx) {
 		ctx.fillText("Pour participer,", 600, 244);
 		ctx.fillText("utilisez votre clavier", 600, 270);
 
-		if( wheelFrame === 1) ctx.fillText("APPUYEZ SUR UNE TOUCHE", 600, 340);
+		if (wheelFrame === 1) ctx.fillText("APPUYEZ SUR UNE TOUCHE", 600, 340);
 		ctx.restore();
 	} else {
 		ctx.drawImage(backSprite, 240, 0);
 
-		drawQuestion(ctx);
+		index != 6 ? drawQuestion(ctx) : endAnimation(ctx), start2();
 
 		flipCard(ctx);
 		vanna.draw();
@@ -215,7 +216,7 @@ function animate(lett, ctx) {
 					vanna.reset();
 					vanna.clap();
 
-					switchQuestion();
+					switchQuestion(ctx);
 
 				}
 			}
@@ -244,12 +245,47 @@ function drawTxt(ctx) {
 	ctx.fillText(questions.question, x, 344);
 }
 
-function switchQuestion() {
+function switchQuestion(ctx) {
 	if (!solved) {
-		if (index < 5) index++;
+		index++
+		if (index === 6) {
+			vanna.exit();
+		}
 		solved = true;
 		canPress = true;
 		soundPlayer(2);
+	}
+}
+
+var contact = [
+	["", "", "", "2", "14", "13", "19", "0", "2", "19", ""],
+	["", "", "", "", "", "", "25", "", "", "", "", "", ""],
+	["21", "8", "13", "2", "4", "13", "19", "2", "0", "8", "11", "11", "24"],
+	["", "", "", "", "22", "2", "14", "12", "", "", ""],
+]
+
+var offset = 0;
+
+function endAnimation(ctx) {
+
+	if (offset < 40) offset += 0.4;
+
+	for (let i = 0; i < contact.length; i++) {
+		for (let j = 0; j < contact[i].length; j++) {
+
+			if (contact[i][j] != "") {
+				var xOff;
+				var yOff;
+				if (contact[i][j] >= 13) {
+					xOff = contact[i][j] - 13;
+					yOff = 1;
+				} else {
+					xOff = contact[i][j];
+					yOff = 0;
+				}
+				ctx.drawImage(letters, xOff * 40, yOff * 40 + 80, 40, 40, 290 + 47 * j + (40 - offset) / 2, 71 + 47 * i + (40 - offset) / 2, offset, offset)
+			}
+		}
 	}
 }
 

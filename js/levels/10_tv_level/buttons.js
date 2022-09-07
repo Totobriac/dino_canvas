@@ -14,7 +14,7 @@ function buttonsChoice(pos) {
     case distance(pos.x, pos.y, buttons[2].x, buttons[2].y) < 25:
       return 3
   }
-  return 0;
+  return false;  
 }
 
 function distance(x1, y1, x2, y2) {

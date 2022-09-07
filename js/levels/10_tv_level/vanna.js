@@ -16,6 +16,7 @@ class Vanna {
     this.rowToFlip;
     this.walkingBack = false;
     this.isStanding = true;
+    this.exiting = false;
   }
   update(frames, speed, loop) {
     this.maxTickCount = speed;
@@ -63,12 +64,11 @@ class Vanna {
     this.ctx.restore();
   }
   setToFlip(nb) {
-    console.log(nb);
     this.rowToFlip = nb;
   }
-  backToPlace() {
+  backToPlace(x) {
     this.update(7, 12, true);
-    this.x > 272 ? this.x -= this.speed : this.isStanding = true;
+    this.x > x ? this.x -= this.speed : this.isStanding = true;
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;
     this.ctx.drawImage(ladySprite, this.frame * 28, 219, 28, 73, this.x, this.y, 84, 219);
@@ -86,18 +86,27 @@ class Vanna {
     this.isMoving = false;
     this.walkingBack = false;
   }
+  exit() {
+    this.exiting = true;
+    console.log("rr");
+  }
   draw() {
-    if (this.isClapping) {
+    if(this.exiting) {
+      this.backToPlace(172);
+    } else if (this.isClapping) {
       this.clapping();
     } else if (this.isStanding) {
       this.standing();
     } else if (this.goTo != 0) {
       this.walkingToTile(this.goTo)
     } else if (this.walkingBack) {
-      this.backToPlace();
+      this.backToPlace(272);
     } else if (this.rowToFlip != undefined) {
       this.flip();
-    }
+    } 
+  }
+  exit() {
+    this.exiting = true;
   }
 }
 

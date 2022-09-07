@@ -1,5 +1,6 @@
 import { sound } from "./sound.js";
 import { titleData } from "./startLevel9.js";
+import { soundPlayer } from "./startLevel9.js";
 
 var psyched = new Image();
 psyched.src = "./assets/9_dinoStein/psyched.png";
@@ -52,6 +53,7 @@ function drawOverlay(ctx, player, game) {
   }
 
   if (player.xGrid === 16 && player.yGrid === 9) {
+    soundPlayer.stopMain();
    game.switchLevel(10);
   }
 
