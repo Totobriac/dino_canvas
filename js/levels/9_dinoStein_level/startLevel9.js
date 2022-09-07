@@ -38,6 +38,8 @@ var miniMap;
 var weapon;
 var booting = false;
 
+var bossKilled = 0;
+
 var arrowsKeys = new Image();
 arrowsKeys.src = "./assets/8_zeldouille/arrows.png";
 
@@ -66,7 +68,7 @@ export function startLevel(game, ctx) {
   ctx.restore();
 
   if (!game.loadedLevel[9]) {
-
+   
     map = new Map(ctx);
     miniMap = drawMini(map);
     player = new Player(1974, 2440, map, ctx);
@@ -96,7 +98,7 @@ export function startLevel(game, ctx) {
       drawSprites(map);
       player.update();
       weapon.draw();
-      drawOverlay(ctx, player, game);
+      drawOverlay(ctx, player, game);      
     }
   }
 }
@@ -109,4 +111,8 @@ function endBooting() {
   booting = false;
 };
 
-export { player, map, soundPlayer, titleData, endBooting };
+function updateKilledBosses(nb) {
+  bossKilled = nb;
+};
+
+export { player, map, soundPlayer, titleData, endBooting, updateKilledBosses, bossKilled };

@@ -2,6 +2,7 @@ import { Sprite } from "./sprite.js";
 import { getPath } from "./pathFinder.js";
 import { distance } from "./functions.js";
 import { unlockDoor } from "./init.js";
+import { updateKilledBosses } from"./startLevel9.js";
 
 
 class Enemy extends Sprite {
@@ -34,11 +35,14 @@ class Enemy extends Sprite {
   }
   unclockDoor(){
     if (this.character === "boss1" && this.life <= 0) {
+      updateKilledBosses(1);
       unlockDoor(21,25);
     } else if (this.character === "boss2" && this.life <= 0) {
       unlockDoor(19,32);
+      updateKilledBosses(2);
     } else if (this.character === "boss3" && this.life <= 0) {
       unlockDoor(16,19);
+      updateKilledBosses(3);
     }
   }
   draw() {

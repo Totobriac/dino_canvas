@@ -1,6 +1,6 @@
 import { sound } from "./sound.js";
 import { titleData } from "./startLevel9.js";
-import { soundPlayer } from "./startLevel9.js";
+import { soundPlayer, bossKilled } from "./startLevel9.js";
 
 var psyched = new Image();
 psyched.src = "./assets/9_dinoStein/psyched.png";
@@ -54,7 +54,7 @@ function drawOverlay(ctx, player, game) {
 
   if (player.xGrid === 16 && player.yGrid === 9) {
     soundPlayer.stopMain();
-   game.switchLevel(10);
+    game.switchLevel(10);
   }
 
   if (!loaded) {
@@ -79,8 +79,9 @@ function drawOverlay(ctx, player, game) {
     ctx.font = "50px Wolf";
     ctx.fillStyle = "rgb(200,0,0)";
     ctx.fillText("Pressez 'F' pour tirer. ", 480, 150);
+    ctx.fillText("Pressez la touche correspondante" , 400, 190);
+    ctx.fillText("pour la selectionner. ", 480, 230);
   }
-
 
   if (drawTitle) {
     if (tickCount > 105) tileEffect(titleData.data);
@@ -88,6 +89,55 @@ function drawOverlay(ctx, player, game) {
     tempCtx.putImageData(titleData, 0, 0);
 
     ctx.drawImage(tempCanvas, 0, 0);
+  }
+
+  if (player.xGrid === 16 && player.yGrid === 20) {
+    switch (bossKilled) {
+      case 0:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Eliminez Bernacle en premier!", 450, 150);
+        break;
+      case 1:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Allez pour Fett Gesicht!. ", 480, 150);
+        break;
+      case 2:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Tuez l' Uber Zombi!. ", 480, 150);
+        break;    
+      default:
+        break;
+    }
+  }
+  if (player.xGrid === 18 && player.yGrid === 32) {
+    switch (bossKilled) {
+      case 0:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Eliminez Bernacle en premier!", 450, 150);
+        break;
+      case 1:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Allez pour Fett Gesicht!", 460, 150);
+        break;   
+      default:
+        break;   
+    }
+  }
+  if (player.xGrid === 20 && player.yGrid === 25) {
+    switch (bossKilled) {
+      case 0:
+        ctx.font = "50px Wolf";
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillText("Eliminez Bernacle en premier!", 450, 150);
+        break;     
+      default:
+        break;
+    }
   }
 }
 

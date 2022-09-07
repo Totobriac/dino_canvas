@@ -13,8 +13,7 @@ var endVolume = 1;
 
 var music = new sound("./assets/0_desert/lusty.mp3");
 
-export function startLevel(ctx, game, dino) {
-
+export function startLevel(ctx, game, dino) { 
 
   drawBack(ctx, game, dino);
   createCactus(game, dino, ctx);
@@ -54,7 +53,6 @@ export function startLevel(ctx, game, dino) {
 
     if (startAnim) anim(game, dino)
   }
-
 
   if (game.levelDone) {
     game.start = false;

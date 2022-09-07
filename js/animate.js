@@ -1,4 +1,5 @@
 var loaded = new Array(11).fill(false);
+import { chooseLevel } from "../js/levels/level_choice.js";
 
 var path = [
   "./levels/0_desert_level/startLevel0.js",
@@ -18,6 +19,8 @@ let start;
 
 export function anim(game, dino, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if(game.level === undefined) chooseLevel(ctx);
 
   game.frame++;
 

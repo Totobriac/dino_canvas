@@ -11,7 +11,7 @@
 
   height: var(--canvas-height);
   width: var(--canvas-width);
-  background: transparent;
+  background: transparent;  
 }
 
 #video {

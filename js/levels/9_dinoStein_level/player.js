@@ -68,6 +68,8 @@ export class Player {
     return collision;
   }
   update() {
+
+    if (this.life < 100) this.life += 0.1;
     var newX = this.x + this.moveX * Math.cos(this.angle) * this.speed;
     var newY = this.y + this.moveY * Math.sin(this.angle) * this.speed;
 
